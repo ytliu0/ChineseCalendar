@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="keywords" content="Chinese Calendar, Gregorian Calendar, conversion" />
+<meta charset="UTF-8" />
+
+<head>
+<title>Conversion between Gregorian and Chinese Calendar (1901-2200)</title>
+<link rel="stylesheet" href="calendar.css">
+<script src="header.js"></script>
+<script src="calendarData20180909.js"></script>    
+<script src="calendar.js"></script>    
+</head>
+
+<body onload="init(0)">
+<div id="wrapper0">
+
+<div id="menu"></div>
+<h2 style="text-align:right;"><a href="index_chinese.html">Chinese &#x4E2D;&#x6587;</a></h2>
+<h1>Conversion between Gregorian and Chinese Calendar (1901-2200)</h1>
+<h1>&#19977; &#30334; &#24180; &#24180; &#26310; (1901 &ndash; 2200) &mdash; &#20844; &#26310; &#21644; &#36786; &#26310; &#26085; &#26399; &#23565; &#29031;</h1>
+    
+<h3>Enter a year between 1901 and 2200: <input type="number" id="year" step="1" min="1901" max="2200" />
+&nbsp; &nbsp; 
+<input type="button" value="Submit" 
+onClick="submitYear(0)" /></h3>
+
+<p style="color:red;" id="err"></p>
+
+<hr />
+    <p><a href="#explanation"><h4>Explanation of calendar table</h4></a></p>
+<br />
+<div id="calendar">
+
+</div>
+
+<hr />
+<br />    
+<h2 id="explanation">Explanation</h2>
+    
+<p>The information in the calendar table is explained in the diagram below. The example is taken from January, 2017.</p>
+    
+<p><img src="calendarEngLegend.png" alt="diagram explaining the information in the calendar table" /></p>
+    
+<p>The month and date in the Chinese calendar is denoted by MM-DD in the calendar table. For example, 12-29 means the 29th day in the 12th month of the Chinese calendar. A Chinese year usually has 12 months. Each month can have 30 days (long month) or 29 days (short months). To keep the calendar in sync with seasons, a leap (intercalary) month is added about every three years so that the year has 13 months. A leap month works in a similar way as a leap day in the Gregorian calendar, but an extra month is inserted in the year instead of an extra day. The leap month is indicated by the same number as the previous month, but a "leap" is added before the number. For example, there was a leap month after month 6 in the Chinese year in 2017. The month is denoted by "leap 6".</p>
+    
+<p>A Chinese year is labelled by its sexagenary year cycle. Sexagenary cycle is also used to label the month and date in the Chinese calendar. A brief introduction to the sexagenary cycle is given on <a href="sexagenary.html">this page</a>.</p>
+    
+<p>For simplicity, the symbols Q0, Q1, Q2 and Q3 are used to represent "new moon", "first quarter", "full moon" and "third quarter". At the bottom of each month, the Gregorian dates of the four moon phases and 24 solar terms occurring in the month are listed. The times are given in the China standard time (meridians of 120&deg; East). A brief introduction to the 24 solar terms is given on <a href="solarTerms.html">this page</a>.</p>
+</div> <!-- end of wrapper -->
+
+</body>
+</html>

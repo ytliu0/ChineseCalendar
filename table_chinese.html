@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<meta name="keywords" content="農曆, 公曆, 日期對照表" />
+<meta charset="UTF-8" />
+
+<head>
+<title>Chinese-Gregorian Calendar Conversion Table</title>
+<link rel="stylesheet" href="calendar_chinese.css">
+<script src="header.js"></script>
+<script src="calendarData20180909.js"></script>
+<script src="table.js"></script>    
+</head>
+
+<body onload="init(1)">
+<div id="wrapper">
+<div id="menu"></div>
+<h2 style="text-align:right;"><a href="table.html">English &#x82F1;&#x6587;</a></h2>
+<h1>農 曆 和 公 曆 日 期 對 照 表</h1>
+<br />
+<p>下表列出由1901年至2200年農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的一月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。
+</p>
+
+<p>農曆每月的初一定於朔(又稱新月)的日期，由於數十年後朔的UTC+8時刻難以準確推算，如果朔的時刻接近午夜零時，初一的確實日期或會與表列日期有一日之差。這些情況出現在公曆2057年9月29日、2089年9月4日、2097年8月7日、2133年9月28日、2172年10月17日和2192年5月12日. 下表把這些可能有一日誤差的初一日用紅色顯示並加上星號。
+</p>
+<div id="table">
+</div>
+<br />
+</div> <!-- end of wrapper -->
+
+</body>
+</html>

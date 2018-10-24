@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<meta name="keywords" content="農曆, 公曆" />
+<meta charset="UTF-8" />
+
+<head>
+<title>三百年年曆(1901–2200)—公曆和農曆日期對照</title>
+<link rel="stylesheet" href="calendar_chinese.css">
+<script src="header.js"></script>
+<script src="calendarData20180909.js"></script>
+<script src="calendar.js"></script>    
+</head>
+
+<body onload="init(1)">
+<div id="wrapper0">
+    
+<div id="menu"></div>
+<h2 style="text-align:right;"><a href="index.html">English 英文</a></h2>
+
+<h1>三 百 年 年 曆 (1901 – 2200) — 公 曆 和 農 曆 日 期 對 照</h1>
+
+<br />
+    
+<h3>輸入 1901 和 2200 之間的公曆年: <input type="number" id="year" step="1" min="1901" max="2200" />
+&nbsp; &nbsp; 
+<input type="button" value="輸入" 
+onClick="submitYear(1)" /></h3>
+    
+<p style="color:red;" id="err"></p>
+<hr />
+    <p><a href="#explanation"><h3>月 曆 表 說 明</h3></a></p>
+<br />
+
+<div id="calendar">
+
+</div>
+<hr />
+<h1 id="explanation">月 曆 表 說 明</h1>
+<p>下圖解釋月曆表各欄的意思。例子取自公曆2017年1月的月表。</p>
+    
+<p><img src="calendarChiLegend.png" alt="diagram explaning the information in the calendar table" /></p>
+    
+<p>農曆一年一般有十二個月，月份有大有小，大月三十日，小月二十九日。為了使農曆不偏離季節交替週期，農曆每三年左右會有一個閏月，含閏月的農曆年有十三個月。閏月名稱取上一個月的月數，然後在前面加上「閏」字。例如2017年農曆丁酉年六月之後是閏月，謂「閏六月」。</p>
+    
+<p>現在的農曆一般用干支紀年，<a href="sexagenary_chinese.html">干支</a>也用來紀月、紀日和紀時，但民間較少使用。</p>
+    
+<p>每月下面的月相和二十四節氣日期指公曆日期，時刻是用東經120&deg;標準時。</p>
+    
+<br />
+</div> <!-- end of wrapper -->
+
+</body>
+</html>

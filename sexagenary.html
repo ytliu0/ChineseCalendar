@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="keywords" content="Chinese Calendar, sexagenary cycle" />
+<meta charset="UTF-8" />
+
+<head>
+<title>Sexagenary Cycle (&#20845;&#21313;&#24178;&#25903;)</title>
+<link rel="stylesheet" href="calendar.css">
+<script src="header.js"></script>
+</head>
+
+<body onload="header(0,'sexagenary')">
+<div id="wrapper0">
+<div id="menu"></div>
+<h2 style="text-align:right;"><a href="sexagenary_chinese.html">Chinese &#x4E2D;&#x6587;</a></h2>
+<h1>Sexagenary Cycle (&#20845;&#21313;&#24178;&#25903;)</h1>
+
+<br />    
+<p>Sexagenary cycle is an ancient Chinese counting system that is still being used today. It consists of two Chinese characters. The first character is taken from one of the ten heavenly stems (&#22825;&#24178;) and the other from one of the twelve earthly branches (&#22320;&#25903;). Each of the twelve earthly branches is associated with an animal (see the table below).</p>
+   <br /> 
+<table>
+<tr><td></td><th>Heavenly Stems</th> <td></td> <th colspan="2">Earthly Branches</th></tr>
+    
+<tr><td>1</td> <td>Ji&#462; (&#x7532;)</td> <td>1</td> <td>Z&#464; (&#x5B50;)</td> <td>Rat</td></tr>
+    
+<tr><td>2</td> <td>Y&#464; (&#x4E59;)</td> <td>2</td> <td>Ch&#466;u (&#x4E11;)</td> <td>Ox</td></tr>
+    
+<tr><td>3</td> <td>B&#464;ng (&#x4E19;)</td> <td>3</td> <td>Y&#237;n (&#x5BC5;)</td> <td>Tiger</td></tr>
+    
+<tr><td>4</td> <td>D&#299;ng (&#x4E01;)</td> <td>4</td> <td>M&#462;o (&#x536F;)</td> <td>Rabbit</td></tr>
+    
+<tr><td>5</td> <td>W&#249; (&#x620A;)</td> <td>5</td> <td>Ch&#233;n (&#x8FB0;)</td> <td>Dragon</td></tr>
+    
+<tr><td>6</td> <td>J&#464; (&#x5DF1;)</td> <td>6</td> <td>S&#236; (&#x5DF3;)</td> <td>Snake</td></tr>
+    
+<tr><td>7</td> <td>G&#275;ng (&#x5E9A;)</td> <td>7</td> <td>W&#468; (&#x5348;)</td> <td>Horse</td></tr>
+    
+<tr><td>8</td> <td>X&#299;n (&#x8F9B;)</td> <td>8</td> <td>W&#232;i (&#x672A;)</td> <td>Goat</td></tr>
+    
+<tr><td>9</td> <td>R&#233;n (&#x58EC;)</td> <td>9</td> <td>Sh&#275;n (&#x7533;)</td> <td>Monkey</td></tr>
+    
+<tr><td>10</td> <td>Gu&#464; (&#x7678;)</td> <td>10</td> <td>Y&#466;u (&#x9149;)</td> <td>Chicken</td></tr>
+    
+<tr><td rowspan="2" colspan="2"></td> <td>11</td> <td>X&#363; (&#x620C;)</td> <td>Dog</td></tr>
+
+<tr><td>12</td> <td>H&#224;i (&#x4EA5;)</td> <td>Pig</td></tr>
+</table>
+       <br />
+<p>The counting starts with the number ji&#462; z&#464; (1,1), which is the first stem combined with the first branch. The next number is y&#464; ch&#466;u (2,2) &mdash; the second stem pairs with the second branch. It is followed by b&#464;ng y&#237;n (3,3) and so on up to gu&#464; y&#466;u (10,10). We are now running out of the stems. The rule is to start from the beginning whenever we are running out of stems or branches, just like the numbers in clocks. So the numbers after gu&#464; y&#466;u are ji&#462; x&#363; (1,11), y&#464; h&#224;i (2,12), b&#464;ng z&#464; (3,1) and so on up to gu&#464; h&#224;i (10,12). The number after that is ji&#462; z&#464; (1,1) again and the cycle repeats. There are 60 numbers in a cycle, indicated in the table below.</p>
+       <br />
+<!--    
+<script>
+var heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
+                  "J&#464;", "G&#275;ng","X&#299;n","R&#233;n", "Gu&#464;"];
+var earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
+                "s&#236;", "w&#468;", "w&#232;i", "sh&#275;n", "y&#466;u", 
+                "x&#363;", "h&#224;i"];
+var heavenChi = ["&#x7532;","&#x4E59;","&#x4E19;","&#x4E01;","&#x620A;", 
+                 "&#x5DF1;","&#x5E9A;","&#x8F9B;","&#x58EC;","&#x7678;"];
+var earthChi = ["&#x5B50;","&#x4E11;","&#x5BC5;","&#x536F;","&#x8FB0;", 
+                "&#x5DF3;","&#x5348;","&#x672A;","&#x7533;","&#x9149;", 
+                "&#x620C;","&#x4EA5;"];
+var txt = '<table>\n';
+for (var i=0; i<15; i++) {
+    txt += '<tr>\n';
+    for (var j=0; j<4; j++) {
+        var k = i+j*15;
+        var ih = (k % 10), ie = (k % 12);
+        txt +='<td>'+(k+1)+'</td><td>'+heavenChi[ih]+earthChi[ie]+'</td>\n';
+    }
+    txt += '</tr>\n';
+}
+txt += '</table>';
+//document.getElementById('sexagenaryTable').innerHTML = txt;
+    
+    var hiddenElement = window.document.createElement('a');
+    hiddenElement.href = window.URL.createObjectURL(new Blob([txt], {type: 'text/csv'}));
+    hiddenElement.download = 'test.txt';
+
+    // Append anchor to body.
+    document.body.appendChild(hiddenElement);
+    hiddenElement.click();
+
+    // Remove anchor from body
+    document.body.removeChild(hiddenElement);
+</script>
+-->
+    
+<table>
+<tr>
+<td>1</td><td>Ji&#462; z&#464; (&#x7532;&#x5B50;)</td>
+<td>21</td><td>Ji&#462; sh&#275;n (&#x7532;&#x7533;)</td>
+<td>41</td><td>Ji&#462; ch&#233;n (&#x7532;&#x8FB0;)</td>
+</tr>
+<tr>
+<td>2</td><td>Y&#464; ch&#466;u (&#x4E59;&#x4E11;)</td>
+<td>22</td><td>Y&#464; y&#466;u (&#x4E59;&#x9149;)</td>
+<td>42</td><td>Y&#464; s&#236; (&#x4E59;&#x5DF3;)</td>
+</tr>
+<tr>
+<td>3</td><td>B&#464;ng y&#237;n (&#x4E19;&#x5BC5;)</td>
+<td>23</td><td>B&#464;ng x&#363; (&#x4E19;&#x620C;)</td>
+<td>43</td><td>B&#464;ng w&#468; (&#x4E19;&#x5348;)</td>
+</tr>
+<tr>
+<td>4</td><td>D&#299;ng m&#462;o (&#x4E01;&#x536F;)</td>
+<td>24</td><td>D&#299;ng h&#224;i (&#x4E01;&#x4EA5;)</td>
+<td>44</td><td>D&#299;ng w&#232;i (&#x4E01;&#x672A;)</td>
+</tr>
+<tr>
+<td>5</td><td>W&#249; ch&#233;n (&#x620A;&#x8FB0;)</td>
+<td>25</td><td>W&#249; z&#464; (&#x620A;&#x5B50;)</td>
+<td>45</td><td>W&#249; sh&#275;n (&#x620A;&#x7533;)</td>
+</tr>
+<tr>
+<td>6</td><td>J&#464; s&#236; (&#x5DF1;&#x5DF3;)</td>
+<td>26</td><td>J&#464; ch&#466;u (&#x5DF1;&#x4E11;)</td>
+<td>46</td><td>J&#464; y&#466;u (&#x5DF1;&#x9149;)</td>
+</tr>
+<tr>
+<td>7</td><td>G&#275;ng w&#468; (&#x5E9A;&#x5348;)</td>
+<td>27</td><td>G&#275;ng y&#237;n (&#x5E9A;&#x5BC5;)</td>
+<td>47</td><td>G&#275;ng x&#363; (&#x5E9A;&#x620C;)</td>
+</tr>
+<tr>
+<td>8</td><td>X&#299;n w&#232;i (&#x8F9B;&#x672A;)</td>
+<td>28</td><td>X&#299;n m&#462;o (&#x8F9B;&#x536F;)</td>
+<td>48</td><td>X&#299;n h&#224;i (&#x8F9B;&#x4EA5;)</td>
+</tr>
+<tr>
+<td>9</td><td>R&#233;n sh&#275;n (&#x58EC;&#x7533;)</td>
+<td>29</td><td>R&#233;n ch&#233;n (&#x58EC;&#x8FB0;)</td>
+<td>49</td><td>R&#233;n z&#464; (&#x58EC;&#x5B50;)</td>
+</tr>
+<tr>
+<td>10</td><td>Gu&#464; y&#466;u (&#x7678;&#x9149;)</td>
+<td>30</td><td>Gu&#464; s&#236; (&#x7678;&#x5DF3;)</td>
+<td>50</td><td>Gu&#464; ch&#466;u (&#x7678;&#x4E11;)</td>
+</tr>
+<tr>
+<td>11</td><td>Ji&#462; x&#363; (&#x7532;&#x620C;)</td>
+<td>31</td><td>Ji&#462; w&#468; (&#x7532;&#x5348;)</td>
+<td>51</td><td>Ji&#462; y&#237;n (&#x7532;&#x5BC5;)</td>
+</tr>
+<tr>
+<td>12</td><td>Y&#464; h&#224;i (&#x4E59;&#x4EA5;)</td>
+<td>32</td><td>Y&#464; w&#232;i (&#x4E59;&#x672A;)</td>
+<td>52</td><td>Y&#464; m&#462;o (&#x4E59;&#x536F;)</td>
+</tr>
+<tr>
+<td>13</td><td>B&#464;ng z&#464; (&#x4E19;&#x5B50;)</td>
+<td>33</td><td>B&#464;ng sh&#275;n (&#x4E19;&#x7533;)</td>
+<td>53</td><td>B&#464;ng ch&#233;n (&#x4E19;&#x8FB0;)</td>
+</tr>
+<tr>
+<td>14</td><td>D&#299;ng ch&#466;u (&#x4E01;&#x4E11;)</td>
+<td>34</td><td>D&#299;ng y&#466;u (&#x4E01;&#x9149;)</td>
+<td>54</td><td>D&#299;ng s&#236; (&#x4E01;&#x5DF3;)</td>
+</tr>
+<tr>
+<td>15</td><td>W&#249; y&#237;n (&#x620A;&#x5BC5;)</td>
+<td>35</td><td>W&#249; x&#363; (&#x620A;&#x620C;)</td>
+<td>55</td><td>W&#249; w&#468; (&#x620A;&#x5348;)</td>
+</tr>
+<tr>
+<td>16</td><td>J&#464; m&#462;o (&#x5DF1;&#x536F;)</td>
+<td>36</td><td>J&#464; h&#224;i (&#x5DF1;&#x4EA5;)</td>
+<td>56</td><td>J&#464; w&#232;i (&#x5DF1;&#x672A;)</td>
+</tr>
+<tr>
+<td>17</td><td>G&#275;ng ch&#233;n (&#x5E9A;&#x8FB0;)</td>
+<td>37</td><td>G&#275;ng z&#464; (&#x5E9A;&#x5B50;)</td>
+<td>57</td><td>G&#275;ng sh&#275;n (&#x5E9A;&#x7533;)</td>
+</tr>
+<tr>
+<td>18</td><td>X&#299;n s&#236; (&#x8F9B;&#x5DF3;)</td>
+<td>38</td><td>X&#299;n ch&#466;u (&#x8F9B;&#x4E11;)</td>
+<td>58</td><td>X&#299;n y&#466;u (&#x8F9B;&#x9149;)</td>
+</tr>
+<tr>
+<td>19</td><td>R&#233;n w&#468; (&#x58EC;&#x5348;)</td>
+<td>39</td><td>R&#233;n y&#237;n (&#x58EC;&#x5BC5;)</td>
+<td>59</td><td>R&#233;n x&#363; (&#x58EC;&#x620C;)</td>
+</tr>
+<tr>
+<td>20</td><td>Gu&#464; w&#232;i (&#x7678;&#x672A;)</td>
+<td>40</td><td>Gu&#464; m&#462;o (&#x7678;&#x536F;)</td>
+<td>60</td><td>Gu&#464; h&#224;i (&#x7678;&#x4EA5;)</td>
+</tr>
+</table>
+
+    <br />
+    
+<p>Sexagenary cycle is used to label years, months, days and times, although the cycle for months, days and time are no longer in common use today.</p>
+<br />
+<h2>Sexagenary Year Cycle</h2>
+    
+<p>Chinese years are usually labelled by its sexagenary cycle. They repeat every 60 years. The most recent cycle started in the Chinese year ji&#462; z&#464; in 1984.</p> 
+
+<p>The sexagenary number of a Chinese year in a particular Gregorian year can be computed easily using modular arithmetic. When I say a Chinese year in a particular Gregorian year, I mean the Chinese year whose new year day falls on that Gregorian year. For example, the Chinese year in 2018 refers to the year w&#249; x&#363; that begins on February 16, 2018 and ends on February 4, 2019.</p>
+    
+<p>From the cycles of the stems and branches and the fact that the year is ji&#462; z&#464; in 1984, it is easy to deduce that the stem number of a Chinese year in Gregorian year y is 1 +  [(y+6) mod 10] and the branch number is 1 + [(y+8) mod 12]. According to these formulae, the stem number of the Chinese year in 2018 is 5, which is w&#249;. The branch number is 11, which is x&#363;. So the sexagenary number of the year is w&#249; x&#363;.</p>
+<br />
+<h2 id="sexagenaryMonths">Sexagenary Month Cycle</h2>
+    
+<p>Sexagenary month cycle is a bit tricky. According to this <a href="https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months" target="_blank">Wikipedia article</a>, there are two systems of sexagenary months. The first system is used in the <a href="index.html">calendar webpage</a>. In fact, the sexagenary month cycle was rarely used even in ancient historical records. It was mainly used by astrologers. I include the discussion here for completeness.</p>
+    
+<h3>System 1</h3>
+    
+<p>This system uses the Chinese months as the dividing line to label the month cycle. A leap month does not have its own sexagenary label. The sexagenary number in a leap month is the same as its preceding month. Since there are 12 regular (non-leap) months in a Chinese year, each regular month in a year has a unique earthly branch and sometimes months are indicated by their branch names only. The month with branch name of z&#464; is defined to be the month containing the winter solstice. Thus, the ch&#466;u month is the regular month after the z&#464; month and so on.</p>
+    
+<p>In the early periods of Chinese history, the first month of a year changed several times. It was said that the y&#237;n month, the second regular month after the z&#464; month, was designated as the first month of a year in the Xi&#224; dynasty (c. 2000 BC. &ndash; c. 1600 BC). It was switched to the ch&#466;u month in the Sh&#257;ng dynasty (c. 1600 BC &ndash; c. 1046 BC) and to the z&#464; month in the Zh&#333;u dynasty (c. 1046 BC &ndash; 249 BC). It was switched back to the y&#237;n month in 104 BC during the reign of emperor W&#468;d&#236; of the H&#224;n dynasty. From then on, the y&#237;n month has been designated as the first month most of the time, except during several short periods of time. Hence the z&#464; month corresponds to month 11, ch&#466;u month is month 12, y&#237;n month is month 1, ..., and h&#224;i month is month 10.</p>
+    
+<p>When the branch of a month is paired with a stem, the sexagenary month cycle results and it repeats every 60 regular months, or five Chinese years. Since the stem name of a year repeats every 10 years, there is a 2-1 relationship between the stem name of a year and the stem name of each of the 12 months in the year. For example, the sexagenary number of the first month in the year of ji&#462; and j&#464; is always b&#464;ng y&#237;n, the second month is always d&#299;ng m&#462;o and so on. The following table lists the relationship.</p>
+    <br />
+<table>
+<tr><th>Stem of a year</th> <th>Stem of the first month</th></tr>
+<tr><td>Ji&#462;/J&#464; (&#x7532;/&#x5DF1;)</td> <td>B&#464;ng (&#x4E19;)</td></tr>
+<tr><td>Y&#464;/G&#275;ng (&#x4E59;/&#x5E9A;)</td> <td>W&#249; (&#x620A;)</td></tr>
+<tr><td>B&#464;ng/X&#299;n (&#x4E19;/&#x8F9B;)</td> <td>G&#275;ng (&#x5E9A;)</td></tr>
+<tr><td>D&#299;ng/R&#233;n (&#x4E01;/&#x58EC;)</td> <td>R&#233;n (&#x58EC;)</td></tr>
+<tr><td>W&#249;/Gu&#464; (&#x620A;/&#x7678;)</td> <td>Ji&#462; (&#x7532;)</td></tr>
+</table>
+    <br />
+    
+<p>With this table, it is easy to calculate the sexagenary number of any month in a Chinese year. As an example, let's see how the sexagenary number of the 5th regular month in the Chinese year in 2018 can be calculated. The sexagenary cycle of the year in 2018 is W&#249; x&#363;. It follows from the table that the stem of the first month is ji&#462;. The stem  of the 5th regular month is the 4th stem after ji&#462; in the list of heavenly stems, which is w&#249;. The branch name of month 5 is always w&#468;. Hence the sexagenary number of the 5th month in the year w&#249; x&#363; is w&#249; w&#468;. </p>
+    
+<p>In Chinese, a song was created as a mnemonic to help people memorize the table. However, I find it easier just to remember that the stem name of the first month of a ji&#462; year is b&#464;ng. The stem name of the other months can be deduced by counting the number of regular months from a ji&#462; year. For example, let's calculate the sexagenary number of the 5th (regular) month in the year w&#249; x&#363;. W&#249; is the fourth stem after ji&#462;, so the 5th month from a w&#249; year is the (5 + 12&times;4)th, or 53th regular month from a ji&#462; year. So its stem is (52 mod 10) or 2 stems after b&#464;ng, which is w&#249;. Hence the sexagenary number of the 5th month in the year w&#249; x&#363; is w&#249; w&#468;.</p>
+    
+<h3>System 2</h3>
+    
+<p>In this system, the month cycle is not associated with the calendrical month but with the minor solar terms (see the <a href="solarTerms.html">24 solar terms page</a> for an explanation of the 24 solar terms). The 24 solar terms are based entirely on the motion of the Sun, so it is a month system of a solar calendar. In ancient China, the period between two successive winter solstices was called a <i>su&#236;</i> (&#27506;), whereas the period between two successive Chinese New Year days was called a <i>ni&#225;n</i> (&#24180;). The concept of <i>su&#236;</i> is entirely based on the motion of the Sun. The length of a <i>su&#236;</i> is 365 days or 366 days with an average close to the tropical year (365.242 days). By contrast, <i>ni&#225;n</i> takes into account both the motion of the Sun and the phases of the Moon. The length of a <i>ni&#225;n</i> varies from about 354 days (normal years) to about 384 days (years with a leap month).</p>
+    
+<p>In this system, there are 12 months in a su&#236;, each month has approximately 30 or 31 days. The branch name of each month in a su&#236; is fixed. The month with branch name z&#464; is the period between the minor solar terms J11 (&#22823;&#38634;) and the day before J12 (&#23567;&#23506;). The month with branch name ch&#466;u is the period between J12 (&#23567;&#23506;) and the day before J1 (&#31435;&#26149;) and so on. The following table lists the periods of the 12 months, their approximate Chinese months, and their approximate dates in Gregorian calendar. In the table, J11&ndash;J12 means the period between J1 and the day before J2 and so on.</p>
+    
+<table>
+<tr><th>Branch of the Month</th> <th>Period</th> <th>Approx. Chinese Month</th> <th>Approx. Gregorian Dates</th></tr>
+<tr><td>Z&#464; (&#x5B50;)</td> <td>J11&ndash;J12 (&#22823;&#38634;&ndash;&#23567;&#23506;)</td> 
+<td>Month 11</td> <td>Dec. 7 &ndash; Jan. 5</td></tr>
+<tr><td>Ch&#466;u (&#x4E11;)</td> <td>J12&ndash;J1 (&#23567;&#23506;&ndash;&#31435;&#26149;)</td> 
+<td>Month 12</td> <td>Jan. 6 &ndash; Feb. 3</td></tr>
+<tr><td>Y&#237;n (&#x5BC5;)</td> <td>J1&ndash;J2 (&#31435;&#26149;&ndash;&#39514;&#34756;)</td> 
+<td>Month 1</td> <td>Feb. 4 &ndash; Mar. 5</td></tr>
+<tr><td>M&#462;o (&#x536F;)</td> <td>J2&ndash;J3 (&#39514;&#34756;&ndash;&#28165;&#26126;)</td> 
+<td>Month 2</td> <td>Mar. 6 &ndash; Apr. 4</td></tr>
+<tr><td>Ch&#233;n (&#x8FB0;)</td> <td>J3&ndash;J4 (&#28165;&#26126;&ndash;&#31435;&#22799;)</td> 
+<td>Month 3</td> <td>Apr. 5 &ndash; May 5</td></tr>
+<tr><td>S&#236; (&#x5DF3;)</td> <td>J4&ndash;J5 (&#31435;&#22799;&ndash;&#33426;&#31278;)</td> 
+<td>Month 4</td> <td>May 6 &ndash; Jun. 5</td></tr>
+<tr><td>W&#468; (&#x5348;)</td> <td>J5&ndash;J6 (&#33426;&#31278;&ndash;&#23567;&#26257;)</td> 
+<td>Month 5</td> <td>Jun. 6 &ndash; Jul. 6</td></tr>
+<tr><td>W&#232;i (&#x672A;)</td> <td>J6&ndash;J7 (&#23567;&#26257;&ndash;&#31435;&#31179;)</td> 
+<td>Month 6</td> <td>Jul. 7 &ndash; Aug. 7</td></tr>
+<tr><td>Sh&#275;n (&#x7533;)</td> <td>J7&ndash;J8 (&#31435;&#31179;&ndash;&#30333;&#38706;)</td> 
+<td>Month 7</td> <td>Aug. 8 &ndash; Sep. 7</td></tr>
+<tr><td>Y&#466;u (&#x9149;)</td> <td>J8&ndash;J9 (&#30333;&#38706;&ndash;&#23506;&#38706;)</td> 
+<td>Month 8</td> <td>Sep. 8 &ndash; Oct. 7</td></tr>
+<tr><td>X&#363; (&#x620C;)</td> <td>J9&ndash;J10 (&#23506;&#38706;&ndash;&#31435;&#20908;)</td> 
+<td>Month 9</td> <td>Oct. 8 &ndash; Nov. 6</td></tr>
+<tr><td>H&#224;i (&#x4EA5;)</td> <td>J10&ndash;J11 (&#31435;&#20908;&ndash;&#22823;&#38634;)</td> 
+<td>Month 10</td> <td>Nov. 7 &ndash; Dec. 6</td></tr>
+</table>
+<br />
+<p>Note that the dates of the 24 solar terms are almost the same in the Gregorian calendar. So the Gregorian dates of these months fluctuate only about one day from year to year. However, the start and end days of the months in this system can fluctuate up to about 30 days in the Chinese calendar. This means that the months in this system do not in general coincide with the months in the Chinese calendar. When paired with the heavenly branches, the sexagenary months have a cycle of 60 months, or 5 su&#236;'s.</p>
+    
+<br />
+<h2>Sexagenary Days</h2>
+
+<p>The sexagenary number of a date can be easily determined if we know the Julian date number, which is the number of days counting from UT noon on January 1, 4713 B.C. There are algorithms to convert a Gregorian date to the Julian date number (see e.g. <a href="https://en.wikipedia.org/wiki/Julian_day" target="_blank">Wikipedia</a>). There are also web-based Julian day calculators (e.g. <a href="http://aa.usno.navy.mil/data/docs/JulianDate.php" target="_blank">Julian Date Converter</a>) The sexagenary number of October 1, 1949 is ji&#462; z&#464;. The Julian day at UT noon on October 1, 1949 is 2433191. It follows from the cycles of the heavenly stems and earthly branches that the stem number of any date is 1 + [(JD-1) mod 10] in the list of the stems, and the branch number is 1 + [(JD+1) mod 12] in the list of branches. Here JD is the Julian date number at UT noon of the date.</p>
+<br />
+    
+<h2>Sexagenary Cycle for Time</h2>
+    
+<p>In the past, Chinese people divided a day into 12 (double) hours. So each (double) hour has a unique branch name. The z&#464; hour corresponds to the modern-day time period 23:00-1:00, ch&#466;u hour corresponds to 1:00-3:00, y&#237;n 3:00-5:00 and so on. More often only the branch names were used to specify the time in a day. When paired with the heavenly stems, the sexagenary hours have a cycle of 60 (double) hours or 5 days. As a result, the stem name of an hour and the stem name of a date are correlated in a similar way as the month and year described above. There is an analogous table for the relationship. However, I find it more convenient to just remember that the stem name of the z&#464; hour in a ji&#462; day is always ji&#462;. The stem name of any other hours can be deduced by counting the number of hours from a ji&#462; day. As an example, the w&#232;i hour (13:00-15:00) in a d&#299;ng day is the (8 + 12&times;3)th hour or 44th hour from a ji&#462; day, so its stem is the third stem from ji&#462;, which is d&#299;ng. So the sexagenary number is d&#299;ng w&#232;i.</p>
+<br /><br />
+</div> <!-- end of wrapper -->
+
+</body>
+</html>

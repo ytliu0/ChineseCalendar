@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="keywords" content="Chinese Calendar, rules" />
+<meta charset="UTF-8" />
+
+<head>
+<title>Rules for the Chinese Calendar</title>
+<link rel="stylesheet" href="calendar.css">
+<script src="header.js"></script>
+
+<style>
+ol.rules {
+    counter-reset: item;
+    list-style-type: none;
+    margin: 0 0 0 0em;
+}
+
+ol.rules li:before {
+    content: 'Rule ' counter(item, decimal) ': ';
+    counter-increment: item;
+}
+</style>
+</head>
+
+<body onload="header(0,'rules')">
+<div id="wrapper0">
+<div id="menu"></div>
+<h2 style="text-align:right;"><a href="rules_chinese.html">Chinese &#x4E2D;&#x6587;</a></h2>
+<h1>Rules for the Chinese Calendar</h1>
+
+<br />    
+    
+<p>China officially adopted the Gregorian calendar since 1912. However, Chinese people still use the traditional Chinese calendar (&#36786;&#26310;) today. Many Chinese festivals and some public holidays are still based on the Chinese calendar. It is therefore useful to understand how the Chinese calendar works. This page intends to give only a brief introduction to the Chinese calendar. For a more detail and comprehensive introduction to the subject, I suggest Helmer Aslaksen's wonderful article "Mathematics of the Chinese calendar"<sup>[<a href="#Aslaksen">Aslaksen10</a>]</sup>. This is the best English reference that I know of. Another nice article is Section 15.8 in the book <i>Explanatory Supplement to the Astronomical Almanac</i><sup>[<a href="#expl">Richards13</a>]</sup>. The best Chinese reference I know of is the book &#21382;&#20070;&#30334;&#38382;&#30334;&#31572; (<i>Calendars: 100 Questions and Answers</i>)<sup>[<a href="#Tang">Tang86</a>]</sup> by T&#225;ng H&#224;nli&#225;ng (&#21776;&#27721;&#33391;).</p>
+    
+<br />
+<h2>Introduction</h2>
+    
+<p>Calendars were created to keep track of time. There are three cycles occurring in nature that were important to people in the ancient time. They are the cycle of day and night, the cycle of moon phases (lunar cycle) and the cycle of seasons. The cycle of day and night can be characterized by the average value of a solar day, which is the average time between two successive <a href="https://www.timeanddate.com/astronomy/solar-noon.html" target="_blank">solar noons</a>. The lunar cycle can be characterized by the average time between two successive new moons, or the synodic month. The cycle of seasons can be characterized by the tropical year, which is <i>approximately</i> the average time between two successive winter solstices (or between two successive vernal equinoxes)<sup>[<a href="#tropicalYear">fn1</a>]</sup>. The concept of a day is directly related to the cycle of day and night. The concept of a month is (at least initially) related to the lunar cycle, and the concept of a year is related to the cycle of seasons.</p>
+    
+<p>One synodic month has 29.5306 days and one tropical year has 365.2422 days. None of these three cycles are commensurate with each other (i.e. none of the ratios of any pair of the cycles is a rational number). The smallest time unit in all calendars is a day. The challenge is to derive a scheme to arrange days into months and years to keep track of the other two cycles. One approach is to ignore the lunar cycle and only keep track of the cycle of seasons. This is called a <i>solar calendar</i> because its arrangement of days and months in a year depends only on the position of the Sun on the ecliptic. Gregorian calendar is an example of a solar calendar. Another approach is to ignore the cycle of seasons and only keep track of moon phases. The resulting calendar is called a <i>lunar calendar</i>. Islamic calendar is an example of a lunar calendar. The third approach is to keep track of all of the other two cycles. The resulting calendar is called a <i>luni-solar</i> calendar. The Chinese calendar is an example of a luni-solar calendar.</p> 
+    
+<p>In Chinese calendar, the first day of a month is determined by the day of the lunar conjunction (new moon). Since the synodic month is 29.5306 days, a Chinese month can have 29 days (short month) or 30 days (long month), depending on the number of days between the dates of two successive new moons. One tropical year has 365.2422 days. Therefore, there are on average 12.37 Chinese months in a tropical year. A Chinese year normally has 12 months. To keep the calendar in sync with seasons, an extra month has to be inserted to the year about every 3 years, in which case there are 13 months in the year. This extra month is called a leap (intercalary) month.</p>
+    
+<p>The challenge is to derive a scheme to insert a leap month so that a Chinese year is close to the tropical year on average. Various schemes were used over the history of China. There were five significant reforms in the Chinese calendar. The last one occurred in 1645. Here I only talk about the rules applied to the modern Chinese calendar. Several important concepts need to be explained first before describing the rules.</p>
+<br />
+    
+<h2>Important Concepts</h2>
+
+<p>Although the smallest time unit in a calendar is a day, we need to go to smaller time scale and understand how we measure time down to one second today in order to understand how modern Chinese calendar works.</p>
+    <br />
+<h3>UT1, UTC, and China Standard Time</h3>
+    
+<p>Universal Time (UT) is a time standard based on Earth's rotation with respect to the Sun. There are several <a href="https://en.wikipedia.org/wiki/Universal_Time#Versions" target="_blank">versions</a> of universal time. The most commonly used are UT1 and the Coordinated Universal Time (UTC). UT1 is based on Earth's rotation relative to distant stars but rescaled to make it closer to the <a href="https://en.wikipedia.org/wiki/Solar_time" target="_blank">solar time</a>. The problem is that Earth's rotation is not uniform, which makes UT1 inconvenient for many applications. As a result, the Coordinated Universal Time (UTC) is introduced to approximate UT1.</p>
+    
+<p>UTC is defined by two components: <a href="https://en.wikipedia.org/wiki/International_Atomic_Time" target="_blank">International Atomic Time</a> (TAI) and UT1. TAI is a weighted average of the time kept by over 400 atomic clocks in over 50 national laboratories worldwide. Each second of in a TAI is a constant. UTC is defined to be TAI plus an integer number of seconds. The duration of one second in UTC is therefore exactly equal to one TAI second. <a href="https://en.wikipedia.org/wiki/Leap_second" target="_blank">Leap seconds</a> are added to ensure that the difference between UTC and UT1 is smaller than 0.9 seconds. Leap seconds are usually inserted to the last minute on June 30 at 23:59:59 UTC or on December 31 UTC at 23:59:59 UTC of a year. In principle, a leap second can be positive or negative. The minute with a positive leap second has 61 seconds and the minute with a negative leap second has only 59 seconds. So far only positive leap seconds appear.    As of today (October 2018), a total of 27 leap seconds have been inserted since the system of adjustment was implemented in 1972. The most recent leap second occurred on December 31, 2016 at 23:59:60 UTC. Thus, time in UTC is uniform, except for occasional "glitches" when leap seconds are added. These "glitches" cause some problems and there have been <a href="https://en.wikipedia.org/wiki/Leap_second#Proposal_to_abolish_leap_seconds" target="_blank">discussions on the abolishment of leap seconds</a> since 2005.</p>
+    
+<p><a href="https://en.wikipedia.org/wiki/Civil_time" target="_blank">Civil time</a> is related to UTC by a <a href="https://en.wikipedia.org/wiki/UTC_offset" target="_blank">UTC offset</a>. A UTC offset is a multiple of 15 minutes, and the majority of offsets are in whole hours. As far as the Chinese calendar is concerned, the most important civil time is the China standard time, which is UTC+08:00, meaning that it is 8 hours ahead of UTC. This is the local time for the meridians of 120&deg; East.</p>
+<br />
+<h3>Counting Years, Months and Days</h3>
+
+<p>In Chinese calendar, years are counted in <a href="sexagenary.html">sexagenary cycle</a>. Months are simply indicated by numbers 1, 2, 3, ..., 12. A leap month is indicated by the same number as the previous month, but a "leap" is added before the number. Days in a month are also simply indicated by 1, 2, 3, ..., 30. On my <a href="index.html">calendar page</a>, dates in the Chinese calendar are indicated by MM-DD, where MM represents the month number and DD represents the day number in the month. Dates in a leap month are represented by leap MM-DD. For example, 11-15 means the 15th day of month 11. It should be noted that this MM-DD convention is not used everywhere else.</p>
+<br />
+<h3>Lunar Conjunction (New Moon)</h3>
+
+<p>The lunar conjunction, or new moon, is the moment when the Moon and the Sun are in the same direction. The above description is too vague by modern standard. In modern astronomy, lunar conjunction (new moon) is defined as the time when the apparent geocentric longitude of the Moon <span class="greek">&lambda;</span><sub>M</sub> is equal to the apparent geocentric longitude of the Sun <span class="greek">&lambda;</span><sub>S</sub>. Three other related concepts are the first quarter, full moon (or lunar opposition) and third quarter. First quarter is defined as the time when <span class="greek">&lambda;</span><sub>M</sub> - <span class="greek">&lambda;</span><sub>S</sub> = 90&deg; (modulo 360&deg;); full moon is defined as the time when <span class="greek">&lambda;</span><sub>M</sub> - <span class="greek">&lambda;</span><sub>S</sub> = 180&deg; (modulo 360&deg;); third quarter is defined as the time when <span class="greek">&lambda;</span><sub>M</sub> - <span class="greek">&lambda;</span><sub>S</sub> = 270&deg; (modulo 360&deg;).</p>
+    
+<p>The day on which a new moon occurs is the day of the new moon. Note that in China days are measured from midnight to midnight, so 0:00:00 and 23:59:59.999 are considered to be on the same day. Also, times are measured in the China standard time (UTC+08:00). For example, a new moon occurred at UTC 17:36 on December 5, 2010. In China standard time, this new moon occurred at 01:36 on December 6, 2010. So the date of this new Moon was December 6, 2010.</p>
+    
+<p>One of the rules of the Chinese calendar is that the first day of a month must occur on the day of a new moon. Therefore, December 6, 2010 was the first day of a Chinese month. It was in fact the first day of month 11 (see below). The next new moon occurred on January 4, 2011 at 17:03 (UTC+8). So January 4, 2011 was the first day of a month. It was month 12. Since there were 29 days between December 6, 2010 and January 4, 2011, month 11 had 29 days. It was a short month.</p>
+    <br />
+<h3>Major Solar Terms and Su&#236;</h3>
+    
+<p>As explained in the <a href="solarTerms.html">24 solar term page</a>, ancient Chinese used the 24 solar terms to keep track of the Sun's position on the ecliptic. The 24 solar terms are grouped into 12 major solar terms and 12 minor solar terms. The major solar terms can be defined as the times when the apparent geocentric longitude of the Sun reaches integral multiples of 30&deg;. The major solar terms are labelled by Z followed by a number on the <a href="solarTerms.html">24 solar term page</a>.</p>
+    
+<p>Winter solstice (Z11) is one of the major solar terms. It plays an important role in the Chinese calendar. As explained in the <a href="sexagenary.html">sexagenary cycle page</a>, the z&#464; month is defined as the month containing the winter solstice. Since the y&#237;n month is designated as the first month of a year, the z&#464; month corresponds to month 11. Thus, month 11 always contains the winter solstice. For example, in 2010 the winter solstice occurred on December 22 at 07:38 (UTC+8). We mentioned above that a new moon occurred on December 6, 2010 and the following new moon was on January 4, 2011. The month starting on December 6 contained the winter solstice, so it was month 11.</p> 
+    
+<p>As mentioned in the solar term page, the period between two successive winter solstices is called a <i>su&#236;</i>. The su&#236; can also be referred to as the solar year starting on the day of a winter solstice and ending on the day before the next winter solstice. The number of days between the dates of two successive winter solstices can be 365 or 366 days. The synodic month is 29.5306 days. Simple calculations show that the number of months between the two "month 11"s (counting the first month 11 but not the second month 11) can be 12 or 13. If there are 12 months, I call the su&#236; as a <i>regular su&#236;</i>. If there are 13 months, I call the su&#236; as a <i>leap su&#236;</i>, using the terminology in Aslasken's article<sup><a href="#Aslaksen">Aslaksen10</a></sup>. One of the rules in the Chinese calendar is that in a leap su&#236;, one of the 13 months is a leap month.</p>
+    
+<p>In a regular su&#236;, the 11 months following month 11 are assigned the numbers 12, 1, 2, ..., 10 and we are done in designating the months in a regular su&#236;. In a regular su&#236;, the Chinese new year is the first day of the second month after month 11, which is the day of the second new moon after the day of winter solstice.</p>
+    
+<p>Since there are 12 major solar terms in a su&#236; and there are 13 months in a leap su&#236;, it follows that at least one month in a leap su&#236; does not contain a major solar term. Here is an important rule: in a leap su&#236;, the first month (after month 11) that does not contain a major solar term is a leap month. In a leap su&#236;, the 11 <i>regular</i> months (i.e. non-leap months) following month 11 are assigned the numbers 12, 1, 2, ..., 10. The leap month is assigned the same number as its preceding month. In a leap su&#236;, the Chinese new year is the first day of the second regular month after month 11.</p>
+    
+<br />
+<h2 id="mainRules">Rules for the Modern Chinese Calendar</h2>
+    
+<p>Most of the rules have already been mentioned as the important concepts are explained. It is time to gather them together. The following is a summary of the rules. </p>
+    
+<ol class="rules">
+<li>The instants of lunar conjunctions and solar terms are calculated for meridians of 120&deg; East.</li>
+<li>The days are measured from midnight to midnight.</li>
+<li>The first day of a month is the day in which a conjunction of the Moon (new moon) falls.</li>
+<li>The winter solstice (Z11) always falls in month 11.</li>
+<li>If a su&#236; contains 13 complete months, one of them is a leap month. 
+This leap month is the first in the su&#236; that contains no major solar term.</li>
+<li>The second month (not counting the leap month) after month 11 is the first month of a year.</li>
+<li>Years are counted in sexagenary year cycles.</li>
+<li>Months are assigned numbers 1 to 12; a leap month is assigned the same number as its predecessor but with the word "leap" added before the number.</li>
+<li>Days in a month are assigned numbers 1 to 29 or 30. Sexagenary days  can also be used to indicate dates.</li>
+</ol>
+    
+<p>Except for Rules 1 and 5, all of the rest of the rules are passed down from ancient time. Rules 4 and 6 are the statement "the month containing the winter solstice is the z&#464; month, and the y&#237;n month is designated as the first month" expressed in a language without referencing the branch name of a month (see <a href="sexagenary.html#sexagenaryMonths">Sexagenary Month Cycle</a>). Rule 5, which was revised from an older rule, was created around the calendar reform in 1645, and Rule 1 was added in 1928.</p>
+    
+<p>Today Rule 1 simply means that times are expressed in UTC+8. However, UTC was invented in 1960. There were several changes in UTC until it was finalized in 1972. On my <a href="index.html">calendar page</a>, times are given in UT1+8 before 1972 and UTC+8 in and after 1972. This has almost no effect because times are given to the nearest minute on the calendar page and the difference between UT1 and UTC was at most a few seconds between 1960 and 1972.</p>
+    
+<p>Rule 1 was only adopted since 1929. Before 1929, times were based on the Beijing meridian (116&deg;25' East), which is about 14 minutes earlier than the times based on the meridian of 120&deg;E. If a solar term or new moon occurred close to the midnight, the date could be off by one day. For example, the new moon associated with the Chinese new year in 1916 occurred on February 4 at 00:05 (UT1+8), but the Chinese new year was celebrated on February 3 because the new moon was on February 3 at 23:51 according to the local time of the Beijing meridian.</p>
+    
+<p>It is easy to derive an algorithm to calculate the Chinese calendar based on these rules. For simplicity, I use the symbol N<sub>Y</sub> to represent the Chinese year whose new year day is in Gregorian year Y. The following shows the steps of determining each month in the su&#236; from the winter solstice in Gregorian year Y-1 to the winter solstice in year Y.</p>
+
+<ol>
+<li>Calculate the dates of the winter solstices W<sub>Y-1</sub> and W<sub>Y</sub> in Gregorian years Y-1 and Y.</li>
+<li>Calculate the dates of the first lunar conjunction M<sub>-1</sub> that occurs on or before W<sub>Y-1</sub>, and the first lunar conjunction M<sub>11</sub> that occurs on or before W<sub>Y</sub>.</li>
+<li>Calculate the number of complete lunations L<sub>Y</sub> between W<sub>Y-1</sub> and W<sub>Y</sub>. This is the integer closest to the number<br /> (M<sub>11</sub> - M<sub>-1</sub>)/29.53.</li>
+<li>
+   <ol type="a">
+        <li>If L<sub>Y</sub> = 12, there is no leap month in the su&#236; from W<sub>Y-1</sub> to W<sub>Y</sub>. Calculate the dates of the 11 lunar conjunctions between M<sub>-1</sub> and M<sub>11</sub>. Label them in chronological order as M<sub>0</sub>, M<sub>1</sub>, M<sub>2</sub>, ..., M<sub>10</sub>. </li>
+        <li>If L<sub>Y</sub> = 13, there is a leap month in the su&#236; from W<sub>Y-1</sub> to W<sub>Y</sub>. Calculate the dates of 11 major solar terms between W<sub>Y-1</sub> and W<sub>Y</sub>, and the dates of the 12 lunar conjunctions between M<sub>-1</sub> and M<sub>11</sub>. Determine the first month after M<sub>-1</sub> that does not contain a major solar term. This is the leap month. Label the dates of the 11 lunar conjunctions after M<sub>-1</sub> that are <i>not</i> associated with the leap month in chronological order as M<sub>0</sub>, M<sub>1</sub>, M<sub>2</sub>, ..., M<sub>10</sub>. Label the date of the lunar conjunction associated with the leap month as M<sup>*</sup><sub>i</sub>, where i is the month number of the previous month.</li>
+    </ol>
+</li>
+<li>M<sub>-1</sub> is the first day of month 11 of in the Chinese year N<sub>Y-1</sub>; M<sub>0</sub> is the first day of month 12 in N<sub>Y-1</sub>; M<sub>1</sub> is the Chinese New Year of N<sub>Y</sub>; M<sub>2</sub>, M<sub>3</sub>, ..., and M<sub>11</sub> are the first days of month 2, month 3, ..., and month 11 in N<sub>Y</sub>. If there is a leap month, the first day of the leap month is M<sup>*</sup><sub>i</sub>.</li>
+</ol>
+    
+<p>These steps determine the months from month 11 in N<sub>Y-1</sub> to month 10 in N<sub>Y</sub>. To determine the rest of the months in N<sub>Y</sub>, one needs to go through the above steps for the su&#236; from W<sub>Y</sub> to W<sub>Y+1</sub>.</p>
+    
+<br />
+<h2 id="examples"><a href="examples.html">Examples of Computing the Chinese Calendar</a></h2>
+<br /> 
+<h2 id="rulesDemysterified"><a href="rules_demysterified.html">Why Do the Rules Work?</a></h2>
+    
+<br />
+    
+<h2>New Standards 2017 (GB/T 33661-2017)</h2>
+    
+<p>In May 2017, the Chinese government issued a document (labelled GB/T 33661-2017) drafted by astronomers at the <a href="https://en.wikipedia.org/wiki/Purple_Mountain_Observatory" target="_blank">Purple Mountain Observatory</a> (PMO) on new standards for computing the Chinese calendar<sup><a href="#GBT33661">PMO17</a></sup>. The rules for the Chinese calendar are the same as the ones stated above, but the astronomical concepts relevant to the calendar calculation are defined very precisely using modern terminologies following the <a href="https://www.iers.org/IERS/EN/DataProducts/Conventions/conventions.html" target="_blank">IERS conventions</a>. It also requires that calculations of the times of the 24 solar terms and lunar conjunctions must be accurate to about one second, excluding the unpublished leap seconds at the time of calculation. The document also requires that calendar data from 1912 to 2017 should refer to calendars published by the PMO. The Purple Mountain Observatory is also responsible for providing the official, most up-to-date calendar data for the upcoming year on a yearly basis.</p>
+    
+<p>The GB/T 33661-2017 document attempts to reconcile traditional calendrical practices with modern astronomical concepts. In the past, different methods of calendar calculation occasionally led to different versions of calendar, causing confusion. For example, there were two different versions of Chinese calendar in southern China in 1978. One version was based on the calculation by the PMO. The other version, which was imported from Hong Kong, was based on an old imperial calendar calculated in 1910. According to the PMO version, the lunar conjunction associated with month 8 occurred at 0:09 (UTC+8) on Sep. 3, 1978. The old calendar, in which time was calculated for the Beijing meridian, put the lunar conjunction on Sep. 2, 1978 a few minutes before midnight. This meant that there was one day difference between the two versions of the calendar on the first day of month 8. The 15th day of month 8 is called the mid-autumn festival, a harvest festival celebrated by the Chinese. As a result, people in Hong Kong and mainland China celebrated the mid-autumn festival on different days in 1978. From then on, the Chinese calendars published in Hong Kong have been based on the PMO calculation.</p>
+    
+<p>It is clearly a good thing to set unified standards for all Chinese calendar calculations to prevent confusion. However, the requirement of the one-second accuracy in the calculation of times of lunar conjunctions and 24 solar terms is baffling to me, because such accuracy is rarely, if ever, needed for calendar calculations. Let's take a closer look at this accuracy requirement.</p>
+    
+<p>What does it take to achieve a one second time accuracy? The 24 solar terms are defined as the times when the apparent longitude of the Sun reaches integer multiples of 15&deg;. The mean longitude of the Sun increases by 360&deg; in a tropical year (365.2422 days). This means that in one second, the Sun moves, on average, by 360&deg;/(365.2422&times;86400) = 0.04" (0.04 arcseconds). To calculate the times of the 24 solar terms to within one second, we must calculate the position of the Sun to accuracy better than 0.04". For the lunar conjunction, a similar calculation shows that the accuracy requirement for the position of the Moon is about 360&deg;/(29.5306&times;86400) = 0.5". No ephemerides in the world could achieve this level of accuracy until perhaps in the late 1970s. In addition, a precise definition of the ecliptic and equinoxes is needed to meet the accuracy requirement, which is the reason why the document has to specify precisely how the relevant astronomical terms are defined.</p>
+    
+<p>High accuracy is only required for the situations in which lunar conjunctions or solar terms occurring very close to the midnight. However, those situations will occur decades from now  and even in those situations an accuracy of one second does not help. Note that the one-second accuracy does not account for the unknown leap seconds that will be added to the UTC, as specified by the GB/T 33661-2017 document. Times for lunar conjunctions and 24 solar terms can be computed very accurately in <em>barycentric dynamical time</em> (TDB), which is the time used in modern ephemerides. TDB is a uniform time scale defined in general relativity. To convert TDB to UTC, TDB can be first transformed to the terrestrial time (TT) using a transformation formula in general relativity. However, the difference between TDB and TT remains less than two milliseconds over several millennia and can be ignored in calendar calculations. TT is related to TAI described above by a constant offset: TT = TAI + 32.184 seconds. As mentioned above, UTC and TAI differ by an integral number of seconds. Hence we need to know the number of leap seconds that will be added to UTC in order to convert TDB to UTC. However, Earth's rotation is irregular and it is very difficult, if not impossible, to predict precisely the number of leap seconds that will be added to UTC decades ahead. This means that even though times in TDB can be calculated within one second, their accuracy in UTC is still dominated by the uncertainty of the amount of leap seconds that will be added to UTC. Hence the accuracy of times in UTC+8 decreases with time even if we can compute the times in TDB with an accuracy of one second. The best approach to handle the situations in which lunar conjunctions or solar terms occurring very close to the midnight is to acknowledge that it is currently impossible to determine their exact dates, which is what this website does. </p>
+    
+<p>The situation in which lunar conjunctions and solar terms occurring near the midnight obviously also happened in the past. In the past, the definitions of lunar conjunction and solar terms were not as accurate as today's, and the methods used to compute their times were also less accurate. In addition, times based on the 120&deg; East meridians were not imposed until 1929. Thus, there are inconsistencies in some of the dates of lunar conjunctions and solar terms between the calculations in the past and calculations using modern methods. In these situations, we should use the dates issued by the government at that time. On this website, all printed times are taken from my calculation, but in several cases the dates of the first day of a month are changed in accord with the historical record. They are indicated in red on the relevant webpages. As for the 24 solar terms, the discrepancies in the dates are indicated in red on the relevant webpages.</p>
+    
+<br />
+<h2>Calendar Calculation on This Website</h2>
+    
+<p>I follow the rules stated by the GB/T 33661-2017 document<sup><a href="#GBT33661">PMO17</a></sup> mentioned above to calculate the Chinese calendar. Positions of the Sun and Moon are computed based on the planetary and lunar ephemeris DE431<sup><a href="#DE">DE</a></sup> developed by the Jet Propulsion Laboratory (JPL). JPL's DE-series ephemerides are based on numerical integration and DE431 is one of the most accurate ephemerides covering long time span. The calculation takes into account gravitational perturbations from 343 relatively large-mass asteroids. General relativistic effects are included by using dynamical equations derived from a parametrized post-Newtonian n-body metric. Additional accelerations arising from non-spherical effects of extended bodies including the Earth, Moon and Sun are also included. The DE431 ephemeris data are used to compute the geometric positions of the Sun and Moon, which are then corrected for the combined effect of <a href="https://en.wikipedia.org/wiki/Light-time_correction" target="_blank">light time</a> and <a href="https://en.wikipedia.org/wiki/Aberration_of_light" target="_blank">aberration of light</a>. The result is the apparent geocentric positions expressed in rectangular coordinates in the <a href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System" target="_blank">International Celestial Reference System</a> (ICRS). They are then transformed to the ecliptic coordinates of date by taking into account the frame bias matrix, precession and nutation. Precession and nutation are calculated by the IAU 2006/2000A precession-nutation model using formulas provided by IERS Conventions (2010)<sup><a href="#iers2010">IERS10</a></sup> and Kaplan 2005<sup><a href="#kaplan05">Kaplan05</a></sup>. Times of moon phases and 24 solar terms are first computed in TDB using the <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson root-finding method</a>. They are then converted to UT1+8 for years before 1972 and UTC+8 in and after 1972. The difference between TDB and TT is ignored since it is less than two milliseconds over several millennia. For years between 1901 and 1972, values of TT-UT1 are calculated using the analytic fitting formula by <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html" target="_blank">Espenak and Meeus</a>. For years between 1972 and present, TT-UTC is calculated from the published leap seconds. For years beyond 2020, approximate value of TT-UTC is estimated according to the polynomial expressions by <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html" target="_blank">Espenak and Meeus</a>. The expressions are for TT-UT1, but can be used to approximate TT-UTC since by construction |UTC-UT1| &lt; 0.9 seconds. The mathematical detail of all these calculations is explained in <a href="docs/sunMoon.pdf" target="_blank">this pdf file</a>.</p>
+    
+<p>The time span covered by this website is from 1901 to 2200. The calendar data from years 1901&ndash;2050 are compared with those in the book <i>Ten Thousand Year Calendar</i><sup><a href="#pmo86">PMO86</a></sup> edited by the Purple Mountain Observatory and in the book <i>Pocket Edition of 100-Year Chinese Calendar</i><sup><a href="#liu93">Liu93</a></sup> edited by Li&#250; B&#462;ol&#237;n, who had been involved in the Chinese calendar calculation in the Purple Mountain Observatory for over 40 years. The data in these two books agree, but Li&#250;'s book also provides the times of new moons, full moons and 24 solar terms to the nearest minute. In the books, the calendar data before 1949 were taken from the calendars issued by the Chinese government at that time. Data after 1949 are calculated by the Purple Mountain Observatory, which has been responsible for computing the calendar issued by the Chinese government since 1949. Whenever there is a discrepancy between my calculation and the data in the books on the start day of a Chinese month, I use the data in the books on this website. All discrepancies occurred before 1929: the start day of month 10 in 1914, the New Year day in 1916 and the start day of month 10 in 1920. These discrepancies arise from the fact that times were calculated for the Beijing meridian before 1929. In addition to the discrepancies in the dates of lunar conjunctions, there are also discrepancies in the dates of 24 solar terms. With one exception, all the discrepancies occurred before 1929. The following table lists all the discrepancies in the dates of solar terms between my calculation and the data in the books. They are also indicated on the relevant calendar pages.</p>
+    
+<table>
+<tr><th>Year</th> <th>Solar Term</th> <th>This website</th> <th><a href="#pmo86">PMO86</a> and <a href="#liu93">Liu93</a><sup>*</sup></th></tr>
+<tr><td>1912</td> <td>Z10</td> <td>Nov. 22 (at 23:48)</td> <td>Nov. 23 (at 00:39)</td></tr>
+<tr><td>1913</td> <td>Z8</td> <td>Sep. 23 (at 23:53)</td> <td>Sep. 24 (at 00:48)</td></tr>
+<tr><td>1917</td> <td>J11</td> <td>Dec. 8 (at 00:01)</td> <td>Dec. 7 (at 23:47)</td></tr>
+<tr><td>1927</td> <td>J8</td> <td>Sep. 9 (at 00:05)</td> <td>Sep. 8 (at 23:52)</td></tr>
+<tr><td>1928</td> <td>Z5</td> <td>June 22 (at 00:06)</td> <td>June 21 (at 23:53)</td></tr>
+<tr><td>1979</td> <td>Z12</td> <td>Jan. 20 (at 23:59:54)</td> <td>Jan. 21 (at 00:00)</td></tr>
+</table>
+<p><sup>*</sup> Dates (and times) listed in the two books are based on the calendars issued by the Chinese government at that time.</p>
+<br /> 
+<p>The discrepancies in 1912 and 1913 are caused by the fact that the calendar at that time was calculated based on a method developed in 1742. While the method was pretty good at the time (1742), it is not accurate by today's standard. A more accurate method was adopted in the calendar calculation after 1913, but times were still calculated for the Beijing meridian, which was about 14 minutes earlier than the times for the meridians of 120&deg;E. This explains the discrepancies in the years 1917, 1927 and 1928. The case in 1979 is special. My calculation indicates that the time of Z12 was only 6 seconds before Jan. 21. This means that highly accurate ephemerides are required to pinpoint the exact date. Prior to 1984, positions of the Sun in most published annual astronomical almanacs were calculated based on <a href="https://en.wikipedia.org/wiki/Newcomb%27s_Tables_of_the_Sun" target="_blank">Newcomb's <i>Tables of the Sun</i></a>, which were developed in 1895 and were accurate to about 1". It is possible that the calendar calculation at that time was based on an ephemeris of similar precision. If so, the times of 24 solar terms could be off by about 25 seconds. By comparing the times of the 24 solar terms in Li&#250;'s book<sup><a href="#liu93">Liu93</a></sup> (printed to the nearest minute) and my calculation, I find deviations of one minute occurring very frequently. No such deviations are found for the times of 24 solar terms listed on the Hong Kong Observatory's <a href="http://www.hko.gov.hk/gts/astron2018/Solar_Term_2018_e.htm" target="_blank">24 solar terms date and time page</a>. This is not surprising since the times there are computed from astronomical data provided by the <i>HM Nautical Almanac Office</i>, and Nautical Almanac's data have been computed from JPL's DE430 ephemeris since 2015. There is only a very slight difference between DE430 and DE431 used on this website within a few hundred years from 2000. In any case, none of the discrepancies listed in the table affects the days and months of the Chinese calendar.</p>
+    
+<p>As mentioned above, times (in UTC+8) of lunar conjunctions and 24 solar terms decades from now cannot be determined very accurately. In situations when the times are close to midnight, the actual dates of lunar conjunctions and solar terms may be off by one day. These situations are indicated on the relevant calendar pages. When a lunar conjunction occurs near the midnight, the predicted first day of a month may be off by one day. These cases occur on September 29, 2057; September 4, 2089; August 7, 2097; September 28, 2133; October 17, 2172 and May 12, 2192. When a major solar term occurs near the midnight, most of time there will be no effect on the Chinese calendar. However, if a new moon also occurs within a day from the date of the major solar term, the off-by-one-day-error could result in a different leap month. I have checked that this does not happen over the time span covered on this website. The following table lists the  lunar conjunctions and solar terms from 2051&ndash;2200 that are predicted to occur close to midnight, and therefore may be off by one day.</p>
+    
+<table>
+<tr><th>Year</th> <th>Predicted Date and Time (in UTC+8) of Lunar Conjunction</th></tr>
+<tr><td>2057</td> <td>Sep. 29 at 00:00:04.5</td></tr>
+<tr><td>2089</td> <td>Sep. 4 at 23:57:36</td></tr>
+<tr><td>2097</td> <td>Aug. 7 at 23:59:41</td></tr>
+<tr><td>2133</td> <td>Sep. 28 at 23:59</td></tr>
+<tr><td>2172</td> <td>Oct. 17 at 23:57</td></tr>
+<tr><td>2192</td> <td>May 12 at 00:03</td></tr>
+</table>
+    <br />
+<table>
+<tr><th>Year</th> <th>Solar Term</th> <th>Predicted Date and Time (in UTC+8)</th></tr>
+<tr><td>2051</td> <td>Z2</td> <td>Mar. 20 at 23:59</td></tr>
+<tr><td>2083</td> <td>J1</td> <td>Feb. 3 at 23:58</td></tr>
+<tr><td>2084</td> <td>Z2</td> <td>Mar. 19 at 23:59</td></tr>
+<tr><td>2084</td> <td>J5</td> <td>June 5 at 00:02</td></tr>
+<tr><td>2135</td> <td>J9</td> <td>Oct. 9 at 00:02</td></tr>
+<tr><td>2150</td> <td>Z2</td> <td>Mar. 21 at 00:01</td></tr>
+<tr><td>2168</td> <td>Z5</td> <td>June 21 at 00:02</td></tr>
+<tr><td>2185</td> <td>Z12</td> <td>Jan. 20 at 00:01</td></tr>
+<tr><td>2186</td> <td>J1</td> <td>Feb. 3 at 23:57</td></tr>
+<tr><td>2191</td> <td>Z6</td> <td>July 23 at 00:00:03</td></tr>
+<tr><td>2199</td> <td>J3</td> <td>Apr. 4 at 23:59</td></tr>
+</table>
+
+<br />
+<h2>References</h2>
+<ul style="list-style-type:none;">
+<li id="Aslaksen">[<span class="ref">Aslaksen10</span>] Aslaksen, Helmer, "<a href="http://www.math.nus.edu.sg/aslaksen/calendar/cal.pdf" target="_blank">Mathematics of the Chinese calendar</a>" (PDF) (July 17, 2010), Department of Mathematics, National University of Singapore (now at University of Oslo).</li>
+    
+<li id="DE">[<span class="ref">DE</span>] W.M. Folkner et al, <a href="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de430_and_de431.pdf" target="_blank">"The Planetary and Lunar Ephemerides 
+DE430 and DE431"</a>, IPN Progress Report 42-196, February 15, 2014.</li>
+    
+<li id="tropicalYear">[<span class="ref">fn1</span>] Tropical year is now defined as the time needed for the Sun's mean longitude to increase by 360&deg;. Its value is currently  365.2422 days. The average time between two successive winter (December) solstices is currently 365.2427 days. The average time between two successive vernal (March) equinoxes is currently 365.2424 days. They are close but not exactly the same. This is caused by the precession of the equinoxes and the fact that Earth's orbit around the Sun is slightly eccentric, as explained in <a href="https://en.wikipedia.org/wiki/Tropical_year#Length_of_tropical_year" target="_blank">this article</a>.</li>
+    
+<li id="iers2010">[<span class="ref">IERS10</span>] <a href="http://iers-conventions.obspm.fr/2010/2010_official/tn36.pdf" target="_blank">IERS Conventions (2010)</a></li>
+    
+<li id="kaplan05">[<span class="ref">Kaplan05</span>] G.H. Kaplan, <a href="http://aa.usno.navy.mil/publications/docs/Circular_179.pdf" target="_blank">"The IAU Resolutions on Astronomical Reference Systems, Time Scales, and Earth Rotation Models: Explanation and Implementation"</a>, U.S. Naval Observatory Circular No. 179, U.S. Naval Observatory, Washington, D.C. 20392 (2005).</li>
+    
+<li id="liu93">[<span class="ref">Liu93</span>] Li&#250;, B&#462;ol&#237;n (&#21129;&#23542;&#29747;), <a href="http://www.cp1897.com.hk/product_info.php?BookId=9620720792" target="_blank">&#12298;100&#24180;&#34966;&#29645;&#24178;&#25903;&#26376;&#26310;&#12299;</a> (<i>Pocket Edition of 100-Year Chinese Calendar</i>), &#21830;&#21209;&#21360;&#26360;&#39208;(&#39321;&#28207;) (The Commercial Press, Hong Kong), 1993.</li>
+    
+<li id="GBT33661">[<span class="ref">PMO17</span>] <a href="http://www.nongli.net/cn/11028.html" target="_blank">&#12298;&#20892;&#21382;&#30340;&#32534;&#31639;&#21644;&#39041;&#34892;&#12299;("Calculation and promulgation of the Chinese calendar")</a>, revised version (June 28, 2017), issued jointly by General Administration of Quality Supervision, Inspection and Quarantine of the People's Republic of China and Standardization Administration of the People's Republic of China, drafted by <a href="https://en.wikipedia.org/wiki/Purple_Mountain_Observatory" target="_blank">Purple Mountain Observatory</a>. PDF version of the draft can be downloaded <a href="https://www.biaozhun.org/A/22300.html" target="_blank">here</a>.</li>
+    
+<li id="pmo86">[<span class="ref">PMO86</span>] <a href="https://books.google.com/books?id=ndNIAAAAMAAJ&source=gbs_book_other_versions_r&cad=3" target="_blank">&#12298;&#26032;&#32534;&#19975;&#24180;&#21382;&#65288;&#20462;&#23450;&#26412;&#65289;&#12299;</a> (<i>New Edition of the "Ten Thousand Year Calendar"</i>, revised edition), edited by &#20013;&#22269;&#31185;&#23398;&#38498;&#32043;&#37329;&#23665;&#22825;&#25991;&#21488; (Purple Mountain Observatory, CAS), &#31185;&#23398;&#26222;&#21450;&#20986;&#29256;&#31038; (Popular Science Press), 1986.</li>
+    
+<li id="expl">[<span class="ref">Richards13</span>] Richards, E.G., in Section 15.8 of <a href="http://www.uscibooks.com/urban.htm" target="_blank"><i>Explanatory Supplement
+to the Astronomical Almanac</i></a>, ed. by S.E. Urban and P.K. Seidelmann, third edition, University Science Books, Mill Valley, California (2013). A PDF version of Chapter 15 of the book is available online at the bottom of the <a href="http://aa.usno.navy.mil/faq/docs/calendars.php" target="_blank">U.S. Naval Observatory calendar page</a> (<a href="http://aa.usno.navy.mil/publications/docs/c15_usb_online.pdf" target="_blank">direct link</a>).</li>
+    
+<li id="Tang">[<span class="ref">Tang86</span>] T&#225;ng, H&#224;nli&#225;ng (&#21776;&#27721;&#33391;), <a href="https://books.google.com/books/about/%E5%8E%86%E4%B9%A6%E7%99%BE%E9%97%AE%E7%99%BE%E7%AD%94.html?id=t-oBOgAACAAJ" target="_blank">&#21382;&#20070;&#30334;&#38382;&#30334;&#31572;</a> (<i>Calendars: 100 Questions and Answers</i>), &#27743;&#33487;&#31185;&#23398;&#25216;&#26415;&#20986;&#29256;&#31038; (Jiangsu Science &amp; Technology press), 1986.</li>
+</ul>
+</div> <!-- end of wrapper -->
+<br /><br />
+</body>
+</html>
