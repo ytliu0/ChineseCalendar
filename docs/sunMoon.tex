@@ -1034,7 +1034,7 @@ Once $t_1$ is determined, the iteration procedure can be started. The sequence $
 converges very rapidly. I stop the process at iteration $m$ when $|t_m-t_{m-1}|<\varepsilon$
 and I set $\varepsilon=10^{-8}~{\rm days}=0.864~{\rm milliseconds}$. This convergence 
 criterion is equivalent to setting $|f(t_{m-1})/\dot{f}(t_{m-1})| < \varepsilon$. 
-Note that $10^{-8}~{\rm days}$ are close to the of machine round-off precision. 
+Note that $10^{-8}~{\rm days}$ are close to the machine round-off precision. 
 Project Pluto's C code takes the Julian date number JD as an input for computing 
 the positions and velocities. The JD of J2000.0 is 2451545. This is a 7-digit integer. 
 In fact, the integer part of the JD of any time within 3975 years from J2000.0 are all 
