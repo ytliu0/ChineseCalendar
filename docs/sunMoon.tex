@@ -1037,6 +1037,8 @@ criterion is equivalent to setting $|f(t_{m-1})/\dot{f}(t_{m-1})| < \varepsilon$
 Note that $10^{-8}~{\rm days}$ are close to the of machine round-off precision. 
 Project Pluto's C code takes the Julian date number JD as an input for computing 
 the positions and velocities. The JD of J2000.0 is 2451545. This is a 7-digit integer. 
+In fact, the integer part of the JD of any time within 3975 years from J2000.0 are all 
+7-digit integers. 
 A precision of $10^{-8}$~days means the JD is accurate to 15 significant figures.
 
 Newton-Raphson method turns out to be very effective in the computation of the times 
