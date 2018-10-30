@@ -256,7 +256,7 @@ center of mass of the Earth.
 Ignoring general relativistic correction, the GCRS spatial coordinates $X^i$ 
 are related to the BCRS spatial coordinates $x^i$ by 
 \beq
-  X^i = x^i - x^i_E ,
+  X^i = x^i - x^i_E + O((v_E/c)^2) ,
 \label{eq:GCRSX}
 \eeq
 where $x^i_E$ are the BCRS coordinates of Earth's center of mass. Relativistic 
@@ -268,9 +268,10 @@ times of 24 solar terms and about 0.004~seconds in the times of moon phases.
 These errors are much smaller than the one-second accuracy required by the 
 official document \cite{pmo17}.
 
-Like BCRS, GCRS is a dynamical concept. In the following, I will also use GCRS 
-to refer to the coordinate system whose origin is at the geocenter and whose 
-axes are oriented to the same directions as those of the ICRS.
+Like BCRS's situation, the orientation of GCRS's axes are unspecified. 
+Here I adopt the recommendaton of IAU 2006 Resolution B2: the axes of BCRS 
+are oriented according to the ICRS axes. Since the $(v_E/c)^2$ terms are neglected, 
+GCRS's axes can also be regarded to be aligned with the ICRS axes.
 
 \subsection{Equatorial and Ecliptic Coordinate Systems}
 
