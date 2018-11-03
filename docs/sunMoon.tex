@@ -681,8 +681,10 @@ The time intervals and
 orders of the Chebyshev polynomials are 
 selected so that the deviations between the interpolated coordinate values 
 and values provided by the ephemerides are less than 0.5 
-millimeters (\cite{newhall89}). This level of interpolation 
-precision is higher than the estimated accuracy of the ephemerides. 
+millimeters (\cite{newhall89}), or $3.3\times 10^{-15}$ adtronomical units. 
+This level of interpolation error is smaller than the estimated error of the numerical 
+integration used to create the ephemerides. Thus the interpolation result can be 
+regarded as the same as the numerical integration result.
 
 I downloaded the DE files from JPL's ftp site 
 ftp://ssd.jpl.nasa.gov/pub/eph/planets/Linux/. 
@@ -691,14 +693,15 @@ and to perform interpolation. I use \href{https://www.projectpluto.com/jpl_eph.h
 {Project Pluto's C source code} for reading the JPL ephemerides and performing 
 computation. For each DE ephemeris, JPL's ftp site provides a file for checking 
 values of the position and velocity coordinates of different solar system 
-objects at various different times. 
+objects at thousands or even tens of thousands of different TDB times. 
 
 I downloaded the ephemerides DE405, DE406, DE430 and DE431 from 
 JPL's ftp site. The sizes of the binary files 
 are 53.3MB for DE405, 190MB for DE406, 85.5MB for DE430 and 2.6GB for DE431. 
 For each ephemeris I downloaded,
 I went through the data in the check file and confirmed that Project Pluto's 
-C code reproduces the data in the file to machine roundoff precision.
+C code reproduces the data in the file to floating-point roundoff precision. 
+That is, the relative error is smaller than $2^{-53}\approx 1.11\times 10^{-16}$.
 
 \subsection{Computing the Geometric Position and Velocity in GCRS}
 
@@ -732,7 +735,7 @@ has just reached the observer. This is called the
 \href{https://en.wikipedia.org/wiki/Light-time_correction}{\em light-time correction}. 
 Let $\ve{x}(t)$ be the BCRS geometric position of the object at time $t$, and 
 $\ve{x_E}(t)$ be Earth's BCRS geometric position at time $t$. Then 
-the observed GCRS position at time $t$ is $\ve{X_{\rm obs}}(t) = \ve{x}(t_r) - \ve{x_E}(t)$, 
+the retarded GCRS position at time $t$ is $\ve{X_r}(t) = \ve{x}(t_r) - \ve{x_E}(t)$, 
 where the retarded time $t_r$ satisfies the equation 
 \beq
   t_r = t - \frac{|\ve{x}(t_r) - \ve{x_E}(t)|}{c} 
@@ -744,7 +747,7 @@ solved iteratively. However, for the Sun and Moon, it is sufficient to use
 \beq
   t_r \approx t - \frac{|\ve{x}(t) - \ve{x_E}(t)|}{c} .
 \eeq
-By making this approximation, the error in $\ve{X_{\rm obs}}(t)$ is of 
+By making this approximation, the error in $\ve{X_r}(t)$ is of 
 order $(v/c)^2$, where $v=|\ve{\dot{x}}|$ is the speed of the object in BCRS. 
 Since the Sun contains 99.86\% of total mass in the solar system, the motion of 
 the Sun in BCRS is very small. Thus, $\ve{x}(t_r) \approx \ve{x}(t)$ for the Sun 
@@ -758,9 +761,9 @@ only $0.002''$ and can be safely ignored.
 \href{https://en.wikipedia.org/wiki/Aberration_of_light}{Aberration of light} 
 also arises from the finite speed of light. Suppose an observer
 sees an object in the direction $\ve{n}$, the direction of the object
-relative to another observer moving with velocity $\ve{v}$ will be in
+relative to another observer at the same position but moving with velocity $\ve{v}$ will be in
 a direction $\ve{n'}$. The unit vectors $\ve{n}$ and $\ve{n'}$ are related
-by the Lorentz transformation. In our case, $\ve{n}=\ve{X_{\rm obs}}/|\ve{X_{\rm obs}}|$ 
+by the Lorentz transformation. In our case, $\ve{n}=\ve{X_r}/|\ve{X_r}|$ 
 and $\ve{v}=\ve{\dot{x}_E}$ is Earth's velocity in BCRS.
 Since Earth's orbital speed in BCRS is about 
 30~km/s, it is sufficient to calculate the aberration of light to first order 
@@ -778,9 +781,9 @@ to travel from the Sun to Earth. This is not a coincidence. As explained in Sect
 of \expl, there is a simple method to calculate the combined effect of light-time 
 correction and aberration of light, also known as the {\em planetary aberration}, to 
 first order in $v/c$. I provide a derivation here.  It follows from  
-$\ve{n}=\ve{X_{\rm obs}}/|\ve{X_{\rm obs}}|$ and equation~(\ref{eq:aberration}) that 
+$\ve{n}=\ve{X_r}/|\ve{X_r}|$ and equation~(\ref{eq:aberration}) that 
 \beqn
-  \ve{n'} &\propto & \frac{\ve{X_{\rm obs}}}{|\ve{X_{\rm obs}}|} + \frac{\ve{\dot{x}_E}}{c} \cr \cr 
+  \ve{n'} &\propto & \frac{\ve{X_r}}{|\ve{X_r}|} + \frac{\ve{\dot{x}_E}}{c} \cr \cr 
  &=& \frac{\ve{x}(t_r) - \ve{x_E}(t)}{|\ve{x}(t_r) - \ve{x_E}(t)|} + 
 \frac{\ve{\dot{x}_E}}{c} \cr \cr 
  & \propto & \ve{x}(t_r) - \left[ \ve{x_E}(t) 
@@ -797,11 +800,15 @@ aberration of light results in the {\em apparent GCRS position} given by
 \eeq
 For the Sun, $t_r$ is the time it takes for light to travel from the Sun to Earth. 
 This is the reason that the aberration effect causes a correction of about 8 minutes. 
-For the Moon, $t_r =1.3$~seconds, which is also substantial. Equation~(\ref{eq:apparentGCRS})
+For the Moon, $t_r =1.3$~seconds, which can not be neglected if we want to 
+meet the one-second accuracy requirement stated in the document \cite{pmo17}. 
+Equation~(\ref{eq:apparentGCRS})
 is very convenient in calculating the combined effect of light-time correction and 
 aberration of light since there is a function in Project Pluto's software that 
-can be used to compute $\ve{x}-\ve{x_E}$ for any solar system object at any 
-given TDB time.
+can be used to compute the geometric position $\ve{x}-\ve{x_E}$ for any solar system 
+object at any given TDB time. Equation~(\ref{eq:apparentGCRS}) says the apparent 
+geocentric position at time $t$ is the same as the geometric GCRS position 
+at time $t_r$.
 
 In addition to the apparent GCRS position, it is also useful to compute its time 
 derivative. Taking the time derivative of equation~(\ref{eq:apparentGCRS}) yields 
@@ -840,7 +847,9 @@ and 24 solar term. I therefore ignore it and set
 \eeq
 This is also a very convenient equation to compute $\ve{\dot{X}_{\rm apparent}}$ 
 since there is a function in Project Pluto's software that can be used to 
-compute $\ve{v}-\ve{v_E}$ for any solar system object at any given TDB time.
+compute $\ve{v}-\ve{v_E}$ for any solar system object at any given TDB time. 
+Equation~(\ref{eq:Xapparentdot2}) says the apparent geocentric velocity 
+at time $t$ is equal to the geometric GCRS velocity at time $t_r$.
 
 \section{Apparent Geocentric Longitude}
 \label{sec:longitude}
@@ -970,7 +979,6 @@ and $\lambda_M$ are functions of $t$.
  third quarter & $P(\lambda_M - \lambda_S + \pi/2)$ \\
 \hline
 \end{tabular}
-\vskip 5mm
 \begin{tabular}{cc|c|cc}
 \hline
  Solar Term & Function $f$ & & Solar Term & Function $f$ \\
