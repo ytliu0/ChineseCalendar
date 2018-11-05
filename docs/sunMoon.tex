@@ -863,13 +863,15 @@ TDB time $t$:
 \item Compute the geometric position of the object (Sun or Moon) in GCRS 
 by $\ve{X_{\rm geometric}}(t) = \ve{x}(t) - \ve{x_E}(t)$, where 
 $\ve{x}$ is the BCRS position of the object and $\ve{x_E}$ is the BCRS 
-position of the Earth. 
+position of the Earth. This can be computed directly using the C function provided 
+by Project Pluto's package.
 
 \item Compute the retarded time approximately using 
 $t_r \approx t - |\ve{X_{\rm geometric}}(t)|/c$.
 
 \item Compute the apparent geocentric position using the equation 
-$\ve{X_{\rm apparent}}(t) \approx \ve{x}(t_r) - \ve{x_E}(t_r)$. 
+$\ve{X_{\rm apparent}}(t) \approx \ve{x}(t_r) - \ve{x_E}(t_r)$, which can 
+also be computed directly using Project Pluto's C function. 
 The resulting vector gives the components in the GCRS coordinate system. 
 Recall that the origin of the GCRS is at the geocenter and its axes 
 are aligned with those of the ICRS.
@@ -919,6 +921,9 @@ ignored. Hence,
 \ve{\dot{X}_{\rm apparent}}(t) = \ve{R_1}(\epsilon(t)) \ve{N}(t) \ve{P}(t) \ve{B} 
 [\ve{v}(t_r) - \ve{v_E}(t_r)] .
 \eeq
+The vector $\ve{v}(t_r) - \ve{v_E}(t_r)$ can be computed directly using Project Pluto's C 
+function.
+
 Let's perform an order of magnitude estimate of the error in dropping the second term. 
 The sidereal period of 
 the Earth around the Sun is 365.2564 days. This means that the Sun completes a 
