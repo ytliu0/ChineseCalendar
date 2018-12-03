@@ -26,5 +26,6 @@ All of the following HTML files have Chinese version. They have the same names b
 - 24solarTermsEng.png/24solarTermsChi.png: image file used by solarTerms.html/solarTerms_chinese.html.
 - NianAvg1.png, NianAvg2.png, YueAvg.png: image files used by rules_demysterified.html and rules_demysterified_chinese.html.
 - TDBtimes.txt: TDB times of moon phases and 24 solar terms between 1600 and 3500 calculated from JPL ephemeris DE431 and using the IAU 2006/2000A precession-nutation model. 
+- TDBtimes_extended.txt.gz: (gzipped) TDB times of moon phases and 24 solar terms between -4000 and 8000 calculated from JPL ephemeris DE431 and using the Vondrak et al 2011 precession model and IAU2000A nutation model.
 - docs/sunMoon.pdf: PDF file explaining how I compute the times of the moon phases and 24 solar terms used for the calendar calculation. 
 - docs/sunMoon_chinese.pdf: Chinese version of docs/sunMoon.pdf
