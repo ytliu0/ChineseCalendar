@@ -11,9 +11,9 @@ function init(lang) {
 function submitYear(lang) {
     document.getElementById('err').innerHTML = "";
     var year = parseInt(document.getElementById('year').value);
-    if (isNaN(year) || year < 1901 || year > 2200) {
-        var message = ['Invalid input! Please enter an integer between 1901 and 2200.', 
-        '&#36664;&#20837;&#37679;&#35492;&#65111;&#35531;&#36664;&#20837;&#21253;&#25324; 1901 &#21644; 2200 &#20043;&#38291;&#30340;&#25972;&#25976;&#12290;'];
+    if (isNaN(year) || year < 1841 || year > 2200) {
+        var message = ['Invalid input! Please enter an integer between 1841 and 2200.', 
+        '&#36664;&#20837;&#37679;&#35492;&#65111;&#35531;&#36664;&#20837;&#21253;&#25324; 1840 &#21644; 2200 &#20043;&#38291;&#30340;&#25972;&#25976;&#12290;'];
         document.getElementById('err').innerHTML = message[lang];
     } else {
         calendar(lang, year);
@@ -23,7 +23,7 @@ function submitYear(lang) {
 // Language-specific constants
 function langConstant(lang) {
     var gMonth, weeks, heaven, earth, animal, month_num, monthL, 
-        Qnames, soltermNames, note_early, note_late, note1929;
+        Qnames, soltermNames, note_early, note_late, note1929, note1914;
     
     var gMonthEng = ["January", "February", "March", "April", "May", "June", 
               "July", "August", "September", "October", "November", "December"];
@@ -40,7 +40,8 @@ function langConstant(lang) {
     var QnamesEng = ["Q0", "Q1", "Q2", "Q3"];
     var note_earlyEng = "The lunar conjunction/new moon (Q0) is close to the midnight. The start day of the month may be one day earlier.";
     var note_lateEng = "The lunar conjunction/new moon (Q0) is close to the midnight. The start day of the month may be one day later.";
-    var note1929Eng = "Careful readers may notice that the lunar conjunction/new moon (Q0) occurred past the midnight of the second date of the month. Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E. This explains why the lunar conjunction date listed here is one day later than the first date of the month.";
+    var note1929Eng = "Note that the lunar conjunction/new moon (Q0) occurred past the midnight of the second day of the month. Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25' E), which are about 14 minutes earlier than the times listed here based on the meridians of 120&deg;E. This explains why the lunar conjunction date listed here is one day later than the first day of the month.";
+    var note1914Eng = "Note that the lunar conjunction/new moon (Q0) did not fall on the first day of the month. This was caused by two factors: 1) Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25'E), which are about 14 minutes earlier than the times listed here based on the meridians of 120&deg;E; 2) Before 1914, the method used to calculate the lunar conjunction was not very accurate.";
     var soltermNamesEng = ["J12", "Z12", "J1", "Z1", "J2", "Z2 (March equinox)", "J3","Z3", 
                          "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
                         "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11", "Z11 (Dec. solstice)"];
@@ -93,7 +94,8 @@ function langConstant(lang) {
                           "&#22823;&#38634;", "&#20908;&#33267;"];
     var note_earlyChi = "&#26388;&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#21021;&#19968;&#25110;&#26371;&#25552;&#26089;&#19968;&#22825;&#12290;";
     var note_lateChi = "&#26388;&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#21021;&#19968;&#25110;&#26371;&#25512;&#36978;&#19968;&#22825;&#12290;";
-    var note1929Chi = "&#32048;&#24515;&#30340;&#26379;&#21451;&#21487;&#33021;&#27880;&#24847;&#21040;&#26388;&#30340;&#26178;&#21051;&#31245;&#31245;&#36942;&#20102;&#21021;&#20108;&#30340;&#38646;&#26178;&#12290;&#36889;&#26159;&#22240;&#28858;1929&#24180;&#20197;&#21069;&#30340;&#26388;&#26085;&#35336;&#31639;&#26159;&#29992;&#21271;&#20140;&#22320;&#26041;&#26178;(&#26481;&#32147;116&deg;24')&#65292;&#32780;&#26412;&#32178;&#38913;&#21015;&#20986;&#30340;&#26178;&#38291;&#21371;&#26159;&#29992;&#29694;&#26178;&#20840;&#22283;&#36890;&#34892;&#30340;&#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#12290; &#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#27604;&#21271;&#20140;&#22320;&#26041;&#26178;&#36978;14&#20998;25&#31186;&#65292;&#36889;&#23601;&#26159;&#26388;&#30340;&#26178;&#21051;&#36942;&#20102;&#21021;&#20108;&#38646;&#26178;&#30340;&#32227;&#25925;&#12290;";
+    var note1929Chi = "注意朔的時刻稍稍過了初二的零時。這是因為1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時。 東經120&deg;標準時比北京地方時遲約14分鐘，這就是朔的時刻過了初二零時的緣故。";
+    var note1914Chi = "注意合朔時刻不在初一日，這是由兩個因數造成。其一是1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的合朔計算方法不是很準確。";
     
     if (lang==0) {
         // English
@@ -109,6 +111,7 @@ function langConstant(lang) {
         note_early = note_earlyEng;
         note_late = note_lateEng;
         note1929 = note1929Eng;
+        note1914 = note1914Eng;
     } else {
         // Chinese
         gMonth = gMonthChi;
@@ -123,9 +126,10 @@ function langConstant(lang) {
         note_early = note_earlyChi;
         note_late = note_lateChi;
         note1929 = note1929Chi;
+        note1914 = note1914Chi;
     }
     return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, date_numChi:date_numChi, note_early:note_early, 
-    note_late:note_late, note1929:note1929};
+    note_late:note_late, note1929:note1929, note1914:note1914};
 }
 
 // Calendrical data for year y
@@ -281,6 +285,8 @@ function calendar(lang, year) {
         cyear0 = langVars.heaven[ih0]+' '+langVars.earth[ie0];
         cyear = langVars.heaven[ih]+' '+langVars.earth[ie];
     } else {
+        cyear0 += eraName(year-1);
+        cyear += eraName(year);
         cal.innerHTML += '<h1>&#20844;&#26310;&#24180;: '+year+'</h1>';
         cal.innerHTML += '<h1>&#36786;&#26310;&#24180;:</h1>';
         cal.innerHTML += '<h2>'+mm+'&#26376;'+day1+'&#26085;&#21069;: '+cyear0+', '+mm+'&#26376;'+day1+'&#26085;&#21450;&#20197;&#24460;: '+cyear+'</h2><br />';
@@ -685,12 +691,141 @@ function warningMessage(y, m, lang, langVars) {
     var suffix_chi = "&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#23526;&#38555;&#26085;&#26399;&#25110;&#26371;&#33287;&#25152;&#31034;&#26085;&#26399;&#26377;&#19968;&#26085;&#20043;&#24046;&#12290;";
     var warn = '';
     
+    // Warning for years before 1900
+    if (y < 1900) {
+        var wQ0 = langVars.note1914;
+        var items = [{y:1842, m:1, w:wQ0}, {y:1863, m:1, w:wQ0}, 
+                     {y:1880, m:11, w:wQ0}, {y:1896, m:2, w:wQ0}];
+        var desc, desc1, desc2, desc3;
+        if (lang==0) {
+            desc1 = "The calendar at the time listed the date of ";
+            desc2 = " on ";
+            desc3 = ". The discrepancy was caused by two factors: 1) Before 1929, times of 24 solar terms were calculated for the Beijing meridian (116&deg;25'E), which are about 14 minutes earlier than the times listed here based on the meridians of 120°E; 2) Before 1914, the method used to calculate the Sun's position was not very accurate.";
+
+            desc = desc1+"J5"+desc2+"June 6"+desc3;
+            items.push({y:1844, m:6, w:desc});
+            desc = desc1+"Z10"+desc2+"November 23"+desc3;
+            items.push({y:1846, m:11, w:desc});
+            desc = desc1+"Z11"+desc2+"December 22. My calculation indicates that Z11 (winter solstice) occurred on December 21 at 23:59:37 (UT1+8)"+desc3;
+            items.push({y:1848, m:12, w:desc});
+            desc = desc1+"J4"+desc2+"May 5"+desc3;
+            items.push({y:1849, m:5, w:desc});
+            desc = desc1+"J9"+desc2+"October 9"+desc3;
+            items.push({y:1850, m:10, w:desc});
+            desc = desc1+"Z8"+desc2+"September 24"+desc3;
+            items.push({y:1851, m:9, w:desc});
+            desc = desc1+"J11"+desc2+"December 8"+desc3;
+            items.push({y:1851, m:12, w:desc});
+            desc = desc1+"Z3"+desc2+"April 20"+desc3;
+            items.push({y:1855, m:4, w:desc});
+            desc = desc1+"Z9"+desc2+"October 24"+desc3;
+            items.push({y:1862, m:10, w:desc});
+            desc = desc1+"J10"+desc2+"November 8"+desc3;
+            items.push({y:1862, m:11, w:desc});
+            desc = desc1+"Z6"+desc2+"July 23"+desc3;
+            items.push({y:1864, m:7, w:desc});
+            desc = desc1+"Z9"+desc2+"October 24"+desc3;
+            items.push({y:1866, m:10, w:desc});
+            desc = desc1+"J6"+desc2+"July 8"+desc3;
+            items.push({y:1867, m:7, w:desc});
+            desc = desc1+"Z7"+desc2+"August 24"+desc3;
+            items.push({y:1867, m:8, w:desc});
+            desc = desc1+"J12"+desc2+"January 6"+desc3;
+            items.push({y:1879, m:1, w:desc});
+            desc = desc1+"Z10"+desc2+"November 23"+desc3;
+            items.push({y:1879, m:11, w:desc});
+            desc = desc1+"J9"+desc2+"October 9"+desc3;
+            items.push({y:1883, m:10, w:desc});
+            desc = desc1+"Z8"+desc2+"September 23"+desc3;
+            items.push({y:1884, m:9, w:desc});
+            desc = desc1+"J11"+desc2+"December 7"+desc3;
+            items.push({y:1884, m:12, w:desc});
+            desc = desc1+"J7"+desc2+"August 8"+desc3;
+            items.push({y:1886, m:8, w:desc});
+            desc = desc1+"Z9"+desc2+"October 24"+desc3;
+            items.push({y:1895, m:10, w:desc});
+            desc = desc1+"J10"+desc2+"November 8"+desc3;
+            items.push({y:1895, m:11, w:desc});
+            desc = desc1+"J8"+desc2+"September 8"+desc3;
+            items.push({y:1898, m:9, w:desc});
+            desc = desc1+"Z5"+desc2+"June 22"+desc3;
+            items.push({y:1899, m:6, w:desc});
+            desc = desc1+"Z9"+desc2+"October 24"+desc3;
+            items.push({y:1899, m:10, w:desc});
+        } else {
+            desc1 = "當年的《大清時憲書》列出的";
+            desc2 = "日期相當於公曆的";
+            desc3 = "，日期差異由兩個因數造成。其一是1929年以前的時間是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的節氣計算方法不是很準確。";
+
+            desc = desc1+"芒種"+desc2+"6月6日"+desc3;
+            items.push({y:1844, m:6, w:desc});
+            desc = desc1+"小雪"+desc2+"11月23日"+desc3;
+            items.push({y:1846, m:11, w:desc});
+            desc = desc1+"冬至"+desc2+"12月22日。 據我計算，冬至時刻應是12月21日23:59:37(UT1+8)"+desc3;
+            items.push({y:1848, m:12, w:desc});
+            desc = desc1+"立夏"+desc2+"5月5日"+desc3;
+            items.push({y:1849, m:5, w:desc});
+            desc = desc1+"寒露"+desc2+"10月9日"+desc3;
+            items.push({y:1850, m:10, w:desc});
+            desc = desc1+"秋分"+desc2+"9月24日"+desc3;
+            items.push({y:1851, m:9, w:desc});
+            desc = desc1+"大雪"+desc2+"12月8日"+desc3;
+            items.push({y:1851, m:12, w:desc});
+            desc = desc1+"穀雨"+desc2+"4月20日"+desc3;
+            items.push({y:1855, m:4, w:desc});
+            desc = desc1+"霜降"+desc2+"10月24日"+desc3;
+            items.push({y:1862, m:10, w:desc});
+            desc = desc1+"立冬"+desc2+"11月8日"+desc3;
+            items.push({y:1862, m:11, w:desc});
+            desc = desc1+"大暑"+desc2+"7月23日"+desc3;
+            items.push({y:1864, m:7, w:desc});
+            desc = desc1+"霜降"+desc2+"10月24日"+desc3;
+            items.push({y:1866, m:10, w:desc});
+            desc = desc1+"小暑"+desc2+"7月8日"+desc3;
+            items.push({y:1867, m:7, w:desc});
+            desc = desc1+"處暑"+desc2+"8月24日"+desc3;
+            items.push({y:1867, m:8, w:desc});
+            desc = desc1+"小寒"+desc2+"1月6日"+desc3;
+            items.push({y:1879, m:1, w:desc});
+            desc = desc1+"小雪"+desc2+"11月23日"+desc3;
+            items.push({y:1879, m:11, w:desc});
+            desc = desc1+"寒露"+desc2+"10月9日"+desc3;
+            items.push({y:1883, m:10, w:desc});
+            desc = desc1+"秋分"+desc2+"9月23日"+desc3;
+            items.push({y:1884, m:9, w:desc});
+            desc = desc1+"大雪"+desc2+"12月7日"+desc3;
+            items.push({y:1884, m:12, w:desc});
+            desc = desc1+"立秋"+desc2+"8月8日"+desc3;
+            items.push({y:1886, m:8, w:desc});
+            desc = desc1+"霜降"+desc2+"10月24日"+desc3;
+            items.push({y:1895, m:10, w:desc});
+            desc = desc1+"立冬"+desc2+"11月8日"+desc3;
+            items.push({y:1895, m:11, w:desc});
+            desc = desc1+"白露"+desc2+"9月8日"+desc3;
+            items.push({y:1898, m:9, w:desc});
+            desc = desc1+"夏至"+desc2+"6月22日"+desc3;
+            items.push({y:1899, m:6, w:desc});
+            desc = desc1+"霜降"+desc2+"10月24日"+desc3;
+            items.push({y:1899, m:10, w:desc});
+        }
+        
+        var i;
+        for (i=0; i<items.length; i++) {
+            if (y==items[i].y) {
+                if (m==items[i].m) {
+                    warn = items[i].w;
+                }
+            }
+        }
+    }
+    
+    // Waring for years after 1900
     if (y==1912) {
         if (m==11) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of  Z10 on Nov. 23. It was calculated based on a method developed in 1742. The method was pretty good at the time (1742) but was inaccurate by today's standard. A more accuracy method was adopted in the calendar calculation after 1913.";
             } else {
-                warn = "&#30070;&#26178;&#36890;&#34892;&#30340;&#26085;&#26310;&#26159;&#26681;&#25818;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#65292;&#23567;&#38634;&#30340;&#26085;&#26399;&#21015;&#28858;11&#26376;23&#26085;&#12290;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#35041;1912&#33267;1913&#24180;&#30340;&#26310;&#27861;&#35336;&#31639;&#26159;&#26681;&#25818;1742&#24180;(&#21363;&#28165;&#20094;&#40845;&#19971;&#24180;)&#32232;&#23531;&#30340;&#12298;&#26310;&#20687;&#32771;&#25104;&#24460;&#32232;&#12299;&#12290;&#12298;&#26310;&#20687;&#32771;&#25104;&#24460;&#32232;&#12299;&#25104;&#26360;&#26178;&#22312;&#30070;&#26178;&#36996;&#31639;&#20808;&#36914;&#65292;&#29694;&#22312;&#30475;&#20358;&#26159;&#24456;&#19981;&#28310;&#30906;&#30340;&#12290;&#25152;&#20197;&#33258;1914&#24180;&#36215;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#25505;&#29992;&#22283;&#22806;&#26032;&#26041;&#27861;&#35336;&#31639;&#26310;&#27861;&#12290;";
+                warn = "當年的《中華民國曆書》把小雪的日期列為11月23日。《中華民國曆書》裡1912至1913年的曆法計算是根據1742年(即清乾龍七年)編寫的《曆像考成後編》。《曆像考成後編》成書時在當時還算先進，現在看來是很不準確的。所以自1914年起《中華民國曆書》採用國外新方法計算曆法。";
             }
         }
     }
@@ -700,7 +835,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of Z8 (September equinox) on Sep. 24. It was calculated based on a method developed in 1742. The method was pretty good at the time (1742) but was inaccurate by today's standard. A more accuracy method was adopted in the calendar calculation after 1913.";
             } else {
-                warn = "&#30070;&#26178;&#36890;&#34892;&#30340;&#26085;&#26310;&#26159;&#26681;&#25818;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#65292;&#31179;&#20998;&#30340;&#26085;&#26399;&#21015;&#28858;9&#26376;24&#26085;&#12290;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#35041;1912&#33267;1913&#24180;&#30340;&#26310;&#27861;&#35336;&#31639;&#26159;&#26681;&#25818;1742&#24180;(&#21363;&#28165;&#20094;&#40845;&#19971;&#24180;)&#32232;&#23531;&#30340;&#12298;&#26310;&#20687;&#32771;&#25104;&#24460;&#32232;&#12299;&#12290;&#12298;&#26310;&#20687;&#32771;&#25104;&#24460;&#32232;&#12299;&#25104;&#26360;&#26178;&#22312;&#30070;&#26178;&#36996;&#31639;&#20808;&#36914;&#65292;&#29694;&#22312;&#30475;&#20358;&#26159;&#24456;&#19981;&#28310;&#30906;&#30340;&#12290;&#25152;&#20197;&#33258;1914&#24180;&#36215;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#25505;&#29992;&#22283;&#22806;&#26032;&#26041;&#27861;&#35336;&#31639;&#26310;&#27861;&#12290;";
+                warn = "當年的《中華民國曆書》把秋分的日期列為9月24日。《中華民國曆書》裡1912至1913年的曆法計算是根據1742年(即清乾龍七年)編寫的《曆像考成後編》。《曆像考成後編》成書時在當時還算先進，現在看來是很不準確的。所以自1914年起《中華民國曆書》採用國外新方法計算曆法。";
             }
         }
     }
@@ -718,7 +853,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of J11 on Dec. 7. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
             } else {
-                warn = "&#30070;&#26178;&#36890;&#34892;&#30340;&#26085;&#26310;&#26159;&#26681;&#25818;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#65292;&#22823;&#38634;&#30340;&#26085;&#26399;&#21015;&#28858;12&#26376;7&#26085;&#12290;&#36889;&#26159;&#22240;&#28858;1929&#24180;&#20197;&#21069;&#26178;&#21051;&#26159;&#29992;&#21271;&#20140;&#22320;&#26041;&#26178;(&#26481;&#32147;116&deg;25')&#65292;&#32780;&#26412;&#32178;&#38913;&#21015;&#20986;&#30340;&#26178;&#21051;&#21371;&#26159;&#29992;&#29694;&#26178;&#20840;&#22283;&#36890;&#34892;&#30340;&#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#12290; &#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#27604;&#21271;&#20140;&#22320;&#26041;&#26178;&#36978;14&#20998;25&#31186;&#12290;";
+                warn = "當年的《中華民國曆書》把大雪的日期列為12月7日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
             }
         }
     }
@@ -732,7 +867,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of J8 on Sep. 8. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
             } else {
-                warn = "&#30070;&#26178;&#36890;&#34892;&#30340;&#26085;&#26310;&#26159;&#26681;&#25818;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#65292;&#30333;&#38706;&#30340;&#26085;&#26399;&#21015;&#28858;9&#26376;8&#26085;&#12290;&#36889;&#26159;&#22240;&#28858;1929&#24180;&#20197;&#21069;&#26178;&#21051;&#26159;&#29992;&#21271;&#20140;&#22320;&#26041;&#26178;(&#26481;&#32147;116&deg;25')&#65292;&#32780;&#26412;&#32178;&#38913;&#21015;&#20986;&#30340;&#26178;&#21051;&#21371;&#26159;&#29992;&#29694;&#26178;&#20840;&#22283;&#36890;&#34892;&#30340;&#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#12290; &#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#27604;&#21271;&#20140;&#22320;&#26041;&#26178;&#36978;14&#20998;25&#31186;&#12290;";
+                warn = "當年的《中華民國曆書》把白露的日期列為9月8日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
             }
         }
     }
@@ -742,7 +877,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of Z5 (June solstice) on June 21. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
             } else {
-                warn = "&#30070;&#26178;&#36890;&#34892;&#30340;&#26085;&#26310;&#26159;&#26681;&#25818;&#12298;&#20013;&#33775;&#27665;&#22283;&#26310;&#26360;&#12299;&#65292;&#22799;&#33267;&#30340;&#26085;&#26399;&#21015;&#28858;6&#26376;21&#26085;&#12290;&#36889;&#26159;&#22240;&#28858;1929&#24180;&#20197;&#21069;&#26178;&#21051;&#26159;&#29992;&#21271;&#20140;&#22320;&#26041;&#26178;(&#26481;&#32147;116&deg;25')&#65292;&#32780;&#26412;&#32178;&#38913;&#21015;&#20986;&#30340;&#26178;&#21051;&#21371;&#26159;&#29992;&#29694;&#26178;&#20840;&#22283;&#36890;&#34892;&#30340;&#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#12290; &#26481;&#32147;120&deg;&#27161;&#28310;&#26178;&#27604;&#21271;&#20140;&#22320;&#26041;&#26178;&#36978;14&#20998;25&#31186;&#12290;";
+                warn = "當年的《中華民國曆書》把夏至的日期列為6月21日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
             }
         }
     }
@@ -889,6 +1024,44 @@ function warningMessage(y, m, lang, langVars) {
     }
     
     return warn;
+}
+
+// Insert era name (年號) if appropriate
+function eraName(year) {
+    // set up an array of objects to store era name information
+    var eras = [{y:1912, e:""}, {y:1909, e:"清遜帝宣統"}, 
+           {y:1875, e:"清德宗光緒"}, {y:1862, e:"清穆宗同治"}, 
+           {y:1851, e:"清文宗咸豐"}, {y:1821, e:"清宣宗道光"}, 
+           {y:-99999, e:""}];
+    
+    var chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];
+    var n = eras.length;
+    var era="";
+    for (var i=0; i<n; i++) {
+        if (year >= eras[i].y) {
+            if (eras[i].e != "") {
+                era = "("+eras[i].e;
+                var ey = year - eras[i].y + 1;
+                if (ey==1) {
+                    era += "元年)";
+                } else if (ey < 11) {
+                    era += chineseNumbers[ey-1]+"年)";
+                } else if (ey < 20) {
+                    era += chineseNumbers[9]+chineseNumbers[ey-11]+"年)";
+                } else {
+                    var i1 = Math.floor(ey*0.1);
+                    var i0 = ey - 10*i1;
+                    era += chineseNumbers[i1-1]+chineseNumbers[9];
+                    if (i0 > 0) {
+                        era += chineseNumbers[i0-1];
+                    }
+                    era += "年)";
+                }
+            }
+            break;
+        }
+    }
+    return era;
 }
 
 // Compute JD at midnight UT
