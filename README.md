@@ -1,16 +1,16 @@
-# Conversion between Gregorian and Chinese Calendar (1901-2200) 
-# 三 百 年 年 曆 (1901 – 2200) — 公 曆 和 農 曆 日 期 對 照
+# Conversion between Gregorian and Chinese Calendar (1841-2200) 
+# 1841年 – 2200年 公 曆 和 農 曆 日 期 對 照
 
-This package contains HTML files, javascript files, and a pdf documentation. 
+This package contains HTML files, javascript files, and pdf documentation. 
 
-The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Gregorian calendar and Chinese calendar for any year between 1901 and 2200. The other pages are linked at the top of the main page. They are self-explanatory. 
+The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Gregorian calendar and Chinese calendar for any year between 1841 and 2200. The other pages are linked at the top of the main page. They are self-explanatory. 
 
 ## Files:
 
 All of the following HTML files have Chinese version. They have the same names but with \_chinese as a suffix.
 
-- index.html: main HTML page showing the conversion between the Gregorian calendar and Chinese calendar for any year between 1901 and 2200. 
-- table.html: HTML page showing a conversion table between the two calendars from 1901 to 2200.
+- index.html: main HTML page showing the conversion between the Gregorian calendar and Chinese calendar for any year between 1841 and 2200. 
+- table.html: HTML page showing a conversion table between the two calendars from 1841 to 2200.
 - solarTerms.html: HTML page explaining the 24 solar terms.
 - sexagenary.html: HTML page explaining the sexagenary cycle.
 - rules.html: HTML page explaining the rules for the Chinese calendar.
@@ -19,7 +19,7 @@ All of the following HTML files have Chinese version. They have the same names b
 - calendar.css: CSS file for the HTML pages mentioned above. 
 - calendar_chinese.css: CSS file for the Chinese version of the HTML pages mentioned above.
 - header.js: JavaScript file for creating the header in all HTML pages, including the Chinese version of the HTML pages.
-- calendarData20180909.js: contains data used for conversion between the Gregorian calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between 1900 and 2200. I computed these data and put them into JSON format. The number 20180909 indicates that they were computed on September 9, 2018. This file is used by index.html, table.html and the Chinese version of these two files.
+- calendarData20181127.js: contains data used for conversion between the Gregorian calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between 1840 and 2200. I computed these data and put them into JSON format. The number 20181127 indicates that they were updated on November 27, 2018. This file is used by index.html, table.html and the Chinese version of these two files.
 - calendar.js: JavaScript file for handling the activities on index.html and index_chinese.html.
 - table.js: JavaScript file for handling the activities on table.html and table_chinese.html.
 - calendarEngLegend.png/calendarChiLegend.png: image file used by index.html/index_chinese.html.
