@@ -1029,7 +1029,7 @@ function warningMessage(y, m, lang, langVars) {
 // Insert era name (年號) if appropriate
 function eraName(year) {
     // set up an array of objects to store era name information
-    var eras = [{y:1912, e:""}, {y:1909, e:"清遜帝宣統"}, 
+    var eras = [{y:1912, e:""}, {y:1909, e:"清宣統"}, 
            {y:1875, e:"清德宗光緒"}, {y:1862, e:"清穆宗同治"}, 
            {y:1851, e:"清文宗咸豐"}, {y:1821, e:"清宣宗道光"}, 
            {y:-99999, e:""}];
