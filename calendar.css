@@ -127,6 +127,56 @@ li {
     background-color:#4CAF50;
 }
 
+button.calendars {
+    background-color: #c5fe38;
+    cursor: pointer;
+    padding: 10px;
+    width: 100px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button.calendars.active {
+    background-color: #ffb3b3;
+}
+
+button.calendars:hover {
+    background-color: yellow;
+}
+
+button.select {
+    background-color:transparent;
+    cursor: pointer;
+    padding: 5px;
+    border:none;
+    outline: none;
+    text-decoration:underline;
+    color:blue;
+}
+
+button.select:hover {
+    background-color: #e1e1d0;
+}
+
+button.return {
+    background-color:#edc9ff;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 20px;
+    font-weight:bold;
+    margin: 2px 2px;
+    border:none;
+    text-decoration:underline;
+    color:blue;
+}
+
+button.return:hover {
+    background-color:orange;
+}
+
 .greek {
     font-family: serif;
     font-size: 130%;
@@ -134,6 +184,10 @@ li {
 
 .ref {
     color:green;
+}
+
+.nowrap {
+    white-space:nowrap;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -160,4 +214,42 @@ input[type=button] {
     font-weight: 500;
     margin: 2px 2px;
     cursor: pointer;
+}
+
+button.accordion {
+     background-color: #F5F5F5;
+     color: #444;
+     cursor: pointer;
+     padding: 10px;
+     width: 100%;
+     border: none;
+     text-align: left;
+     outline: none;
+     font-size: 16px;
+     font-weight: bold;
+}
+
+button.accordion.active, button.accordion:hover {
+     background-color: #E0E0E0;
+}
+
+button.accordion:before {
+     content: '\2795';
+     font-size: 20px;
+     color: #777;
+     font-weight: bold;
+     margin-left: 0.5em;
+     float: right;
+}
+
+button.accordion.active:before {
+     content: '\2796';
+}
+
+div.panel {
+     padding: 0px 18px;
+     background-color: white;
+     max-height: 0;
+     overflow: hidden;
+     outline: 1px solid #E0E0E0;
 }

@@ -1,30 +1,42 @@
-# Conversion between Gregorian and Chinese Calendar (1841-2200) 
-# 1841年 – 2200年 公 曆 和 農 曆 日 期 對 照
+# Conversion between Western and Chinese Calendar (722 B.C. - 2200 A.D.) 
+# 公 曆 和 農 曆 日 期 對 照 (公元前722年- 公元2200年)
 
 This package contains HTML files, javascript files, and pdf documentation. 
 
-The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Gregorian calendar and Chinese calendar for any year between 1841 and 2200. The other pages are linked at the top of the main page. They are self-explanatory. 
+The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Western calendar and Chinese calendar for any year between 722 B.C. and 2200 A.D. The other pages are linked at the top of the main page. They are self-explanatory. 
 
 ## Files:
 
-All of the following HTML files have Chinese version. They have the same names but with \_chinese as a suffix.
+Almost all of the following HTML files have both English and Chinese versions. They have the same names but with \_chinese as a suffix.
 
-- index.html: main HTML page showing the conversion between the Gregorian calendar and Chinese calendar for any year between 1841 and 2200. 
-- table.html: HTML page showing a conversion table between the two calendars from 1841 to 2200.
+- index.html: main HTML page showing the conversion between the Western calendar and Chinese calendar for any year between 722 B.C. and 2200 A.D.
+- table.html: HTML page showing a conversion table between the two calendars.
 - solarTerms.html: HTML page explaining the 24 solar terms.
 - sexagenary.html: HTML page explaining the sexagenary cycle.
 - rules.html: HTML page explaining the rules for the Chinese calendar.
 - examples.html: HTML page demonstrating the computation of Chinese calendar. There is also a discussion about the exceptional year 2033. 
 - rules_demysterified.html: HTML page explaining how the rules of the Chinese calendar manage to keep both the lunar cycle and cycle of seasons in sync with the calendar. There is also a discussion on the 19-year cycle and the average length of a year and a month in the Chinese calendar.
+- computation.html: documentation of the calendar calculation used here.
+- era_names.html: Era/reign names used in the Chinese history (in Chinese). 
+- era.js: javascript file for displaying the era/reign names in index_chinese.html
+- chunqiu.html: documentation -- Reconstruction of the Chunqiu Calendar
+- guliuli.html: documentation -- Computation of the Ancient Six Calendars
+- QinHanCalendars.html: documentation -- Reconstruction of Calendars in the Qin and Early Han Dynasties
+- QinHanSolarTerms.html: Dates of Selected Solar Terms in Qin and Early Han Dynasties
+- discrepanciesQing.html: Discrepancies Between Modern Calculation and Historical Data (1645 - 1911) 
+- 3500Calendars_errors.html: Errors in the book 3500 Years of Calendars and Astronomical Phenomena (in Chinese)
 - calendar.css: CSS file for the HTML pages mentioned above. 
 - calendar_chinese.css: CSS file for the Chinese version of the HTML pages mentioned above.
 - header.js: JavaScript file for creating the header in all HTML pages, including the Chinese version of the HTML pages.
-- calendarData20181127.js: contains data used for conversion between the Gregorian calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between 1840 and 2200. I computed these data and put them into JSON format. The number 20181127 indicates that they were updated on November 27, 2018. This file is used by index.html, table.html and the Chinese version of these two files.
+- calendarData20190324.js: contains data used for conversion between the Western calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between -721 and 2200. I computed these data and put them into JSON format. The number 20190324 indicates that they were updated on March 24, 2019. This file is used by index.html, table.html and the Chinese version of these two files.
 - calendar.js: JavaScript file for handling the activities on index.html and index_chinese.html.
 - table.js: JavaScript file for handling the activities on table.html and table_chinese.html.
+- ancientCalendars.js: contain functions that handle the calendars before 104 B.C.
 - calendarEngLegend.png/calendarChiLegend.png: image file used by index.html/index_chinese.html.
 - 24solarTermsEng.png/24solarTermsChi.png: image file used by solarTerms.html/solarTerms_chinese.html.
 - NianAvg1.png, NianAvg2.png, YueAvg.png: image files used by rules_demysterified.html and rules_demysterified_chinese.html.
+- Dipper.jpg Dipper_chinese.jpg direction_branch.png direction_branch_chinese.png: image files used by sexagenary.html and sexagenary_chinese.html
+- QinHanConjTimeLag.jpg QinHanConjTimeLag_chinese.jpg: image files used by QinHanCalendars.html and QinHanCalendars_chinese.html
 - TDBtimes.txt: TDB times of moon phases and 24 solar terms between 1600 and 3500 calculated from JPL ephemeris DE431 and using the IAU 2006/2000A precession-nutation model. 
 - TDBtimes_extended.txt.gz: (gzipped) TDB times of moon phases and 24 solar terms between -4000 and 8000 calculated from JPL ephemeris DE431 and using the Vondrak et al 2011 precession model and IAU2000A nutation model.
 - docs/sunMoon.pdf: PDF file explaining how I compute the times of the moon phases and 24 solar terms used for the calendar calculation. 

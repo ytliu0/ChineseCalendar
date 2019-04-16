@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
-<title>Chinese-Gregorian Calendar Conversion Table</title>
+<title>農曆和公曆日期對照表</title>
 <link rel="stylesheet" href="calendar_chinese.css">
 <script src="header.js"></script>
-<script src="calendarData20181127.js"></script>
+<script src="calendarData20190324.js"></script>
+<script src="ancientCalendars.js"></script>
 <script src="table.js"></script>    
 </head>
 
@@ -16,19 +17,85 @@
 <div id="wrapper">
 <div id="menu"></div>
 <h2 style="text-align:right;"><a href="table.html">English &#x82F1;&#x6587;</a></h2>
+    
+<div id="mainMenu">
 <h1>農 曆 和 公 曆 日 期 對 照 表</h1>
 <br />
-<p>下表列出由1841年至2200年農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。
-</p>
+<p style="font-size:120%;">選擇時代:</p>
 
-<p>農曆每月的初一定於朔(又稱新月)的日期，由於數十年後朔的UTC+8時刻難以準確推算，如果朔的時刻接近午夜零時，初一的確實日期或會與表列日期有一日之差。這些情況出現在公曆2057年9月29日、2089年9月4日、2097年8月7日、2133年9月28日、2172年10月17日和2192年5月12日. 下表把這些可能有一日誤差的初一日用紅色顯示並加上星號。
-</p>
+<p><button class="select" onClick="setup_table(1,'Spring')"><h3>春秋 (公元前722 &ndash; 前481)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'Warring')"><h3>戰國 (公元前480 &ndash; 前222)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'qinhanxin')"><h3>秦、西漢、新 (公元前221 &ndash; 24)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'easternhan')"><h3>東漢 (公元25 &ndash; 219)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'weijin')"><h3>魏、晉 (公元220 &ndash; 419)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'snsui')"><h3>南北朝、隋朝 (公元420 &ndash; 617)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'tang5')"><h3>唐朝、五代 (公元618 &ndash; 959)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'song')"><h3>宋朝 (公元960 &ndash; 1279)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'yuan')"><h3>元朝 (公元1280 &ndash; 1367)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'ming')"><h3>明朝 (公元1368 &ndash; 1644)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'qing')"><h3>清朝 (公元1645 &ndash; 1911)</h3></button></p>
+<p><button class="select" onClick="setup_table(1,'recent')"><h3>公元1912 &ndash; 2200</h3></button></p>
+</div>
     
-<p><a href="rules_chinese.html#calculation">本網站的農曆編算方法</a></p>
+<div id="title">
+</div>
+    
+<div id="returnMainMenu" style="display:none;">
+<p><button class="return" onClick="return_menu()">返回目錄，選擇其他時代。</button></p>
+    <br />
+</div>
+    
+<div id="Spring" style="display:none;">
+<p>春秋時期(公元前722年 &ndash; 前481年)各國施行不同曆法，現在我們只能從《春秋》這部由孔子修訂的魯國編年史書中獲得當時魯國施行曆法的不完整資料。這裡稱當時魯國的曆法為春秋曆，本網頁的春秋曆是根據張培瑜、陳美東、薄樹人和胡鐵珠著的《中国古代历法》(中国科学出版社‧北京‧2008年3月)書中第三章第五節的資料復原。具體計算方法在<a href="chunqiu_chinese.html">春秋曆網頁</a>闡述。</p>
+    
+<p>除了春秋曆外，這裡還提供周曆、殷曆和夏曆(其中三部古六曆)的資料。一般認為這三部曆法應在春秋末期或戰國時代才建立，把這三部曆法在春秋時期列出僅供參考而已。本網頁的古六曆是根據《中国古代历法》書中第三章第六節的資料復原。具體計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>闡述。</p>
+    
+<p>現在下面顯示的曆法是<span id="calshownSpring"></span>曆，但可點擊下面的按鍵改變顯示的曆法。</p>
+    <br />
+<h3>選 擇 曆 法: </h3>
+    <p> 
+        <button id="chunqiuSpring" class="calendars active" onClick="select_calendar_table('chunqiuSpring',1)">春秋曆</button>
+        <button id="zhouSpring" class="calendars" onClick="select_calendar_table('zhouSpring',1)">周曆</button>
+        <button id="yinSpring" class="calendars" onClick="select_calendar_table('yinSpring',1)">殷曆</button>
+        <button id="xiaSpring" class="calendars" onClick="select_calendar_table('xiaSpring',1)">夏曆</button>
+    </p>
+<br />
+<p id="SpringliDescription" style="color:brown;"></p>
+          <br />
+</div>
+    
+<div id="Warring" style="display:none;">
+<p>戰國時代(前480年至前222年)各國施行不同曆法，當時使用的曆法有六種:周曆、魯曆、殷曆、夏曆、黃帝曆和顓頊曆，合稱「古六曆」。六種曆法的計算方法大致相同，但各曆的年首不盡相同，用以計算曆法的曆元也不同。本網頁的古六曆是根據張培瑜、陳美東、薄樹人和胡鐵珠著的《中国古代历法》(中国科学出版社‧北京‧2008年3月)書中第三章第六節的資料復原。具體計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>闡述。</p>
+
+<p>現在下面顯示的古六曆是<span id="calshownWarring"></span>曆，但可點擊下面的按鍵改變顯示的古六曆。。</p>
+    
+<br />
+<h3>選 擇 古 六 曆: </h3>
+    <p> 
+        <button id="zhouWarring" class="calendars active" onClick="select_calendar_table('zhouWarring',1)">周曆</button>
+        <button id="luWarring" class="calendars" onClick="select_calendar_table('luWarring',1)">魯曆</button>
+        <button id="huangdiWarring" class="calendars" onClick="select_calendar_table('huangdiWarring',1)">黃帝曆</button>
+        <button id="yinWarring" class="calendars" onClick="select_calendar_table('yinWarring',1)">殷曆</button>
+        <button id="xiaWarring" class="calendars" onClick="select_calendar_table('xiaWarring',1)">夏曆</button>
+        <button id="zhuanxuWarring" class="calendars" onClick="select_calendar_table('zhuanxuWarring',1)">顓頊曆</button>
+    </p>
+<br />
+<p id="guliuliDescription" style="color:brown;"></p>
+    <br />
+</div>
+    
+<div id="description">
+</div>
     
 <div id="table">
 </div>
-<br />
+<div id="returnMainMenuEnd" style="display:none;">
+<p><button class="return" onClick="return_menu()">返回目錄，選擇其他時代。</button></p>
+    <br />
+</div>
+    
+<br /><br />
+<p style="font-size:90%;">首創於2018年9月(只函蓋1901年&ndash;2200年)，最近一次重大修改是2019年3月。</p>
 </div> <!-- end of wrapper -->
 
 </body>

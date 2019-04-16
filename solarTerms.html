@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<meta name="keywords" content="Chinese Calendar, 24 solar terms, equinox, solstice, sui" />
+<meta name="keywords" content="Chinese Calendar, 24 solar terms, equinox, solstice, sui, pingqi, dingqi" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,6 +15,8 @@
 <div id="menu"></div>
 <h2 style="text-align:right;"><a href="solarTerms_chinese.html">Chinese &#x4E2D;&#x6587;</a></h2>
 <h1>24 Solar Terms (&#20108; &#21313; &#22235; &#31680; &#27683;)</h1>
+    
+<p>First draft: October 2018</p>
 
 <br />    
 <p>As seen on Earth, the Sun moves eastward relative to stars in the celestial sphere with a period of one year. The path of the Sun on the celestial sphere is a great circle and is called the <i>ecliptic</i>. This is Earth's orbital plane projected onto the celestial sphere. In the past, Chinese astronomers determined the position of the Sun in the ecliptic using a <a href="http://hua.umf.maine.edu/China/astronomy/tianpage/0022MingGnomon6471w.html" target="_blank">gnomon</a>. It measures the length of the shadow of an upright pole cast by the Sun at solar noon. Here solar noon means the time of a day when the Sun is due south (at locations north of the <a href="https://en.wikipedia.org/wiki/Tropic_of_Cancer" target="_blank">tropic of Cancer</a>). The day at which the shadow at solar noon is the longest is called <i>d&#333;ngzh&#236;</i>, or winter solstice. The period between two successive winter solstices is called a <i>su&#236;</i>, whereas the period between two successive Chinese New Year days is called a <i>ni&#225;n</i>. Today, <i>su&#236;</i> is rarely used to measure time, except when talking about a person's age, and <i>ni&#225;n</i> generally refers to a year in Gregorian calendar.</p>
@@ -55,6 +57,18 @@ to the Astronomical Almanac</i></a> (third edition).</p>
 </table>
 <br />
 <p>Note that the 24 solar terms are based on the position of the Sun only. Gregorian calendar is also arranged based on the Sun's position. As a result, the Gregorian dates of the 24 solar terms are almost the same every year, give or take one or two days. In the past, dates of 24 solar terms were published every year in the Chinese calendar. Many people therefore  think that 24 solar terms are related to lunar calendar, which is wrong. The 24 solar terms are used to insert leap (intercalary) months in the Chinese calendar to keep it in sync with seasons, as explained in the <a href="rules.html">Chinese Calendar Rules</a> page.</p>
+<br />
+    
+<h2>P&#237;ngq&#236; and D&#236;ngq&#236;</h2>
+    
+<p>The 24 solar terms defined above based on the position of the Sun on the ecliptic are called <i>d&#236;ngq&#236;</i> (&#23450;&#27683;). Before 1645, the 24 solar terms were calculated by dividing the tropical year evenly into 24 periods. The time between two solar terms was therefore a constant. This is called <i>p&#237;ngq&#236;</i> (&#24179;&#27683;). In other words, the solar terms calculated using the <i>p&#237;ngq&#236;</i> rule are based on the mean motion of the Sun.</p>
+    
+<p>Under the <i>p&#237;ngq&#236;</i> rule, the time between two major solar terms is (365.2422/12) days = 30.44 days. The Chinese calendar assigns the day of lunation conjunction (new moon) as the first day of a Chinese month. As a result, even if a major solar term (defined using <i>p&#237;ngq&#236;</i>) occurs at midnight on the day of a new moon, the next major solar term must occur in the following Chinese month since there can only be 30 days in a month. It follows that there can only be at most one major solar term in a month. Before 1645, the 12 major solar terms were used to define the numerical order of a Chinese month: the Chinese month containing Z1 was defined as month 1; the month containing Z2 was defined as month 2 and so on. If a Chinese month did not contain a major solar term, it was desnigated as a leap (intercalary) month. This is the famous "no zh&#333;ngq&#236; rule" for inserting leap months.</p>
+    
+<p>When <i>d&#236;ngq&#236;</i> was adopted in 1645, the old system no longer works because it is now possible to have two major solar terms occurring in a month and more than one month containing no major solar term in a su&#236;. This is because the motion of the Sun on the ecliptic is not uniform. It moves faster when the Earth is closer to the Sun and slower when the Earth is farther from the Sun. The time between two major solar terms (defined using <i>d&#236;ngq&#236;</i>) can vary between 29.44 days and 31.44 days. It is therefore possible to squeeze two major solar terms between the dates of two new moons when the two major solar terms are separated by less than 30 days. The numerical order of a month has to be determined by a slightly complicated rule (see <a href="rules.html">Chinese calendar rules</a> page). However, having two major solar terms within a month is very rare. It only occurs once or twice in a century. So most of the times Z1 is in month 1; Z2 is in month 2 and so on.</p>
+    
+<p>The computation of the times of the 24 solar terms defined by <i>p&#237;ngq&#236;</i> is very easy. If we know the time of a particular solar term, the times of the other solar terms are determined by adding integer multiples of (tropical year)/24. However, there had been many versions of calendars developed over the Chinese history. Each time a new calendar was developed, the time of a particular solar term was adjusted to match the obseravtional data. In addition, the adopted length of a tropical year varied slightly from calendars to calendars. Hence, the solar terms (defined by <i>p&#237;ngq&#236;</i>) over the history of China may be computed by a piecewise linear function.</p>
+    
 </div> <!-- end of wrapper -->
 <br /><br />
 </body>

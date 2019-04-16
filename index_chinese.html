@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
-<title>1841年–2200年 公曆和農曆日期對照</title>
+<title>公曆和農曆日期對照(公元前722年&mdash;公元2200年)</title>
 <link rel="stylesheet" href="calendar_chinese.css">
 <script src="header.js"></script>
-<script src="calendarData20181127.js"></script>
+<script src="calendarData20190324.js"></script>
+<script src="ancientCalendars.js"></script> 
+<script src="eras.js"></script> 
 <script src="calendar.js"></script>    
 </head>
 
@@ -18,19 +20,60 @@
 <div id="menu"></div>
 <h2 style="text-align:right;"><a href="index.html">English 英文</a></h2>
 
-<h1>1841年 – 2200年 公 曆 和 農 曆 日 期 對 照</h1>
+<h1>公 曆 和 農 曆 日 期 對 照 (公元前722年&mdash;公元2200年)</h1>
 
 <br />
     
-<h3>輸入 1841 和 2200 之間的公曆年: <input type="number" id="year" step="1" min="1841" max="2200" />
+<h3>輸入 -721 和 2200 之間的公曆年: <input type="number" id="year" step="1" min="-721" max="2200" />
 &nbsp; &nbsp; 
 <input type="button" value="輸入" 
 onClick="submitYear(1)" /></h3>
+    
+<p>(0=公元前1年、-1=公元前2年、-2=公元前3年、餘類推。)</p>
     
 <p style="color:red;" id="err"></p>
 <hr />
     <p><a href="#explanation"><h3>月 曆 表 說 明</h3></a></p>
 <br />
+    
+<div id="Spring" style="display:none;">
+<p style="color:brown;">春秋時期(公元前722年 &ndash; 前481年)各國施行不同曆法，現在我們只能從《春秋》這部由孔子修訂的魯國編年史書中獲得當時魯國施行曆法的不完整資料。這裡稱當時魯國的曆法為春秋曆，本網頁的春秋曆是根據張培瑜、陳美東、薄樹人和胡鐵珠著的《中国古代历法》(中国科学出版社‧北京‧2008年3月)書中第三章第五節的資料復原。具體計算方法在<a href="chunqiu_chinese.html">春秋曆網頁</a>闡述。</p>
+    
+<p style="color:brown;">除了春秋曆外，這裡還提供周曆、殷曆和夏曆(其中三部古六曆)的資料。一般認為這三部曆法應在春秋末期或戰國時代才建立，把這三部曆法在春秋時期列出僅供參考而已。本網頁的古六曆是根據《中国古代历法》書中第三章第六節的資料復原。具體計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>闡述。</p>
+    
+<p style="color:brown;">現在下面顯示的曆法是<span id="calshownSpring"></span>曆，但可點擊下面的按鍵改變顯示的曆法。</p>
+    <br />
+<h3>選 擇 曆 法: </h3>
+    <p> 
+        <button id="chunqiuSpring" class="calendars active" onClick="select_calendar('chunqiuSpring',1)">春秋曆</button>
+        <button id="zhouSpring" class="calendars" onClick="select_calendar('zhouSpring',1)">周曆</button>
+        <button id="yinSpring" class="calendars" onClick="select_calendar('yinSpring',1)">殷曆</button>
+        <button id="xiaSpring" class="calendars" onClick="select_calendar('xiaSpring',1)">夏曆</button>
+    </p>
+<br />
+<p id="SpringliDescription" style="color:brown;"></p>
+          <br />
+</div>
+    
+<div id="Warring" style="display:none;">
+<p style="color:brown;">戰國時代(約前480年至前222年)各國施行不同曆法，當時使用的曆法有六種:周曆、魯曆、殷曆、夏曆、黃帝曆和顓頊曆，合稱「古六曆」。六種曆法的計算方法大致相同，但各曆的年首不盡相同，用以計算曆法的曆元也不同。本網頁的古六曆是根據張培瑜、陳美東、薄樹人和胡鐵珠著的《中国古代历法》(中国科学出版社‧北京‧2008年3月)書中第三章第六節所述的資料復原。具體計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>敘述。</p>
+    
+<p style="color:brown;">現在下面顯示的古六曆是<span id="calshownWarring"></span>曆，但可點擊下面的按鍵改變顯示的古六曆。</p>
+    
+<br />
+<h3>選 擇 古 六 曆: </h3>
+    <p> 
+        <button id="zhouWarring" class="calendars active" onClick="select_calendar('zhouWarring',1)">周曆</button>
+        <button id="luWarring" class="calendars" onClick="select_calendar('luWarring',1)">魯曆</button>
+        <button id="huangdiWarring" class="calendars" onClick="select_calendar('huangdiWarring',1)">黃帝曆</button>
+        <button id="yinWarring" class="calendars" onClick="select_calendar('yinWarring',1)">殷曆</button>
+        <button id="xiaWarring" class="calendars" onClick="select_calendar('xiaWarring',1)">夏曆</button>
+        <button id="zhuanxuWarring" class="calendars" onClick="select_calendar('zhuanxuWarring',1)">顓頊曆</button>
+    </p>
+<br />
+<p id="guliuliDescription" style="color:brown;"></p>
+    <br />
+</div>
 
 <div id="calendar">
 
@@ -43,13 +86,21 @@ onClick="submitYear(1)" /></h3>
     
 <p>農曆一年一般有十二個月，月份有大有小，大月三十日，小月二十九日。為了使農曆不偏離季節交替週期，農曆每三年左右會有一個閏月，含閏月的農曆年有十三個月。閏月名稱取上一個月的月數，然後在前面加上「閏」字。例如2017年農曆丁酉年六月之後是閏月，謂「閏六月」。</p>
     
-<p>現在的農曆一般用干支紀年，<a href="sexagenary_chinese.html">干支</a>也用來紀月、紀日和紀時，但民間較少使用。</p>
+<p>現在的農曆一般用干支紀年，<a href="sexagenary_chinese.html">干支</a>也用來紀月、紀日和紀時，但民間較少使用。月干支尤其少用，這裡自漢武帝太初元年(公元前104年)起的月曆才註有月干支。</p>
     
 <p>每月下面的月相和二十四節氣日期指公曆日期，時刻是用東經120&deg;標準時。</p>
     
-<p><a href="rules_chinese.html#calculation">本網站的農曆編算方法</a></p>
+<p>1912年前的農曆年附加帝王年號，年號與公曆年的對照可參看<a href="era_names.html">年號網頁</a>。</p>
     
-<br />
+<p>1734年前的日曆列出「曆書節氣」的日期。曆書節氣是指以當時曆法來計算的節氣。自清順治二年(1645年)起二十四節氣用定氣計算，之前則用平氣。曆書節氣上一行所示之二十四節氣以現今定義的方法計算，亦屬定氣。平氣和定氣的差別可參閱本網站的<a href="solarTerms_chinese.html">二十四節氣網頁</a>。1733年後的曆書節氣日期基本上與用現代方法計算的日期一致，所以除了那些曆書節氣與現代計算有差異外，其餘略去不註。</p>
+    
+<p>公曆在1582年10月15日及以後用格里高利曆，之前用儒略曆，公元8年以前則用逆推儒略曆(<a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" 
+target="_blank">proleptic Julian calendar</a>)。</p>
+    
+<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>
+    
+<br /><br />
+<p style="font-size:90%;">首創於2018年9月(只函蓋1901年&ndash;2200年)，最近一次重大修改是2019年3月。</p>
 </div> <!-- end of wrapper -->
 
 </body>
