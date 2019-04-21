@@ -17,6 +17,7 @@ Almost all of the following HTML files have both English and Chinese versions. T
 - examples.html: HTML page demonstrating the computation of Chinese calendar. There is also a discussion about the exceptional year 2033. 
 - rules_demysterified.html: HTML page explaining how the rules of the Chinese calendar manage to keep both the lunar cycle and cycle of seasons in sync with the calendar. There is also a discussion on the 19-year cycle and the average length of a year and a month in the Chinese calendar.
 - computation.html: documentation of the calendar calculation used here.
+- sunMoon.html: Times of Moon phases and 24 solar terms from -3500 to 3500.
 - era_names.html: Era/reign names used in the Chinese history (in Chinese). 
 - era.js: javascript file for displaying the era/reign names in index_chinese.html
 - chunqiu.html: documentation -- Reconstruction of the Chunqiu Calendar
@@ -32,6 +33,8 @@ Almost all of the following HTML files have both English and Chinese versions. T
 - calendar.js: JavaScript file for handling the activities on index.html and index_chinese.html.
 - table.js: JavaScript file for handling the activities on table.html and table_chinese.html.
 - ancientCalendars.js: contain functions that handle the calendars before 104 B.C.
+- sunMoonData.js: Dates and times of moon phases and solar terms from -3501 to 3502 in JSON.
+- sunMoon.js: JavaScript file for handling the activities on sunMoon.html and sunMoon_chinese.html
 - calendarEngLegend.png/calendarChiLegend.png: image file used by index.html/index_chinese.html.
 - 24solarTermsEng.png/24solarTermsChi.png: image file used by solarTerms.html/solarTerms_chinese.html.
 - NianAvg1.png, NianAvg2.png, YueAvg.png: image files used by rules_demysterified.html and rules_demysterified_chinese.html.

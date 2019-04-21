@@ -11,6 +11,7 @@ function header(lang, page) {
         txt += '<li id="menusexagenary"><a href="sexagenary.html">Sexagenary<br /> Cycle</a></li>';
         txt += '<li id="menurules"><a href="rules.html">Calendar<br /> Rules</a></li>';
         txt += '<li id="menucomputation"><a href="computation.html">Calendar<br /> Calculation</a></li>';
+        txt += '<li id="menusunmoon"><a href="sunMoon.html">Sun &amp; Moon<br />Phenomena</a></li>';
         txt += '</ul>';
     } else {
         // Chinese
@@ -21,6 +22,7 @@ function header(lang, page) {
         txt += '<li id="menusexagenary"><a href="sexagenary_chinese.html">&#20845; &#21313; &#24178; &#25903;</a></li>';
         txt += '<li id="menurules"><a href="rules_chinese.html">&#36786; &#26310; &#27861; &#21063;</a></li>';
         txt += '<li id="menucomputation"><a href="computation_chinese.html">&#32232; &#31639; &#36786; &#26310;</a></li>';
+        txt += '<li id="menusunmoon"><a href="sunMoon_chinese.html">&#27683; &#26388; &#26178; &#21051;</a></li>';
         txt += '</ul>';
     }
     document.getElementById('menu').innerHTML = txt;
