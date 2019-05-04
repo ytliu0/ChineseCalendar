@@ -22,8 +22,7 @@
     
 <h3>Enter a year between -721 and 2200: <input type="number" id="year" step="1" min="-721" max="2200" />
 &nbsp; &nbsp; 
-<input type="button" value="Submit" 
-onClick="submitYear(0)" /></h3>
+<input type="button" value="Submit" id="myBtn" onClick="submitYear(0)" /></h3>
 <p>(0 = 1 B.C., -1 = 2 B.C., -2 = 3 B.C. and so on.)</p>
 
 <p style="color:red;" id="err"></p>
@@ -99,5 +98,14 @@ onClick="submitYear(0)" /></h3>
 <p style="font-size:90%;">First created in September 2018 (only covering 1901&ndash;2200), last major update in March 2019.</p>
 </div> <!-- end of wrapper -->
 
+<script>
+var input = document.getElementById("year");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("myBtn").click();
+  }
+});
+</script>
 </body>
 </html>

@@ -23,13 +23,11 @@
 <h2 style="text-align:right;"><a href="sunMoon.html">English 英文</a></h2>
     
 <h1>月 相 和 二 十 四 節 氣 時 刻</h1>
-<p>初稿:2019年4月</p>
 <br />
     
 <p><h3>輸入 -3500 和 3500 之間的公曆年: <input type="number" id="year" step="1" min="-3500" max="3500" />
 &nbsp; &nbsp; 
-<input type="button" value="輸入" 
-onClick="submitYear(1)" /></h3>
+<input type="button" value="輸入" id="myBtn" onClick="submitYear(1)" /></h3>
 <p>(0=公元前1年、-1=公元前2年、-2=公元前3年、餘類推。)</p>
 
 <p style="color:red;" id="err"></p>
@@ -62,5 +60,15 @@ onClick="submitYear(1)" /></h3>
 <p style="font-size:90%;">創於2019年4月</p>
  
 </div><!-- end of wrapper -->
+    
+<script>
+var input = document.getElementById("year");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("myBtn").click();
+  }
+});
+</script>
 </body>
 </html>

@@ -26,8 +26,7 @@
     
 <h3>輸入 -721 和 2200 之間的公曆年: <input type="number" id="year" step="1" min="-721" max="2200" />
 &nbsp; &nbsp; 
-<input type="button" value="輸入" 
-onClick="submitYear(1)" /></h3>
+<input type="button" value="輸入" id="myBtn" onClick="submitYear(1)" /></h3>
     
 <p>(0=公元前1年、-1=公元前2年、-2=公元前3年、餘類推。)</p>
     
@@ -103,5 +102,14 @@ target="_blank">proleptic Julian calendar</a>)。</p>
 <p style="font-size:90%;">首創於2018年9月(只函蓋1901年&ndash;2200年)，最近一次重大修改是2019年3月。</p>
 </div> <!-- end of wrapper -->
 
+<script>
+var input = document.getElementById("year");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("myBtn").click();
+  }
+});
+</script>
 </body>
 </html>
