@@ -29,7 +29,7 @@ Almost all of the following HTML files have both English and Chinese versions. T
 - calendar.css: CSS file for the HTML pages mentioned above. 
 - calendar_chinese.css: CSS file for the Chinese version of the HTML pages mentioned above.
 - header.js: JavaScript file for creating the header in all HTML pages, including the Chinese version of the HTML pages.
-- calendarData20190429.js: contains data used for conversion between the Western calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between -721 and 2200. I computed these data and put them into JSON format. The number 20190429 indicates that they were updated on April 29, 2019. This file is used by index.html, table.html and the Chinese version of these two files.
+- calendarData.js: contains data used for conversion between the Western calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between -721 and 2200. I computed these data and put them into JSON format. This file is used by index.html, table.html and the Chinese version of these two files.
 - calendar.js: JavaScript file for handling the activities on index.html and index_chinese.html.
 - table.js: JavaScript file for handling the activities on table.html and table_chinese.html.
 - ancientCalendars.js: contain functions that handle the calendars before 104 B.C.
