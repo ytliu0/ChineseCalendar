@@ -7,7 +7,7 @@ The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated ca
 
 ## Files:
 
-Almost all of the following HTML files have both English and Chinese versions. They have the same names but with \_chinese as a suffix.
+Almost all of the following HTML files have English, traditional Chinese and simplified Chinese versions. They have the same names but with \_chinese and \_simp as suffixes.
 
 - index.html: main HTML page showing the conversion between the Western calendar and Chinese calendar for any year between 722 B.C. and 2200 A.D.
 - table.html: HTML page showing a conversion table between the two calendars.
@@ -18,29 +18,30 @@ Almost all of the following HTML files have both English and Chinese versions. T
 - rules_demysterified.html: HTML page explaining how the rules of the Chinese calendar manage to keep both the lunar cycle and cycle of seasons in sync with the calendar. There is also a discussion on the 19-year cycle and the average length of a year and a month in the Chinese calendar.
 - computation.html: documentation of the calendar calculation used here.
 - sunMoon.html: Times of Moon phases and 24 solar terms from -3500 to 3500.
-- era_names.html: Era/reign names used in the Chinese history (in Chinese). 
+- era_names.html/era_names_simp.html: Era/reign names used in the Chinese history (in Chinese). 
 - era.js: javascript file for displaying the era/reign names in index_chinese.html
 - chunqiu.html: documentation -- Reconstruction of the Chunqiu Calendar
 - guliuli.html: documentation -- Computation of the Ancient Six Calendars
 - QinHanCalendars.html: documentation -- Reconstruction of Calendars in the Qin and Early Han Dynasties
 - QinHanSolarTerms.html: Dates of Selected Solar Terms in Qin and Early Han Dynasties
 - discrepanciesQing.html: Discrepancies Between Modern Calculation and Historical Data (1645 - 1911) 
-- 3500Calendars_errors.html: Errors in the book 3500 Years of Calendars and Astronomical Phenomena (in Chinese)
+- 3500Calendars_errors.html/3500Calendars_errors_simp.html: Errors in the book 3500 Years of Calendars and Astronomical Phenomena (in Chinese)
 - calendar.css: CSS file for the HTML pages mentioned above. 
-- calendar_chinese.css: CSS file for the Chinese version of the HTML pages mentioned above.
+- calendar_chinese.css: CSS file for the Chinese versions of the HTML pages mentioned above.
 - header.js: JavaScript file for creating the header in all HTML pages, including the Chinese version of the HTML pages.
 - calendarData.js: contains data used for conversion between the Western calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between -721 and 2200. I computed these data and put them into JSON format. This file is used by index.html, table.html and the Chinese version of these two files.
-- calendar.js: JavaScript file for handling the activities on index.html and index_chinese.html.
-- table.js: JavaScript file for handling the activities on table.html and table_chinese.html.
+- calendar.js: JavaScript file for handling the activities on index.html, index_chinese and index_simp.html.
+- table.js: JavaScript file for handling the activities on table.html, table_chinese.html and table_simp.html.
 - ancientCalendars.js: contain functions that handle the calendars before 104 B.C.
 - sunMoonData.js: Dates and times of moon phases and solar terms from -3501 to 3502 in JSON.
-- sunMoon.js: JavaScript file for handling the activities on sunMoon.html and sunMoon_chinese.html
-- calendarEngLegend.png/calendarChiLegend.png: image file used by index.html/index_chinese.html.
-- 24solarTermsEng.png/24solarTermsChi.png: image file used by solarTerms.html/solarTerms_chinese.html.
-- NianAvg1.png, NianAvg2.png, YueAvg.png: image files used by rules_demysterified.html and rules_demysterified_chinese.html.
-- Dipper.jpg Dipper_chinese.jpg direction_branch.png direction_branch_chinese.png: image files used by sexagenary.html and sexagenary_chinese.html
-- QinHanConjTimeLag.jpg QinHanConjTimeLag_chinese.jpg: image files used by QinHanCalendars.html and QinHanCalendars_chinese.html
+- sunMoon.js: JavaScript file for handling the activities on sunMoon.html, sunMoon_chinese.html and sunMoon_simp.html
+- calendarEngLegend.png/calendarChiLegend.png/calendarSimLegend.png: image file used by index.html/index_chinese.html/index_simp.html.
+- 24solarTermsEng.png/24solarTermsChi.png/24solarTermsSim.png: image file used by solarTerms.html/solarTerms_chinese.html/solarTerms_simp.html.
+- NianAvg1.png, NianAvg2.png, YueAvg.png: image files used by rules_demysterified.html, rules_demysterified_chinese.html and rules_demysterified_simp.html.
+- Dipper.jpg, Dipper_chinese.jpg, Dipper_simp.jpg, direction_branch.png, direction_branch_chinese.png, direction_branch_simp.png: image files used by sexagenary.html, sexagenary_chinese.html and sexagenary_simp.html
+- QinHanConjTimeLag.jpg, QinHanConjTimeLag_chinese.jpg, QinHanConjTimeLag_simp.jpg: image files used by QinHanCalendars.html, QinHanCalendars_chinese.html and QinHanCalendars_simp.html
 - TDBtimes.txt: TDB times of moon phases and 24 solar terms between 1600 and 3500 calculated from JPL ephemeris DE431 and using the IAU 2006/2000A precession-nutation model. 
 - TDBtimes_extended.txt.gz: (gzipped) TDB times of moon phases and 24 solar terms between -4000 and 8000 calculated from JPL ephemeris DE431 and using the Vondrak et al 2011 precession model and IAU2000A nutation model.
 - docs/sunMoon.pdf: PDF file explaining how I compute the times of the moon phases and 24 solar terms used for the calendar calculation. 
-- docs/sunMoon_chinese.pdf: Chinese version of docs/sunMoon.pdf
+- docs/sunMoon_chinese.pdf: traditional Chinese version of docs/sunMoon.pdf
+- docs/sunMoon_simp.pdf: simplified Chinese version of docs/sunMoon.pdf

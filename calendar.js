@@ -1,7 +1,7 @@
 "use strict";
 
 function init(lang) {
-    header(lang,'calendar'); // print menu
+    header(lang,'calendar', 'index'); // print menu
     var d = new Date(); // current time from computer's clock
     var year = d.getUTCFullYear();
     document.getElementById('year').value = year;
@@ -14,7 +14,7 @@ function submitYear(lang) {
     var menu,i,li;
     if (isNaN(year) || year < -721 || year > 2200) {
         var message = ['Invalid input! Please enter an integer between -721 and 2200.', 
-        '&#36664;&#20837;&#37679;&#35492;&#65111;&#35531;&#36664;&#20837;&#21253;&#25324; -721 &#21644; 2200 &#20043;&#38291;&#30340;&#25972;&#25976;&#12290;'];
+        '輸入錯誤﹗請輸入包括 -721 和 2200 之間的整數。','输入错误！请输入包括 -721 和 2200 之间的整数。'];
         document.getElementById('err').innerHTML = message[lang];
     } else {
         if (year < -220) {
@@ -68,25 +68,26 @@ function langConstant(lang) {
     var animalChi = ["&#x9F20;","&#x725B;","&#x864E;","&#x5154;","&#x9F8D;", 
                  "&#x86C7;","&#x99AC;","&#x7F8A;","&#x7334;","&#x96DE;", 
                  "&#x72D7;","&#x8C6C;"];
+    var animalSim = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
     var month_numChi = ["&#27491;","&#x4E8C;","&#x4E09;","&#x56DB;","&#x4E94;", 
                     "&#x516D;","&#x4E03;","&#x516B;","&#x4E5D;","&#x5341;", 
                     "&#x5341;&#x4E00;","&#x5341;&#x4E8C;"];
-    var date_numChi = ["&#21021;&#19968;"];
+    var date_numChi = ["初一"];
     for (var i=2; i<11; i++) {
-        date_numChi.push("&#21021;"+month_numChi[i-1]);
+        date_numChi.push("初"+month_numChi[i-1]);
     }
-    date_numChi.push("&#x5341;&#x4E00;");
+    date_numChi.push("十一");
     for (var i=12; i<20; i++) {
-        date_numChi.push("&#x5341;"+month_numChi[i-11]);
+        date_numChi.push("十"+month_numChi[i-11]);
     }
-    date_numChi.push("&#x4E8C;&#x5341;");
-    date_numChi.push("&#24319;&#19968;");
+    date_numChi.push("二十");
+    date_numChi.push("廿一");
     for (var i=22; i<30; i++) {
-        date_numChi.push("&#24319;"+month_numChi[i-21]);
+        date_numChi.push("廿"+month_numChi[i-21]);
     }
-    date_numChi.push("&#x4E09;&#x5341;");
-    var monthLChi = ["&#23567;","&#22823;"];
-    var QnamesChi = ["&#26388;", "&#19978;&#24358;", "&#26395;", "&#19979;&#24358;"];
+    date_numChi.push("三十");
+    var monthLChi = ["小","大"];
+    var QnamesChi = ["朔", "上弦", "望", "下弦"];
     var soltermNamesChi = ["&#23567;&#23506;", "&#22823;&#23506;", 
                            "&#31435;&#26149;", "&#38632;&#27700;", 
                           "&#39514;&#34756;", "&#26149;&#20998;", 
@@ -100,10 +101,19 @@ function langConstant(lang) {
                           "&#31435;&#20908;", "&#23567;&#38634;", 
                           "&#22823;&#38634;", "&#20908;&#33267;", 
                           "&#23567;&#23506;"];
+    var soltermNamesSim = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", 
+                           "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", 
+                           "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至", 
+                           "小寒"];
+        
     var note_earlyChi = "&#26388;&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#21021;&#19968;&#25110;&#26371;&#25552;&#26089;&#19968;&#22825;&#12290;";
     var note_lateChi = "&#26388;&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#21021;&#19968;&#25110;&#26371;&#25512;&#36978;&#19968;&#22825;&#12290;";
+    var note_earlySim = "朔的时刻接近午夜零时，初一或会提早一天。";
+    var note_lateSim = "朔的时刻接近午夜零时，初一或会推迟一天。";
     var note1929Chi = "注意朔的時刻稍稍過了初二的零時。這是因為1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時。 東經120&deg;標準時比北京地方時遲約14分鐘，這就是朔的時刻過了初二零時的緣故。";
     var note1914Chi = "注意合朔時刻不在初一日，這是由兩個因數造成。其一是1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的合朔計算方法不是很準確。";
+    var note1929Sim = "注意朔的时刻稍稍过了初二的零时。这是因为1929年以前的朔日计算是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时。 东经120&deg;标准时比北京地方时迟约14分钟，这就是朔的时刻过了初二零时的缘故。";
+    var note1914Sim = "注意合朔时刻不在初一日，这是由两个因数造成。其一是1929年以前的朔日计算是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时比北京地方时迟约14分钟。其二是1914年前用的合朔计算方法不是很准确。";
     
     if (lang==0) {
         // English
@@ -120,7 +130,7 @@ function langConstant(lang) {
         note_late = note_lateEng;
         note1929 = note1929Eng;
         note1914 = note1914Eng;
-    } else {
+    } else if (lang==1) {
         // Chinese
         gMonth = gMonthChi;
         weeks = weeksChi;
@@ -135,6 +145,21 @@ function langConstant(lang) {
         note_late = note_lateChi;
         note1929 = note1929Chi;
         note1914 = note1914Chi;
+    } else {
+        // Simplified Chinese
+        gMonth = gMonthChi;
+        weeks = weeksChi;
+        heaven = heavenChi;
+        earth = earthChi;
+        animal = animalSim;
+        Qnames = QnamesChi;
+        soltermNames = soltermNamesSim;
+        month_num = month_numChi;
+        monthL = monthLChi;
+        note_early = note_earlySim;
+        note_late = note_lateSim;
+        note1929 = note1929Sim;
+        note1914 = note1914Sim;
     }
     return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, date_numChi:date_numChi, note_early:note_early, 
     note_late:note_late, note1929:note1929, note1914:note1914};
@@ -432,11 +457,22 @@ function calendar(lang, year) {
             cal.innerHTML += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' between '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+' and '+langVars.gMonth[mm1[1]-1]+' '+(dd1[1]-1)+',<br />'+cyear[cy0+2]+' on and after '+langVars.gMonth[mm1[1]-1]+' '+dd1[1]+'</h2> <br />';
         }      
     } else {
-        cyear[0] += eraName(year-1);
-        cyear[1] += eraName(year);
-        cyear[2] += eraName(year+1);
-        cal.innerHTML += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>';
-        cal.innerHTML += '<h1>&#36786;&#26310;&#24180;:</h1>';
+        if (lang==1) {
+            cyear[0] += eraName(year-1);
+            cyear[1] += eraName(year);
+            cyear[2] += eraName(year+1);
+        } else {
+            cyear[0] += eraNameSim(year-1);
+            cyear[1] += eraNameSim(year);
+            cyear[2] += eraNameSim(year+1);
+        }
+        if (lang==1) {
+            cal.innerHTML += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>';
+            cal.innerHTML += '<h1>&#36786;&#26310;&#24180;:</h1>';
+        } else {
+            cal.innerHTML += '<h1>公历年: '+yearc+'</h1>';
+            cal.innerHTML += '<h1>农历年:</h1>';
+        }
         var tmp;
         if (Ncyear==1) {
             cal.innerHTML += '<h2>'+cyear[cy0]+'</h2> <br />';
@@ -482,8 +518,10 @@ function addYearInfo(y, lang, calVars) {
     if (y >= -220 && y <= -103) {
         if (lang==0) {
             info = "The calendars used between 221 B.C. and 104 B.C. were modified versions of the Zhuanxu calendar, one of the old calendars used in the third century B.C. in the state of Qin. The first month was the h&#224;i month (present-day month 10). However, it was still called month 10 instead of month 1. The numerical order of the months in a year was 10, 11, 12, 1, 2, ..., 9. The intercalary month was placed at the end of a year, called post month 9. There was a major calendar reform in 104 B.C., where the first month of a year was changed to month 1 and the intercalary month was placed in the month that did not contain a major solar term. The Chinese year in 104 B.C. had 15 Chinese months as a result of the change.<br />The calendars in this period are reconstructed according to the description in the article \"Researches on Calendars from Qin to early Han (246 B.C. to 104 B.C.) &mdash; centering on excavated calendrical bamboo slips\" (秦至汉初(前246至前104)历法研究&mdash;以出土历简为中心), L&#464; Zh&#333;ngl&#237;n (李忠林), in <i>Studies in Chinese History</i> (《中国史研究》), issue no. 2, pp. 17&ndash;69 (2012). Our computation method is explained on <a href='QinHanCalendars.html'>this page</a>.";
-        } else {
+        } else if (lang==1) {
             info = "秦朝及漢初(公元前221年 &ndash; 前104年)的曆法沿用顓頊曆的月序。顓頊曆是古六曆之一，據說戰國後期在秦國使用。顓頊曆以建亥(即今天的十月)為年首，但仍稱建亥為十月。月的數序是十月、十一月、十二月、正月、二月……九月，閏月置於年終，稱為後九月。秦朝的曆法與顓頊曆稍有不同。漢朝建立後基本上沿用秦曆，一百年間只作了少許修改，直到漢武帝太初元年(公元前104年)才頒行新曆法，以建寅(正月)為年首，並把閏月置於無中氣的月份，這使公元前104年的農曆年有十五個農曆月。秦朝為了避秦始皇名諱(正、政同音)，把正月改稱「端月」，到漢朝又改回正月。這裡沒有跟從歷史，在秦朝仍稱建寅為正月。<br />本網頁這時期的復原日曆是根據李忠林的文章「秦至汉初(前246至前104)历法研究&mdash;以出土历简为中心」，發表於《中国史研究》2012年第2期第17&ndash;69頁。具體計算方法在<a href='QinHanCalendars_chinese.html'>秦與漢初曆法網頁</a>闡述。";
+        } else {
+            info = "秦朝及汉初(公元前221年 &ndash; 前104年)的历法沿用颛顼历的月序。颛顼历是古六历之一，据说战国后期在秦国使用。颛顼历以建亥(即今天的十月)为年首，但仍称建亥为十月。月的数序是十月、十一月、十二月、正月、二月……九月，闰月置于年终，称为后九月。秦朝的历法与颛顼历稍有不同。汉朝建立后基本上沿用秦历，一百年间只作了少许修改，直到汉武帝太初元年(公元前104年)才颁行新历法，以建寅(正月)为年首，并把闰月置于无中气的月份，这使公元前104年的农历年有十五个农历月。秦朝为了避秦始皇名讳(正、政同音)，把正月改称「端月」，到汉朝又改回正月。这里没有跟从历史，在秦朝仍称建寅为正月。<br />本网页这时期的复原日历是根据李忠林的文章「秦至汉初(前246至前104)历法研究&mdash;以出土历简为中心」，发表于《中国史研究》2012年第2期第17&ndash;69页。具体计算方法在<a href='QinHanCalendars_simp.html'>秦与汉初历法网页</a>阐述。";
         }
     }
     
@@ -491,8 +529,10 @@ function addYearInfo(y, lang, calVars) {
     if (y >= 9 && y <= 23) {
         if (lang==0) {
             info = "The Xin dynasty was established in 9 A.D. The ch&#466;u month (present day month 12) was designated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 A.D. (W&#249; ch&#233;n) had only 11 months. When the Xin dynasty was overthrown in 23 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 23 A.D. had 13 months, where month 12 appeared twice.";
-        } else {
+        } else if (lang==1) {
             info = "公元9年，王莽建立新朝，改正朔以殷正建丑(即現在的十二月)為年首，故公元8年的農曆年(戊辰年)只有十一個月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。新朝於地皇四年(癸未年，公元23年)亡，次年恢復以建寅(即現在的正月)為年首。公元23年的農曆年(癸未年)有兩個十二月。";
+        } else {
+            info = "公元9年，王莽建立新朝，改正朔以殷正建丑(即现在的十二月)为年首，故公元8年的农历年(戊辰年)只有十一个月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。新朝于地皇四年(癸未年，公元23年)亡，次年恢复以建寅(即现在的正月)为年首。公元23年的农历年(癸未年)有两个十二月。";
         }
     }
     
@@ -500,8 +540,10 @@ function addYearInfo(y, lang, calVars) {
     if (y >= 237 && y <= 240) {
         if (lang==0) {
             info = "In 237 A.D., emperor Mingdi of the Wei dynasty declared that the ch&#466;u month (present day month 12) would be the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. The new system was imposed after month 2 in the Chinese year in 237, in which month 4 was followed by month 2. When the emperor died in 239 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 239 had 13 months, where month 12 appeared twice. In addition, month 12 in the Chinese year in 236 A.D. had only 28 days as a new version of the Chinese calendar was adopted.";
-        } else {
+        } else if (lang==1) {
             info = "魏青龍五年（丁巳年，公元237年），魏明帝改正朔，以殷正建丑(即現在的十二月)為年首，二月後實施，並改元景初元年。所以丁巳年沒有三月份，二月後的月份是四月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。景初三年（公元239年）明帝駕崩,次年恢復以建寅(即現在的正月)為年首。景初三年有兩個十二月。另外，青龍五年正月開始使用新曆法，使青龍四年十二月只有二十八日。";
+        } else {
+            info = "魏青龙五年（丁巳年，公元237年），魏明帝改正朔，以殷正建丑(即现在的十二月)为年首，二月后实施，并改元景初元年。所以丁巳年没有三月份，二月后的月份是四月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。景初三年（公元239年）明帝驾崩,次年恢复以建寅(即现在的正月)为年首。景初三年有两个十二月。另外，青龙五年正月开始使用新历法，使青龙四年十二月只有二十八日。";
         }
     }
     
@@ -509,8 +551,10 @@ function addYearInfo(y, lang, calVars) {
     if (y >= 689 && y<= 700) {
         if (lang==0) {
             info = "In December 689, Empress Consort Wu designated the z&#464; month (month 11) as the first month of a year. However, the month numbers did not change. The z&#464; month was named Zheng, which is usually referred to month 1; ch&#466;u month was stilled called month 12; y&#237;n month was month 1 and so on. Here the Zheng month is still labelled as month 11. The first month of a year was changed back to month 1 in February 701. The Chinese year in 689 only had 11 months (one leap month), whereas the Chinese year in 700 had 15 months (one leap month).";
-        } else {
+        } else if (lang==1) {
             info = "公元689年12月，武則天改正朔，以周正建子(即現在的十一月)為年首，建子改稱正月，建寅（即現在的正月）改稱一月，其他農曆月的數序不變（即正月、十二月、一月、二月⋯⋯十月）。公元701年2月又改回以建寅為年首。公元689年的農曆年（己丑年）只有十一個月（其中一個月是閏月），而公元700年的農曆年（庚子年）有十五個月（其中一個月是閏月）。";
+        } else {
+            info = "公元689年12月，武则天改正朔，以周正建子(即现在的十一月)为年首，建子改称正月，建寅（即现在的正月）改称一月，其他农历月的数序不变（即正月、十二月、一月、二月__十月）。公元701年2月又改回以建寅为年首。公元689年的农历年（己丑年）只有十一个月（其中一个月是闰月），而公元700年的农历年（庚子年）有十五个月（其中一个月是闰月）。";
         }
     }
     
@@ -518,8 +562,10 @@ function addYearInfo(y, lang, calVars) {
     if (y==761 || y==762) {
         if (lang==0) {
             info = "In December 761, emperor Suzong of the Tang dynasty designated the z&#464; month (present day month 11) as the first month of a year; the ch&#466;u month (present day month 12) became month 2; the y&#237;n month (present day month 1) became month 3 and so on. The Chinese month numbers were shifted by two. As a result, the Chinese year in 761 (X&#299;n ch&#466;u) had only 10 months. The month numbers ware switched back to the old system in April 762. The Chinese year in 762 (R&#233;n y&#237;n) had 14 months, with two month 4s and two month 5s.";
-        } else {
+        } else if (lang==1) {
             info = "公元761年12月，唐肅宗改正朔，以周正建子(即現在的十一月)為年首，建子改稱正月、建丑（即現在的十二月）改稱二月、建寅（即現在的正月）改稱三月等等，與現在通用的月序相差二個月。公元762年4月又把農曆月的數序改回以建寅為正月、建卯為二月等。公元761年的農曆年（辛丑年）只有十個月,而公元762年的農曆年（壬寅年）則有十四個月，其中有兩個四月和兩個五月。";
+        } else {
+            info = "公元761年12月，唐肃宗改正朔，以周正建子(即现在的十一月)为年首，建子改称正月、建丑（即现在的十二月）改称二月、建寅（即现在的正月）改称三月等等，与现在通用的月序相差二个月。公元762年4月又把农历月的数序改回以建寅为正月、建卯为二月等。公元761年的农历年（辛丑年）只有十个月,而公元762年的农历年（壬寅年）则有十四个月，其中有两个四月和两个五月。";
         }
     }
     
@@ -527,8 +573,10 @@ function addYearInfo(y, lang, calVars) {
     if (y==1582) {
         if (lang==0) {
             info = "Gregorian calendar reform: Julian calendar was used until October 4, after which the Gregorian calendar was used. To restore the March equinox to the date it had in 325 A.D. (March 21), the date was advanced so that October 4 was followed by October 15.";
-        } else {
+        } else if (lang==1) {
             info = "格里高里曆改:公曆在10月4日及之前用儒略曆，之後用格里高里曆。為使春分的日期回復到3月21日(公元325年時的春分日期)，10月4日的下一日改為10月15日，跳了10日。";
+        } else {
+            info = "格里高里历改:公历在10月4日及之前用儒略历，之后用格里高里历。为使春分的日期回复到3月21日(公元325年时的春分日期)，10月4日的下一日改为10月15日，跳了10日。";
         }
     }
     
@@ -543,7 +591,7 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
     if (year < 1) {
         yearc = (lang==0 ? (1-year).toString()+' B.C.':'&#21069;'+(1-year).toString());
     }
-    if (lang==1) yearc += '&#24180;';
+    if (lang != 0) yearc += '&#24180;';
     
     var txt='<table>';
     var i;
@@ -623,13 +671,18 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                            calVars) {
     var i;
     var leap = (lang==0 ? "leap ":"&#38287;");
+    if (lang==2) { leap = "闰";}
     if (y==-104) {
         leap = (lang==0 ? "post ":"&#24460;");
+        if (lang==2) { leap = "后";}
     }
     if (y < -104) {
         leap = calVars.leap;
         if (lang==1) {
             leap = (calVars.leap=="post 9" ? "&#24460;&#20061;":"&#38287;");
+        }
+        if (lang==2) {
+            leap = (calVars.leap=="post 9" ? "后九":"闰");
         }
     }
     var m0 = calVars.mday[m];
@@ -666,8 +719,10 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                     if (calVars.noZhong==i) {
                         if (lang==0) {
                             cmsex = ', no Zh&#333;ngq&#236;';
-                        } else {
+                        } else if (lang==1) {
                             cmsex = ' (&#28961;&#20013;&#27683;)';
+                        } else {
+                            cmsex = ' (无中气)';
                         }
                     }
                 }
@@ -730,8 +785,10 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                     if (calVars.noZhong==i) {
                         if (lang==0) {
                             cmsex = ', no Zh&#333;ngq&#236;';
-                        } else {
+                        } else if (lang==1) {
                             cmsex = ' (&#28961;&#20013;&#27683;)';
+                        } else {
+                            cmsex = ' (无中气)';
                         }
                     }
                 }
@@ -826,12 +883,20 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
     } else {
       // Chinese
        if (cm > 0) {
-           m1 = langVars.cmonth[cm-1]+"&#26376;";
+           m1 = langVars.cmonth[cm-1]+"月";
        } else {
            if (y < -104) {
-               m1 = (calVars.leap=="post 9" ? "&#24460;&#20061;":"&#38287;") + "&#26376;";
+               if (lang==1) {
+                   m1 = (calVars.leap=="post 9" ? "後九":"閏") + "月";
+               } else {
+                   m1 = (calVars.leap=="post 9" ? "后九":"闰") + "月";
+               }
            } else {
-               m1 = (y==-104 ? '&#24460;':'&#38287;') + langVars.cmonth[-cm-1] + "&#26376;";
+               if (lang==1) {
+                   m1 = (y==-104 ? '後':'閏') + langVars.cmonth[-cm-1] + "月";
+               } else {
+                   m1 = (y==-104 ? '后':'闰') + langVars.cmonth[-cm-1] + "月";
+               }
            }
        }
        if (y>688 && y <700 && Math.abs(cm)==11) {
@@ -964,10 +1029,16 @@ function add24solterms(m,lang,langVars, calVars) {
             txt += '(d&#236;ngq&#236;)';
         }
         txt +='</b>: ';
-    } else {
-        txt = '<p style="letter-spacing:normal;"><b>&#20108;&#21313;&#22235;&#31680;&#27683;';
+    } else if (lang==1) {
+        txt = '<p style="letter-spacing:normal;"><b>二十四節氣';
         if (calVars.year < 1734) {
-            txt += '(&#23450;&#27683;)';
+            txt += '(定氣)';
+        }
+        txt +='</b>: ';
+    } else {
+        txt = '<p style="letter-spacing:normal;"><b>二十四节气';
+        if (calVars.year < 1734) {
+            txt += '(定气)';
         }
         txt +='</b>: ';
     }
@@ -1029,12 +1100,19 @@ function addCalSolterms(m,lang,langVars, calVars) {
         } else {
             txt += '(d&#236;ngq&#236;)</b>: ';
         }
-    } else {
-        txt = '<p style="letter-spacing:normal;"><b>&#26310;&#26360;&#31680;&#27683;';
+    } else if (lang==1) {
+        txt = '<p style="letter-spacing:normal;"><b>曆書節氣';
         if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
-            txt += '(&#24179;&#27683;)</b>: ';
+            txt += '(平氣)</b>: ';
         } else {
-            txt += '(&#23450;&#27683;)</b>: ';
+            txt += '(定氣)</b>: ';
+        }
+    } else {
+        txt = '<p style="letter-spacing:normal;"><b>历书节气';
+        if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+            txt += '(平气)</b>: ';
+        } else {
+            txt += '(定气)</b>: ';
         }
     }
     
@@ -1123,15 +1201,18 @@ function newMoonCloseToMidnight(y, j) {
 // in year y.
 function warningMessage(y, m, lang, langVars) {
     var suffix_eng = " is close to the midnight. The actual date may be off by one day.";
-    var suffix_chi = "&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#23526;&#38555;&#26085;&#26399;&#25110;&#26371;&#33287;&#25152;&#31034;&#26085;&#26399;&#26377;&#19968;&#26085;&#20043;&#24046;&#12290;";
+    var suffix_chi = "的時刻接近午夜零時，實際日期或會與所示日期有一日之差。";
+    var suffix_sim = "的时刻接近午夜零时，实际日期或会与所示日期有一日之差。";
     var warn = '';
     
     // Han calendar reform
     if (y==-103 && m==6) {
         if (lang==0) {
             warn = "New calendar is displayed starting from month 5. The lunar conjunction day was one day earlier than that of the old calendar, turning month 4 into a short month.";
-        } else {
+        } else if (lang==1) {
             warn = "五月起的日曆依太初曆，朔日比舊曆早一日，使四月變成小月。";
+        } else {
+            warn = "五月起的日历依太初历，朔日比旧历早一日，使四月变成小月。";
         }
     } 
     
@@ -1139,15 +1220,19 @@ function warningMessage(y, m, lang, langVars) {
     if (y==9 && m==1) {
         if (lang==0) {
             warn = "The ch&#466;u month was supposed to be month 12. It became month 1 by edict. Hence, there was no month 12 in the Chinese year W&#249; ch&#233;n.";
-        } else {
+        } else if (lang==1) {
             warn = "本來十二月是建丑，改正朔後建丑變成正月，所以戊辰年沒有十二月。";
+        } else {
+            warn = "本来十二月是建丑，改正朔后建丑变成正月，所以戊辰年没有十二月。";
         }
     }
     if (y==23 && m==12) {
         if (lang==0) {
             warn = "Since month 1 was to switch back to be the y&#237;n month in the following year, there were two month 12s in this Chinese year. The first one was the z&#464; month and the second one was the ch&#466;u month. These two month 12s should not be confused as they can be distinguished by their sexagenary month cycles.";
-        } else {
+        } else if (lang==1) {
             warn = "下一年的正月恢復為建寅，這一年的農曆有兩個十二月:建子和建丑。由於已註明了月干支，兩個十二月應不會被混淆。";
+        } else {
+            warn = "下一年的正月恢复为建寅，这一年的农历有两个十二月:建子和建丑。由于已注明了月干支，两个十二月应不会被混淆。";
         }
     }
     
@@ -1155,38 +1240,48 @@ function warningMessage(y, m, lang, langVars) {
     if (y==237 && m==2) {
         if (lang==0) {
             warn = "Note that month 12 had only 28 days. This was due to the adoption of a new version of calendar in month 1.";
-        } else {
+        } else if (lang==1) {
             warn = "由於新曆法於正月初一開始使用，十二月只有二十八日。";
+        } else {
+            warn = "由于新历法于正月初一开始使用，十二月只有二十八日。";
         }
     }
     if (y==237 && m==4) {
         if (lang==0) {
            warn = "The ch&#233;n month was supposed to be month 3. It became month 4 by edict. Hence, there was no month 3 in this Chinese year."; 
-        } else {
+        } else if (lang==1) {
            warn = "本來三月是建辰，改正朔後變成四月，所以丁巳年沒有三月。"; 
+        } else {
+           warn = "本来三月是建辰，改正朔后变成四月，所以丁巳年没有三月。"; 
         }
     }
     if (y==240 && m==1) {
        if (lang==0) {
             warn = "Since month 1 was to switch back to be the y&#237;n month in the year G&#275;ng sh&#275;n, there were two month 12s in the year J&#464; w&#232;i. The first one was the z&#464; month and the second one was the ch&#466;u month. These two month 12s should not be confused as they can be distinguished by their sexagenary month cycles.";
-        } else {
+        } else if (lang==1) {
             warn = "庚申年的正月恢復為建寅，己未年的農曆有兩個十二月:建子和建丑。由於已註明了月干支，兩個十二月應不會被混淆。";
-        } 
+        } else {
+            warn = "庚申年的正月恢复为建寅，己未年的农历有两个十二月:建子和建丑。由于已注明了月干支，两个十二月应不会被混淆。";
+        }
     }
     
     // Tang dynasty
     if (y==761 && m==12) {
         if (lang==0) {
             warn = "The z&#464; month was supposed to be month 11, but it became month 1 by edict. There were no months 11 and 12 in the year X&#299;n ch&#466;u";
-        } else {
+        } else if (lang==1) {
             warn = "本來建子是十一月，改正朔後變成正月。農曆辛丑年沒有十一和十二月。";
+        } else {
+            warn = "本来建子是十一月，改正朔后变成正月。农历辛丑年没有十一和十二月。";
         }
     }
     if (y==762 && m==4) {
         if (lang==0) {
             warn = "Note that there was a second month 4 and second month 5 this year because it was decided that after the first month 5, the month numbers were switched back to the y&#237;n month being month 1, m&#462;o month being month 2, ch&#233;n being month 3, s&#236; month being month 4 and so on. As a result, there were two month 4s and two month 5s in this Chinese year. They can be distinguished by their sexagenary month cycles.";
-        } else {
+        } else if (lang==1) {
             warn = "五月之後的那個月是四月。這是因為五月後正朔改回以建寅為正月、建卯為二月、建辰為三月、建巳為四月等。農曆壬寅年因此有兩個四月（建卯和建巳）和兩個五月（建辰和建午）。由於已註明月干支，這些重複的月份應不會被混潸。";
+        } else {
+            warn = "五月之后的那个月是四月。这是因为五月后正朔改回以建寅为正月、建卯为二月、建辰为三月、建巳为四月等。农历壬寅年因此有两个四月（建卯和建巳）和两个五月（建辰和建午）。由于已注明月干支，这些重复的月份应不会被混潸。";
         }
     }
     
@@ -1194,8 +1289,10 @@ function warningMessage(y, m, lang, langVars) {
     if (y==1582 && m==10) {
         if (lang==0) {
             warn = "Note that October 4 was followed by October 15 because of the Gregorian calendar reform.";
-        } else {
+        } else if (lang==1) {
             warn = "由於格里高里曆改，10月4日的下一日是10月15日，跳了10日。";
+        } else {
+            warn = "由于格里高里历改，10月4日的下一日是10月15日，跳了10日。";
         }
     }
     
@@ -1203,8 +1300,10 @@ function warningMessage(y, m, lang, langVars) {
     if (y==1645 && m==7) {
         if (lang==0) {
             warn = 'Note that leap month 6 contained the major solar term Z6, breaking the rule that a leap month must not contain a major solar term. W&#257;ng Yu&#275;zh&#275;n (&#27754;&#26352;&#26984;), a Chinese mathematician in the 19th century, explained that even though the solar term Z6 and the lunar conjunction associated with the month occurred on the same day, Z6 occurred earlier in the day than the lunar conjunction and was counted as a major solar term of the previous month. As a result, leap month 6 did not contain any major solar term. This "rule" was only used in this year. It was never used again after this year.';
-        } else {
+        } else if (lang==1) {
             warn = '大暑這中氣出現在閏六月初一，違反了閏月不含中氣的規定。清朝曆算家汪曰楨解釋說雖然大暑與朔發生在同一日，大暑的時刻早於合朔時刻，屬於前月之中氣，所以閏六月不含中氣。這說法明顯不合傳統，屬於新的置閏法則，但是這新法則只在這一年用過，以後不再使用。';
+        } else {
+            warn = '大暑这中气出现在闰六月初一，违反了闰月不含中气的规定。清朝历算家汪曰桢解释说虽然大暑与朔发生在同一日，大暑的时刻早于合朔时刻，属于前月之中气，所以闰六月不含中气。这说法明显不合传统，属于新的置闰法则，但是这新法则只在这一年用过，以后不再使用。';
         }
     }
     
@@ -1327,17 +1426,27 @@ function warningMessage(y, m, lang, langVars) {
             desc = desc1+"Z9"+desc2+"October 24"+desc3;
             items.push({y:1899, m:10, w:desc});
         } else {
-            desc1 = "當年的《大清時憲書》列出的";
-            desc2 = "日期相當於公曆的";
-            desc3 = "，日期差異由兩個因數造成。其一是1929年以前的時間是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的節氣計算方法不是很準確。";
-
+            if (lang==1) {
+                desc1 = "當年的《大清時憲書》列出的";
+                desc2 = "日期相當於公曆的";
+                desc3 = "，日期差異由兩個因數造成。其一是1929年以前的時間是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的節氣計算方法不是很準確。";
+            } else {
+                desc1 = "当年的《大清时宪书》列出的";
+                desc2 = "日期相当于公历的";
+                desc3 = "，日期差异由两个因数造成。其一是1929年以前的时间是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时比北京地方时迟约14分钟。其二是1914年前用的节气计算方法不是很准确。";
+            }
+            
             desc = desc1+"大寒"+desc2+"1月20日"+desc3;
             items.push({y:1736, m:1, w:desc});
             desc = desc1+"小寒"+desc2+"1月5日"+desc3;
             items.push({y:1739, m:1, w:desc});
             desc = desc1+"大暑"+desc2+"7月22日"+desc3;
             items.push({y:1744, m:7, w:desc});
-            desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
+            if (lang==1) {
+                desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
+            } else {
+                desc = desc1+"惊蛰"+desc2+"3月5日"+desc3;
+            }
             items.push({y:1746, m:3, w:desc});
             desc = desc1+"小暑"+desc2+"7月7日"+desc3;
             items.push({y:1747, m:7, w:desc});
@@ -1345,17 +1454,29 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1749, m:4, w:desc});
             desc = desc1+"寒露"+desc2+"10月9日"+desc3;
             items.push({y:1751, m:10, w:desc});
-            desc = desc1+"芒種"+desc2+"6月5日"+desc3;
+            if (lang==1) {
+                desc = desc1+"芒種"+desc2+"6月5日"+desc3;
+            } else {
+                desc = desc1+"芒种"+desc2+"6月5日"+desc3;
+            }
             items.push({y:1753, m:6, w:desc});
             desc = desc1+"秋分"+desc2+"9月23日"+desc3;
             items.push({y:1756, m:9, w:desc});
-            desc = desc1+"穀雨"+desc2+"4月19日"+desc3;
+            if (lang==1) {
+                desc = desc1+"穀雨"+desc2+"4月19日"+desc3;
+            } else {
+                desc = desc1+"谷雨"+desc2+"4月19日"+desc3;
+            }
             items.push({y:1760, m:4, w:desc});
             desc = desc1+"立春"+desc2+"2月3日"+desc3;
             items.push({y:1774, m:2, w:desc});
             desc = desc1+"白露"+desc2+"9月8日"+desc3;
             items.push({y:1774, m:9, w:desc});
-            desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
+            if (lang==1) {
+                desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
+            } else {
+                desc = desc1+"惊蛰"+desc2+"3月5日"+desc3;
+            }
             items.push({y:1779, m:3, w:desc});
             desc = desc1+"夏至"+desc2+"6月21日"+desc3;
             items.push({y:1779, m:6, w:desc});
@@ -1371,7 +1492,11 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1809, m:1, w:desc});
             desc = desc1+"小雪"+desc2+"11月23日"+desc3;
             items.push({y:1809, m:11, w:desc});
-            desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
+            if (lang==1) {
+                desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
+            } else {
+                desc = desc1+"惊蛰"+desc2+"3月5日"+desc3;
+            }
             items.push({y:1812, m:3, w:desc});
             desc = desc1+"清明"+desc2+"4月5日"+desc3;
             items.push({y:1815, m:4, w:desc});
@@ -1387,11 +1512,19 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1829, m:11, w:desc});
             desc = desc1+"白露"+desc2+"9月8日"+desc3;
             items.push({y:1836, m:9, w:desc});
-            desc = desc1+"芒種"+desc2+"6月6日"+desc3;
+            if (lang==1) {
+                desc = desc1+"芒種"+desc2+"6月6日"+desc3;
+            } else {
+                desc = desc1+"芒种"+desc2+"6月6日"+desc3;
+            }
             items.push({y:1844, m:6, w:desc});
             desc = desc1+"小雪"+desc2+"11月23日"+desc3;
             items.push({y:1846, m:11, w:desc});
-            desc = desc1+"冬至"+desc2+"12月22日。 據我計算，冬至時刻應是12月21日23:59:37(UT1+8)"+desc3;
+            if (lang==1) {
+                desc = desc1+"冬至"+desc2+"12月22日。 據我計算，冬至時刻應是12月21日23:59:37(UT1+8)"+desc3;
+            } else {
+                desc = desc1+"冬至"+desc2+"12月22日。 据我计算，冬至时刻应是12月21日23:59:37(UT1+8)"+desc3;
+            }
             items.push({y:1848, m:12, w:desc});
             desc = desc1+"立夏"+desc2+"5月5日"+desc3;
             items.push({y:1849, m:5, w:desc});
@@ -1401,7 +1534,11 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1851, m:9, w:desc});
             desc = desc1+"大雪"+desc2+"12月8日"+desc3;
             items.push({y:1851, m:12, w:desc});
-            desc = desc1+"穀雨"+desc2+"4月20日"+desc3;
+            if (lang==1) {
+                desc = desc1+"穀雨"+desc2+"4月20日"+desc3;
+            } else {
+                desc = desc1+"谷雨"+desc2+"4月20日"+desc3;
+            }
             items.push({y:1855, m:4, w:desc});
             desc = desc1+"霜降"+desc2+"10月24日"+desc3;
             items.push({y:1862, m:10, w:desc});
@@ -1413,7 +1550,11 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1866, m:10, w:desc});
             desc = desc1+"小暑"+desc2+"7月8日"+desc3;
             items.push({y:1867, m:7, w:desc});
-            desc = desc1+"處暑"+desc2+"8月24日"+desc3;
+            if (lang==1) {
+               desc = desc1+"處暑"+desc2+"8月24日"+desc3; 
+            } else {
+               desc = desc1+"处暑"+desc2+"8月24日"+desc3;
+            }
             items.push({y:1867, m:8, w:desc});
             desc = desc1+"小寒"+desc2+"1月6日"+desc3;
             items.push({y:1879, m:1, w:desc});
@@ -1496,8 +1637,10 @@ function warningMessage(y, m, lang, langVars) {
         if (m==9) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of J8 on Sep. 8. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
-            } else {
+            } else if (lang==1) {
                 warn = "當年的《中華民國曆書》把白露的日期列為9月8日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
+            } else {
+                warn = "当年的《中华民国历书》把白露的日期列为9月8日。这是因为1929年以前时刻是用北京地方时(东经116&deg;25')，而本网页列出的时刻却是用现时全国通行的东经120°标准时。 东经120&deg;标准时比北京地方时迟14分25秒。";
             }
         }
     }
@@ -1506,8 +1649,10 @@ function warningMessage(y, m, lang, langVars) {
         if (m==6) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of Z5 (June solstice) on June 21. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
-            } else {
+            } else if (lang==1) {
                 warn = "當年的《中華民國曆書》把夏至的日期列為6月21日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
+            } else {
+                warn = "当年的《中华民国历书》把夏至的日期列为6月21日。这是因为1929年以前时刻是用北京地方时(东经116&deg;25')，而本网页列出的时刻却是用现时全国通行的东经120°标准时。 东经120&deg;标准时比北京地方时迟14分25秒。";
             }
         }
     }
@@ -1516,8 +1661,10 @@ function warningMessage(y, m, lang, langVars) {
         if (m==1) {
             if (lang==0) {
                 warn = "My calculation puts the time of Z12 at 23:59:54 on Jan. 20. The calendar used at that time put Z12 on Jan. 21. A difference of a few seconds could result from using different ephemerides in calculating the Sun's position.";
+            } else if (lang==1) {
+                warn = "我推算的大寒時刻是1月20日23:59:54，當時使用的日曆把大寒列為1月21日。幾秒之差應是由於用不同歷表計算太陽位置所致。";
             } else {
-                warn = "&#25105;&#25512;&#31639;&#30340;&#22823;&#23506;&#26178;&#21051;&#26159;1&#26376;20&#26085;23:59:54&#65292;&#30070;&#26178;&#20351;&#29992;&#30340;&#26085;&#26310;&#25226;&#22823;&#23506;&#21015;&#28858;1&#26376;21&#26085;&#12290;&#24190;&#31186;&#20043;&#24046;&#25033;&#26159;&#30001;&#26044;&#29992;&#19981;&#21516;&#27511;&#34920;&#35336;&#31639;&#22826;&#38525;&#20301;&#32622;&#25152;&#33268;&#12290;";
+                warn = "我推算的大寒时刻是1月20日23:59:54，当时使用的日历把大寒列为1月21日。几秒之差应是由于用不同历表计算太阳位置所致。";
             }
         }
     }
@@ -1527,7 +1674,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of Z2 (March equinox)"+suffix_eng;
             } else {
-                warn = "&#26149;&#20998;"+suffix_chi;
+                warn = "春分"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1541,7 +1688,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of J1"+suffix_eng;
             } else {
-                warn = "&#31435;&#26149;"+suffix_chi;
+                warn = "&#31435;&#26149;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1551,14 +1698,14 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of Z2 (March equinox)"+suffix_eng;
             } else {
-                warn = "&#26149;&#20998;"+suffix_chi;
+                warn = "&#26149;&#20998;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
         if (m==6) {
             if (lang==0) {
                 warn = "The time of J5"+suffix_eng;
             } else {
-                warn = "&#33426;&#31278;"+suffix_chi;
+                warn = (lang==1 ? "芒種"+suffix_chi:"芒种"+suffix_sim);
             }
         }
     }
@@ -1580,7 +1727,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of J9"+suffix_eng;
             } else {
-                warn = "&#23506;&#38706;"+suffix_chi;
+                warn = "&#23506;&#38706;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1590,7 +1737,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of Z2 (March equinox)"+suffix_eng;
             } else {
-                warn = "&#26149;&#20998;"+suffix_chi;
+                warn = "&#26149;&#20998;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1600,7 +1747,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of Z5 (June solstice)"+suffix_eng;
             } else {
-                warn = "&#22799;&#33267;"+suffix_chi;
+                warn = "&#22799;&#33267;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1614,7 +1761,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of Z12"+suffix_eng;
             } else {
-                warn = "&#22823;&#23506;"+suffix_chi;
+                warn = "&#22823;&#23506;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1624,7 +1771,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of J1"+suffix_eng;
             } else {
-                warn = "&#31435;&#26149;"+suffix_chi;
+                warn = "&#31435;&#26149;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1634,7 +1781,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of Z6"+suffix_eng;
             } else {
-                warn = "&#22823;&#26257;"+suffix_chi;
+                warn = "&#22823;&#26257;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -1648,7 +1795,7 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==0) {
                 warn = "The time of J3"+suffix_eng;
             } else {
-                warn = "&#28165;&#26126;"+suffix_chi;
+                warn = "&#28165;&#26126;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }

@@ -5,24 +5,25 @@ function ancient_calendar_menu(period) {
     var menu;
     switch(period) {
         case "Warring":
-            menu = [{id:"zhouWarring", li:"Zhou", lic:"&#21608;"}, 
-                   {id:"luWarring", li:"Lu", lic:"&#39791;"}, 
-                   {id:"huangdiWarring", li:"Huangdi", lic:"&#40643;&#24093;"}, 
-                   {id:"yinWarring", li:"Yin", lic:"&#27575;"}, 
-                   {id:"xiaWarring", li:"Xia1", lic:"&#22799;"}, 
-                   {id:"zhuanxuWarring", li:"Zhuanxu" ,lic:"&#38995;&#38922;"}];
+            menu = [{id:"zhouWarring", li:"Zhou", lic:"周", lis:"周"}, 
+                   {id:"luWarring", li:"Lu", lic:"魯", lis:"鲁"}, 
+                   {id:"huangdiWarring", li:"Huangdi", lic:"黃帝", lis:"黃帝"}, 
+                   {id:"yinWarring", li:"Yin", lic:"殷", lis:"殷"}, 
+                   {id:"xiaWarring", li:"Xia1", lic:"夏", lis:"夏"}, 
+                   {id:"zhuanxuWarring", li:"Zhuanxu" ,lic:"顓頊", lis:"颛顼"}];
             break;
         case "Spring":
-            menu = [{id:"chunqiuSpring", li:"Chunqiu", lic:"&#26149;&#31179;"}, 
-                    {id:"zhouSpring", li:"Zhou", lic:"&#21608;"}, 
-                    {id:"yinSpring", li:"Yin", lic:"&#27575;"},
-                    {id:"xiaSpring", li:"Xia2", lic:"&#22799;"}];
+            menu = [{id:"chunqiuSpring", li:"Chunqiu", lic:"春秋", lis:"春秋"}, 
+                    {id:"zhouSpring", li:"Zhou", lic:"周", lis:"周"}, 
+                    {id:"yinSpring", li:"Yin", lic:"殷", lis:"殷"},
+                    {id:"xiaSpring", li:"Xia2", lic:"夏", lis:"夏"}];
     }
     return menu;
 }
 
-function ancient_calendar_description(period, li, lic, lang) {
+function ancient_calendar_description(period, li, lic, lis, lang) {
     var li_lang = (lang==0 ? li:lic);
+    if (lang==2) {li_lang = lis;}
     if (li_lang=="Xia1" || li_lang=="Xia2") { li_lang="Xia";}
     var txt, txt1, txt2, txt3, txt4, txt5="";
     // table: is in for the page table.html/table_chinese.html?
@@ -36,7 +37,7 @@ function ancient_calendar_description(period, li, lic, lang) {
         } else {
             txt4 = '). Scholars have not come to a consensus on the position of the intercalary month. Here it is assumed that it was placed at the end of a year, and was simply called the leap month. Some people think that leap month was placed in the month without any major solar term. Here months without a major solar term are indicated by "no Zh&#333;ngq&#236;" for reference.';
         }
-    } else {
+    } else if (lang==1) {
         txt1 = "曆以建";
         txt2 = "(即現在的";
         txt3 = "月)為年首，稱為正月。目前學界對於";
@@ -45,13 +46,30 @@ function ancient_calendar_description(period, li, lic, lang) {
         } else {
             txt4 = "曆的閏月位置未有一致意見。這裡假設閏月置於年終，稱為閏月，不用註明閏幾月。有些學者認為當時以無中氣的月份為閏月，這裡也註明無中氣的月份以供參考。";
         }
+    } else {
+        txt1 = "历以建";
+        txt2 = "(即现在的";
+        txt3 = "月)为年首，称为正月。目前学界对于";
+        if (table) {
+            txt4 = "历的闰月位置未有一致意见。这里假设闰月置于年终，称为闰月，不用注明闰几月。有些学者认为当时以无中气的月份为闰月，这里把无中气的月份在日期下面加上横线以供参考。";
+        } else {
+            txt4 = "历的闰月位置未有一致意见。这里假设闰月置于年终，称为闰月，不用注明闰几月。有些学者认为当时以无中气的月份为闰月，这里也注明无中气的月份以供参考。";
+        }
     }
     
-    if (li=="Zhou" && lang==1 && !table) {
-        txt4 += '<br />這裡附加東周君王的紀年。周朝於周赧王五十九年(公元前256年)被秦國所滅，東周君王的紀年也到這一年為止。';
+    if (li=="Zhou" && lang != 0 && !table) {
+        if (lang==1) {
+            txt4 += '<br />這裡附加東周君王的紀年。周朝於周赧王五十九年(公元前256年)被秦國所滅，東周君王的紀年也到這一年為止。';
+        } else {
+            txt4 += '<br />这里附加东周君王的纪年。周朝于周赧王五十九年(公元前256年)被秦国所灭，东周君王的纪年也到这一年为止。';
+        }
     }
-    if (li=="Lu" && lang==1 && !table) {
-        txt4 += '<br />這裡附加魯國君主的紀年。魯國於魯頃公二十四年(公元前249年)被楚國所滅，魯國君主的紀年也到這一年為止。';
+    if (li=="Lu" && lang != 0 && !table) {
+        if (lang==1) {
+            txt4 += '<br />這裡附加魯國君主的紀年。魯國於魯頃公二十四年(公元前249年)被楚國所滅，魯國君主的紀年也到這一年為止。';
+        } else {
+            txt4 += '<br />这里附加鲁国君主的纪年。鲁国于鲁顷公二十四年(公元前249年)被楚国所灭，鲁国君主的纪年也到这一年为止。';
+        }
     }
     
     var jian = (lang==0 ? "z&#464;":"子");
@@ -80,8 +98,10 @@ function ancient_calendar_description(period, li, lic, lang) {
     if (li=="Xia1" || li=="Xia2") {
         if (lang==0) {
             txt5 = "<br />The Xia calendar had two versions, which used slightly difference epoch (used to specify the initial data for the lunar conjunction and winter solstice) in the calendar calculation. The version shown in the Spring and Autumn period (722 B.C. &ndash; 481 B.C.) is different from the one used in the Warring States period (480 B.C. &ndash; 222 B.C.): the epoch used in the Spring and Autumn period was the time when the lunar conjunction and Z1 were assumed to occur at midnight, whereas the epoch used in the Warring States period was the time when the lunar conjunction and winter solstice were assumed to occur at midnight. The detail is explained on our <a href='guliuli.html'>ancient six calendars page</a>.";
-        } else {
+        } else if (lang==1) {
             txt5 = "<br />夏曆有兩個版本，差別是計算曆法時使用的曆元不同。本網頁的夏曆在春秋時代(前722年&ndash;前481年)和戰國時代(前480年&ndash;前222年)所用的版本不同，春秋時期用的夏曆曆元是雨水合朔齊同，戰國時的夏曆曆元是冬至合朔齊同。詳情在<a href='guliuli_chinese.html'>古六曆網頁</a>有說明。";
+        } else {
+            txt5 = "<br />夏历有两个版本，差别是计算历法时使用的历元不同。本网页的夏历在春秋时代(前722年&ndash;前481年)和战国时代(前480年&ndash;前222年)所用的版本不同，春秋时期用的夏历历元是雨水合朔齐同，战国时的夏历历元是冬至合朔齐同。详情在<a href='guliuli_simp.html'>古六历网页</a>有说明。";
         }
     }
     
@@ -92,11 +112,17 @@ function ancient_calendar_description(period, li, lic, lang) {
             } else {
                 txt = 'The first month of the Zhuanxu calendar was the h&#224;i month (present day month 10), but it was called month 10. The subsequent months were named month 11, month 12, month 1, ..., month 9. The leap month was placed at the end of a year and was called post month 9. This numerical order was also used in the calendar in the period bewtween 221 B.C. and 105 B.C. (Qin dynasty and an early period of the Han dynasty). Months without any major solar term are indicated by "no Zh&#333;ngq&#236;" for reference.';
             }
-        } else {
+        } else if (lang==1) {
             if (table) {
                 txt = "顓頊曆以建亥(即現在的十月)為年首，但建亥仍按夏曆稱為十月，顓頊曆一年的月份次序是:十月、十一月、十二月、正月、二月……九月。閏月置於年終，稱為「後九月」。秦朝和漢初(期221年&ndash;前104年)的曆法也是採用顓頊曆的年首和月份次序。無中氣的月份在日期下面加上橫線以供參考。";
             } else {
-                txt = "顓頊曆以建亥(即現在的十月)為年首，但建亥仍按夏曆稱為十月，顓頊曆一年的月份次序是:十月、十一月、十二月、正月、二月……九月。閏月置於年終，稱為「後九月」。秦朝和漢初(期221年&ndash;前104年)的曆法也是採用顓頊曆的年首和月份次序。無中氣的月份也有註明以供參考。<br />顓頊曆大約在秦昭襄王時期(公元前306–前251)開始在秦國使用。這裡自-305年(公元前306)起附加秦國君主紀年。";
+                txt = "顓頊曆以建亥(即現在的十月)為年首，但建亥仍按夏曆稱為十月，顓頊曆一年的月份次序是:十月、十一月、十二月、正月、二月……九月。閏月置於年終，稱為「後九月」。秦朝和漢初(期221年&ndash;前104年)的曆法也是採用顓頊曆的年首和月份次序。無中氣的月份也有註明以供參考。<br />顓頊曆大約在秦昭襄王時期(公元前306&ndash;前251)開始在秦國使用。這裡自-305年(公元前306)起附加秦國君主紀年。";
+            }
+        } else {
+            if (table) {
+                txt = "颛顼历以建亥(即现在的十月)为年首，但建亥仍按夏历称为十月，颛顼历一年的月份次序是:十月、十一月、十二月、正月、二月……九月。闰月置于年终，称为「后九月」。秦朝和汉初(期221年&ndash;前104年)的历法也是采用颛顼历的年首和月份次序。无中气的月份在日期下面加上横线以供参考。";
+            } else {
+                txt = "颛顼历以建亥(即现在的十月)为年首，但建亥仍按夏历称为十月，颛顼历一年的月份次序是:十月、十一月、十二月、正月、二月……九月。闰月置于年终，称为「后九月」。秦朝和汉初(期221年&ndash;前104年)的历法也是采用颛顼历的年首和月份次序。无中气的月份也有注明以供参考。<br />颛顼历大约在秦昭襄王时期(公元前306&ndash;前251)开始在秦国使用。这里自-305年(公元前306)起附加秦国君主纪年。";
             }
         }
     } else if (li=="Chunqiu") {
@@ -106,11 +132,17 @@ function ancient_calendar_description(period, li, lic, lang) {
             } else {
                 txt = "The Chunqiu calendar did not have a fixed rule for placing the intercalary months. The result was that the first month of a year varied between the h&#224;i month (present day month 10) and y&#237;n month (present day month 1). The first month often coincided with the ch&#466;u month (present day month 12) in the early years, and often coincided with the z&#464; month (present day month 11) in the later years. Scholars have not come to a consensus on the position of the intercalary month. Here it is assumed that it was placed at the end of a year, and was simply called the leap month. The Chunqiu calendar did not have an algorithm to compute the winter solstice (or any other solar terms). The winter solstice at the time was determined by observation. Thus, there were no calendrical solar terms.";
             }
-        } else {
+        } else if (lang==1) {
             if (table) {
                 txt = "春秋曆沒有固定的置閏法則，正月的月建並不固定，而是在建亥(即現在的十月)與建寅(現在的正月)之間擺動。春秋初期的正月月建多在建丑(現在的十二月)，末期則多在建子(現在的十一月)。目前學界對於春秋曆的閏月的位置末有一致意見。這裡假設閏月置於年終，稱為閏月，不用註明閏幾月。春秋曆沒有計算冬至(或其他節氣)的方法，當時的冬至是靠觀測而定。";
             } else {
                 txt = "春秋曆沒有固定的置閏法則，正月的月建並不固定，而是在建亥(即現在的十月)與建寅(現在的正月)之間擺動。春秋初期的正月月建多在建丑(現在的十二月)，末期則多在建子(現在的十一月)。目前學界對於春秋曆的閏月的位置末有一致意見。這裡假設閏月置於年終，稱為閏月，不用註明閏幾月。春秋曆沒有計算冬至(或其他節氣)的方法，當時的冬至是靠觀測而定，所以沒有曆書節氣。<br />由於春秋曆在魯國使用，這裡附加魯國的君主紀年。";
+            }
+        } else {
+            if (table) {
+                txt = "春秋历没有固定的置闰法则，正月的月建并不固定，而是在建亥(即现在的十月)与建寅(现在的正月)之间摆动。春秋初期的正月月建多在建丑(现在的十二月)，末期则多在建子(现在的十一月)。目前学界对于春秋历的闰月的位置末有一致意见。这里假设闰月置于年终，称为闰月，不用注明闰几月。春秋历没有计算冬至(或其他节气)的方法，当时的冬至是靠观测而定。";
+            } else {
+                txt = "春秋历没有固定的置闰法则，正月的月建并不固定，而是在建亥(即现在的十月)与建寅(现在的正月)之间摆动。春秋初期的正月月建多在建丑(现在的十二月)，末期则多在建子(现在的十一月)。目前学界对于春秋历的闰月的位置末有一致意见。这里假设闰月置于年终，称为闰月，不用注明闰几月。春秋历没有计算冬至(或其他节气)的方法，当时的冬至是靠观测而定，所以没有历书节气。<br />由于春秋历在鲁国使用，这里附加鲁国的君主纪年。";
             }
         }
     } else {
@@ -129,9 +161,10 @@ function ancient_calender_handler(lang, y) {
        for (i=0; i<menu.length; i++) {
           if (document.getElementById(menu[i].id).classList.contains('active')) {
              li = (lang==0 ? menu[i].li:menu[i].lic);
+             if (lang==2) { li = menu[i].lis;}
              if (li=="Xia1") { li ="Xia";}
              document.getElementById("calshownWarring").innerHTML = li;
-             document.getElementById("guliuliDescription").innerHTML = ancient_calendar_description("Warring", menu[i].li, menu[i].lic, lang);
+             document.getElementById("guliuliDescription").innerHTML = ancient_calendar_description("Warring", menu[i].li, menu[i].lic, menu[i].lis, lang);
              break;
           }
         }
@@ -142,9 +175,10 @@ function ancient_calender_handler(lang, y) {
        for (i=0; i<menu.length; i++) {
           if (document.getElementById(menu[i].id).classList.contains('active')) {
              li = (lang==0 ? menu[i].li:menu[i].lic);
+             if (lang==2) { li = menu[i].lis;}
              if (li=="Xia2") { li ="Xia";}
              document.getElementById("calshownSpring").innerHTML = li;
-             document.getElementById("SpringliDescription").innerHTML = ancient_calendar_description("Spring", menu[i].li, menu[i].lic, lang);
+             document.getElementById("SpringliDescription").innerHTML = ancient_calendar_description("Spring", menu[i].li, menu[i].lic, menu[i].lis, lang);
              break;
           }
         }

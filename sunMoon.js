@@ -1,7 +1,7 @@
 "use strict";
 
 function init(lang) {
-    header(lang, 'sunmoon');
+    header(lang, 'sunmoon','sunMoon');
     var d = new Date(); // current time from computer's clock
     var year = d.getUTCFullYear();
     document.getElementById('year').value = year;
@@ -34,7 +34,8 @@ function submitYear(lang) {
     var year = parseInt(document.getElementById('year').value);
     if (isNaN(year) || year < -3500 || year > 3500) {
         var message = ['Invalid input! Please enter an integer between -3500 and 3500.', 
-        '輸入錯誤﹗請輸入包括 -3500 和 3500 之間的整數。'];
+        '輸入錯誤﹗請輸入包括 -3500 和 3500 之間的整數。', 
+        '输入错误！请输入包括 -3500 和 3500 之间的整数。'];
         document.getElementById('err').innerHTML = message[lang];
     } else {
         document.getElementById('year').value = year;
@@ -88,11 +89,17 @@ function addContent(lang, y, id, moon, sun, addClickMesg) {
                      "Z2 (March equinox)", "J3","Z3", 
                      "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
                      "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11"];
-    if (lang==1) {
+    if (lang != 0) {
         mpName = ["朔", "上弦", "望", "下弦"];
-        stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "驚蟄", "春分", "清明", 
+        if (lang==1) {
+           stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "驚蟄", "春分", "清明", 
                     "穀雨", "立夏", "小滿", "芒種", "夏至", "小暑", "大暑", "立秋", 
                     "處暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
+        } else {
+           stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", 
+                    "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", 
+                    "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
+        }
     }
     var ind = y - moon[0][0];
     var i;
@@ -150,14 +157,18 @@ function addContent(lang, y, id, moon, sun, addClickMesg) {
     txt += "<br />";
     if (lang==0) {
         txt += "<h2>24 Solar Terms</h2>";
-    } else {
+    } else if (lang==1) {
         txt += "<h2>二十四節氣</h2>";
+    } else {
+        txt += "<h2>二十四节气</h2>";
     }
     txt += "<table>";
     if (lang==0) {
         txt += "<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>";
-    } else {
+    } else if (lang==1) {
         txt += "<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>";
+    } else {
+        txt += "<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>";
     }
     for (i=1; i < 25; i++) {
         if (i % 2 ==1) {
