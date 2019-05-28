@@ -236,6 +236,22 @@ function firstMonthNum(y) {
     return firstMonth;
 }
 
+// Decompress time: time t has been compressed to retain information 
+// to the nearest minute. The compression algorithm is 
+// t = floor(x+100)*1441 + m, where x is the original time expressed 
+// in the number of days from Jan 0. The inverse transform is 
+// y = floor(t/1441), x_approx = y + (t - y*1441)/1440 - 100
+function decompress_time(t) {
+    var x = [];
+    for (var i=0; i<t.length; i++) {
+        var y = Math.floor(t[i]/1441);
+        var m = t[i] - 1441*y;
+        if (m > 1439.5) { m = 1439.9;}
+        x.push(y - 100 + m/1440.0);
+    }
+    return x;
+}
+
 // Calendrical data for year y
 function calDataYear(y) {
     // *** Data for Gregorian/Julian calendar ***
@@ -257,15 +273,16 @@ function calDataYear(y) {
     var solarAll = solarTerms();
     var inds = y - solarAll[0][0];
     var solar = solarAll[inds];
-    solarAll = 0; // remove large array
     solar.shift(); // remove the first column, which is Greg. year
     // solar contains all the 24 solar terms in year y, starting from 
     // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
     // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
     // Add one more to solar if J12 occurs before Jan 3.
-    if (solar[0] < 3.0) {
-        solar.push((solarTerms())[inds+1][1]+ndays);
+    if (solar[0] < 148423) {
+        solar.push(solarAll[inds+1][1]+ndays*1441);
     }
+    solarAll = null; // remove large array
+    solar = decompress_time(solar);
     
     // ** new moons, quarters and full moons in year y **
     var Q0 = (newMoons())[inds];
@@ -274,6 +291,9 @@ function calDataYear(y) {
     var Q3 = (thirdQuarters())[inds];
     // remove the first column, which is just Greg. year
     Q0.shift(); Q1.shift(); Q2.shift(); Q3.shift();
+    // decompress moon phase data
+    Q0 = decompress_time(Q0); Q1 = decompress_time(Q1); 
+    Q2 = decompress_time(Q2); Q3 = decompress_time(Q3); 
     // Q0 contains all the new moons in year y in chronological order.
     // It stores the dates of new moons counting from 
     // Dec. 31, y-1 at 0h (UTC+8).
