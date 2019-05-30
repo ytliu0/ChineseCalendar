@@ -4,8 +4,15 @@ function init(lang) {
     header(lang,'calendar', 'index'); // print menu
     var d = new Date(); // current time from computer's clock
     var year = d.getUTCFullYear();
-    document.getElementById('year').value = year;
-    calendar(lang, year);
+    var input = document.getElementById('year');
+    input.value = year;
+    input.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById('myBtn').click();
+        }
+    });
+    submitYear(lang);
 }
 
 function submitYear(lang) {

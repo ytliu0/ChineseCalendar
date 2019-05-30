@@ -1,10 +1,9 @@
 "use strict";
 
 function header(lang, page, link) {
-    var txt;
+    var txt = '<ul>';
     if (lang==0) {
         // English
-        txt = '<ul>';
         txt += '<li id="menucalendar"><a href="index.html">Yearly<br />Calendar</a></li>';
         txt += '<li id="menutable"><a href="table.html">Conversion<br /> Table</a></li>';
         txt += '<li id="menusolarterms"><a href="solarTerms.html">24 Solar<br /> Terms</a></li>';
@@ -12,10 +11,8 @@ function header(lang, page, link) {
         txt += '<li id="menurules"><a href="rules.html">Calendar<br /> Rules</a></li>';
         txt += '<li id="menucomputation"><a href="computation.html">Calendar<br /> Calculation</a></li>';
         txt += '<li id="menusunmoon"><a href="sunMoon.html">Sun &amp; Moon<br />Phenomena</a></li>';
-        txt += '</ul>';
     } else if (lang==1) {
         // traditional Chinese
-        txt = '<ul>';
         txt += '<li id="menucalendar"><a href="index_chinese.html">年 曆</a></li>';
         txt += '<li id="menutable"><a href="table_chinese.html">對 照 表</a></li>';
         txt += '<li id="menusolarterms"><a href="solarTerms_chinese.html">二 十 四 節 氣</a></li>';
@@ -23,10 +20,8 @@ function header(lang, page, link) {
         txt += '<li id="menurules"><a href="rules_chinese.html">農 曆 法 則</a></li>';
         txt += '<li id="menucomputation"><a href="computation_chinese.html">編 算 農 曆</a></li>';
         txt += '<li id="menusunmoon"><a href="sunMoon_chinese.html">氣 朔 時 刻</a></li>';
-        txt += '</ul>';
     } else {
         // simplified Chinese
-        txt = '<ul>';
         txt += '<li id="menucalendar"><a href="index_simp.html">年 历</a></li>';
         txt += '<li id="menutable"><a href="table_simp.html">对 照 表</a></li>';
         txt += '<li id="menusolarterms"><a href="solarTerms_simp.html">二 十 四 节 气</a></li>';
@@ -34,8 +29,8 @@ function header(lang, page, link) {
         txt += '<li id="menurules"><a href="rules_simp.html">农 历 法 则</a></li>';
         txt += '<li id="menucomputation"><a href="computation_simp.html">编 算 农 历</a></li>';
         txt += '<li id="menusunmoon"><a href="sunMoon_simp.html">气 朔 时 刻</a></li>';
-        txt += '</ul>';
     }
+    txt += '</ul>';
     document.getElementById('menu').innerHTML = txt;
     if (page != "") {
         document.getElementById('menu'+page).classList.add("active");
