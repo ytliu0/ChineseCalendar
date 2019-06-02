@@ -4,15 +4,15 @@ function init(lang) {
     header(lang, 'sunmoon','sunMoon');
     var d = new Date(); // current time from computer's clock
     var year = d.getUTCFullYear();
-    document.getElementById('year').value = year;
-    var moon = mphases();
-    var sun = sterms();
-    addContent(lang, year-1, 'ym1', moon, sun, true);
-    addContent(lang, year, 'y', moon, sun, false);
-    addContent(lang, year+1, 'y1', moon, sun, true);
-    moon = null;
-    sun = null;
-    
+    var input = document.getElementById("year");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+       event.preventDefault();
+       document.getElementById("myBtn").click();
+      }
+    });
+    input.value = year;
+
     // Hide the years y-1 and y+1
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -27,6 +27,7 @@ function init(lang) {
         } 
       }
     }
+    submitYear(lang);
 }
 
 function submitYear(lang) {

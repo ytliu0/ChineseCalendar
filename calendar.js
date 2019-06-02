@@ -1622,8 +1622,10 @@ function warningMessage(y, m, lang, langVars) {
         if (m==11) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of  Z10 on Nov. 23. It was calculated based on a method developed in 1742. The method was pretty good at the time (1742) but was inaccurate by today's standard. A more accuracy method was adopted in the calendar calculation after 1913.";
-            } else {
+            } else if (lang==1) {
                 warn = "當年的《中華民國曆書》把小雪的日期列為11月23日。《中華民國曆書》裡1912至1913年的曆法計算是根據1742年(即清乾龍七年)編寫的《曆像考成後編》。《曆像考成後編》成書時在當時還算先進，現在看來是很不準確的。所以自1914年起《中華民國曆書》採用國外新方法計算曆法。";
+            } else {
+                warn = "当年的《中华民国历书》把小雪的日期列为11月23日。《中华民国历书》里1912至1913年的历法计算是根据1742年(即清乾龙七年)编写的《历像考成后编》。《历像考成后编》成书时在当时还算先进，现在看来是很不准确的。所以自1914年起《中华民国历书》采用国外新方法计算历法。";
             }
         }
     }
@@ -1632,8 +1634,10 @@ function warningMessage(y, m, lang, langVars) {
         if (m==9) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of Z8 (September equinox) on Sep. 24. It was calculated based on a method developed in 1742. The method was pretty good at the time (1742) but was inaccurate by today's standard. A more accuracy method was adopted in the calendar calculation after 1913.";
-            } else {
+            } else if (lang==1) {
                 warn = "當年的《中華民國曆書》把秋分的日期列為9月24日。《中華民國曆書》裡1912至1913年的曆法計算是根據1742年(即清乾龍七年)編寫的《曆像考成後編》。《曆像考成後編》成書時在當時還算先進，現在看來是很不準確的。所以自1914年起《中華民國曆書》採用國外新方法計算曆法。";
+            } else {
+                warn = "当年的《中华民国历书》把秋分的日期列为9月24日。《中华民国历书》里1912至1913年的历法计算是根据1742年(即清乾龙七年)编写的《历像考成后编》。《历像考成后编》成书时在当时还算先进，现在看来是很不准确的。所以自1914年起《中华民国历书》采用国外新方法计算历法。";
             }
         }
     }
@@ -1650,8 +1654,10 @@ function warningMessage(y, m, lang, langVars) {
         if (m==12) {
             if (lang==0) {
                 warn = "The calendar used at that time listed the date of J11 on Dec. 7. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
+            } else if (lang==1) {
+                warn = "當年的《中華民國曆書》把大雪的日期列為12月7日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120&deg;標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
             } else {
-                warn = "當年的《中華民國曆書》把大雪的日期列為12月7日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
+                warn = "当年的《中华民国历书》把大雪的日期列为12月7日。这是因为1929年以前时刻是用北京地方时(东经116&deg;25')，而本网页列出的时刻却是用现时全国通行的东经120&deg;标准时。 东经120&deg;标准时比北京地方时迟14分25秒。";
             }
         }
     }
