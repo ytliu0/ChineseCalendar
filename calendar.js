@@ -1335,7 +1335,7 @@ function warningMessage(y, m, lang, langVars) {
     // 1462
     if (y==1462 && m==11) {
         if (lang==0) {
-            warn = "There is a record indicating that the first day of month 11 occurred on Nov. 11.";
+            warn = "There is a record indicating that the first day of month 11 occurred on Nov. 21.";
         } else if (lang==1) {
             warn = "有明代殘曆記十一月初一在辛卯(11月21日)。";
         } else {
