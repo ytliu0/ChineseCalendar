@@ -237,9 +237,9 @@ JD<sub>q</sub>(j,y) = JD(W(y)) + (j/24)&middot;P<sub>s</sub>&nbsp; &nbsp;
 <p><b>例一: 计算周历在N<sub>-386</sub>(周元安王十五年)的月份编排。</b></p>
 <p>根据公式(4)和表二，周历最接近-386年1月1日的冬至儒略日数是<br />
 JD(W(-386))=1721050.5 + 3/4 - 386&times;(365 + 1/4) = 1580064.5 + 1/4<br />
-冬至日正午的儒略日数是1580065，用儒略日转公历的标准方法(例如<a href="https://en.wikipedia.org/wiki/Julian_day#Julian_or_Gregorian_calendar_from_Julian_day_number" target="_blank">理查斯算法</a>)算出儒略日1580065对应的公历日期是-387年12月25日，故周历的冬至在12月25日子正后1/4日(即6时)。用<a href="sexagenary_simp.html">干支网页</a>的公式求得冬至日的天干数是<br />
-1 + [(1580065-1) mod 10] = 5，日天干是戊;冬至日的地支数是<br />
-1+ [(1580065+1) mod 12] = 3，日地支是寅，所以冬至日干支是戊寅。</p>
+冬至日正午的儒略日数是1580065，用儒略日转公历的标准方法(例如<a href="https://en.wikipedia.org/wiki/Julian_day#Julian_or_Gregorian_calendar_from_Julian_day_number" target="_blank">理查斯算法</a>)算出儒略日1580065对应的公历日期是-387年12月25日，故周历的冬至在12月25日子正后1/4日(即6时)。用<a href="sexagenary_simp.html">干支网页</a>的公式求得冬至日的天干数是 [下面的mod(X,Y)指X除以Y后所得之余数]<br />
+1 + mod(1580065-1, 10) = 5，日天干是戊;冬至日的地支数是<br />
+1 + mod(1580065+1, 12) = 3，日地支是寅，所以冬至日干支是戊寅。</p>
     
 <p>周历的正月是建子，也就是说正月含冬至，正月朔是冬至日之前的第一个朔日。用公
 式(1)和表二，我们要求出最大的整数i使得<br />
