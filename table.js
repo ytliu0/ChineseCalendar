@@ -95,8 +95,8 @@ function langConstant(lang) {
         if (lang==1) {
             animal = ["鼠","牛","虎","兔","龍", "蛇","馬","羊","猴","雞", "狗","豬"];
             Wyear = "公曆年";
-            Cyear = "農曆年";
-            Cmonth = "農曆月";
+            Cyear = "中曆年";
+            Cmonth = "中曆月";
             month_num = ["正","二","三","四","五", "六","七","八","九","十", "十一","十二","閏月"];
             Ndays = "日數";
             note_early = "朔的時刻接近午夜零時，初一或會提早一天。";
@@ -104,8 +104,8 @@ function langConstant(lang) {
         } else {
             animal = ["鼠","牛","虎","兔","龙", "蛇","马","羊","猴","鸡", "狗","猪"];
             Wyear = "公历年";
-            Cyear = "农历年";
-            Cmonth = "农历月";
+            Cyear = "中历年";
+            Cmonth = "中历月";
             month_num = ["正","二","三","四","五", "六","七","八","九","十", "十一","十二","闰月"];
             Ndays = "日数";
             note_early = "朔的时刻接近午夜零时，初一或会提早一天。";
@@ -204,15 +204,33 @@ function tableYears(ystart, yend, date, langCon) {
         txt += '<th>'+langCon.month_num[j]+'</th>';
     }
     txt += '<th>'+langCon.month_num[12]+'</th> </tr>';
+    var jd0, jd;
     for (year = ystart; year <= yend; year++) {
         y = date[year - date[0][0]];
         var ih = (year + 6) % 10;
         var ie = (year + 8) % 12;
         if (ih < 0) {ih += 10;}
         if (ie < 0) {ie += 12;}
-        var cyear = langCon.heaven[ih]+" "+langCon.earth[ie]+" ("+langCon.animal[ie]+")";
+        var cyear = "";
+        if (year < 1912 && langCon.lang > 0) {
+            // Use era/regime name
+            if (langCon.lang==1) {
+                cyear = eraName(year);
+            } else {
+                cyear = eraNameSim(year);
+            }
+            if (cyear.length > 2) {
+                cyear = cyear.substr(1, cyear.length-2);
+            }
+        }
+        if (cyear == "") {
+            // Use sexagenary year cycle
+            cyear = langCon.heaven[ih]+" "+langCon.earth[ie]+" ("+langCon.animal[ie]+")";
+        }
         txt +='<tr><td>'+year+'</td><td>'+cyear+'</td>';
-        
+
+        // JD at noon on Dec 31, year-1
+        jd0 = Math.floor(getJD(year-1, 12,31) + 0.501);
         var mmdd;
         for (j=1; j<13; j++) {
             mmdd = ymd(year,y[j]);
@@ -220,6 +238,11 @@ function tableYears(ystart, yend, date, langCon) {
             var warn = newMoonCloseToMidnight(year, j);
             if (warn==1) {
                 mmdd = '<span style="color:red;">'+mmdd+'<sup>*</sup></span>';
+            }
+            if (langCon.lang > 0 && mmdd != '&mdash;') {
+                // add sexagenary day cycle
+                jd = jd0 + (y[j] > 1000 ? y[j]-5000:y[j]);
+                mmdd += '<br />'+langCon.heaven[(jd-1) % 10]+langCon.earth[(jd+1) % 12];
             }
             txt +='<td>'+mmdd+'</td>';
         }
@@ -230,6 +253,11 @@ function tableYears(ystart, yend, date, langCon) {
             lmon = langCon.month_num[y[14]-1]+': '+mmdd;
             if (year < -103) {
                 lmon = mmdd;
+            }
+            if (langCon.lang > 0) {
+                // add sexagenary day cycle
+                jd = jd0 + (y[13] > 1000 ? y[13]-5000:y[13]);
+                lmon += '<br />'+langCon.heaven[(jd-1) % 10]+langCon.earth[(jd+1) % 12];
             }
         }
         txt += '<td>'+lmon+'</td><td>'+y[15]+'</td>';
@@ -251,11 +279,11 @@ function table_spring(lang) {
         tab.innerHTML = '<p>The following table lists the proleptic Julian dates MM-DD of the first day of each month in the Chinese calendar. Julian year 0 means 1 B.C., -1 means 2 B.C. and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. The last column lists the total number of days in the Chinese year.</p>';
         langCon.Wyear = "Julian<br />year";
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (前722 &ndash; 前481)</h1>';
-        tab.innerHTML = '<p>下表列出農曆每月初一的公曆日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、餘類推。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月，MM-DD 表示閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>春 秋 時 代 朔 閏 表 (前722 &ndash; 前481)</h1>';
+        tab.innerHTML = '<p>下表列出農曆每月初一的公曆日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、餘類推。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月，MM-DD 表示閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (前722 &ndash; 前481)</h1>';
-        tab.innerHTML = '<p>下表列出农历每月初一的公历日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、余类推。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月，MM-DD 表示闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>春 秋 时 代 朔 闰 表 (前722 &ndash; 前481)</h1>';
+        tab.innerHTML = '<p>下表列出农历每月初一的公历日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、余类推。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月，MM-DD 表示闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
     }
     
     var menu = ancient_calendar_menu('Spring');
@@ -325,11 +353,11 @@ function table_warring(lang) {
         tab.innerHTML = '<p>The following table lists the proleptic Julian dates MM-DD of the first day of each month in the Chinese calendar. Julian year 0 means 1 B.C., -1 means 2 B.C. and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. The last column lists the total number of days in the Chinese year.</p>';
         langCon.Wyear = "Julian<br />year";
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (前480 &ndash; 前222)</h1>';
-        tab.innerHTML = '<p>下表列出農曆每月初一的公曆日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、餘類推。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月，MM-DD 表示閏月初一的公曆月日。日數指該農曆年的總日數。</p>';
+        tit.innerHTML = '<h1>戰 國 時 代 朔 閏 表 (前480 &ndash; 前222)</h1>';
+        tab.innerHTML = '<p>下表列出農曆每月初一的公曆日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、餘類推。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月，MM-DD 表示閏月初一的公曆月日。公曆日期的下面是日干支。日數指該農曆年的總日數。</p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (前480 &ndash; 前222)</h1>';
-        tab.innerHTML = '<p>下表列出农历每月初一的公历日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、余类推。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月，MM-DD 表示闰月初一的公历月日。日数指该农历年的总日数。</p>';
+        tit.innerHTML = '<h1>战 国 时 代 朔 闰 表 (前480 &ndash; 前222)</h1>';
+        tab.innerHTML = '<p>下表列出农历每月初一的公历日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、余类推。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月，MM-DD 表示闰月初一的公历月日。公历日期的下面是日干支。日数指该农历年的总日数。</p>';
     }
     
     var menu = ancient_calendar_menu('Warring');
@@ -403,12 +431,12 @@ function table_qinhanxin(lang) {
         tab.innerHTML = '<p>The following table lists the (proleptic before 8 A.D.) Julian dates MM-DD of the first day of each month in the Chinese calendar in the Qin, Western Han, and Xin dynasty (221 B.C. &ndash; 24 A.D.). Julian year 0 means 1 B.C., -1 means 2 B.C. and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p><br />';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (前221 &ndash; 24)</h1>';
-        tab.innerHTML = '<p>下表列出秦、西漢、新朝時(前221年至24年)農曆每月初一的公曆日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、餘類推。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數。</p>';
+        tit.innerHTML = '<h1>秦、 西 漢 及 新 朝 朔 閏 表 (前221 &ndash; 24)</h1>';
+        tab.innerHTML = '<p>下表列出秦、西漢、新朝時(前221年至24年)農曆每月初一的公曆日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、餘類推。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p><br />';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (前221 &ndash; 24)</h1>';
-        tab.innerHTML = '<p>下表列出秦、西汉、新朝时(前221年至24年)农历每月初一的公历日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、余类推。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数。</p>';
+        tit.innerHTML = '<h1>秦、 西 汉 及 新 朝 朔 闰 表 (前221 &ndash; 24)</h1>';
+        tab.innerHTML = '<p>下表列出秦、西汉、新朝时(前221年至24年)农历每月初一的公历日期 MM-DD。公元0年即公元前1年、-1年即前2年、-2年即前3年、余类推。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。公历日期的下面是日干支。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p><br />';
     }
     
@@ -472,21 +500,21 @@ function table_qinhanxin(lang) {
     } else if (lang==1) {
         info = '<p style="color:red;">太初元年(-103年)的曆改使該年有十五個農曆月。</p>';
         info += '<table>';
-        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">農曆年</th> <th colspan="8">農曆月</th></tr>';
+        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">中曆年</th> <th colspan="8">中曆月</th></tr>';
         info += '<tr> <th>十</th> <th>十一</th> <th>十二</th> <th>正</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th></tr>';
-        info += '<tr> <td rowspan="3">-103</td> <td rowspan="3">丁 丑 (牛)</td> <td>-11-26</td> <td>-12-25</td> <td>01-24</td> <td>02-22</td> <td>03-24</td> <td>04-23</td> <td>05-22</td> <td>06-20</td></tr>';
+        info += '<tr> <td rowspan="3">-103</td> <td rowspan="3">漢武帝太初元年</td> <td>-11-26<br />乙未</td> <td>-12-25<br />甲子</td> <td>01-24<br />甲午</td> <td>02-22<br />癸亥</td> <td>03-24<br />癸巳</td> <td>04-23<br />癸亥</td> <td>05-22<br />壬辰</td> <td>06-20<br />辛酉</td></tr>';
         info += '<tr> <th>六</th> <th>七</th> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二</th> <th>日數</th></tr>';
-        info += '<tr><td>07-19</td> <td>08-18</td> <td>09-16</td> <td>10-16</td> <td>11-14</td> <td>12-14</td> <td>13-12</td> <td>442</td></tr>';
+        info += '<tr><td>07-19<br />庚寅</td> <td>08-18<br />庚申</td> <td>09-16<br />己丑</td> <td>10-16<br />己未</td> <td>11-14<br />戊子</td> <td>12-14<br />戊午</td> <td>13-12<br />丁亥</td> <td>442</td></tr>';
         info += '</table> <br /><br />';
         langCon.month_num = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "閏月"];
     } else {
         info = '<p style="color:red;">太初元年(-103年)的历改使该年有十五个农历月。</p>';
         info += '<table>';
-        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">农历年</th> <th colspan="8">农历月</th></tr>';
+        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">中历年</th> <th colspan="8">中历月</th></tr>';
         info += '<tr> <th>十</th> <th>十一</th> <th>十二</th> <th>正</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th></tr>';
-        info += '<tr> <td rowspan="3">-103</td> <td rowspan="3">丁 丑 (牛)</td> <td>-11-26</td> <td>-12-25</td> <td>01-24</td> <td>02-22</td> <td>03-24</td> <td>04-23</td> <td>05-22</td> <td>06-20</td></tr>';
+        info += '<tr> <td rowspan="3">-103</td> <td rowspan="3">汉武帝太初元年</td> <td>-11-26<br />乙未</td> <td>-12-25<br />甲子</td> <td>01-24<br />甲午</td> <td>02-22<br />癸亥</td> <td>03-24<br />癸巳</td> <td>04-23<br />癸亥</td> <td>05-22<br />壬辰</td> <td>06-20<br />辛酉</td></tr>';
         info += '<tr> <th>六</th> <th>七</th> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二</th> <th>日数</th></tr>';
-        info += '<tr><td>07-19</td> <td>08-18</td> <td>09-16</td> <td>10-16</td> <td>11-14</td> <td>12-14</td> <td>13-12</td> <td>442</td></tr>';
+        info += '<tr><td>07-19<br />庚寅</td> <td>08-18<br />庚申</td> <td>09-16<br />己丑</td> <td>10-16<br />己未</td> <td>11-14<br />戊子</td> <td>12-14<br />戊午</td> <td>13-12<br />丁亥</td> <td>442</td></tr>';
         info += '</table> <br /><br />';
         langCon.month_num = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "闰月"];
     }
@@ -559,19 +587,19 @@ function table_qinhanxin(lang) {
         info += '</table> <br /><br />';
     } else if (lang==1) {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">農曆年</th> <th colspan="7">農曆月</th> <th rowspan="4">日數</th></tr>';
+        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">中曆年</th> <th colspan="7">中曆月</th> <th rowspan="4">日數</th></tr>';
         info += '<tr> <th>正(丑)</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th> <th>七</th></tr>';
-        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">癸 未 (羊)</td> <td>01-11</td> <td>02-10</td> <td>03-11</td> <td>04-10</td> <td>05-09</td> <td>06-08</td> <td>07-07</td></tr>';
+        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">新地皇四年/漢更始元年</td> <td>01-11<br />壬午</td> <td>02-10<br />壬子</td> <td>03-11<br />辛巳</td> <td>04-10<br />辛亥</td> <td>05-09<br />庚辰</td> <td>06-08<br />庚戌</td> <td>07-07<br />己卯</td></tr>';
         info += '<tr> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二(子)</th> <th>十二(丑)</th> <th>閏月</th> </tr>';
-        info += '<tr><td>08-06</td> <td>09-04</td> <td>10-04</td> <td>11-02</td> <td>12-02</td> <td>12-31</td> <td>&mdash;</td> <td>384</td></tr>';
+        info += '<tr><td>08-06<br />己酉</td> <td>09-04<br />戊寅</td> <td>10-04<br />戊申</td> <td>11-02<br />丁丑</td> <td>12-02<br />丁未</td> <td>12-31<br />丙子</td> <td>&mdash;</td> <td>384</td></tr>';
         info += '</table> <br /><br />';
     } else {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">农历年</th> <th colspan="7">农历月</th> <th rowspan="4">日数</th></tr>';
+        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">中历年</th> <th colspan="7">中历月</th> <th rowspan="4">日数</th></tr>';
         info += '<tr> <th>正(丑)</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th> <th>七</th></tr>';
-        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">癸 未 (羊)</td> <td>01-11</td> <td>02-10</td> <td>03-11</td> <td>04-10</td> <td>05-09</td> <td>06-08</td> <td>07-07</td></tr>';
+        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">新地皇四年/汉更始元年</td> <td>01-11<br />壬午</td> <td>02-10<br />壬子</td> <td>03-11<br />辛巳</td> <td>04-10<br />辛亥</td> <td>05-09<br />庚辰</td> <td>06-08<br />庚戌</td> <td>07-07<br />己卯</td></tr>';
         info += '<tr> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二(子)</th> <th>十二(丑)</th> <th>闰月</th> </tr>';
-        info += '<tr><td>08-06</td> <td>09-04</td> <td>10-04</td> <td>11-02</td> <td>12-02</td> <td>12-31</td> <td>&mdash;</td> <td>384</td></tr>';
+        info += '<tr><td>08-06<br />己酉</td> <td>09-04<br />戊寅</td> <td>10-04<br />戊申</td> <td>11-02<br />丁丑</td> <td>12-02<br />丁未</td> <td>12-31<br />丙子</td> <td>&mdash;</td> <td>384</td></tr>';
         info += '</table> <br /><br />';
     }
     tab.innerHTML += info;
@@ -592,12 +620,12 @@ function table_easternhan(lang) {
         tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Eastern Han dynasty (25&ndash;219). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (25 &ndash; 219)</h1>';
-        tab.innerHTML = '<p>下表列出東漢時(25年至219年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>東 漢 朔 閏 表 (25 &ndash; 219)</h1>';
+        tab.innerHTML = '<p>下表列出東漢時(25年至219年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (25 &ndash; 219)</h1>';
-        tab.innerHTML = '<p>下表列出东汉时(25年至219年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>东 汉 朔 闰 表 (25 &ndash; 219)</h1>';
+        tab.innerHTML = '<p>下表列出东汉时(25年至219年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 公历日期的下面是日干支。日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -627,12 +655,12 @@ function table_weijin(lang) {
         tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Wei dynasty and Jin dynasty (220&ndash;419). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (220 &ndash; 419)</h1>';
-        tab.innerHTML = '<p>下表列出魏及晉朝時(220年至419年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>魏 晉 時 代 朔 閏 表 (220 &ndash; 419)</h1>';
+        tab.innerHTML = '<p>下表列出魏及晉朝時(220年至419年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (220 &ndash; 419)</h1>';
-        tab.innerHTML = '<p>下表列出魏及晋朝时(220年至419年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>魏 晋 时 代 朔 闰 表 (220 &ndash; 419)</h1>';
+        tab.innerHTML = '<p>下表列出魏及晋朝时(220年至419年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 公历日期的下面是日干支。日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -685,15 +713,15 @@ function table_weijin(lang) {
     tab.innerHTML += tableYears(230, 236, date2, langCon);
     
     if (lang==0) {
-        info = '<p style="color:red;">In 237 A.D., emperor Mingdi of the Wei dynasty declared that the ch&#466;u month (present day month 12) would be the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. The new system was imposed after month 2 in the Chinese year in 237, in which month 4 was followed by month 2. When the emperor died in 239 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 239 had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month). In addition, month 12 in the Chinese year in 236 A.D. had only 28 days as a new version of the Chinese calendar was adopted.</p>';
+        info = '<p style="color:red;">In 237 A.D., emperor Mingdi of the Wei dynasty declared that the ch&#466;u month (present day month 12) would be the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. The new system was imposed after month 2 in the Chinese year in 237, in which month 4 was followed by month 2. When the emperor died in 239 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 239 had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month). In addition, month 12 in the Chinese year in 236 A.D. had only 28 days as a new version of the Chinese calendar was adopted. There are discrepancies between the data in the main text and Appendix 2 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. The main text uses the new calendar in month 1, but Appendix 2 uses the new calendar in month 6. Here the data in the main text are used, in which the first days of each month before month 6 are one day earlier.</p>';
         langCon.month_num[0] = '1 (y&#237;n)';
         langCon.month_num[1] = '2 (m&#462;o)';
         langCon.month_num[3] = '4 (ch&#233;n)';
     } else  {
         if (lang==1) {
-            info = '<p style="color:red;">魏青龍五年（丁巳年，公元237年），魏明帝改正朔，以殷正建丑(即現在的十二月)為年首，二月後實施，並改元景初元年。所以丁巳年沒有三月份，二月後的月份是四月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。景初三年（公元239年）明帝駕崩,次年恢復以建寅(即現在的正月)為年首。景初三年有兩個十二月(建子和建丑)。另外，青龍五年正月開始使用新曆法，使青龍四年十二月只有二十八日。</p>';
+            info = '<p style="color:red;">魏青龍五年（丁巳年，公元237年），魏明帝改正朔，以殷正建丑(即現在的十二月)為年首，二月後實施，並改元景初元年。所以丁巳年沒有三月份，二月後的月份是四月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。景初三年（公元239年）明帝駕崩,次年恢復以建寅(即現在的正月)為年首。景初三年有兩個十二月(建子和建丑)。另外，青龍五年正月開始使用新曆法(景初曆)，使青龍四年十二月只有二十八日。《三千五百年历日天象》的正文與其附表2的資料不合，正文在正月改用景初曆，附表2在六月才改曆。這裡用正文的數據，在六月前的朔日都比附表2早一日。</p>';
         } else {
-            info = '<p style="color:red;">魏青龙五年（丁巳年，公元237年），魏明帝改正朔，以殷正建丑(即现在的十二月)为年首，二月后实施，并改元景初元年。所以丁巳年没有三月份，二月后的月份是四月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。景初三年（公元239年）明帝驾崩,次年恢复以建寅(即现在的正月)为年首。景初三年有两个十二月(建子和建丑)。另外，青龙五年正月开始使用新历法，使青龙四年十二月只有二十八日。</p>';
+            info = '<p style="color:red;">魏青龙五年（丁巳年，公元237年），魏明帝改正朔，以殷正建丑(即现在的十二月)为年首，二月后实施，并改元景初元年。所以丁巳年没有三月份，二月后的月份是四月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。景初三年（公元239年）明帝驾崩,次年恢复以建寅(即现在的正月)为年首。景初三年有两个十二月(建子和建丑)。另外，青龙五年正月开始使用新历法(景初历)，使青龙四年十二月只有二十八日。《三千五百年历日天象》的正文与其附表2的资料不合，正文在正月改用景初历，附表2在六月才改历。这里用正文的数据，在六月前的朔日都比附表2早一日。</p>';
         }
         langCon.month_num[0] = '正(寅)';
         langCon.month_num[1] = '二(卯)';
@@ -727,21 +755,20 @@ function table_weijin(lang) {
         langCon.month_num[0] = '1';
     } else if (lang==1) {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">農曆年</th> <th colspan="7">農曆月</th> <th rowspan="4">日數</th></tr>';
+        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">中曆年</th> <th colspan="7">中曆月</th> <th rowspan="4">日數</th></tr>';
         info += '<tr> <th>正(丑)</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th> <th>七</th></tr>';
-        info += '<tr> <td rowspan="3">239</td> <td rowspan="3">己 未 (羊)</td> <td>01-22</td> <td>02-21</td> <td>03-22</td> <td>04-21</td> <td>05-20</td> <td>06-19</td> <td>07-18</td></tr>';
+        info += '<tr> <td rowspan="3">239</td> <td rowspan="3">魏明帝景初三年</td> <td>01-22<br />丁亥</td> <td>02-21<br />丁巳</td> <td>03-22<br />丙戌</td> <td>04-21<br />丙辰</td> <td>05-20<br />乙酉</td> <td>06-19<br />乙卯</td> <td>07-18<br />甲申</td></tr>';
         info += '<tr> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二(子)</th> <th>十二(丑)</th> <th>閏月</th> </tr>';
-        info += '<tr><td>08-17</td> <td>09-15</td> <td>10-15</td> <td>11-13</td> <td>12-13</td> <td>13-12</td> <td>&mdash;</td> <td>384</td></tr>';
+        info += '<tr><td>08-17<br />甲寅</td> <td>09-15<br />癸未</td> <td>10-15<br />癸丑</td> <td>11-13<br />壬午</td> <td>12-13<br />壬子</td> <td>13-12<br />壬午</td> <td>&mdash;</td> <td>384</td></tr>';
         info += '</table> <br /><br />';
         langCon.month_num[0] = '正';
     } else {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">农历年</th> <th colspan="7">农历月</th> <th rowspan="4">日数</th></tr>';
+        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">中历年</th> <th colspan="7">中历月</th> <th rowspan="4">日数</th></tr>';
         info += '<tr> <th>正(丑)</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th> <th>七</th></tr>';
-        info += '<tr> <td rowspan="3">239</td> <td rowspan="3">己 未 (羊)</td> <td>01-22</td> <td>02-21</td> <td>03-22</td> <td>04-21</td> <td>05-20</td> <td>06-19</td> <td>07-18</td></tr>';
+        info += '<tr> <td rowspan="3">239</td> <td rowspan="3">魏明帝景初三年</td> <td>01-22<br />丁亥</td> <td>02-21<br />丁巳</td> <td>03-22<br />丙戌</td> <td>04-21<br />丙辰</td> <td>05-20<br />乙酉</td> <td>06-19<br />乙卯</td> <td>07-18<br />甲申</td></tr>';
         info += '<tr> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二(子)</th> <th>十二(丑)</th> <th>闰月</th> </tr>';
-        info += '<tr><td>08-17</td> <td>09-15</td> <td>10-15</td> <td>11-13</td> <td>12-13</td> <td>13-12</td> <td>&mdash;</td> <td>384</td></tr>';
-        info += '</table> <br /><br />';
+        info += '<tr><td>08-17<br />甲寅</td> <td>09-15<br />癸未</td> <td>10-15<br />癸丑</td> <td>11-13<br />壬午</td> <td>12-13<br />壬子</td> <td>13-12<br />壬午</td> <td>&mdash;</td> <td>384</td></tr>';
         langCon.month_num[0] = '正';
     }
     tab.innerHTML += info;
@@ -768,12 +795,12 @@ function table_snsui(lang) {
         tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Northern and Southern dynasties, and Sui dynasty (420&ndash;617). The data between 420 and 589 are from the calendars issued by the governments in the southern dynasties (Song, Qi, Liang and Chen). The data after 589 are from calendars issued by the Sui dynasty. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (420 &ndash; 617)</h1>';
-        tab.innerHTML = '<p>下表列出南北朝及隋朝時(420年至617年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。這裡所示的南北朝曆法是南朝宋、齊、粱、陳四朝的曆法，陳亡後(589年後)才用隋朝曆法。</p>';
+        tit.innerHTML = '<h1>宋、 齊、 梁、 陳 及 隋 朝 朔 閏 表 (420 &ndash; 617)</h1>';
+        tab.innerHTML = '<p>下表列出南北朝及隋朝時(420年至617年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。這裡所示的南北朝曆法是南朝宋、齊、粱、陳四朝的曆法，陳亡後(589年後)才用隋朝曆法。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (420 &ndash; 617)</h1>';
-        tab.innerHTML = '<p>下表列出南北朝及隋朝时(420年至617年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。这里所示的南北朝历法是南朝宋、齐、粱、陈四朝的历法，陈亡后(589年后)才用隋朝历法。</p>';
+        tit.innerHTML = '<h1>宋、 齐、 梁、 陈 及 隋 朝 朔 闰 表 (420 &ndash; 617)</h1>';
+        tab.innerHTML = '<p>下表列出南北朝及隋朝时(420年至617年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。这里所示的南北朝历法是南朝宋、齐、粱、陈四朝的历法，陈亡后(589年后)才用隋朝历法。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -783,7 +810,7 @@ function table_snsui(lang) {
     }
     var date = ChineseToGregorian();
     tab = document.getElementById('table');
-    tab.innerHTML = tableYears(220, 230, date, langCon);
+    tab.innerHTML = tableYears(420, 430, date, langCon);
     
     for (var ystart=431; ystart <= 601; ystart += 10) {
         tab.innerHTML += tableYears(ystart, ystart+9, 
@@ -803,12 +830,12 @@ function table_tang5(lang) {
         tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Tang dynasty and Five dynasties (618&ndash;959). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (618 &ndash; 959)</h1>';
-        tab.innerHTML = '<p>下表列出唐朝及五代時(618年至959年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>唐 朝 和 五 代 (梁、 唐、 晉、 漢、 周) 朔 閏 表 (618 &ndash; 959)</h1>';
+        tab.innerHTML = '<p>下表列出唐朝及五代時(618年至959年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (618 &ndash; 959)</h1>';
-        tab.innerHTML = '<p>下表列出唐朝及五代时(618年至959年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>唐 朝 和 五 代 (梁、 唐、 晋、 汉、 周) 朔 闰 表 (618 &ndash; 959)</h1>';
+        tab.innerHTML = '<p>下表列出唐朝及五代时(618年至959年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -891,20 +918,20 @@ function table_tang5(lang) {
         langCon.month_num = ["1","2","3","4","5","6","7","8","9","10","11","12","leap<br />mon."];
     } else if (lang==1) {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">農曆年</th> <th colspan="8">農曆月</th></tr>';
+        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">中曆年</th> <th colspan="8">中曆月</th></tr>';
         info += '<tr> <th>正(子)</th> <th>十二</th> <th>一</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th></tr>';
-        info += '<tr> <td rowspan="3">700</td> <td rowspan="3">庚 子 (鼠)</td> <td>-11-27</td> <td>-12-27</td> <td>01-26</td> <td>02-25</td> <td>03-25</td> <td>04-24</td> <td>05-23</td> <td>06-21</td></tr>';
+        info += '<tr> <td rowspan="3">700</td> <td rowspan="3">武周聖曆三年/久視元年</td> <td>-11-27<br />辛亥</td> <td>-12-27<br />辛巳</td> <td>01-26<br />辛亥</td> <td>02-25<br />辛巳</td> <td>03-25<br />庚戌</td> <td>04-24<br />庚辰</td> <td>05-23<br />己酉</td> <td>06-21<br />戊寅</td></tr>';
         info += '<tr> <th>七</th> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二</th> <th>閏月</th> <th>日數</th></tr>';
-        info += '<tr><td>07-21</td> <td>09-17</td> <td>10-17</td> <td>11-15</td> <td>12-15</td> <td>13-14</td> <td>七: 08-19</td> <td>444</td></tr>';
+        info += '<tr><td>07-21<br />戊申</td> <td>09-17<br />丙午</td> <td>10-17<br />丙子</td> <td>11-15<br />乙巳</td> <td>12-15<br />乙亥</td> <td>13-14<br />乙巳</td> <td>七: 08-19<br />丁丑</td> <td>444</td></tr>';
         info += '</table> <br /><br />';
         langCon.month_num = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "閏月"];
     } else {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">农历年</th> <th colspan="8">农历月</th></tr>';
+        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">中历年</th> <th colspan="8">中历月</th></tr>';
         info += '<tr> <th>正(子)</th> <th>十二</th> <th>一</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th></tr>';
-        info += '<tr> <td rowspan="3">700</td> <td rowspan="3">庚 子 (鼠)</td> <td>-11-27</td> <td>-12-27</td> <td>01-26</td> <td>02-25</td> <td>03-25</td> <td>04-24</td> <td>05-23</td> <td>06-21</td></tr>';
+        info += '<tr> <td rowspan="3">700</td> <td rowspan="3">武周圣历三年/久视元年</td> <td>-11-27<br />辛亥</td> <td>-12-27<br />辛巳</td> <td>01-26<br />辛亥</td> <td>02-25<br />辛巳</td> <td>03-25<br />庚戌</td> <td>04-24<br />庚辰</td> <td>05-23<br />己酉</td> <td>06-21<br />戊寅</td></tr>';
         info += '<tr> <th>七</th> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二</th> <th>闰月</th> <th>日数</th></tr>';
-        info += '<tr><td>07-21</td> <td>09-17</td> <td>10-17</td> <td>11-15</td> <td>12-15</td> <td>13-14</td> <td>七: 08-19</td> <td>444</td></tr>';
+        info += '<tr><td>07-21<br />戊申</td> <td>09-17<br />丙午</td> <td>10-17<br />丙子</td> <td>11-15<br />乙巳</td> <td>12-15<br />乙亥</td> <td>13-14<br />乙巳</td> <td>七: 08-19<br />丁丑</td> <td>444</td></tr>';
         info += '</table> <br /><br />';
         langCon.month_num = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "闰月"];
     }
@@ -950,19 +977,19 @@ function table_tang5(lang) {
         info += '</table> <br /><br />';
     } else if (lang==1) {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">農曆年</th> <th colspan="8">農曆月</th></tr>';
+        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">中曆年</th> <th colspan="8">中曆月</th></tr>';
         info += '<tr> <th>正(子)</th> <th>二</th> <th>三</th> <th>四 (卯)</th> <th>五 (辰)</th> <th>四 (巳)</th> <th>五 (午)</th> <th>六</th></tr>';
-        info += '<tr> <td rowspan="3">762</td> <td rowspan="3">壬 寅 (虎)</td> <td>-12-02</td> <td>-12-31</td> <td>01-30</td> <td>03-01</td> <td>03-30</td> <td>04-29</td> <td>05-28</td> <td>06-27</td></tr>';
+        info += '<tr> <td rowspan="3">762</td> <td rowspan="3">唐肅宗上元三年/寶應元年</td> <td>-12-02<br />壬午</td> <td>-12-31<br />辛亥</td> <td>01-30<br />辛巳</td> <td>03-01<br />辛亥</td> <td>03-30<br />庚辰</td> <td>04-29<br />庚戌</td> <td>05-28<br />己卯</td> <td>06-27<br />己酉</td></tr>';
         info += '<tr> <th>七</th> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二</th> <th>閏月</th> <th>日數</th></tr>';
-        info += '<tr><td>07-26</td> <td>08-24</td> <td>09-23</td> <td>10-22</td> <td>11-21</td> <td>12-20</td> <td>&mdash;</td> <td>413</td></tr>';
+        info += '<tr><td>07-26<br />戊寅</td> <td>08-24<br />丁未</td> <td>09-23<br />丁丑</td> <td>10-22<br />丙午</td> <td>11-21<br />丙子</td> <td>12-20<br />乙巳</td> <td>&mdash;</td> <td>413</td></tr>';
         info += '</table> <br /><br />';
     } else {
         info = '<table>';
-        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">农历年</th> <th colspan="8">农历月</th></tr>';
+        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">中历年</th> <th colspan="8">中历月</th></tr>';
         info += '<tr> <th>正(子)</th> <th>二</th> <th>三</th> <th>四 (卯)</th> <th>五 (辰)</th> <th>四 (巳)</th> <th>五 (午)</th> <th>六</th></tr>';
-        info += '<tr> <td rowspan="3">762</td> <td rowspan="3">壬 寅 (虎)</td> <td>-12-02</td> <td>-12-31</td> <td>01-30</td> <td>03-01</td> <td>03-30</td> <td>04-29</td> <td>05-28</td> <td>06-27</td></tr>';
+        info += '<tr> <td rowspan="3">762</td> <td rowspan="3">唐肃宗上元三年/宝应元年</td> <td>-12-02<br />壬午</td> <td>-12-31<br />辛亥</td> <td>01-30<br />辛巳</td> <td>03-01<br />辛亥</td> <td>03-30<br />庚辰</td> <td>04-29<br />庚戌</td> <td>05-28<br />己卯</td> <td>06-27<br />己酉</td></tr>';
         info += '<tr> <th>七</th> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二</th> <th>闰月</th> <th>日数</th></tr>';
-        info += '<tr><td>07-26</td> <td>08-24</td> <td>09-23</td> <td>10-22</td> <td>11-21</td> <td>12-20</td> <td>&mdash;</td> <td>413</td></tr>';
+        info += '<tr><td>07-26<br />戊寅</td> <td>08-24<br />丁未</td> <td>09-23<br />丁丑</td> <td>10-22<br />丙午</td> <td>11-21<br />丙子</td> <td>12-20<br />乙巳</td> <td>&mdash;</td> <td>413</td></tr>';
         info += '</table> <br /><br />';
     }
     tab.innerHTML += info;
@@ -988,12 +1015,12 @@ function table_song(lang) {
         tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Song dynasty (960&ndash;1279). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (960 &ndash; 1279)</h1>';
-        tab.innerHTML = '<p>下表列出宋朝時(960年至1279年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>宋 朝 朔 閏 表 (960 &ndash; 1279)</h1>';
+        tab.innerHTML = '<p>下表列出宋朝時(960年至1279年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (960 &ndash; 1279)</h1>';
-        tab.innerHTML = '<p>下表列出宋朝时(960年至1279年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>宋 朝 朔 闰 表 (960 &ndash; 1279)</h1>';
+        tab.innerHTML = '<p>下表列出宋朝时(960年至1279年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -1022,12 +1049,12 @@ function table_yuan(lang) {
         tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Yuan dynasty (1280&ndash;1367). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (1280 &ndash; 1367)</h1>';
-        tab.innerHTML = '<p>下表列出元朝時(1280年至1367年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>元 朝 朔 閏 表 (1280 &ndash; 1367)</h1>';
+        tab.innerHTML = '<p>下表列出元朝時(1280年至1367年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (1280 &ndash; 1367)</h1>';
-        tab.innerHTML = '<p>下表列出元朝时(1280年至1367年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>元 朝 朔 闰 表 (1280 &ndash; 1367)</h1>';
+        tab.innerHTML = '<p>下表列出元朝时(1280年至1367年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -1056,12 +1083,12 @@ function table_ming(lang) {
         tab.innerHTML = '<p>The following table lists the Julian/Gregorian dates MM-DD of the first day of each month in the Chinese calendar in the Ming dynasty (1368&ndash;1644). Julian calendar was used until October 4th, 1582, after which the Western calendar was switched to the Gregorian calendar. The date following October 4th, 1582 was October 15th, 1582 because of the Gregorian calendar reform. MM indicates the Julian/Gregorian month and DD indicates the Julian/Gregorian date. When MM is 13, it means January in the following Julian/Gregorian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian/Gregorian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (1368 &ndash; 1644)</h1>';
-        tab.innerHTML = '<p>下表列出明朝時(1368年至1644年)農曆每月初一的公曆日期 MM-DD。公曆在1582年10月4日及以前用儒略曆，之後用格里高里曆。格里高里的曆改使1582年10月4日的下一日變成10月15日，跳了十日。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>明 朝 朔 閏 表 (1368 &ndash; 1644)</h1>';
+        tab.innerHTML = '<p>下表列出明朝時(1368年至1644年)農曆每月初一的公曆日期 MM-DD。公曆在1582年10月4日及以前用儒略曆，之後用格里高里曆。格里高里的曆改使1582年10月4日的下一日變成10月15日，跳了十日。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (1368 &ndash; 1644)</h1>';
-        tab.innerHTML = '<p>下表列出明朝时(1368年至1644年)农历每月初一的公历日期 MM-DD。公历在1582年10月4日及以前用儒略历，之后用格里高里历。格里高里的历改使1582年10月4日的下一日变成10月15日，跳了十日。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>明 朝 朔 闰 表 (1368 &ndash; 1644)</h1>';
+        tab.innerHTML = '<p>下表列出明朝时(1368年至1644年)农历每月初一的公历日期 MM-DD。公历在1582年10月4日及以前用儒略历，之后用格里高里历。格里高里的历改使1582年10月4日的下一日变成10月15日，跳了十日。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -1102,12 +1129,12 @@ function table_qing(lang) {
         tab.innerHTML = '<p>The following table lists the Gregorian dates MM-DD of the first day of each month in the Chinese calendar in the Qing synasty (1645&ndash;1911). MM indicates the Gregorian month and DD indicates the Gregorian date. When MM is 13, it means January in the following Gregorian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Gregorian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (1645 &ndash; 1911)</h1>';
-        tab.innerHTML = '<p>下表列出清朝時(1645年至1911年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>清 朝 朔 閏 表 (1645 &ndash; 1911)</h1>';
+        tab.innerHTML = '<p>下表列出清朝時(1645年至1911年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (1645 &ndash; 1911)</h1>';
-        tab.innerHTML = '<p>下表列出清朝时(1645年至1911年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>清 朝 朔 闰 表 (1645 &ndash; 1911)</h1>';
+        tab.innerHTML = '<p>下表列出清朝时(1645年至1911年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -1137,13 +1164,13 @@ function table_recent(lang) {
         tab.innerHTML += '<p>The first day of a month in the Chinese calendar is determined by the day on which the lunar conjunction (i.e. new moon) falls. The exact time (in UTC+8) of a lunar conjunction cannot be determined accurately far in the future. If a lunar conjunction occurs near the midnight, the predicted first day of a month may be off by one day. These cases occur on September 29, 2057; September 4, 2089; August 7, 2097; September 28, 2133; October 17, 2172 and May 12, 2192. They are indicated by a star and in red color.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>農 曆 和 公 曆 日 期 對 照 表 (1912 &ndash; 2200)</h1>';
-        tab.innerHTML = '<p>下表列出由1912年至2200年農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>1912年 &ndash; 2200年 朔 閏 表</h1>';
+        tab.innerHTML = '<p>下表列出由1912年至2200年農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p>農曆每月的初一定於朔(又稱新月)的日期，由於數十年後朔的UTC+8時刻難以準確推算，如果朔的時刻接近午夜零時，初一的確實日期或會與表列日期有一日之差。這些情況出現在公曆2057年9月29日、2089年9月4日、2097年8月7日、2133年9月28日、2172年10月17日和2192年5月12日. 下表把這些可能有一日誤差的初一日用紅色顯示並加上星號。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
         tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (1912 &ndash; 2200)</h1>';
-        tab.innerHTML = '<p>下表列出由1912年至2200年农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tab.innerHTML = '<p>下表列出由1912年至2200年农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p>农历每月的初一定于朔(又称新月)的日期，由于数十年后朔的UTC+8时刻难以准确推算，如果朔的时刻接近午夜零时，初一的确实日期或会与表列日期有一日之差。这些情况出现在公历2057年9月29日、2089年9月4日、2097年8月7日、2133年9月28日、2172年10月17日和2192年5月12日. 下表把这些可能有一日误差的初一日用红色显示并加上星号。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
@@ -1192,6 +1219,36 @@ function newMoonCloseToMidnight(y, j) {
 function printWarningMessage(y,lang,note_early,note_late) {
     var warn = '';
     
+    if (y==580) {
+        if (lang==0) {
+            warn ='<p style="color:red;">There is a discrepancy between the main text and Appendix 3 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. In 575, the leap month is listed as after month 8 in the main text but after month 9 in Appendix 3.</p>';
+        } else if (lang==1) {
+            warn ='<p style="color:red;">《三千五百年历日天象》的正文與其附表3的資料不一致，正文記575年閏八月，附表3則為閏九月。</p>';
+        } else {
+            warn = '<p style="color:red;">《三千五百年历日天象》的正文与其附表3的资料不一致，正文记575年闰八月，附表3则为闰九月。</p>';
+        }
+    }
+    
+    if (y==680) {
+        if (lang==0) {
+            warn = '<p style="color:red;">The <i>Old Book of Tang</i> mentions leap month 10 in 678. However, the <i>New Book of Tang</i> mentions leap month 11. Many scholars adopt the data in the <i>New Book of Tang</i>. However, Huang Yi-Long, Professor in the Institute of History at the National Tsing-Hua University in Taiwan, <a href="http://ccsdb.ncl.edu.tw/ccs/image/01_010_002_01_11.pdf" target="_blank">investigated the issue</a> and concludes that the record in the <i>Old Book of Tang</i> is more reliable. His analysis places leap month 10 beginning on Nov. 19 and month 11 beginning on Dec. 19.</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">《舊唐書》有儀鳳三年(678年)閏十月的記載，《新唐書》卻有閏十一月記載，學者一般取《新唐書》的閏月。但台灣國立清華大學歷史研究所的黃一農教授經過<a href="http://ccsdb.ncl.edu.tw/ccs/image/01_010_002_01_11.pdf" target="_blank">考證</a>後認為《舊唐書》的記載比較可信。根據他的考證，閏十月朔是癸丑(11月19日)，十一月朔是癸未(12月19日)。</p>';
+        } else {
+            warn = '<p style="color:red;">《旧唐书》有仪凤三年(678年)闰十月的记载，《新唐书》却有闰十一月记载，学者一般取《新唐书》的闰月。但台湾国立清华大学历史研究所的黄一农教授经过<a href="http://ccsdb.ncl.edu.tw/ccs/image/01_010_002_01_11.pdf" target="_blank">考证</a>后认为《旧唐书》的记载比较可信。根据他的考证，闰十月朔是癸丑(11月19日)，十一月朔是癸未(12月19日)。</p>';
+        }
+    }
+    
+    if (y==1470) {
+        if (lang==0) {
+            warn = '<p style="color:red;">There is a record indicating that the first day of month 11 occurred on Nov. 21 in 1462.</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">有明代殘曆記明英宗天順六年(1462年)十一月初一在辛卯(11月21日)。</p>';
+        } else {
+            warn = '<p style="color:red;">有明代残历记明英宗天顺六年(1462年)十一月初一在辛卯(11月21日)。</p>';
+        }
+    } 
+    
     if (y==1590) {
         if (lang==0) {
             warn = '<p style="color:red;">Note that the year 1582 had only 355 days because of the Gregorian calendar reform: the day following Oct. 4 was Oct. 15. The Chinese year in 1582 also had 355 days. As a result, the Chinese new years in 1582 and 1583 fell on the same date in the Western calendar.</p>';
@@ -1208,6 +1265,22 @@ function printWarningMessage(y,lang,note_early,note_late) {
         warn = '<p style="color:red;"><sup>*</sup>'+note_late;
     }
     return warn;
+}
+
+// Compute JD at midnight UT
+function getJD(yyyy,mm,dd) {
+    var m1 = mm, yy = yyyy;
+    if (m1 <= 2) {m1 +=12; yy--;}
+    var b;
+    if (10000*yy+100*m1+dd <= 15821004) {
+        // Julian calendar
+        b = -2 + Math.floor((yy+4716)/4) - 1179;
+    } else {
+        // Gregorian calendar
+        b = Math.floor(yy/400) - Math.floor(yy/100) + Math.floor(yy/4);
+    }
+    var jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400000.5;
+    return jd;
 }
 
 // *** TESTING ***
