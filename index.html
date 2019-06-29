@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="calendar.css">
 <script src="header.js"></script>
 <script src="calendarData.js"></script>   
-<script src="ancientCalendars.js"></script>   
+<script src="ancientCalendars.js"></script>
+<script src="split.js"></script>
 <script src="calendar.js"></script>    
 </head>
 
@@ -69,6 +70,37 @@
 <p id="guliuliDescription" style="color:brown;"></p>
           <br />
 </div>
+    
+<div id="ThreeKingdoms" style="display:none;">
+<p>Currently shown dynasty is <span id='TkiDynasty' style='background-color:#ffb3b3;'></span>. Click a button below to choose a different dynasty.</p>
+<h3><button id="TkiWei" class="calendars active" onClick="select_calendar_split('TkiWei',0)">Wei</button>
+    <button id="TkiShu" class="calendars" onClick="select_calendar_split('TkiShu',0)">Shu</button>
+    <button id="TkiWu" class="calendars" onClick="select_calendar_split('TkiWu',0)">Wu</button>
+    </h3>
+    <br />
+<h3><a href="ThreeKingdoms_calendars.html">Calendar Differences in the Three Kingdoms Period</a></h3><br /><br />
+</div>
+    
+<div id="SouthNorth" style="display:none;">
+<p>Currently shown dyansty is <span id='SN1Dynasty' style='background-color:#ffb3b3;'></span>. Click a button below to choose a different dynasty.</p>
+<h3><button id="SN1South" class="calendars active" onClick="select_calendar_split('SN1South',0)">Jin</button>
+    <button id="SN1LaterQin" class="calendars" onClick="select_calendar_split('SN1LaterQin',0)">Later Qin</button>
+    <button id="SN1NorthernLiang" class="calendars" onClick="select_calendar_split('SN1NorthernLiang',0)">Northern Liang</button>
+    <button id="SN1WeiZhouSui" class="calendars" onClick="select_calendar_split('SN1WeiZhouSui',0)">Northern Wei</button>
+    <button id="SN1WeiQi" class="calendars" onClick="select_calendar_split('SN1WeiQi',0)">Eastern Wei</button>
+    </h3>
+    <br />
+<h3><a href="NorthSouth_calendars.html">Calendar Differences in 398-589</a></h3><br /><br />
+</div>
+    
+<div id="SongLiaoJinYuan" style="display:none;">
+<p>Currently shown dyansty is <span id='SN2Dynasty' style='background-color:#ffb3b3;'></span>. Click a button below to choose a different dynasty.</p>
+<h3><button id="SN2South" class="calendars active" onClick="select_calendar_split('SN2South',0)">Song</button>
+<button id="SN2North" class="calendars" onClick="select_calendar_split('SN2North',0)">Jin</button>
+    </h3>
+    <br />
+<h3><a href="LiaoJinYuan_calendars.html">Calendar Differences in 947-1279</a></h3><br /><br />
+</div>
 
 <div id="calendar">
 
@@ -96,7 +128,7 @@
     
 <br /><br /><hr />
     
-<p style="font-size:90%;">First created in September 2018 (only covering 1901&ndash;2200), last major update in March 2019.</p>
+<p style="font-size:90%;">First created in September 2018 (only covering 1901&ndash;2200). The last major update was in late June,  2019, in which calendars in several additional dynasties in 221-280, 384-589, and 947-1279 were added.</p>
 </div> <!-- end of wrapper -->
 </body>
 </html>

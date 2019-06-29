@@ -25,7 +25,7 @@ function submitYear(lang) {
         document.getElementById('err').innerHTML = message[lang];
     } else {
         if (year < -220) {
-           ancient_calender_handler(lang, year);
+           ancient_calendar_handler(lang, year);
         } else {
             document.getElementById("Spring").style.display = "none"; 
             document.getElementById("Warring").style.display = "none"; 
@@ -168,7 +168,7 @@ function langConstant(lang) {
         note1929 = note1929Sim;
         note1914 = note1914Sim;
     }
-    return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, date_numChi:date_numChi, note_early:note_early, 
+    return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, date_numChi:date_numChi, note_early:note_early, 
     note_late:note_late, note1929:note1929, note1914:note1914};
 }
 
@@ -187,9 +187,9 @@ function NdaysGregJul(y) {
 // month number depends on the jian of the month 1, which is
 // usually the same as the jian number but they are different
 // in certain periods in the Chinese history. 
-// year offset: 0 if the year number does change, -1 if in the previous year, 
-// +1 if in the following year.
-function jianToMonthYearoffset(jianIn, y) {
+// year offset: 0 if the year number doesn't change, 
+//             -1 if in the previous year,  +1 if in the following year.
+function jianToMonthYearoffset(jianIn, y, region) {
     var jian = Math.abs(jianIn);
     var yearOffset=0, monNum=jian;
     
@@ -212,7 +212,7 @@ function jianToMonthYearoffset(jianIn, y) {
     }
     
     // Wei dynasty (Three-Kingdom period)
-    if ((y==237 && jian>2) || (y==238) || (y==239 && jian<12) ) {
+    if ( ( (y==237 && jian>2) || (y==238) || (y==239 && jian<12) ) && region=='default') {
         monNum = (jian==12 ? 1:jian+1);
         if (jian==12) { yearOffset = 1;}
     }
@@ -260,7 +260,7 @@ function decompress_time(t) {
 }
 
 // Calendrical data for year y
-function calDataYear(y) {
+function calDataYear(y, langVars) {
     // *** Data for Gregorian/Julian calendar ***
     
     // Is y a leap year?
@@ -313,16 +313,31 @@ function calDataYear(y) {
     }
     
     // *** Data for Chinese calendar ***
-    var cdate = ChineseToGregorian();
-    // cdate is a 2D array. Each row contains data for a Chinese year
-    // columns: year, first date of month 1, 2,... , 12, leap month, 
-    //          month # that is leaped, # of days in the year
-    // leap month = month # = 0 if no leap month
-    var ind = y - cdate[0][0];
-    // Chinese months in the previous year
-    var cmdate1 = sortMonths(cdate[ind-1]);
-    // Chinese months in the current year
-    var cmdate = sortMonths(cdate[ind]);
+    var region = langVars.region;
+    var cdate, ind, cmdate1, cmdate, pingqi, ncdays, ncdays1;
+    if (region=='default') {
+        cdate = ChineseToGregorian();
+        // cdate is a 2D array. Each row contains data for a Chinese year
+        // columns: year, first date of month 1, 2,... , 12, leap month, 
+        //          month # that is leaped, # of days in the year
+        // leap month = month # = 0 if no leap month
+        ind = y - cdate[0][0];
+        // Chinese months in the previous year
+        cmdate1 = sortMonths(cdate[ind-1]);
+        ncdays1 = cdate[ind-1][15]; // Number of days in the previous year
+        // Chinese months in the current year
+        cmdate = sortMonths(cdate[ind]);
+        ncdays = cdate[ind][15]; // Number of days in this year
+        cdate = null;
+    } else {
+        cdate = setup_region_calendar(region, y-1, false);
+        cmdate1 = sortMonths(cdate);
+        ncdays1 = cdate[15];
+        cdate = setup_region_calendar(region, y, true);
+        cmdate = sortMonths(cdate.cm); pingqi = cdate.pingqi;
+        ncdays = cdate.cm[15];
+        cdate = null;
+    }
     // Gather Chinese months within year y
     var i, d, n = cmdate1.cmonthDate.length;
     var cmonthDate=[], cmonthJian=[], cmonthNum=[], cmonthLong = [], cmonthYear = [];
@@ -338,13 +353,13 @@ function calDataYear(y) {
                 cmonthXiaYear.push(0);
                 jian = cmdate1.cmonthNum[j];
                 cmonthJian.push(jian);
-                jianInfo = jianToMonthYearoffset(jian, y-1);
+                jianInfo = jianToMonthYearoffset(jian, y-1, region);
                 cmonthNum.push(jianInfo.monNum);
                 cmonthYear.push(jianInfo.yearOffset);
                 if (j < n-1) {
                     d = cmdate1.cmonthDate[j+1] - cmdate1.cmonthDate[j];
                 } else {
-                    d = cdate[ind-1][15] - cmdate1.cmonthDate[j] + cmdate1.cmonthDate[0];
+                    d = ncdays1 - cmdate1.cmonthDate[j] + cmdate1.cmonthDate[0];
                 }
                 cmonthLong.push(d==30 ? 1:0);
             }
@@ -356,10 +371,10 @@ function calDataYear(y) {
            cmonthXiaYear.push(0);
            jian = cmdate1.cmonthNum[i];
            cmonthJian.push(jian); 
-           jianInfo = jianToMonthYearoffset(jian, y-1);
+           jianInfo = jianToMonthYearoffset(jian, y-1, region);
            cmonthNum.push(jianInfo.monNum);
            cmonthYear.push(jianInfo.yearOffset);
-           d = cdate[ind-1][15] - cmdate1.cmonthDate[i] + cmdate1.cmonthDate[0];
+           d = ncdays1 - cmdate1.cmonthDate[i] + cmdate1.cmonthDate[0];
            cmonthLong.push(d==30 ? 1:0);
         }
     }
@@ -370,21 +385,26 @@ function calDataYear(y) {
            cmonthXiaYear.push(1);
            jian = cmdate.cmonthNum[i];
            cmonthJian.push(jian);
-           jianInfo = jianToMonthYearoffset(jian, y);
+           jianInfo = jianToMonthYearoffset(jian, y, region);
            cmonthNum.push(jianInfo.monNum);
            cmonthYear.push(1 + jianInfo.yearOffset);
            if (i < n-1) {
                 d = cmdate.cmonthDate[i+1] - cmdate.cmonthDate[i];
             } else {
-                d = cdate[ind][15] - cmdate.cmonthDate[i] + cmdate.cmonthDate[0];
+                d = ncdays - cmdate.cmonthDate[i] + cmdate.cmonthDate[0];
             }
             cmonthLong.push(d==30 ? 1:0);
         }
     }
     
-    return {jd0:jd0, mday:mday, cmonthDate:cmonthDate, cmonthXiaYear, cmonthJian:cmonthJian,
-            cmonthNum:cmonthNum, cmonthYear:cmonthYear, cmonthLong:cmonthLong, 
-            solar:solar,  Q0:Q0, Q1:Q1, Q2:Q2, Q3:Q3, year:y};
+    var out = {jd0:jd0, mday:mday, cmonthDate:cmonthDate, cmonthXiaYear, 
+               cmonthJian:cmonthJian, cmonthNum:cmonthNum, 
+               cmonthYear:cmonthYear, cmonthLong:cmonthLong,             
+               solar:solar,  Q0:Q0, Q1:Q1, Q2:Q2, Q3:Q3, year:y};
+    if (region != 'default') {
+        out.pingqi = pingqi;
+    }
+    return out;
 }
 
 // Sort the Chinese months in chronological order by placing 
@@ -417,7 +437,8 @@ function sortMonths(cmdate) {
 // Set up the calendar for the Gregorian/Julian year
 function calendar(lang, year) {
     var langVars = langConstant(lang);
-    var calVars = calDataYear(year);
+    langVars.region = split_calendar_handler(lang,year);
+    var calVars = calDataYear(year, langVars);
     var cal = document.getElementById('calendar');
     cal.innerHTML = "";
     
@@ -485,13 +506,13 @@ function calendar(lang, year) {
         }      
     } else {
         if (lang==1) {
-            cyear[0] += eraName(year-1);
-            cyear[1] += eraName(year);
-            cyear[2] += eraName(year+1);
+            cyear[0] += eraName(year-1, langVars.region);
+            cyear[1] += eraName(year, langVars.region);
+            cyear[2] += eraName(year+1, langVars.region);
         } else {
-            cyear[0] += eraNameSim(year-1);
-            cyear[1] += eraNameSim(year);
-            cyear[2] += eraNameSim(year+1);
+            cyear[0] += eraNameSim(year-1, langVars.region);
+            cyear[1] += eraNameSim(year, langVars.region);
+            cyear[2] += eraNameSim(year+1, langVars.region);
         }
         if (lang==1) {
             cal.innerHTML += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>';
@@ -526,7 +547,7 @@ function calendar(lang, year) {
     }
     
     // Add additional information after the year info
-    var info = addYearInfo(year, lang, calVars);
+    var info = addYearInfo(year, langVars, calVars);
     if (info != "") {
         var h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
         cal.innerHTML += h3+info+'</h3><br /><br />';
@@ -538,8 +559,8 @@ function calendar(lang, year) {
     }
 }
 
-function addYearInfo(y, lang, calVars) {
-    var info = '';
+function addYearInfo(y, langVars, calVars) {
+    var info = '', lang = langVars.lang, region = langVars.region;
     
     // Qin and early Han dynasty
     if (y >= -220 && y <= -103) {
@@ -564,7 +585,7 @@ function addYearInfo(y, lang, calVars) {
     }
     
     // Wei dynasty 
-    if (y >= 237 && y <= 240) {
+    if (y >= 237 && y <= 240 && region=='default') {
         if (lang==0) {
             info = "In 237 A.D., emperor Mingdi of the Wei dynasty declared that the ch&#466;u month (present day month 12) would be the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. The new system was imposed after month 2 in the Chinese year in 237, in which month 4 was followed by month 2. When the emperor died in 239 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 239 had 13 months, where month 12 appeared twice.";
         } else if (lang==1) {
@@ -1097,18 +1118,22 @@ function add24solterms(m,lang,langVars, calVars) {
 function addCalSolterms(m,lang,langVars, calVars) {
     var solar;
     if (calVars.year >= -104) {
-        var calSolTerms = calendricalSolarTerms();
-        var ind = calVars.year - calSolTerms[0][0];
-        solar = calSolTerms[ind];
-        solar.shift(); // remove the first column, which is Greg./Julian year   
-        // solar contains all the 24 solar terms in year y, starting from 
-        // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
-        // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
-        // Add one more to solar if J12 occurs before Jan 3.
-        if (solar[0] < 3.0) {
-            solar.push(calSolTerms[ind+1][1] + NdaysGregJul(calVars.year));
+        if ('pingqi' in calVars) {
+            solar = calVars.pingqi;
+        } else {
+            var calSolTerms = calendricalSolarTerms();
+            var ind = calVars.year - calSolTerms[0][0];
+            solar = calSolTerms[ind];
+            solar.shift(); // remove the first column, which is Greg./Julian year   
+            // solar contains all the 24 solar terms in year y, starting from 
+            // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
+            // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
+            // Add one more to solar if J12 occurs before Jan 3.
+            if (solar[0] < 3.0) {
+                solar.push(calSolTerms[ind+1][1] + NdaysGregJul(calVars.year));
+            }
+            calSolTerms = null;
         }
-        calSolTerms = 0;
     } else {
         if ('pingqi' in calVars) {
             solar = calVars.pingqi;
@@ -1264,7 +1289,7 @@ function warningMessage(y, m, lang, langVars) {
     }
     
     // Wei dynasty
-    if (y==237 && m==2) {
+    if (y==237 && m==2 && langVars.region=='default') {
         if (lang==0) {
             warn = "Note that month 12 had only 28 days. This was due to the adoption of a new version of calendar in month 1. There are discrepancies between the data in the main text and Appendix 2 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. The main text uses the new calendar in month 1, but Appendix 2 uses the new calendar in month 6. Here the data in the main text are used, in which the first days of each month before month 6 are one day earlier.";
         } else if (lang==1) {
@@ -1273,7 +1298,7 @@ function warningMessage(y, m, lang, langVars) {
             warn = "由于新历法(景初历)于正月初一开始使用，十二月只有二十八日。。《三千五百年历日天象》的正文与其附表2的资料不合，正文在正月改用景初历，附表2在六月才改历。这里用正文的数据，在六月前的朔日都比附表2早一日。";
         }
     }
-    if (y==237 && m==4) {
+    if (y==237 && m==4 && langVars.region=='default') {
         if (lang==0) {
            warn = "The ch&#233;n month was supposed to be month 3. It became month 4 by edict. Hence, there was no month 3 in this Chinese year."; 
         } else if (lang==1) {
@@ -1282,7 +1307,7 @@ function warningMessage(y, m, lang, langVars) {
            warn = "本来三月是建辰，改正朔后变成四月，所以丁巳年没有三月。"; 
         }
     }
-    if (y==240 && m==1) {
+    if (y==240 && m==1 && langVars.region=='default') {
        if (lang==0) {
             warn = "Since month 1 was to switch back to be the y&#237;n month in the year G&#275;ng sh&#275;n, there were two month 12s in the year J&#464; w&#232;i. The first one was the z&#464; month and the second one was the ch&#466;u month. These two month 12s should not be confused as they can be distinguished by their sexagenary month cycles.";
         } else if (lang==1) {
@@ -1292,13 +1317,43 @@ function warningMessage(y, m, lang, langVars) {
         }
     }
     
-    if (y==575 && m==9) {
+    if (y==238 && m==11 && langVars.region=='Wu') {
+        if (lang==0) {
+           warn ='In Appendix 2 of the book <i>3500 Years of Calendars and Astronomical Phenomena</i>, the sexagenary day of the leap month conjunction is listed as j&#464; ch&#466;u, corresponding to Nov. 25. This is at odds with my calculation. The result of my calculation is consistent with the data on the <a href="https://sinocal.sinica.edu.tw/" target="_blank">Chinese-Western calendar conversion website</a> created by Academia Sinica in Taiwan. The preface of the book says that the calendar data in its appendices are based on the book 《歷代長術輯要》(<i>Compilation of Historical Calendars</i>) by W&#257;ng Yu&#275;zh&#275;n (汪曰楨). I looked at the book and found that the date listed there was also the same as my calculation. I suspect that the date listed in <i>3500 Years of Calendars and Astronomical Phenomena</i> is wrong. The book also lists the sexagenary day of the month 11 conjunction as j&#464; ch&#466;u, which is certainly wrong since this date was far away from the new moon close to the beginning of month 11.'; 
+        } else if (lang==1) {
+            warn ='《三千五百年历日天象》附表2記閏十月己丑朔和十一月己丑朔。十一月己丑朔無疑是錯的，這裡列出的閏十月戊子朔是根據我的推步，結果與台灣中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">兩千年中西曆轉換網站</a>一致，《三千五百年历日天象》前言說其附表參照清汪曰楨的《歷代長術輯要》，翻查此書發現亦記閏十月戊子。';
+        } else {
+            warn = '《三千五百年历日天象》附表2记闰十月己丑朔和十一月己丑朔。十一月己丑朔无疑是错的，这里列出的闰十月戊子朔是根据我的推步，结果与台湾中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">两千年中西历转换网站</a>一致，《三千五百年历日天象》前言说其附表参照清汪曰桢的《历代长术辑要》，翻查此书发现亦记闰十月戊子。';
+        }
+    }
+    
+    if (y==502 && m==6 && langVars.region=='default') {
+       if (lang==0) {
+            warn = "There is a discrepancy between the main text and Appendix 3 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. The leap month in this year is listed as after month 5 in the main text but after month 4 in Appendix 3.";
+        } else if (lang==1) {
+            warn = "《三千五百年历日天象》的正文與其附表3的資料不一致，正文記這年閏五月，附表3則為閏四月。";
+        } else {
+            warn = "《三千五百年历日天象》的正文与其附表3的资料不一致，正文记這年闰五月，附表3则为闰四月。";
+        } 
+    }
+    
+    if (y==575 && m==9 && langVars.region=='default') {
         if (lang==0) {
             warn = "There is a discrepancy between the main text and Appendix 3 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. The leap month in this year is listed as after month 8 in the main text but after month 9 in Appendix 3.";
         } else if (lang==1) {
             warn = "《三千五百年历日天象》的正文與其附表3的資料不一致，正文記這年閏八月，附表3則為閏九月。";
         } else {
             warn = "《三千五百年历日天象》的正文与其附表3的资料不一致，正文记這年闰八月，附表3则为闰九月。";
+        }
+    }
+    
+    if (y==575 && m==9 && langVars.region=='WeiQi') {
+        if (lang==0) {
+            warn = "Appendix 3 of the book <i>3500 Years of Calendars and Astronomical Phenomena</i> lists the leap month as after month 9. This is at odds with my calculation, which agrees with the data on the <a href='https://sinocal.sinica.edu.tw/' target='_blank'>Chinese-Western calendar conversion website</a> created by Academia Sinica in Taiwan. The data in Appendix 3 are supposed to be based on the book 《歷代長術輯要》(<i>Compilation of Historical Calendars</i>) by W&#257;ng Yu&#275;zh&#275;n (汪曰楨), but that book also lists the leap month as after month 8. That's why I use my calculation here.";
+        } else if (lang==1) {
+            warn = "《三千五百年历日天象》附表3記這年北齊閏九月，與我計算的閏八月不一致，台灣中央研究院的<a href='https://sinocal.sinica.edu.tw/' target='_blank'>兩千年中西曆轉換網站</a>和汪曰楨的《歷代長術輯要》也記這年閏八月，所以這裡不取《三千五百年历日天象》的數據。";
+        } else {
+            warn = '《三千五百年历日天象》附表3记这年北齐闰九月，与我计算的闰八月不一致，台湾中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">两千年中西历转换网站</a>和汪曰桢的《历代长术辑要》也记这年闰八月，所以这里不取《三千五百年历日天象》的数据。';
         }
     }
     

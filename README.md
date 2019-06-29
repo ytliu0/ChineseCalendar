@@ -32,6 +32,7 @@ Almost all of the following HTML files have English, traditional Chinese and sim
 - calendarData.js: contains data used for conversion between the Western calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between -721 and 2200. I computed these data and put them into JSON format. This file is used by index.html, table.html and the Chinese version of these two files.
 - calendar.js: JavaScript file for handling the activities on index.html, index_chinese and index_simp.html.
 - table.js: JavaScript file for handling the activities on table.html, table_chinese.html and table_simp.html.
+- split.js: JavaScript file for handling calendars in 221-280, 384-589 and 947-1279.
 - ancientCalendars.js: contain functions that handle the calendars before 104 B.C.
 - sunMoonData.js: Dates and times of moon phases and solar terms from -3501 to 3502 in JSON.
 - sunMoon.js: JavaScript file for handling the activities on sunMoon.html, sunMoon_chinese.html and sunMoon_simp.html

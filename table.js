@@ -28,17 +28,29 @@ function setup_table(lang, period) {
         case 'easternhan':
             table_easternhan(lang);
             break;
-        case 'weijin':
-            table_weijin(lang);
+        case 'weishuwu':
+            table_weishuwu(lang);
             break;
-        case 'snsui':
-            table_snsui(lang);
+        case 'jin':
+            table_jin(lang);
+            break;
+        case 'snweiqizhou':
+            table_snweiqizhou(lang);
+            break;
+        case 'snsouth':
+            table_snsouth(lang);
+            break;
+        case 'sui':
+            table_sui(lang);
             break;
         case 'tang5':
             table_tang5(lang);
             break;
         case 'song':
             table_song(lang);
+            break;
+        case 'liaojin':
+            table_liaojin(lang);
             break;
         case 'yuan':
             table_yuan(lang);
@@ -113,7 +125,7 @@ function langConstant(lang) {
         }
     }
     return {lang:lang, heaven:heaven, earth:earth, animal:animal, 
-            Wyear:Wyear, Cyear:Cyear, Cmonth:Cmonth, 
+            region:'default', Wyear:Wyear, Cyear:Cyear, Cmonth:Cmonth, 
             month_num:month_num, Ndays:Ndays, 
             note_early:note_early, note_late:note_late};
 }
@@ -195,15 +207,15 @@ function ymd(yIn, dayIn) {
 function tableYears(ystart, yend, date, langCon) {
     var txt = '<table>';
     txt += '<tr><th rowspan="2">'+langCon.Wyear+'</th>';
-    txt += '<th rowspan="2">'+langCon.Cyear+'</th>';
+    txt += '<th rowspan="2" style="min-width:70px;">'+langCon.Cyear+'</th>';
     txt += '<th colspan="13">'+langCon.Cmonth+'</th>';
     txt += '<th rowspan="2">'+langCon.Ndays+'</th></tr>';
     txt += '<tr>';
     var year, y, i, j;
     for (j=0; j<12; j++) {
-        txt += '<th>'+langCon.month_num[j]+'</th>';
+        txt += '<th style="min-width:60px;">'+langCon.month_num[j]+'</th>';
     }
-    txt += '<th>'+langCon.month_num[12]+'</th> </tr>';
+    txt += '<th style="min-width:60px;">'+langCon.month_num[12]+'</th> </tr>';
     var jd0, jd;
     for (year = ystart; year <= yend; year++) {
         y = date[year - date[0][0]];
@@ -215,12 +227,20 @@ function tableYears(ystart, yend, date, langCon) {
         if (year < 1912 && langCon.lang > 0) {
             // Use era/regime name
             if (langCon.lang==1) {
-                cyear = eraName(year);
+                cyear = eraName(year, langCon.region);
             } else {
-                cyear = eraNameSim(year);
+                cyear = eraNameSim(year, langCon.region);
             }
             if (cyear.length > 2) {
                 cyear = cyear.substr(1, cyear.length-2);
+                if (langCon.region=='default' && year > 420.5 && year < 589.5) {
+                    // remove [南北朝]
+                    cyear = cyear.substr(5);
+                }
+                if (langCon.region=='default' && year > 907.5 && year < 960.5) {
+                    // remove [五代]
+                    cyear = cyear.substr(4);
+                }
             }
         }
         if (cyear == "") {
@@ -264,7 +284,7 @@ function tableYears(ystart, yend, date, langCon) {
         txt +='</tr>';
     }
     txt += '</table>';
-    txt += printWarningMessage(yend, langCon.lang, langCon.note_early, langCon.note_late) + '<br /><br /><br />';
+    txt += printWarningMessage(yend, langCon) + '<br /><br /><br />';
     return txt;
 }
 
@@ -645,22 +665,22 @@ function table_easternhan(lang) {
     date = null;
 }
 
-// Table for Wei and Jin dynasties (220 - 419)
-function table_weijin(lang) {
+// Table for Wei, Shu and Wu dynasties (220 - 280)
+function table_weishuwu(lang) {
     // title and description
     var tit = document.getElementById('title');
     var tab = document.getElementById('description');
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (220 &ndash; 419)</h1>';
-        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Wei dynasty and Jin dynasty (220&ndash;419). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (220 &ndash; 280)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Wei, Shu and Wu dynasties (220&ndash;280). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>魏 晉 時 代 朔 閏 表 (220 &ndash; 419)</h1>';
-        tab.innerHTML = '<p>下表列出魏及晉朝時(220年至419年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>魏 蜀 吳 朔 閏 表 (220 &ndash; 280)</h1>';
+        tab.innerHTML = '<p>下表列出魏蜀吳(220年至280年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月，負數的MM表示上一個公曆年的月份，例如 -11-27 表示上一年的11月27日。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>魏 晋 时 代 朔 闰 表 (220 &ndash; 419)</h1>';
-        tab.innerHTML = '<p>下表列出魏及晋朝时(220年至419年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 公历日期的下面是日干支。日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>魏 蜀 吴 朔 闰 表 (220 &ndash; 280)</h1>';
+        tab.innerHTML = '<p>下表列出魏蜀吴(220年至280年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月，负数的MM表示上一个公历年的月份，例如 -11-27 表示上一年的11月27日。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 公历日期的下面是日干支。日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -670,7 +690,14 @@ function table_weijin(lang) {
     }
     var date = ChineseToGregorian();
     tab = document.getElementById('table');
-    tab.innerHTML = tableYears(220, 229, date, langCon);
+    var info, txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Wei (220-265)</h2> <br />';
+    } else {
+        txt += '<h2>魏 (220-265)</h2> <br />';
+    }
+    tab.innerHTML = txt;
+    tab.innerHTML += tableYears(220, 229, date, langCon);
     
     // Set up 2D array date2 for the years 230-238
     var y, date2 = new Array(9);
@@ -743,7 +770,6 @@ function table_weijin(lang) {
     tab.innerHTML += tableYears(238,238, date2, langCon);
     
     // Manually create the table for 239
-    var info;
     if (lang==0) {
         info = '<table>';
         info += '<tr> <th rowspan="2">Julian<br />year</th> <th rowspan="2">Chinese<br />year</th> <th colspan="7">Months in Chinese Calendar</th> <th rowspan="4"># days</th></tr>';
@@ -774,33 +800,345 @@ function table_weijin(lang) {
     tab.innerHTML += info;
     
     tab.innerHTML += tableYears(240, 250, date, langCon);
-    for (var ystart=251; ystart <= 401; ystart += 10) {
+    tab.innerHTML += tableYears(251, 260, date, langCon);
+    tab.innerHTML += tableYears(261, 265, date, langCon);
+    date = null;
+    date2 = null;
+    
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Shu (221-263)</h2> <br />';
+    } else {
+        txt += '<h2>蜀 (221-263)</h2> <br />';
+    }
+    tab.innerHTML += txt;
+    langCon.region ='Shu';
+    
+    var accleap, jdc, cm, ystart;
+    // create 2D array to store the Shu calendar data
+    var date3 = new Array(43);
+    for (i=0; i<43; i++) {
+        y = i + 221;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date3[i] = new Array(16);
+        date3[i][0] = y;
+        cm = cmonthDate_Shu(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date3[i][j+1] = cm[j];
+        }
+    }
+    for (ystart=221; ystart <= 251; ystart += 10) {
+        tab.innerHTML += tableYears(ystart, ystart+9, 
+                                    date3, langCon);
+    }
+    tab.innerHTML += tableYears(261, 263, date3, langCon);
+    date3 = null;
+    
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Wu (222-280)</h2> <br />';
+    } else if (lang==1) {
+        txt += '<h2>吳 (222-280)</h2> <br />';
+    } else {
+        txt += '<h2>吴 (222-280)</h2> <br />';
+    }
+    tab.innerHTML += txt;
+    langCon.region ='Wu';
+    
+    // create 2D array to store the Shu calendar data
+    var date4 = new Array(59);
+    for (i=0; i<59; i++) {
+        y = i + 222;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date4[i] = new Array(16);
+        date4[i][0] = y;
+        cm = cmonthDate_Wu(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date4[i][j+1] = cm[j];
+        }
+    }
+    tab.innerHTML += tableYears(222, 230, date4, langCon);
+    for (ystart=231; ystart <= 271; ystart += 10) {
+        tab.innerHTML += tableYears(ystart, ystart+9, 
+                                    date4, langCon);
+    }
+    date4 = null;
+    
+    txt = '';
+    if (lang==0) {
+        txt +='<h2><a href="ThreeKingdoms_calendars.html">Calendar Differences in this period</a></h2>';
+    } else if (lang==1) {
+        txt +='<h2><a href="ThreeKingdoms_calendars_chinese.html">魏 蜀 吳 朔 閏 異 同 表</a></h2>';
+    } else {
+        txt +='<h2><a href="ThreeKingdoms_calendars_simp.html">魏 蜀 吴 朔 闰 异 同 表</a></h2>';
+    }
+    txt += '<br /><br />';
+    tab.innerHTML += txt;
+}
+
+// Table for Jin dynasty (220 - 419)
+function table_jin(lang) {
+    // title and description
+    var tit = document.getElementById('title');
+    var tab = document.getElementById('description');
+    if (lang==0) {
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (265 &ndash; 419)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Jin dynasty (265&ndash;419). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
+    } else if (lang==1) {
+        tit.innerHTML = '<h1>晉 朝 朔 閏 表 (265 &ndash; 419)</h1>';
+        tab.innerHTML = '<p>下表列出晉朝時(265年至419年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
+    } else {
+        tit.innerHTML = '<h1>晋 朝 朔 闰 表 (265 &ndash; 419)</h1>';
+        tab.innerHTML = '<p>下表列出晋朝时(265年至419年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。 公历日期的下面是日干支。日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
+    }
+    
+    var langCon = langConstant(lang);
+    if (lang==0) {
+        langCon.Wyear = "Julian<br />year";
+    }
+    var date = ChineseToGregorian();
+    tab = document.getElementById('table');
+    tab.innerHTML = tableYears(265, 270, date, langCon);
+    
+    for (var ystart=271; ystart <= 401; ystart += 10) {
         tab.innerHTML += tableYears(ystart, ystart+9, 
                                     date, langCon);
     }
     tab.innerHTML += tableYears(411, 419, date, langCon);
     date = null;
-    date2 = null;
 }
 
-
-// Table for Northern and Southern dynasties, and Sui dynasty 
-// (420 - 617)
-function table_snsui(lang) {
+// Table for Later Qin, Northern Liang, Northern Wei, 
+// Eastern Wei, Western Wei, Northern Qi and Northern Zhou (398-580)
+function table_snweiqizhou(lang) {
     // title and description
     var tit = document.getElementById('title');
     var tab = document.getElementById('description');
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (420 &ndash; 617)</h1>';
-        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Northern and Southern dynasties, and Sui dynasty (420&ndash;617). The data between 420 and 589 are from the calendars issued by the governments in the southern dynasties (Song, Qi, Liang and Chen). The data after 589 are from calendars issued by the Sui dynasty. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (384 &ndash; 580)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the north states between 384 and 580.  MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>宋、 齊、 梁、 陳 及 隋 朝 朔 閏 表 (420 &ndash; 617)</h1>';
-        tab.innerHTML = '<p>下表列出南北朝及隋朝時(420年至617年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。這裡所示的南北朝曆法是南朝宋、齊、粱、陳四朝的曆法，陳亡後(589年後)才用隋朝曆法。</p>';
+        tit.innerHTML = '<h1>後 秦、 北 涼、北 魏、 東 魏、 西 魏、 北 齊、 北 周 朔 閏 表 (384 &ndash; 580)</h1>';
+        tab.innerHTML = '<p>下表列出後秦、北涼和南北朝時北魏﹑東魏﹑西魏﹑北齊﹑北周(384年至580年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>宋、 齐、 梁、 陈 及 隋 朝 朔 闰 表 (420 &ndash; 617)</h1>';
-        tab.innerHTML = '<p>下表列出南北朝及隋朝时(420年至617年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。这里所示的南北朝历法是南朝宋、齐、粱、陈四朝的历法，陈亡后(589年后)才用隋朝历法。</p>';
+        tit.innerHTML = '<h1>后 秦、 北 凉、北 魏、 东 魏、 西 魏、 北 齐、 北 周 朔 闰 表 (398 &ndash; 580)</h1>';
+        tab.innerHTML = '<p>下表列出后秦、北凉和南北朝时北魏、东魏、西魏、北齐、北周(398年至580年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
+    }
+    
+    var langCon = langConstant(lang);
+    if (lang==0) {
+        langCon.Wyear = "Julian<br />year";
+    }
+    
+    tab = document.getElementById('table');
+    var info, txt = '<br />';
+    langCon.region = 'LaterQin';
+    if (lang==0) {
+        txt += '<h2>Later Qin (384-417)</h2> <br />';
+    } else if (lang==1) {
+        txt += '<h2>後 秦 (384-417)</h2> <br />';
+    } else {
+        txt += '<h2>后 秦 (384-417)</h2> <br />';
+    }
+    tab.innerHTML = txt;
+    var date4 = new Array(34);
+    var i,j,y, ystart, accleap, jdc, cm;
+    for(i=0; i<34; i++) {
+        y = i+384;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date4[i] = new Array(16);
+        date4[i][0] = y;
+        cm = cmonthDate_LaterQin(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date4[i][j+1] = cm[j];
+        }
+    }
+    tab.innerHTML += tableYears(384, 390, date4, langCon);
+    tab.innerHTML += tableYears(391, 400, date4, langCon);
+    tab.innerHTML += tableYears(401, 410, date4, langCon);
+    tab.innerHTML += tableYears(411, 417, date4, langCon);
+    date4 = null;
+    
+    langCon.region = 'NorthernLiang';
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Northern Liang (412-439)</h2>';
+        txt += "<p>Northern Liang was established in 397, but it didn't have its own calendar until 412.</p><br />";
+    } else if (lang==1) {
+        txt += '<h2>北 涼 (412-439)</h2>';
+        txt += '<p>北涼在神璽元年(公元397年)立國，初時沒有自己的曆法，到玄始元年(412年)始用太史趙𢾺著的《玄始曆》。</p><br />';
+    } else {
+        txt += '<h2>北 凉 (412-439)</h2>';
+        txt += '<p>北凉在神玺元年(公元397年)立国，初时没有自己的历法，到玄始元年(412年)始用太史赵𢾺著的《玄始历》。</p><br />';
+    }
+    tab.innerHTML += txt;
+    
+    var date5 = new Array(28);
+    for (i=0; i<28; i++) {
+        y = i + 412;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date5[i] = new Array(16);
+        date5[i][0] = y;
+        cm = cmonthDate_NorthernLiang(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date5[i][j+1] = cm[j];
+        }
+    }
+    tab.innerHTML += tableYears(412, 420, date5, langCon);
+    tab.innerHTML += tableYears(421, 430, date5, langCon);
+    tab.innerHTML += tableYears(431, 439, date5, langCon);
+    date5 = null;
+    
+    langCon.region = 'WeiZhouSui';
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Northern Wei (398-534)</h2><br />';
+    } else if (lang==1) {
+        txt += '<h2>北 魏 (398-534)</h2><br />';
+    } else {
+        txt += '<h2>北 魏 (398-534)</h2><br />';
+    }
+    tab.innerHTML += txt;
+    
+    var date1 = new Array(137);
+    for (i=0; i<137; i++) {
+        y = i + 398;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date1[i] = new Array(16);
+        date1[i][0] = y;
+        cm = cmonthDate_WeiZhouSui(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date1[i][j+1] = cm[j];
+        }
+    }
+    tab.innerHTML += tableYears(398, 410, date1, langCon);
+    for (var ystart=411; ystart <= 521; ystart += 10) {
+        tab.innerHTML += tableYears(ystart, ystart+9, 
+                                    date1, langCon);
+    }
+    tab.innerHTML += tableYears(531, 534, date1, langCon);
+    date1 = null;
+    
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Eastern Wei (534-550)</h2> <br />';
+    } else if (lang==1) {
+        txt += '<h2>東 魏 (534-550)</h2> <br />';
+    } else {
+        txt += '<h2>东 魏 (534-550)</h2> <br />';
+    }
+    tab.innerHTML += txt;
+    langCon.region = 'WeiQi';
+    var date2 = new Array(44);
+    for (i=0; i<44; i++) {
+        y = i + 534;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date2[i] = new Array(16);
+        date2[i][0] = y;
+        cm = cmonthDate_WeiQi(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date2[i][j+1] = cm[j];
+        }
+    }
+    tab.innerHTML += tableYears(534, 540, date2, langCon);
+    tab.innerHTML += tableYears(541, 550, date2, langCon);
+    
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Northern Qi (550-577)</h2> <br />';
+    } else if (lang==1) {
+        txt += '<h2>北 齊 (550-577)</h2> <br />';
+    } else {
+        txt += '<h2>北 齐 (550-577)</h2> <br />';
+    }
+    tab.innerHTML += txt;
+    tab.innerHTML += tableYears(550, 560, date2, langCon);
+    tab.innerHTML += tableYears(561, 570, date2, langCon);
+    tab.innerHTML += tableYears(571, 577, date2, langCon);
+    date2 = null;
+    
+    langCon.region = 'WeiZhouSui';
+    var date3 = new Array(47);
+    for (i=0; i<47; i++) {
+        y = i + 535;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date3[i] = new Array(16);
+        date3[i][0] = y;
+        cm = cmonthDate_WeiZhouSui(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date3[i][j+1] = cm[j];
+        }
+    }
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Western Wei (535-557)</h2> <br />';
+    } else {
+        txt += '<h2>西 魏 (535-557)</h2> <br />';
+    }
+    tab.innerHTML += txt;
+    tab.innerHTML += tableYears(535, 540, date3, langCon);
+    tab.innerHTML += tableYears(541, 550, date3, langCon);
+    tab.innerHTML += tableYears(550, 557, date3, langCon);
+    txt = '<br />';
+    if (lang==0) {
+        txt += '<h2>Northern Zhou (557-581)</h2> <br />';
+    } else {
+        txt += '<h2>北 周 (557-581)</h2> <br />';
+    }
+    tab.innerHTML += txt;
+    tab.innerHTML += tableYears(557, 560, date3, langCon);
+    tab.innerHTML += tableYears(561, 570, date3, langCon);
+    tab.innerHTML += tableYears(571, 581, date3, langCon);
+    date3 = null;
+    
+    txt = '';
+    if (lang==0) {
+        txt +='<h2><a href="NorthSouth_calendars.html">Calendar Differences in this period</a></h2>';
+    } else if (lang==1) {
+        txt +='<h2><a href="NorthSouth_calendars_chinese.html">南 北 朝 朔 閏 異 同 表</a></h2>';
+    } else {
+        txt +='<h2><a href="NorthSouth_calendars_simp.html">南 北 朝 朔 闰 异 同 表</a></h2>';
+    }
+    txt += '<br /><br />';
+    tab.innerHTML += txt;
+}
+
+// Table for Song, Qi, Liang and Chen (420 - 589)
+function table_snsouth(lang) {
+    // title and description
+    var tit = document.getElementById('title');
+    var tab = document.getElementById('description');
+    if (lang==0) {
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (420 &ndash; 589)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in Song, Qi, Liang and Chen dynasties (420&ndash;589). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
+    } else if (lang==1) {
+        tit.innerHTML = '<h1>南 北 朝: 宋、 齊、 梁、 陳 朔 閏 表 (420 &ndash; 589)</h1>';
+        tab.innerHTML = '<p>下表列出宋、 齊、 梁、 陳時(420年至589年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
+    } else {
+        tit.innerHTML = '<h1>南 北 朝: 宋、 齐、 梁、 陈 朔 闰 表 (420 &ndash; 589)</h1>';
+        tab.innerHTML = '<p>下表列出宋、齐、梁、陈时(420年至589年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -812,10 +1150,72 @@ function table_snsui(lang) {
     tab = document.getElementById('table');
     tab.innerHTML = tableYears(420, 430, date, langCon);
     
-    for (var ystart=431; ystart <= 601; ystart += 10) {
+    for (var ystart=431; ystart <= 571; ystart += 10) {
         tab.innerHTML += tableYears(ystart, ystart+9, 
                                     date, langCon);
     }
+    tab.innerHTML += tableYears(581, 589, date, langCon);
+    date = null;
+    
+    var txt = '';
+    if (lang==0) {
+        txt +='<h2><a href="NorthSouth_calendars.html">Calendar Differences in this period</a></h2>';
+    } else if (lang==1) {
+        txt +='<h2><a href="NorthSouth_calendars_chinese.html">南 北 朝 朔 閏 異 同 表</a></h2>';
+    } else {
+        txt +='<h2><a href="NorthSouth_calendars_simp.html">南 北 朝 朔 闰 异 同 表</a></h2>';
+    }
+    txt += '<br /><br />';
+    tab.innerHTML += txt;
+}
+
+// Table for Sui dynasty (581-617)
+function table_sui(lang) {
+    // title and description
+    var tit = document.getElementById('title');
+    var tab = document.getElementById('description');
+    if (lang==0) {
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (581 &ndash; 617)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Sui dynasty (581&ndash;617). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
+    } else if (lang==1) {
+        tit.innerHTML = '<h1>隋 朝 朔 閏 表 (581 &ndash; 617)</h1>';
+        tab.innerHTML = '<p>下表列出隋朝時(581年至617年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
+    } else {
+        tit.innerHTML = '<h1>隋 朝 朔 闰 表 (581 &ndash; 617)</h1>';
+        tab.innerHTML = '<p>下表列出隋朝时(581年至617年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
+    }
+    
+    var langCon = langConstant(lang);
+    langCon.region = 'WeiZhouSui';
+    if (lang==0) {
+        langCon.Wyear = "Julian<br />year";
+    }
+    
+    var date1 = new Array(10);
+    var i,j,y, ystart, accleap, jdc, cm;
+    for (i=0; i<10; i++) {
+        y = i + 581;
+        // Julian date number at noon on Dec 31, y-1 
+        accleap = Math.floor(0.25*(y + 799) + 1e-5);
+        jdc = 1429223 + accleap + 365*(y+799);
+        date1[i] = new Array(16);
+        date1[i][0] = y;
+        cm = cmonthDate_WeiZhouSui(y, jdc, false);
+        for (j=0; j<15; j++) {
+            date1[i][j+1] = cm[j];
+        }
+    }
+    tab = document.getElementById('table');
+    tab.innerHTML = tableYears(581, 590, date1, langCon);
+    date1 = null;
+    
+    langCon.region = 'default';
+    var date = ChineseToGregorian();
+    tab.innerHTML += tableYears(591, 600, date, langCon);
+    tab.innerHTML += tableYears(601, 610, date, langCon);
     tab.innerHTML += tableYears(611, 617, date, langCon);
     date = null;
 }
@@ -1037,35 +1437,122 @@ function table_song(lang) {
     }
     tab.innerHTML += tableYears(1271, 1279, date, langCon);
     date = null;
+    
+    var txt = '';
+    if (lang==0) {
+        txt +='<h2><a href="LiaoJinYuan_calendars.html">Calendar Differences Between the Northern and Southern Dynasties in 947 – 1279</a></h2>';
+    } else if (lang==1) {
+        txt +='<h2><a href="LiaoJinYuan_calendars_chinese.html">宋 遼 金 元 朔 閏 異 同 表</a></h2>';
+    } else {
+        txt +='<h2><a href="LiaoJinYuan_calendars_simp.html">宋 辽 金 元 朔 闰 异 同 表</a></h2>';
+    }
+    txt += '<br /><br />';
+    tab.innerHTML += txt;
 }
 
-// Table for Yuan dynasty (1280-1367)
+// Table for Liao and Jin (947 - 1234)
+function table_liaojin(lang) {
+    // title and description
+    var tit = document.getElementById('title');
+    var tab = document.getElementById('description');
+    if (lang==0) {
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (947 &ndash; 1234)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Liao (a.k.a.Khitan) dynasty and Jin dynasty (947&ndash;1234). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
+    } else if (lang==1) {
+        tit.innerHTML = '<h1>遼 金 朔 閏 表 (947 &ndash; 1234)</h1>';
+        tab.innerHTML = '<p>下表列出遼金時(947年至1234年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
+    } else {
+        tit.innerHTML = '<h1>辽 金 朔 闰 表 (947 &ndash; 1234)</h1>';
+        tab.innerHTML = '<p>下表列出辽金时(947年至1234年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
+    }
+    
+    var langCon = langConstant(lang);
+    langCon.region = 'LiaoJinYuan';
+    if (lang==0) {
+        langCon.Wyear = "Julian<br />year";
+    }
+    var date = ChineseToGregorian();
+    var corr = LiaoJinYuanCorrection();
+    var ystart = date[0][0];
+    for (var y=947; y <= 1234; y++) {
+        var prop = 'y'+y.toString();
+        if (prop in corr) {
+            // Correction for year y
+            var corr_array = corr[prop];
+            for (var i=0; i<corr_array.length; i += 2) {
+                date[y-ystart][corr_array[i]] = corr_array[i+1];
+            }
+        }
+    }
+    tab = document.getElementById('table');
+    tab.innerHTML = tableYears(947, 960, date, langCon);
+    for (ystart=961; ystart <= 1221; ystart += 10) {
+        tab.innerHTML += tableYears(ystart, ystart+9, 
+                                    date, langCon);
+    }
+    tab.innerHTML += tableYears(1231, 1234, date, langCon);
+    date = null;
+    
+    var txt = '';
+    if (lang==0) {
+        txt +='<h2><a href="LiaoJinYuan_calendars.html">Calendar Differences Between the Northern and Southern Dynasties in 947 – 1279</a></h2>';
+    } else if (lang==1) {
+        txt +='<h2><a href="LiaoJinYuan_calendars_chinese.html">宋 遼 金 元 朔 閏 異 同 表</a></h2>';
+    } else {
+        txt +='<h2><a href="LiaoJinYuan_calendars_simp.html">宋 辽 金 元 朔 闰 异 同 表</a></h2>';
+    }
+    txt += '<br /><br />';
+    tab.innerHTML += txt;
+}
+
+// Table for Mongol/Yuan dynasty (1234-1367)
 function table_yuan(lang) {
     // title and description
     var tit = document.getElementById('title');
     var tab = document.getElementById('description');
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (1280 &ndash; 1367)</h1>';
-        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Yuan dynasty (1280&ndash;1367). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (1234 &ndash; 1367)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian dates MM-DD of the first day of each month in the Chinese calendar in the Mongol/Yuan dynasty (1234&ndash;1367). MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>元 朝 朔 閏 表 (1280 &ndash; 1367)</h1>';
-        tab.innerHTML = '<p>下表列出元朝時(1280年至1367年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>蒙 古 和 元 朝 朔 閏 表 (1234 &ndash; 1367)</h1>';
+        tab.innerHTML = '<p>下表列出蒙古和元朝時(1280年至1367年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>元 朝 朔 闰 表 (1280 &ndash; 1367)</h1>';
-        tab.innerHTML = '<p>下表列出元朝时(1280年至1367年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>蒙 古 和 元 朝 朔 闰 表 (1234 &ndash; 1367)</h1>';
+        tab.innerHTML = '<p>下表列出蒙古和元朝时(1234年至1367年)农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
     var langCon = langConstant(lang);
+    langCon.region = 'LiaoJinYuan';
     if (lang==0) {
         langCon.Wyear = "Julian<br />year";
     }
     var date = ChineseToGregorian();
+    var corr = LiaoJinYuanCorrection();
+    var ystart = date[0][0];
+    for (var y=1234; y <= 1279; y++) {
+        var prop = 'y'+y.toString();
+        if (prop in corr) {
+            // Correction for year y
+            var corr_array = corr[prop];
+            for (var i=0; i<corr_array.length; i += 2) {
+                date[y-ystart][corr_array[i]] = corr_array[i+1];
+            }
+        }
+    }
     tab = document.getElementById('table');
-    tab.innerHTML = tableYears(1280, 1290, date, langCon);
-    for (var ystart=1291; ystart <= 1351; ystart += 10) {
+    tab.innerHTML = tableYears(1234, 1240, date, langCon);
+    for (ystart=1241; ystart <= 1271; ystart += 10) {
+        tab.innerHTML += tableYears(ystart, ystart+9, 
+                                    date, langCon);
+    }
+    langCon.region = 'default';
+    for (ystart=1281; ystart <= 1351; ystart += 10) {
         tab.innerHTML += tableYears(ystart, ystart+9, 
                                     date, langCon);
     }
@@ -1108,6 +1595,7 @@ function table_ming(lang) {
         langCon.Wyear = "Jul./Greg.<br />year";
     }
     tab.innerHTML += tableYears(1581, 1590, date, langCon);
+    
     if (lang==0) {
         langCon.Wyear = "Greg.<br />year";
     }
@@ -1169,7 +1657,7 @@ function table_recent(lang) {
         tab.innerHTML += '<p>農曆每月的初一定於朔(又稱新月)的日期，由於數十年後朔的UTC+8時刻難以準確推算，如果朔的時刻接近午夜零時，初一的確實日期或會與表列日期有一日之差。這些情況出現在公曆2057年9月29日、2089年9月4日、2097年8月7日、2133年9月28日、2172年10月17日和2192年5月12日. 下表把這些可能有一日誤差的初一日用紅色顯示並加上星號。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>农 历 和 公 历 日 期 对 照 表 (1912 &ndash; 2200)</h1>';
+        tit.innerHTML = '<h1>1912年 &ndash; 2200年 朔 闰 表</h1>';
         tab.innerHTML = '<p>下表列出由1912年至2200年农历每月初一的公历日期 MM-DD。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p>农历每月的初一定于朔(又称新月)的日期，由于数十年后朔的UTC+8时刻难以准确推算，如果朔的时刻接近午夜零时，初一的确实日期或会与表列日期有一日之差。这些情况出现在公历2057年9月29日、2089年9月4日、2097年8月7日、2133年9月28日、2172年10月17日和2192年5月12日. 下表把这些可能有一日误差的初一日用红色显示并加上星号。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
@@ -1216,16 +1704,46 @@ function newMoonCloseToMidnight(y, j) {
 }
 
 // Print warning message
-function printWarningMessage(y,lang,note_early,note_late) {
-    var warn = '';
+function printWarningMessage(y, langCon) {
+    var lang = langCon.lang, warn = '';
     
-    if (y==580) {
+    if (y==240 && langCon.region=='Wu') {
+        if (lang==0) {
+           warn ='<p style="color:red;">In Appendix 2 of the book <i>3500 Years of Calendars and Astronomical Phenomena</i>, the sexagenary day of the leap month conjunction in 238 is listed as j&#464; ch&#466;u, corresponding to Nov. 25. This is at odds with my calculation. The result of my calculation is consistent with the data on the <a href="https://sinocal.sinica.edu.tw/" target="_blank">Chinese-Western calendar conversion website</a> created by Academia Sinica in Taiwan. The preface of the book says that the calendar data in its appendices are based on the book 《歷代長術輯要》(<i>Compilation of Historical Calendars</i>) by W&#257;ng Yu&#275;zh&#275;n (汪曰楨). I looked at the book and found that the date listed there was also the same as my calculation. I suspect that the date listed in <i>3500 Years of Calendars and Astronomical Phenomena</i> is wrong. The book also lists the sexagenary day of the month 11 conjunction in the Wu state as j&#464; ch&#466;u, which is certainly wrong since this date was far away from the new moon close to the beginning of month 11.</p>'; 
+        } else if (lang==1) {
+            warn ='<p style="color:red;">《三千五百年历日天象》附表2記吳赤烏元年閏十月己丑朔和十一月己丑朔。十一月己丑朔無疑是錯的，這裡列出的閏十月戊子朔是根據我的推步，結果與台灣中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">兩千年中西曆轉換網站</a>一致，《三千五百年历日天象》前言說其附表參照清汪曰楨的《歷代長術輯要》，翻查此書發現亦記吳閏十月戊子。</p>';
+        } else {
+            warn = '<p style="color:red;">《三千五百年历日天象》附表2记吴赤乌元年闰十月己丑朔和十一月己丑朔。十一月己丑朔无疑是错的，这里列出的闰十月戊子朔是根据我的推步，结果与台湾中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">两千年中西历转换网站</a>一致，《三千五百年历日天象》前言说其附表参照清汪曰桢的《历代长术辑要》，翻查此书发现亦记吴闰十月戊子。</p>';
+        }
+    }
+    
+    if (y==510 && langCon.region=='default') {
+        if (lang==0) {
+           warn ='<p style="color:red;">There is a discrepancy between the main text and Appendix 3 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. In 502, the leap month is listed as after month 5 in the main text but after month 4 in Appendix 3.</p>'; 
+        } else if (lang==1) {
+            warn ='<p style="color:red;">《三千五百年历日天象》的正文與其附表3的資料不一致，正文記502年閏五月，附表3則為閏四月。</p>';
+        } else {
+            warn = '<p style="color:red;">《三千五百年历日天象》的正文与其附表3的资料不一致，正文记575年闰五月，附表3则为闰四月。</p>';
+        }
+    }
+    
+    if (y==580 && langCon.region=='default') {
         if (lang==0) {
             warn ='<p style="color:red;">There is a discrepancy between the main text and Appendix 3 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. In 575, the leap month is listed as after month 8 in the main text but after month 9 in Appendix 3.</p>';
         } else if (lang==1) {
             warn ='<p style="color:red;">《三千五百年历日天象》的正文與其附表3的資料不一致，正文記575年閏八月，附表3則為閏九月。</p>';
         } else {
             warn = '<p style="color:red;">《三千五百年历日天象》的正文与其附表3的资料不一致，正文记575年闰八月，附表3则为闰九月。</p>';
+        }
+    }
+    
+    if (y==577 && langCon.region=='WeiQi') {
+        if (lang==0) {
+            warn ="<p style='color:red;'>Appendix 3 of the book <i>3500 Years of Calendars and Astronomical Phenomena</i> lists the leap month in 575 as after month 9. This is at odds with my calculation, which agrees with the data on the <a href='https://sinocal.sinica.edu.tw/' target='_blank'>Chinese-Western calendar conversion website</a> created by Academia Sinica in Taiwan. The data in Appendix 3 are supposed to be based on the book 《歷代長術輯要》(<i>Compilation of Historical Calendars</i>) by W&#257;ng Yu&#275;zh&#275;n (汪曰楨), but that book also lists 575's leap month as after month 8. That's why I use my calculation here.</p>";
+        } else if (lang==1) {
+            warn ='<p style="color:red;">《三千五百年历日天象》附表3記北齊武平六年為閏九月，與我計算的閏八月不一致，台灣中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">兩千年中西曆轉換網站</a>和汪曰楨的《歷代長術輯要》也記北齊武平六年為閏八月，所以這裡不取《三千五百年历日天象》的數據。</p>';
+        } else {
+            warn = '<p style="color:red;">《三千五百年历日天象》附表3记北齐武平六年为闰九月，与我计算的闰八月不一致，台湾中央研究院的<a href="https://sinocal.sinica.edu.tw/" target="_blank">两千年中西历转换网站</a>和汪曰桢的《历代长术辑要》也记北齐武平六年为闰八月，所以这里不取《三千五百年历日天象》的数据。</p>';
         }
     }
     
@@ -1259,10 +1777,10 @@ function printWarningMessage(y,lang,note_early,note_late) {
         }
     }
     if (y==2060 || y==2200) {
-        warn = '<p style="color:red;"><sup>*</sup>'+note_early;
+        warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_early;
     }
     if (y==2090 || y==2100 || y==2140 || y==2180) {
-        warn = '<p style="color:red;"><sup>*</sup>'+note_late;
+        warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_late;
     }
     return warn;
 }
@@ -1285,7 +1803,7 @@ function getJD(yyyy,mm,dd) {
 
 // *** TESTING ***
 function generate_csv(ystart, yend, date) {
-    var csv = 'year, M01, M02, M03, M04, M05, M06, M07, M08, M09, M10, M11, M12, Mleap\n';
+    var csv = 'year, M01, M02, M03, M04, M05, M06, M07, M08, M09, M10, M11, M12, Mleap, leap\n';
     var y0 = date[0][0];
     var n;
     for (var y=ystart; y<=yend; y++) {
@@ -1301,7 +1819,7 @@ function generate_csv(ystart, yend, date) {
             csv += mmdd+', '
         }
         if (date[i][14]==0) {
-            csv += '0\n';
+            csv += '0, 0\n';
         } else {
             mmdd = ymd(y, date[i][13]);
             n = mmdd.length;
@@ -1309,7 +1827,7 @@ function generate_csv(ystart, yend, date) {
                 mmdd = mmdd.substring(3,n-4);
             }
             mmdd = parseInt(mmdd.substring(0,n-3)).toString() + mmdd.substr(-2,2);
-            csv += mmdd+'\n';
+            csv += mmdd+', '+date[i][14].toString()+'\n';
         }
     }
     return csv;

@@ -130,8 +130,8 @@ li {
 button.calendars {
     background-color: #c5fe38;
     cursor: pointer;
+    min-width:100px;
     padding: 10px;
-    width: 100px;
     border: none;
     text-align: center;
     outline: none;

@@ -10,7 +10,8 @@
 <script src="header.js"></script>
 <script src="calendarData.js"></script>
 <script src="ancientCalendars.js"></script> 
-<script src="eras.js"></script> 
+<script src="eras.js"></script>
+<script src="split.js"></script>
 <script src="calendar.js"></script>    
 </head>
 
@@ -84,6 +85,37 @@ min="-721" max="2200" />
 <p id="guliuliDescription" style="color:brown;"></p>
     <br />
 </div>
+    
+<div id="ThreeKingdoms" style="display:none;">
+<p>现在显示的王朝是<span id='TkiDynasty' style='background-color:#ffb3b3;'></span>。点击下面的按键更改王朝。</p>
+<h3><button id="TkiWei" class="calendars active" onClick="select_calendar_split('TkiWei',2)">魏</button>
+    <button id="TkiShu" class="calendars" onClick="select_calendar_split('TkiShu',2)">蜀</button>
+    <button id="TkiWu" class="calendars" onClick="select_calendar_split('TkiWu',2)">吴</button>
+    </h3>
+    <br />
+<h3><a href="ThreeKingdoms_calendars_simp.html">魏 蜀 吴 朔 闰 异 同 表</a></h3><br /><br />
+</div>
+    
+<div id="SouthNorth" style="display:none;">
+<p>现在显示的王朝是<span id='SN1Dynasty' style='background-color:#ffb3b3;'></span>。点击下面的按键更改王朝。</p>
+<h3><button id="SN1South" class="calendars active" onClick="select_calendar_split('SN1South',2)">晋</button>
+    <button id="SN1LaterQin" class="calendars" onClick="select_calendar_split('SN1LaterQin',2)">后秦</button>
+    <button id="SN1NorthernLiang" class="calendars" onClick="select_calendar_split('SN1NorthernLiang',2)">北凉</button>
+    <button id="SN1WeiZhouSui" class="calendars" onClick="select_calendar_split('SN1WeiZhouSui',2)">北魏</button>
+    <button id="SN1WeiQi" class="calendars" onClick="select_calendar_split('SN1WeiQi',2)">东魏</button>
+    </h3>
+    <br />
+<h3><a href="NorthSouth_calendars_simp.html">南 北 朝 朔 闰 异 同 表</a></h3><br /><br />
+</div>
+    
+<div id="SongLiaoJinYuan" style="display:none;">
+<p>现在显示的王朝是<span id='SN2Dynasty' style='background-color:#ffb3b3;'></span>。点击下面的按键更改王朝。</p>
+<h3><button id="SN2South" class="calendars active" onClick="select_calendar_split('SN2South',2)">宋</button>
+    <button id="SN2North" class="calendars" onClick="select_calendar_split('SN2North',2)">金</button>
+    </h3>
+    <br />
+<h3><a href="LiaoJinYuan_calendars_simp.html">宋 辽 金 元 朔 闰 异 同 表</a></h3><br /><br />
+</div>
 
 <div id="calendar">
 
@@ -125,8 +157,7 @@ target="_blank">proleptic Julian calendar</a>)。</p>
 <p><a href="computation_simp.html">本网站的农历编算方法</a></p>
     
 <br /><br /><hr />
-<p style="font-size:90%;">首创于2018年9月(只函盖1901年&ndash;2200年)，最
-近一次重大修改是2019年3月。</p>
+<p style="font-size:90%;">首创于2018年9月(只函盖1901年&ndash;2200年)。最近一次重大修改于2019年6月末完成，增加了下列诸国的年历:三国时蜀和吴、十六国时后秦和北凉、南北朝时北魏、东魏、西魏、北齐、北周以及五代和宋时的辽、金、蒙古/元。</p>
 </div> <!-- end of wrapper -->
 
 </body>
