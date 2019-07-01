@@ -279,7 +279,7 @@ function eraName(year, region) {
     }
     
     // Northern Liang
-    if (year > 411.5 && year < 439.5 && region=='NorthernLiang') {
+    if (year > 410.5 && year < 439.5 && region=='NorthernLiang') {
         eras = [{y:1912, e:""}, {y:434, e:"北涼承和", offset:1},
                 {y:433, e:"北涼義和三年/承和元年", offset:-1},
                 {y:432, e:"北涼義和二年", offset:-1}, 
@@ -1033,7 +1033,7 @@ function eraNameSim(year, region) {
     }
     
     // Northern Liang
-    if (year > 411.5 && year < 439.5 && region=='NorthernLiang') {
+    if (year > 410.5 && year < 439.5 && region=='NorthernLiang') {
         eras = [{y:1912, e:""}, {y:434, e:"北凉承和", offset:1},
                 {y:433, e:"北凉义和三年/承和元年", offset:-1},
                 {y:432, e:"北凉义和二年", offset:-1}, 

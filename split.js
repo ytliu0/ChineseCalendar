@@ -166,7 +166,7 @@ function split_calendar_handler(lang, y) {
     return region;
 }
 
-// Select calendars
+// Select calendar
 function select_calendar_split(id, lang) {
     var err = document.getElementById('err').innerHTML;
     if (err != "") { return;}
@@ -191,7 +191,6 @@ function select_calendar_split(id, lang) {
     }
     document.getElementById(id).classList.add('active');
     var y = parseInt(document.getElementById('year').value);
-    split_calendar_handler(lang, y);
     calendar(lang, y);
 }
 
