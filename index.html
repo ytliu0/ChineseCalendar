@@ -26,6 +26,8 @@
 &nbsp; &nbsp; 
 <input type="button" value="Submit" id="myBtn" onClick="submitYear(0)" /></h3>
 <p>(0 = 1 B.C., -1 = 2 B.C., -2 = 3 B.C. and so on.)</p>
+    
+<p>Julian dates at noon: <input id="Julian1" type="radio" name="true" value="1" onclick="showHideJulian(0,1)">show &nbsp;&nbsp;<input id="Julian0" type="radio" name="false" value="0" checked onclick="showHideJulian(0,0)">don't show</p>
 
 <p style="color:red;" id="err"></p>
 
@@ -123,6 +125,8 @@
 <p><i>Calendrical solar terms</i> are listed for years before 1734. They refer to the 24 solar terms calculated according to the calendar at that time. They were defined by <i>p&#237;ngq&#236;</i> (i.e. the mean motion of the Sun) before 1645 and <i>d&#236;ngq&#236;</i> (i.e. the motion of the true Sun) on and after 1645. The 24 solar terms listed above these calendrical solar terms are based on the current definition (which is also based on <i>d&#236;ngq&#236;</i>) and are calculated by a modern method. Times are given in the China standard time (meridians of 120&deg; East). The difference between <i>p&#237;ngq&#236;</i> and <i>d&#236;ngq&#236;</i> is explained on our <a href="solarTerms.html">solar term page</a>. The dates of the calendrical solar terms after 1733 were mostly the same as the dates calculated using the modern method and therefore they are omitted, except when there were discrepancies.</p>
     
 <p>Gregorian calendar is shown on Oct. 15, 1582 and afterwards. Julian calendar is shown before Oct. 15, 1582. <a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" target="_blank">Proleptic Julian calendar</a> is shown before 8 A.D.</p>
+    
+<p>Julian dates are the number of days and fractions counting from the time origin at noon on January 1, 4713 B.C. Hence Julian dates at noon are integers. A time zone is not specified here and it is assumed that the time origin (noon on January 1, 4713 B.C.) and the time at noon on any day are both in the same time zone. Julian dates at noon will be shown at the bottom of each day if enabled. I also created the web-based <a href="Julian.html">Julian and sexagenary date calculator</a>.</p>
     
 <p>The Chinese calendar on this website are computed using the methods described <a href="computation.html">here</a>.</p>
     

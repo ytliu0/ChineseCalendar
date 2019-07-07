@@ -34,6 +34,16 @@ function submitYear(lang) {
     }
 }
 
+// Show/hide between show/hide Jilian day number at noon
+function showHideJulian(lang,ins) {
+    var s = parseInt(ins);
+    document.getElementById('Julian'+ins).checked = true;
+    document.getElementById('Julian'+(1-s)).checked = false;
+    if (document.getElementById('err').innerHTML == '') {
+        submitYear(lang);
+    }
+}
+
 // Language-specific constants
 function langConstant(lang) {
     var gMonth, weeks, heaven, earth, animal, month_num, monthL, 
@@ -168,7 +178,9 @@ function langConstant(lang) {
         note1929 = note1929Sim;
         note1914 = note1914Sim;
     }
-    return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, date_numChi:date_numChi, note_early:note_early, 
+    var julian = document.getElementById('Julian1').checked;
+    return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, julian:julian, 
+    date_numChi:date_numChi, note_early:note_early, 
     note_late:note_late, note1929:note1929, note1914:note1914};
 }
 
@@ -978,14 +990,18 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
 function addSexagenaryDays(m,d,langVars, calVars) {
     // # of days from Dec 31 in the previous year
     var dd = calVars.mday[m] + d; 
+    var jd = calVars.jd0 + dd + 1;
     
-    var h = langVars.heaven[(calVars.jd0 + dd) % 10];
-    var e = langVars.earth[(calVars.jd0 + dd +2) % 12];
+    var h = langVars.heaven[(jd-1) % 10];
+    var e = langVars.earth[(jd+1) % 12];
     var txt;
     if (langVars.lang==0) {
         txt ='<p>'+h+' '+e+'</p>';
     } else {
        txt ='<p>'+h+e+'</p>'; 
+    }
+    if (langVars.julian) {
+        txt += '<p style="font-size:99%;letter-spacing:normal;">'+jd+'</p>';
     }
     return txt;
 }

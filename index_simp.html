@@ -32,6 +32,8 @@ min="-721" max="2200" />
     
 <p>(0=公元前1年、-1=公元前2年、-2=公元前3年、余类推。)</p>
     
+<p>每日正午的儒略日数: <input id="Julian1" type="radio" name="true" value="1" onclick="showHideJulian(2,1)">显示 &nbsp;&nbsp;<input id="Julian0" type="radio" name="false" value="0" checked onclick="showHideJulian(2,0)">不显示</p>
+    
 <p style="color:red;" id="err"></p>
 <hr />
     <p><a href="#explanation"><h3>月 历 表 说 明</h3></a></p>
@@ -150,10 +152,10 @@ in the calendar table" /></p>
 代计算有差异外，其余略去不注。</p>
     
 <p>公历在1582年10月15日及以后用格里高利历，之前用儒略历，公元8年以前则用
-逆推儒略历(<a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" 
-
-target="_blank">proleptic Julian calendar</a>)。</p>
+逆推儒略历(<a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" target="_blank">proleptic Julian calendar</a>)。</p>
     
+<p>儒略日数是指从公元前4713年1月1日正午起算的积日，所以每日正午的儒略日数是整数。这里没有说明所用的时间标准(UT1 或地方时等)，是假设了起算时刻(公元前4713年1月1日正午)和每日正午所指的时刻用相同的时间标准。如果选择显示每日正午的儒略日数，数字会显示在日干支之下。本网站也有<a href="Julian_simp.html">儒略日数和日干支计算器</a>。</p>
+    <br />
 <p><a href="computation_simp.html">本网站的农历编算方法</a></p>
     
 <br /><br /><hr />

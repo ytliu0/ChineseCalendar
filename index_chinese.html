@@ -28,8 +28,9 @@
 <h3>輸入 -721 和 2200 之間的公曆年: <input type="number" id="year" step="1" min="-721" max="2200" />
 &nbsp; &nbsp; 
 <input type="button" value="輸入" id="myBtn" onClick="submitYear(1)" /></h3>
-    
 <p>(0=公元前1年、-1=公元前2年、-2=公元前3年、餘類推。)</p>
+    
+<p>每日正午的儒略日數: <input id="Julian1" type="radio" name="true" value="1" onclick="showHideJulian(1,1)">顯示 &nbsp;&nbsp;<input id="Julian0" type="radio" name="false" value="0" checked onclick="showHideJulian(1,0)">不顯示</p>
     
 <p style="color:red;" id="err"></p>
 <hr />
@@ -125,9 +126,10 @@
     
 <p>1734年前的日曆列出「曆書節氣」的日期。曆書節氣是指以當時曆法來計算的節氣。自清順治二年(1645年)起二十四節氣用定氣計算，之前則用平氣。曆書節氣上一行所示之二十四節氣以現今定義的方法計算，亦屬定氣。平氣和定氣的差別可參閱本網站的<a href="solarTerms_chinese.html">二十四節氣網頁</a>。1733年後的曆書節氣日期基本上與用現代方法計算的日期一致，所以除了那些曆書節氣與現代計算有差異外，其餘略去不註。</p>
     
-<p>公曆在1582年10月15日及以後用格里高利曆，之前用儒略曆，公元8年以前則用逆推儒略曆(<a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" 
-target="_blank">proleptic Julian calendar</a>)。</p>
+<p>公曆在1582年10月15日及以後用格里高利曆，之前用儒略曆，公元8年以前則用逆推儒略曆(<a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" target="_blank">proleptic Julian calendar</a>)。</p>
     
+<p>儒略日數是指從公元前4713年1月1日正午起算的積日，所以每日正午的儒略日數是整數。這裡沒有說明所用的時間標準(UT1 或地方時等)，是假設了起算時刻(公元前4713年1月1日正午)和每日正午所指的時刻用相同的時間標準。如果選擇顯示每日正午的儒略日數，數字會顯示在日干支之下。本網站也有<a href="Julian_chinese.html">儒略日數和日干支計算器</a>。</p>
+    <br />
 <p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>
     
 <br /><br /><hr />

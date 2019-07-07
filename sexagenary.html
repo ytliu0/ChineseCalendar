@@ -17,12 +17,13 @@
 
 <h1>Sexagenary Cycle (&#20845;&#21313;&#24178;&#25903;)</h1>
     
-<p>First draft: October 2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last major update: April 2019</p>
+<p>First draft: October 2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last major update: July 7, 2019</p>
 
 <br />    
 <p>Sexagenary cycle is an ancient Chinese counting system that is still being used today. It consists of two Chinese characters. The first character is taken from one of the ten heavenly stems (&#22825;&#24178;) and the other from one of the twelve earthly branches (&#22320;&#25903;). Each of the twelve earthly branches is associated with an animal (see the table below).</p>
    <br /> 
-<table>
+<table id="stemsNbranches">
+    <caption>Table 1: 10 heavenly stems and 12 earthly branches</caption>
 <tr><td></td><th>Heavenly Stems</th> <td></td> <th colspan="2">Earthly Branches</th></tr>
     
 <tr><td>1</td> <td>Ji&#462; (&#x7532;)</td> <td>1</td> <td>Z&#464; (&#x5B50;)</td> <td>Rat</td></tr>
@@ -90,7 +91,8 @@ txt += '</table>';
 </script>
 -->
     
-<table>
+<table id="sexagenary">
+    <caption>Table 2: Sexagenary numbers</caption>
 <tr>
 <td>1</td><td>Ji&#462; z&#464; (&#x7532;&#x5B50;)</td>
 <td>21</td><td>Ji&#462; sh&#275;n (&#x7532;&#x7533;)</td>
@@ -282,13 +284,71 @@ txt += '</table>';
     
 <br />
 <h2>Sexagenary Days</h2>
+    
+<p>Sexagenary days have a cycle of 60 days. Sexagenary numbers have been used to record dates in China for more than 2700 years. The system has not been interrupted and no mistakes have been made.</p>
 
-<p>The sexagenary number of a date can be easily determined if we know the Julian day number, which is the number of days counting from noon on January 1, 4713 B.C. There are algorithms to convert a Gregorian/Julian date to the Julian day number (see e.g. <a href="https://en.wikipedia.org/wiki/Julian_day" target="_blank">Wikipedia</a>). There are also web-based Julian day calculators (e.g. <a href="http://aa.usno.navy.mil/data/docs/JulianDate.php" target="_blank">Julian Date Converter</a>). The sexagenary number of October 1, 1949 is ji&#462; z&#464;. The Julian day at noon on October 1, 1949 is 2433191. It follows from the cycles of the heavenly stems and earthly branches that the stem number of any date is 1 + mod(JD-1, 10) in the list of the stems, and the branch number is 1 + mod(JD+1, 12) in the list of branches. Here JD is the Julian day number at noon of the date.</p>
+<p>The sexagenary number of a day can be easily determined if we know the Julian day number, which is the number of days counting from noon on January 1, 4713 B.C. Hence Julian dates at noon are integers. A time zone is not specified here and it is assumed that the time origin (noon on January 1, 4713 B.C.) and the time at noon on any day are both in the same time zone. There are algorithms to convert a Gregorian/Julian date to the Julian date (see e.g. <a href="https://en.wikipedia.org/wiki/Julian_day" target="_blank">Wikipedia</a>). I also created a web-based <a href="Julian.html">Julian and sexagenary date calculator</a>.</p>
+    
+<p>To calculate sexagenary dates from Julian dates, we only need to know the sexagenary date of a particular Julian date and then use modular arithmetic to derive a formula establishing the relationship between Julian dates and sexagenary dates. From the <a href="index.html">calendar page</a>, we see that the sexagenary date of January 27, 2019 was ji&#462; z&#464; (the first sexagenary number). The Julian date of Jan 27, 2019 at noon was 2458511. Since sexagenary dates have a cycle of 60 days and mod(2458511, 60) = 11, it follows from modular arithmetic that</p>
+<p>Sexagenary date number S = 1 + mod(JD<sub>noon</sub> - 11, 60) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)</p>
+<p>Here <span class="nowrap">JD<sub>noon</sub></span> is the Julian date at noon. Sexagenary number 1 refers to ji&#462; z&#464;, 2 refers y&#464; ch&#466;u, 3 refers to b&#464;ng y&#237;n and so on. That is, S refers to the numerical order of the sexagenary name listed in <a href="#sexagenary">Table 2</a> above. If T denotes the numerical order of the stem name in <a href="#stemsNbranches">Table 1</a> and B denotes the numerical order of the branch name in Table 1, they are related to S by</p>
+<p>T = 1 + mod(S-1, 10),&nbsp;&nbsp; B = 1 + mod(S-1, 12). &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)</p>
+<p>While the sexagenary number S was occasionally useful in some computation in ancient Chinese almanacs, it's mostly not needed. The values of T and B can be computed from <span class="nowrap">JD<sub>noon</sub></span> directly. The formulae can be derived from the fact that the sexagenary date of <span class="nowrap">JD<sub>noon</sub></span>=2458511 was ji&#462; z&#464; (T=1 and B=1). Since heavenly stems have a cycle of 10 days, earthly branches have a cycle of 12 days, mod(2458511, 10)=1 and mod(2458511, 12)=11, it follows that</p>
+<p>T = 1 + mod(JD<sub>noon</sub>-1, 10),&nbsp;&nbsp; B = 1 + mod(JD<sub>noon</sub>+1, 12).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)</p>
+<p>Since we are using the base-10 system, T is simply the last digit in <span class="nowrap">JD<sub>noon</sub></span>, with the exception that T=10 if the last digit is 0. As an example, <span class="nowrap">JD<sub>noon</sub></span>=2371629 on March 13, 1781. We have T=9 and the stem name is r&#233;n; B = 1 + mod(2371630, 12) = 11 and the branch name is x&#363;. So the sexagenary day cycle was r&#233;n x&#363;.</p>
+    
+<p>As a side note, the days of week can also be calculated easily from <span class="nowrap">JD<sub>noon</sub></span>. Since Jan 27, 2019 was Sunday with <span class="nowrap">JD<sub>noon</sub></span>=2458511 and mod(2458511, 7)=6, it follows that the day of week of a day with <span class="nowrap">JD<sub>noon</sub></span> is given by</p>
+<p>W = mod(JD<sub>noon</sub>+1, 7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4)</p>
+<p>Here W=0 means Sunday, W=1 means Monday, ..., W=6 means Saturday. The days of week in the <a href="index.html">calendar page</a> are calculated using Equation (4).</p>
+    
+<p>As another side note, given the sexagenary number S, the stem number T and branch number B can be calculated easily using Equation (2). However, the inverse problem is not so easy. Given T and B, S has to be determined by solving the modular arithmetic equations</p>
+<p>S &equiv; T (mod 10), &nbsp;&nbsp; S &equiv; B (mod 12).</p>
+<p>Here &equiv; represents <i>congruence</i>. The above equations simply mean that S-T is divisible by 10 and S-B is divisible by 12. For those who are not familiar with modular arithmetic, it might not be easy for them to derive a general expression for S. For a specific pair of T and B, one can of course look up <a href="#sexagenary">Table 2</a> to find the answer. If this is considered as "cheating", one may use the following formula instead:<sup><a href="#fn1">[1]</a></sup></p>
+<p>k = 6T - 5B, S = k if k&gt;0 and S = k + 60 if k&le;0.</p>
+<p>It's also easy to prove that T-B must be an even number, k&gt;0 is equivalent to T&ge;B and k&le;0 is equivalent to T&lt;B.</p>
+<p>Take the result r&#233;n x&#363; calculated above as an example. We have T=9 and B=11, so k=6&times;9-5&times;11=-1. We thus have S=59, which agrees with Table 2.</p> 
+    
+<p>The above modular arithmetic equations are not difficult. I haven't studied the theory of modular arithmetic formally, but I managed to derive the solution without difficulty. That's because it doesn't require the use of any sophisticated algorithm in modular arithmetic to solve the equations.<sup><a href="#fn2">[2]</a></sup> A slightly harder question appeared in the book <i>Sunzi Suanjing</i> (《孫子算經》) written in the third century:</p> 
+<blockquote>
+There are an unknown number of things. The remainder is two when counted by threes, three when counted by five, and two when counted by seven. Find the unknown number.
+</blockquote>
+<p>Written in modern mathematical language, the equations for the unknown integer x are<sup><a href='#fn3'>[3]</a></sup></p>
+<p>x &equiv; 2 (mod 3), &nbsp; x &equiv; 3 (mod 5), &nbsp; x &equiv; 2 (mod 7).</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Chinese_remainder_theorem" target="_blank">Chinese remainder theorem</a> was discovered and algorithms were constructed when dealing with modular arithmetic problems arising from almanac calculations in ancient China.</p>
 <br />
     
 <h2>Sexagenary Cycle for Time</h2>
     
 <p>In the past, Chinese people divided a day into 12 (double) hours. So each (double) hour has a unique branch name. The z&#464; hour corresponds to the modern-day time period 23:00-1:00, ch&#466;u hour corresponds to 1:00-3:00, y&#237;n 3:00-5:00 and so on. More often only the branch names were used to specify the time in a day. When paired with the heavenly stems, the sexagenary hours have a cycle of 60 (double) hours or 5 days. As a result, the stem name of an hour and the stem name of a date are correlated in a similar way as the month and year described above. There is an analogous table for the relationship. However, I find it more convenient to just remember that the stem name of the z&#464; hour in a ji&#462; day is always ji&#462;. The stem name of any other hours can be deduced by counting the number of hours from a ji&#462; day. As an example, the w&#232;i hour (13:00-15:00) in a d&#299;ng day is the (8 + 12&times;3)th hour or 44th hour from a ji&#462; day, so its stem is the third stem from ji&#462;, which is d&#299;ng. So the sexagenary number is d&#299;ng w&#232;i.</p>
+    <br /><hr>
+<h2>Footnotes</h2>
+<ul style="list-style-type:none;">
+
+<li id="fn1"><p><span class="ref">[1]</span> It is easy to verify that the solution satisfies the equations in (2). First write</p> 
+<p>S = 6T - 5B + 60n, where n=0 if T&ge;B and n=1 if T&lt;B.</p>
+<p>We can write <span class="nowrap">B = T + 2j</span> for some integer j since T and B differ by an even number. Substituting <span class="nowrap">B = T + 2j</span> to the S expression gives</p>
+<p>S = T - 10j + 60n.</p>
+<p>Since both 10j and 60n are divisible by 10, </p>
+<p>mod(S-1, 10) = mod(T-1, 10) = T - 1, which is the first equation in (2). The last equality holds because <span class="nowrap">T-1</span> is an integer between 0 and 9. Similarly, substituting <span class="nowrap">T = B - 2j</span> into the S expression gives</p>
+<p>S = B - 12j + 60n. Since 12j and 60n are divisible by 12, </p>
+<p>mod(S-1, 12) = mod(B-1, 12) = B - 1, which is the second equation in (2).</p>
+</li>
+    <br />
+<li id="fn2"><p><span class="ref">[2]</span> Here is how I derive the expression. The modular arithmetic equations can be expressed as</p>
+<p>S = T + 10i,&nbsp;&nbsp; S = B + 12j for some integers i and j.</p>
+<p>&rArr; &nbsp; T + 10i = B + 12 j</p>
+<p>&rArr; &nbsp; 6j - 5i = (T-B)/2.</p>
+<p>Obviously i=j=(T-B)/2 is a solution. So</p>
+<p>S = T + 10i = T + 5(T-B) = 6T - 5B, but the number is negative or 0 when T&lt;B, in which case 60 has to be added to it in order for S&in;[1,60].</p>
+<p>The key step is to find two integers p and q that solve the equation <span class="nowrap">6p - 5q = 1</span>. If p and q are found, multiplying them by <span class="nowrap">(T-B)/2</span> will provide a solution for i and j. In this case, it's obvious that p=q=1 is a solution. If the equation were <span class="nowrap">ap - bq = 1</span> with other integers a and b, it might not be so easy to guess the solution. One will in general have to use the <a href="https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm" target="_blank">extended Euclidean algorithm</a> to solve the equation.</p>
+</li>
+    <br />
+<li id="fn3"><p><span class="ref">[3]</span> Consider more general equations:</p>
+<p>x &equiv; a (mod 3), &nbsp; x &equiv; b (mod 5), &nbsp; x &equiv; c (mod 7),</p>
+<p>with a&in;[0,2], b&in;[0,4] and c&in;[0,6], i.e. a, b, and c are the remainders of x divided by 3, 5 and 7, respectively. <i>Sunzi Suanjing</i> provides the following solution:</p>
+<p>x = 70a + 21b + 15c - 105n, where n is an arbitrary integer.</p>
+<p>The expression can be derived using the Chinese remainder theorem. However, it's relatively easy to verify that this solution indeed solves the equations. Since 21b, 15c and 105n are all divisible by 3, we have mod(x,3) = mod(70a, 3) = mod(3&times;23a+a,3) = mod(a,3)=a. Similar calculations give mod(x,5)=b and mod(x,7)=c.</p></li>
+</ul>
 <br /><br />
 </div> <!-- end of wrapper -->
 
