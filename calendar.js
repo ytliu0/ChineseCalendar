@@ -1445,7 +1445,7 @@ function warningMessage(y, m, lang, langVars) {
         if (lang==0) {
             desc1 = "The calendar at the time listed the date of ";
             desc2 = " on ";
-            desc3 = ". The discrepancy was caused by two factors: 1) Before 1929, times of 24 solar terms were calculated for the Beijing meridian (116&deg;25'E), which are about 14 minutes earlier than the times listed here based on the meridians of 120°E; 2) Before 1914, the method used to calculate the Sun's position was not very accurate.";
+            desc3 = ". The discrepancy was caused by two factors: 1) Before 1912, times of 24 solar terms were calculated based on the apparent solar time for the Beijing meridian (116&deg;25'E), which could differ by 30 minutes from the times listed here based on the mean solar time for the meridians of 120°E; 2) Before 1914, the method used to calculate the Sun's position was not very accurate.";
 
             desc = desc1+"Z12"+desc2+"January 20"+desc3;
             items.push({y:1736, m:1, w:desc});
@@ -1557,11 +1557,11 @@ function warningMessage(y, m, lang, langVars) {
             if (lang==1) {
                 desc1 = "當年的《大清時憲書》列出的";
                 desc2 = "日期相當於公曆的";
-                desc3 = "，日期差異由兩個因數造成。其一是1929年以前的時間是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的節氣計算方法不是很準確。";
+                desc3 = "，日期差異由兩個因數造成。其一是1912年以前的時間是用北京地方時(東經116&deg;24')而且用真太陽時，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時與北京地方真太陽時的時差可達30分鐘。其二是1914年前用的節氣計算方法不是很準確。";
             } else {
                 desc1 = "当年的《大清时宪书》列出的";
                 desc2 = "日期相当于公历的";
-                desc3 = "，日期差异由两个因数造成。其一是1929年以前的时间是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时比北京地方时迟约14分钟。其二是1914年前用的节气计算方法不是很准确。";
+                desc3 = "，日期差异由两个因数造成。其一是1929年以前的时间是用北京地方时(东经116&deg;24')而且用真太阳时，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时与北京地方真太阳时的时差可达30分钟。其二是1914年前用的节气计算方法不是很准确。";
             }
             
             desc = desc1+"大寒"+desc2+"1月20日"+desc3;
