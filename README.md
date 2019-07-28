@@ -27,6 +27,7 @@ Almost all of the following HTML files have English, traditional Chinese and sim
 - QinHanSolarTerms.html: Dates of Selected Solar Terms in Qin and Early Han Dynasties
 - discrepanciesQing.html: Discrepancies Between Modern Calculation and Historical Data (1645 - 1911) 
 - 3500Calendars_errors.html/3500Calendars_errors_simp.html: Errors in the book 3500 Years of Calendars and Astronomical Phenomena (in Chinese)
+- Shangyuan.html: An article on the Shangyuan system in ancient Chinese Astronomical Systems
 - calendar.css: CSS file for the HTML pages mentioned above. 
 - calendar_chinese.css: CSS file for the Chinese versions of the HTML pages mentioned above.
 - header.js: JavaScript file for creating the header in all HTML pages, including the Chinese version of the HTML pages.
