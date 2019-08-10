@@ -1759,23 +1759,47 @@ function printWarningMessage(y, langCon) {
     
     if (y==1470) {
         if (lang==0) {
-            warn = '<p style="color:red;">There is a record indicating that the first day of month 11 occurred on Nov. 21 in 1462.</p>';
+            warn = '<p style="color:red;"><i>3500 Years of Calendars and Astronomical Phenomena</i> lists the first day of month 11 on Nov. 22 in 1462, which is inconsistent with the calendar issued by the Ming government (Nov. 21).</p>';
         } else if (lang==1) {
-            warn = '<p style="color:red;">有明代殘曆記明英宗天順六年(1462年)十一月初一在辛卯(11月21日)。</p>';
+            warn = '<p style="color:red;">《三千五百年历日天象》記明英宗天順六年(1462年)十一月壬辰朔(11月22日)，不合當年的《大統曆》曆書(辛卯朔, 11月21日)，見<a href="http://ccsdb.ncl.edu.tw/ccs/image/01_010_002_01_11.pdf" target="_blank">「中國史曆表朔閏訂正舉隅 &mdash; 以唐《麟德曆》行用時期為例」</a>緒言。</p>';
         } else {
-            warn = '<p style="color:red;">有明代残历记明英宗天顺六年(1462年)十一月初一在辛卯(11月21日)。</p>';
+            warn = '<p style="color:red;">《三千五百年历日天象》记明英宗天顺六年(1462年)十一月壬辰朔(11月22日)，不合当年的《大统历》历书(辛卯朔, 11月21日)，见<a href="http://ccsdb.ncl.edu.tw/ccs/image/01_010_002_01_11.pdf" target="_blank">「中国史历表朔闰订正举隅 &mdash; 以唐《麟德历》行用时期为例」</a>绪言。</p>';
         }
     } 
     
     if (y==1590) {
         if (lang==0) {
-            warn = '<p style="color:red;">Note that the year 1582 had only 355 days because of the Gregorian calendar reform: the day following Oct. 4 was Oct. 15. The Chinese year in 1582 also had 355 days. As a result, the Chinese new years in 1582 and 1583 fell on the same date in the Western calendar.</p>';
+            warn = '<p style="color:red;">1. Note that the year 1582 had only 355 days because of the Gregorian calendar reform: the day following Oct. 4 was Oct. 15. The Chinese year in 1582 also had 355 days. As a result, the Chinese new years in 1582 and 1583 fell on the same date in the Western calendar.</p>';
+            warn += '<p style="color:red;">2. There are several mistakes in <i>3500 Years of Calendars and Astronomical Phenomena</i> in 1581 (month 10) and 1588 (months 3, 4, 12), which have been corrected here.</p>'
         } else if (lang==1) {
-            warn = '<p style="color:red;">格里高里的曆改使1582年只有355日:1582年10月4日的下一日是10月15日，跳了10日。1582年的農曆年(明神宗萬曆十年、壬午年)也剛好有355日，所以1582年和1583年的農曆新年的公曆日期在同一日。</p>';
+            warn = '<p style="color:red;">1. 格里高里的曆改使1582年只有355日:1582年10月4日的下一日是10月15日，跳了10日。1582年的農曆年(明神宗萬曆十年、壬午年)也剛好有355日，所以1582年和1583年的農曆新年的公曆日期在同一日。</p>';
+            warn += '<p style="color:red;">2. 《三千五百年历日天象》在萬曆九年(十月朔)和十六年(三、四、十二月朔)有四個朔日錯誤，現已按《國家圖書館藏明代大統曆日彙編》第三冊第606頁、《國家圖書館藏明代大統曆日彙編》第四冊第135、139、175頁，及<a href="http://catalog.digitalarchives.tw/item/00/07/ec/c9.html" target="_blank">典藏臺灣</a>的資料更正。</p>';
         } else {
-            warn = '<p style="color:red;">格里高里的历改使1582年只有355日:1582年10月4日的下一日是10月15日，跳了10日。1582年的农历年(明神宗万历十年、壬午年)也刚好有355日，所以1582年和1583年的农历新年的公历日期在同一日。</p>';
+            warn = '<p style="color:red;">1. 格里高里的历改使1582年只有355日:1582年10月4日的下一日是10月15日，跳了10日。1582年的农历年(明神宗万历十年、壬午年)也刚好有355日，所以1582年和1583年的农历新年的公历日期在同一日。</p>';
+            warn += '<p style="color:red;">2. 《三千五百年历日天象》在万历九年(十月朔)和十六年(三、四、十二月朔)有四个朔日错误，现已按《国家图书馆藏明代大统历日汇编》第三册第606页、《国家图书馆藏明代大统历日汇编》第四册第135、139、175页，及<a href="http://catalog.digitalarchives.tw/item/00/07/ec/c9.html" target="_blank">典藏台湾</a>的资料更正。</p>';
         }
     }
+    
+    if (y==1600) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><i>3500 Years of Calendars and Astronomical Phenomena</i> lists the New Year day of 1600 on Feb. 14, which is inconsistent with the calendar issued by the Ming government (Feb. 15).</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">《三千五百年历日天象》記萬曆二十八年(1600年)正月乙巳朔(2月14日)，不合當年的《大統曆》曆書(丙午朔, 2月15日)，見《國家圖書館藏明代大統曆日彙編》第四冊第445頁。</p>';
+        } else {
+            warn = '<p style="color:red;">《三千五百年历日天象》记万历二十八年(1600年)正月乙巳朔(2月14日)，不合当年的《大统历》历书(丙午朔, 2月15日)，见《国家图书馆藏明代大统历日汇编》第四册第445页。</p>';
+        }
+    }
+    
+    if (y==1610) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><i>3500 Years of Calendars and Astronomical Phenomena</i> lists the New Year day of 1609 on Feb. 4, which is inconsistent with the calendar issued by the Ming government (Feb. 5).</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">《三千五百年历日天象》記萬曆三十七年(1609年)正月癸未朔(2月4日)，不合當年的《大統曆》曆書(甲申朔, 2月5日)，見《國家圖書館藏明代大統曆日彙編》第五冊第67頁。</p>';
+        } else {
+            warn = '<p style="color:red;">《三千五百年历日天象》记万历三十七年(1609年)正月癸未朔(2月4日)，不合当年的《大统历》历书(甲申朔, 2月5日)，见《国家图书馆藏明代大统历日汇编》第五册第67页。</p>';
+        }
+    }
+    
     if (y==2060 || y==2200) {
         warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_early;
     }
