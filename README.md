@@ -25,6 +25,7 @@ Almost all of the following HTML files have English, traditional Chinese and sim
 - guliuli.html: documentation -- Computation of the Ancient Six Calendars
 - QinHanCalendars.html: documentation -- Reconstruction of Calendars in the Qin and Early Han Dynasties
 - QinHanSolarTerms.html: Dates of Selected Solar Terms in Qin and Early Han Dynasties
+- MingCalendar.html: research article -- Lunar Conjunction Calculation in the Ming Dynasty and Corrections to the Ming Calendar Data
 - discrepanciesQing.html: Discrepancies Between Modern Calculation and Historical Data (1645 - 1911) 
 - 3500Calendars_errors.html/3500Calendars_errors_simp.html: Errors in the book 3500 Years of Calendars and Astronomical Phenomena (in Chinese)
 - Shangyuan.html: An article on the Shangyuan system in ancient Chinese Astronomical Systems
