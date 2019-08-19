@@ -499,7 +499,7 @@ function cmonthDate_WeiZhouSui(y, jdc, calc_pingqi) {
     var para = get_li_parameters(li);
     var cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
     // Manually correct the data in N_{430} month 2, 
-    if (y==430) { cm[1]--;}
+    if (y==430) { cm[1]++;}
     // Correct the number of days in N_{565} caused by the change of 
     // calendar in N_{566}
     if (y==565) { cm[14]++;}
