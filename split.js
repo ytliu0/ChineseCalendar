@@ -40,7 +40,7 @@ function split_calendar_handler(lang, y) {
         }
     }
     
-    if (y > 383.5 && y < 589.5) {
+    if (y > 383.5 && y < 590.5) {
         document.getElementById('SouthNorth').style.display = "block";
         
         // South dynasties
