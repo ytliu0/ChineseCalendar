@@ -1518,7 +1518,9 @@ function warningMessage(y, m, lang, langVars) {
             desc1 = "The calendar at the time listed the date of ";
             desc2 = " on ";
             desc3 = ". The discrepancy was caused by two factors: 1) Before 1912, times of 24 solar terms were calculated based on the apparent solar time for the Beijing meridian (116&deg;25'E), which could differ by 30 minutes from the times listed here based on the mean solar time for the meridians of 120°E; 2) Before 1914, the method used to calculate the Sun's position was not very accurate.";
-
+            
+            desc = "in both <i>3500 Years of Calendars and Astronomical Phenomena</i> (by Zh&#257;ng P&#233;iy&#250;) and <i>A Chinese calendar translated into the western calendar from 1516 to 1941</i> (by Zheng Hesheng), the calendrical solar term Z4 is listed on May 20. However, the <i>Shixian Calendar for the 18th year of Emperor Kangxi's Reign (i.e. Feb. 11, 1679 - Jan. 30, 1680)</i>, a yearly calendar issued by the Imperial Astronomical Bureau in the Qing dynasty, lists Z4 on May 21 at 9:01am in Beijing's local apparent solar time. The calendarical solar term for Z4 is listed on May 21 here based on the <i>Shixian Calendar</i>.";
+            items.push({y:1679, m:5, w:desc});
             desc = desc1+"Z12"+desc2+"January 20"+desc3;
             items.push({y:1736, m:1, w:desc});
             desc = desc1+"J12"+desc2+"January 5"+desc3;
@@ -1547,6 +1549,8 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1779, m:3, w:desc});
             desc = desc1+"Z5"+desc2+"June 21"+desc3;
             items.push({y:1779, m:6, w:desc});
+            desc = desc1+"J11"+desc2+"December 7"+desc3;
+            items.push({y:1781, m:12, w:desc});
             desc = desc1+"J3"+desc2+"April 4"+desc3;
             items.push({y:1782, m:4, w:desc});
             desc = desc1+"J9"+desc2+"October 8"+desc3;
@@ -1630,12 +1634,14 @@ function warningMessage(y, m, lang, langVars) {
                 desc1 = "當年的《大清時憲書》列出的";
                 desc2 = "日期相當於公曆的";
                 desc3 = "，日期差異由兩個因數造成。其一是1912年以前的時間是用北京地方時(東經116&deg;24')而且用真太陽時，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時與北京地方真太陽時的時差可達30分鐘。其二是1914年前用的節氣計算方法不是很準確。";
+                desc = "張培瑜《三千五百年历日天象》和鄭鶴聲《近世中西史日對照表》皆記小滿為5月20日，但《大清康熙十八年歲次己未時憲曆》則載「(四月)十二日丙子巳初初刻一分小滿四月中」，即小滿在四月十二日(公曆5月21日)九時零一分(北京地方真太陽時)。這裡根據《大清時憲曆》記曆書小滿為公曆5月21日。";
             } else {
                 desc1 = "当年的《大清时宪书》列出的";
                 desc2 = "日期相当于公历的";
                 desc3 = "，日期差异由两个因数造成。其一是1929年以前的时间是用北京地方时(东经116&deg;24')而且用真太阳时，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时与北京地方真太阳时的时差可达30分钟。其二是1914年前用的节气计算方法不是很准确。";
+                desc = "张培瑜《三千五百年历日天象》和郑鹤声《近世中西史日对照表》皆记小满为5月20日，但《大清康熙十八年岁次己未时宪历》则载「(四月)十二日丙子巳初初刻一分小满四月中」，即小满在四月十二日(公历5月21日)九时零一分(北京地方真太阳时)。这里根据《大清时宪历》记历书小满为公历5月21日。";
             }
-            
+            items.push({y:1679, m:5, w:desc});
             desc = desc1+"大寒"+desc2+"1月20日"+desc3;
             items.push({y:1736, m:1, w:desc});
             desc = desc1+"小寒"+desc2+"1月5日"+desc3;
@@ -1680,6 +1686,8 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1779, m:3, w:desc});
             desc = desc1+"夏至"+desc2+"6月21日"+desc3;
             items.push({y:1779, m:6, w:desc});
+            desc = desc1+"大雪"+desc2+"12月7日"+desc3;
+            items.push({y:1781, m:12, w:desc});
             desc = desc1+"清明"+desc2+"4月4日"+desc3;
             items.push({y:1782, m:4, w:desc});
             desc = desc1+"寒露"+desc2+"10月8日"+desc3;
