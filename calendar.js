@@ -640,6 +640,17 @@ function addYearInfo(y, langVars, calVars) {
         }
     }
     
+    // Calendar Case
+    if (y > 1665.5 && y < 1670.5) {
+        if (lang==0) {
+            info = 'Following the <a href="https://halshs.archives-ouvertes.fr/halshs-01222267/document" target="_blank">Calendar Case</a> (曆獄), the Qing government abolished the Western system of astronomy in the calendar computation in 1666-1669. The <i>D&#224;t&#466;ng</i> system and later the Muslim system were used instead. Both systems were used in the Ming dynasty and the 24 solar terms were calculated based on the <i>p&#237;nq&#236;</i> rule, which took into account only the mean motion of the Sun. Since I have not been able to find the official solar term data in these years, two sets of calendrical solar terms are provided here for reference: the X&#299;nf&#462; solar terms are based on <i>3500 Years of Calendars and Astronomical Phenomena</i>, which are recomputed using the Western system; the <i>D&#224;t&#466;ng</i> solar terms are based on the <i>D&#224;t&#466;ng</i> system. However, the dates computed by the <i>D&#224;t&#466;ng</i> system might not agree with the imperial calendars since they switched to the Muslim system later. As for the lunar conjunctions, the dates calculated using the <i>D&#224;t&#466;ng</i> astronomical system are identical to those computed using the Western system in these years.';
+        } else if (lang==1) {
+            info = '康熙五年至八年清政府因<a href="https://zh.wikipedia.org/zh-hant/%E5%BA%B7%E7%86%99%E5%8E%86%E7%8B%B1" target="_blank">曆獄</a>廢除西洋新法，先後復用明朝《大統曆》及《回回曆》，二十四節氣改回平氣。由於未能找到當時的《大清時憲曆》，這裡提供兩套曆書節氣:「新法節氣」根據《三千五百年历日天象》，此乃以後的欽天監依西洋新法追推的定氣;「大統曆節氣」根據明朝《大統曆》推算。由於欽天監後來改用《回回曆》，依《大統曆》推算的節氣未必完全符合實曆，僅供參考而已。至於朔日，依明朝《大統曆》和依《西洋新法曆書》計算結果在這幾年的日期完全一致。';
+        } else {
+            info = '康熙五年至八年清政府因<a href="https://zh.wikipedia.org/zh-cn/%E5%BA%B7%E7%86%99%E5%8E%86%E7%8B%B1" target="_blank">历狱</a>废除西洋新法，先后复用明朝《大统历》及《回回历》，二十四节气改回平气。由于未能找到当时的《大清时宪历》，这里提供两套历书节气:「新法节气」根据《三千五百年历日天象》，此乃以后的钦天监依西洋新法追推的定气;「大统历节气」根据明朝《大统历》推算。由于钦天监后来改用《回回历》，依《大统历》推算的节气未必完全符合实历，仅供参考而已。至于朔日，依明朝《大统历》和依《西洋新法历书》计算结果在这几年的日期完全一致。';
+        }
+    }
+    
     return info;
 }
 
@@ -710,7 +721,11 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
     txt += add24solterms(m, lang, langVars, calVars);
     if (year < 1734) {
         //add calendrical solar terms
-        txt += addCalSolterms(m, lang, langVars, calVars);
+        txt += addCalSolterms(m, lang, langVars, calVars, 0);
+        // add Datong solar terms in 1666-1670
+        if (year > 1665.5 && year < 1670.5) {
+            txt += addCalSolterms(m, lang, langVars, calVars, 1);
+        }
     }
     var warn = warningMessage(year, m+1, lang, langVars);
     if (warn != '') {
@@ -1131,24 +1146,28 @@ function add24solterms(m,lang,langVars, calVars) {
 }
 
 // Add calendrical solar terms
-function addCalSolterms(m,lang,langVars, calVars) {
+function addCalSolterms(m,lang,langVars, calVars, datong) {
     var solar;
     if (calVars.year >= -104) {
         if ('pingqi' in calVars) {
             solar = calVars.pingqi;
         } else {
-            var calSolTerms = calendricalSolarTerms();
-            var ind = calVars.year - calSolTerms[0][0];
-            solar = calSolTerms[ind];
-            solar.shift(); // remove the first column, which is Greg./Julian year   
-            // solar contains all the 24 solar terms in year y, starting from 
-            // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
-            // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
-            // Add one more to solar if J12 occurs before Jan 3.
-            if (solar[0] < 3.0) {
-                solar.push(calSolTerms[ind+1][1] + NdaysGregJul(calVars.year));
+            if (datong==0) {
+                var calSolTerms = calendricalSolarTerms();
+                var ind = calVars.year - calSolTerms[0][0];
+                solar = calSolTerms[ind];
+                solar.shift(); // remove the first column, which is Greg./Julian year
+                // solar contains all the 24 solar terms in year y, starting from 
+                // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
+                // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
+                // Add one more to solar if J12 occurs before Jan 3.
+                if (solar[0] < 3.0) {
+                    solar.push(calSolTerms[ind+1][1] + NdaysGregJul(calVars.year));
+                }
+                calSolTerms = null;
+            } else {
+                solar = datongSolarTerms(calVars.year);
             }
-            calSolTerms = null;
         }
     } else {
         if ('pingqi' in calVars) {
@@ -1160,49 +1179,94 @@ function addCalSolterms(m,lang,langVars, calVars) {
     
     var m0 = calVars.mday[m];
     var m1 = calVars.mday[m+1];
-    var txt; 
-    if (lang==0) {
-        txt = '<p><b>Calendrical solar terms ';
-        if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
-            txt += '(p&#236;ngq&#236;)</b>: ';
+    var txt = ''; 
+    var split = false;
+    if (calVars.year==1666 && m > 0.5) { split=true;}
+    if (calVars.year > 1666 && calVars.year < 1670) { split=true;}
+    if (calVars.year==1670 && m < 1.5) { split=true;}
+    if (datong==0) {
+        if (lang==0) {
+            txt = '<p><b>Calendrical solar terms ';
+            if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+                txt += '(p&#236;ngq&#236;)</b>: ';
+            } else {
+                txt += '(d&#236;ngq&#236;)</b>: ';
+            }
+
+            if (split) {
+                txt = '<p><b>X&#299;nf&#462; solar terms (d&#236;ngq&#236;)</b>: ';
+            }
+        } else if (lang==1) {
+            txt = '<p style="letter-spacing:normal;"><b>曆書節氣';
+            if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+                txt += '(平氣)</b>: ';
+            } else {
+                txt += '(定氣)</b>: ';
+            }
+
+            if (split) {
+                txt = '<p style="letter-spacing:normal;"><b>新法節氣(定氣)</b>: ';
+            }
         } else {
-            txt += '(d&#236;ngq&#236;)</b>: ';
-        }
-    } else if (lang==1) {
-        txt = '<p style="letter-spacing:normal;"><b>曆書節氣';
-        if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
-            txt += '(平氣)</b>: ';
-        } else {
-            txt += '(定氣)</b>: ';
+            txt = '<p style="letter-spacing:normal;"><b>历书节气';
+            if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+                txt += '(平气)</b>: ';
+            } else {
+                txt += '(定气)</b>: ';
+            }
+
+            if (split) {
+                txt = '<p style="letter-spacing:normal;"><b>新法节气(定气)</b>: ';
+            }
         }
     } else {
-        txt = '<p style="letter-spacing:normal;"><b>历书节气';
-        if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
-            txt += '(平气)</b>: ';
-        } else {
-            txt += '(定气)</b>: ';
+        if (split) {
+            if (lang==0) {
+                txt = '<p><b>D&#224;t&#466;ng solar terms (p&#236;ngq&#236;)</b>: ';
+            } else if (lang==1) {
+                txt = '<p style="letter-spacing:normal;"><b>大統曆節氣(平氣)</b>: ';
+            } else {
+                txt = '<p style="letter-spacing:normal;"><b>大统历节气(平气)</b>: ';
+            }
         }
     }
     
-    var empty = 1;
-    for (var i=0; i<solar.length; i++) {
-        var dd = solar[i];
-        if (dd > m0 && dd <= m1) {
-            if (empty==0) txt += '&nbsp;&nbsp;&nbsp;';
-            txt += '['+langVars.soltermNames[i]+'] ';
-            var d = dd - m0;
-            // Correct for Gregorian calendar reform
-            // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
-            if (m1-m0 < 25) {
-               d += (d > 4 ? 10:0);
+    if (txt != '') {
+        var empty = 1;
+        for (var i=0; i<solar.length; i++) {
+            var dd = solar[i];
+            if (dd > m0 && dd <= m1) {
+                if (empty==0) txt += '&nbsp;&nbsp;&nbsp;';
+                txt += '['+langVars.soltermNames[i]+'] ';
+                var d = dd - m0;
+                // Correct for Gregorian calendar reform
+                // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
+                if (m1-m0 < 25) {
+                   d += (d > 4 ? 10:0);
+                }
+                txt += d+'<sup>d</sup>';
+                empty = 0;
             }
-            txt += d+'<sup>d</sup>';
-            empty = 0;
         }
+        txt += '</p>';
     }
-    txt += '</p>';
     
     return txt;
+}
+
+// Set up the solar terms according to the Datong system in year y
+function datongSolarTerms(y) {
+    var ps = 365.2425; // solar cycle in the Datong system
+    var JDw = 1721049.9175 + 1e-8; // Z11 epoch JD
+    var jd0 = getJD(y-1,12,31); // JD on Dec 31, y-1 at noon
+    var j = Math.floor((jd0 - JDw)/ps);
+    var dqi = ps/24.0;
+    var J12 = JDw + j*ps - jd0 + dqi; // JD of J12 in year y
+    var qi = [];
+    for (var i=0; i<25; i++) {
+        qi.push(Math.floor(J12 + i*dqi));
+    }
+    return qi;
 }
 
 // hours -> hh:mm
@@ -1504,6 +1568,17 @@ function warningMessage(y, m, lang, langVars) {
             warn = '大暑這中氣出現在閏六月初一，違反了閏月不含中氣的規定。清朝曆算家汪曰楨解釋說雖然大暑與朔發生在同一日，大暑的時刻早於合朔時刻，屬於前月之中氣，所以閏六月不含中氣。這說法明顯不合傳統，屬於新的置閏法則，但是這新法則只在這一年用過，以後不再使用。';
         } else {
             warn = '大暑这中气出现在闰六月初一，违反了闰月不含中气的规定。清朝历算家汪曰桢解释说虽然大暑与朔发生在同一日，大暑的时刻早于合朔时刻，属于前月之中气，所以闰六月不含中气。这说法明显不合传统，属于新的置闰法则，但是这新法则只在这一年用过，以后不再使用。';
+        }
+    }
+    
+    // 1670
+    if (y==1670 && m==1) {
+        if (lang==0) {
+            warn = 'The Chinese month that began on Jan 21 was a leap month according to the old calendar rule since it did not contain a major solar term. It was the first month of 1670 according to the new rule since it contained the major solar term Z1. In April 1669, the Kangxi Emperor abolished the old rule and ordered by decree to move the leap month from after the 12th month of 1669 to after the second month of 1670.';
+        } else if (lang==1) {
+            warn = '己丑朔(1月21日)對應的月份依舊法因不含中氣，為康熙八年閏十二月，依新法則含中氣雨水，為康熙九年正月。康熙帝在康熙八年三月下詔復用西洋新法，廢康熙八年閏十二月，改為康熙九年閏二月。';
+        } else {
+            warn = '己丑朔(1月21日)对应的月份依旧法因不含中气，为康熙八年闰十二月，依新法则含中气雨水，为康熙九年正月。康熙帝在康熙八年三月下诏复用西洋新法，废康熙八年闰十二月，改为康熙九年闰二月。';
         }
     }
     
