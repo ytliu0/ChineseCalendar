@@ -202,9 +202,7 @@ function select_calendar(id, lang) {
          }
     }
     document.getElementById(id).classList.add('active');
-    var y = parseInt(document.getElementById('year').value);
-    ancient_calendar_handler(lang, y);
-    calendar(lang, y);
+    submitYear(lang);
 }
 
 // Select a calendar after a button is clicked 

@@ -190,8 +190,7 @@ function select_calendar_split(id, lang) {
          }
     }
     document.getElementById(id).classList.add('active');
-    var y = parseInt(document.getElementById('year').value);
-    calendar(lang, y);
+    submitYear(lang);
 }
 
 // Almanac parameters
