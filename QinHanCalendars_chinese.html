@@ -10,6 +10,16 @@
 <script src="header.js"></script>
     
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
 table.normal th, table.normal td {
     font-size:90%;
     padding: 2px;
@@ -52,7 +62,7 @@ figcaption {
 </div>
     
     <br />
-<h2 class="section" id="introduction">引 言</h2>
+<sect id="introduction">引 言</sect>
     
 <p>歷代學者對於秦至漢初的曆法一直感到困惑。《史記》說漢初沿用秦朝曆法，《漢書》進一步說明所用的曆法是古六曆之一的顓頊曆。但是歷代學者已發現用顓頊曆推算出的漢初曆日與文獻常有不合，而多與殷曆相合。自宋人劉羲叟到近代學者陳垣，都主張秦與漢初的曆法是顓頊曆或殷曆。到了1972年，在山東省臨沂市銀雀山漢墓出土了《元光元年曆譜》，我們因此得知漢武帝元光元年(公元前134年)的曆日，曆譜所載的十三個朔日干支有十個與殷曆合，有七個與顓頊曆合，說明元光元年曆譜所用的曆法既不是顓頊曆，也不是殷曆，於是掀起了秦與漢初曆法研究的熱潮，學者們尋求一套曆法復原方法以符合《元光元年曆譜》。</p>
     
@@ -120,7 +130,7 @@ figcaption {
 <p>鑑於兩套復原方法都能完全符合已出土的曆簡和傳世文獻，而且差異不大，二者可任選其一。仔細比較兩套算法，我認為李忠林的方法較為可取，所以本網站採用他的復原方法。下面各節詳細說明本網站的具體計算方法。</p>
     
 <br />
-<h2 class="section" id="computation">二 十 四 節 氣 和 合 朔 的 計 算</h2>
+<sect id="computation">二 十 四 節 氣 和 合 朔 的 計 算</sect>
     
 <p>復原曆法的二十四節氣和顓頊曆相同，計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>已有敘述，這裡只把公式列出。根據<a href="guliuli_chinese.html#computation">古六曆網頁</a>公式(4)和表二的數據，可得最接近公曆y年1月1日的冬至儒略日數是<br />
 JD(W(y)) = 1721050.5 + 19/32 + y&middot;P<sub>s</sub> &nbsp;&nbsp;&nbsp;&nbsp;(1)<br />
@@ -156,7 +166,7 @@ JD(M<sub>i</sub>) = JD(M<sub>0</sub>) + i&middot; P<sub>L</sub>&nbsp;&nbsp;&nbsp
 A(y)，<span class="nowrap">N<sub>y</sub></span>的十月朔便可用公式(3)把i換成A(y)求得，<span class="nowrap">N<sub>y</sub></span>的其他月份也可輕易計算。但是要知道A(y)的數值就要知道<span class="nowrap">N<sub>y</sub></span>之前的閏月分佈。下一節探討計算閏月和A(y)的方法。</p>
     
 <br />
-<h2 class="section" id="leap">閏 月 和 積 月</h2>
+<sect id="leap">閏 月 和 積 月</sect>
     
 <p>在第一節(引言)已提及秦至漢初一百四十多年間的所有閏月都可從出土曆簡和存世文獻推出來，所以即使不知道當時行用的置閏法則也能根據閏月的實際分佈復原秦至漢初的曆法，本網站就是以這原則處理秦至漢初的閏月。</p>
     
@@ -217,7 +227,7 @@ k = y - y<sub>z</sub> - 19c &nbsp;&nbsp;&nbsp;&nbsp;(6)<br />
 <p>雖然復原曆法有效年限估計是秦王政元年前到漢武帝太初元年五月，本網站<a href="index_chinese.html">年曆網頁</a>從公元<span class="nowrap">-220</span>年(即前221年)起才用復原曆法、<a href="table_chinese.html">朔閏表網頁</a>則從<span class="nowrap">N<sub>-220</sub></span>年(即秦始皇二十六年)起才用復原曆法(<a href="index_chinese.html">年曆網頁</a>以公曆為主、<a href="table_chinese.html">朔閏表網頁</a>則以農曆為主)。兩網頁都在漢武帝太初元年五月起改用張培瑜《三千五百年历日天象》<sup><a href="#Zhang1997">張培瑜97</a></sup>的數據<sup><a href="#fn4">註四</a></sup>。復原曆法的太初元年三月是小月、四月是大月、五月是小月。改了曆法後，五月朔提前了一天，使四月變成小月，而新曆法的五月又是小月，於是出現了三、四、五三個相連小月，這在平朔法則是不可能的，只有在改曆時才可能出現。如果在太初元年六月才改用太初曆，就會使五月只有二十八日，這在平時也是不可能出現的。</p>
     
     <br />
-<h2 class="section" id="examples">復 原 曆 法 計 算 例 子</h2>
+<sect id="examples">復 原 曆 法 計 算 例 子</sect>
     
 <h3 style="letter-spacing:4px;">例一:計算<span class="nowrap">N<sub>-130</sub></span>(漢武帝元光四年)的所有月份，以及小雪、冬至、立春的日期和月齡。</h3>
     
@@ -345,7 +355,7 @@ L = (JD<sub>夏至</sub> - JD<sub>正月朔</sub>)/(29 + 499/940) = 5 + 9189/222
 夏至月齡 = 9189/222072 &approx; 0.8/19。</p>
     
         <br />
-<h2 class="section" id="conjDiff">曆 法 後 天 日 數</h2>
+<sect id="conjDiff">曆 法 後 天 日 數</sect>
     
 <p>秦與漢初的曆法是後天的，即曆法的合朔時刻遲於真正的合朔時刻，如下圖所示，兩者相差的平均值約為一天，所以漢初的日食多發生在晦日(即朔之前一天)，甚至晦日前一天。四分術的朔策比朔望月的平均值稍大，積三百年就會後天一日，所以在圖中明顯可見後天日數有逐漸增大的趨勢。</p>
     
@@ -359,7 +369,7 @@ L = (JD<sub>夏至</sub> - JD<sub>正月朔</sub>)/(29 + 499/940) = 5 + 9189/222
 <p>李忠林在《秦至汉初历法研究》<sup><a href="#Li2016">李忠林16</a></sup>分析指出曆法後天極可能受到天命論的政治思想影響，曆法家選取曆元，往往為了顯示統治者合乎天命而捨棄較為合天的曆元。例如曆法A的曆元選秦孝公元年就有強烈的天命論色彩，秦孝公在位期間採納商鞅的變法使秦國富國強兵。曆法C的曆元是漢高祖元年，也有明顯的天命論色彩。到了漢武帝太初元年的曆改天命論色彩更加濃厚，這點在《秦至汉初历法研究》和《中国古代历法》<sup><a href="#ZCBH2008">張陳薄胡</a></sup>都有詳細說明。</p>
     
     <br />
-<h2 class="section" id="stermTable">秦 至 漢 初 節 氣 表</h2>
+<sect id="stermTable">秦 至 漢 初 節 氣 表</sect>
     
 <p>用上述方法可輕易算出二十四節氣在秦至漢初一百四十多年間的日期和月齡，其中小雪、冬至、大寒、立春和雨水的數據列於<a href="QinHanSolarTerms_chinese.html">此網頁</a>。正如上二節例一所示，某些年份有時沒有小雪，表中所列的數據是最接近當年十月初一的小雪。從表中可見有一些小雪出現在前一年的後九月末。</p>
     
@@ -407,12 +417,5 @@ L = (JD<sub>夏至</sub> - JD<sub>正月朔</sub>)/(29 + 499/940) = 5 + 9189/222
     
 </div><!-- end of wrapper -->
 
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-</script> 
 </body>
 </html>

@@ -10,6 +10,16 @@
 <script src="header.js"></script>
     
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
 table.normal th, table.normal td {
     font-size:90%;
     padding: 2px;
@@ -52,7 +62,7 @@ figcaption {
 </div>
     
     <br />
-<h2 class="section" id="introduction">引 言</h2>
+<sect id="introduction">引 言</sect>
     
 <p>历代学者对于秦至汉初的历法一直感到困惑。《史记》说汉初沿用秦朝历法，《汉书》进一步说明所用的历法是古六历之一的颛顼历。但是历代学者已发现用颛顼历推算出的汉初历日与文献常有不合，而多与殷历相合。自宋人刘羲叟到近代学者陈垣，都主张秦与汉初的历法是颛顼历或殷历。到了1972年，在山东省临沂市银雀山汉墓出土了《元光元年历谱》，我们因此得知汉武帝元光元年(公元前134年)的历日，历谱所载的十三个朔日干支有十个与殷历合，有七个与颛顼历合，说明元光元年历谱所用的历法既不是颛顼历，也不是殷历，于是掀起了秦与汉初历法研究的热潮，学者们寻求一套历法复原方法以符合《元光元年历谱》。</p>
     
@@ -120,7 +130,7 @@ figcaption {
 <p>鉴于两套复原方法都能完全符合已出土的历简和传世文献，而且差异不大，二者可任选其一。仔细比较两套算法，我认为李忠林的方法较为可取，所以本网站采用他的复原方法。下面各节详细说明本网站的具体计算方法。</p>
     
 <br />
-<h2 class="section" id="computation">二 十 四 节 气 和 合 朔 的 计 算</h2>
+<sect id="computation">二 十 四 节 气 和 合 朔 的 计 算</sect>
     
 <p>复原历法的二十四节气和颛顼历相同，计算方法在<a href="guliuli_simp.html">古六历网页</a>已有叙述，这里只把公式列出。根据<a href="guliuli_simp.html#computation">古六历网页</a>公式(4)和表二的数据，可得最接近公历y年1月1日的冬至儒略日数是<br />
 JD(W(y)) = 1721050.5 + 19/32 + y&middot;P<sub>s</sub> &nbsp;&nbsp;&nbsp;&nbsp;(1)<br />
@@ -156,7 +166,7 @@ JD(M<sub>i</sub>) = JD(M<sub>0</sub>) + i&middot;P<sub>L</sub>&nbsp;&nbsp;&nbsp;
 A(y)，<span class="nowrap">N<sub>y</sub></span>的十月朔便可用公式(3)把i换成A(y)求得，<span class="nowrap">N<sub>y</sub></span>的其他月份也可轻易计算。但是要知道A(y)的数值就要知道<span class="nowrap">N<sub>y</sub></span>之前的闰月分布。下一节探讨计算闰月和A(y)的方法。</p>
     
 <br />
-<h2 class="section" id="leap">闰 月 和 积 月</h2>
+<sect id="leap">闰 月 和 积 月</sect>
     
 <p>在第一节(引言)已提及秦至汉初一百四十多年间的所有闰月都可从出土历简和存世文献推出来，所以即使不知道当时行用的置闰法则也能根据闰月的实际分布复原秦至汉初的历法，本网站就是以这原则处理秦至汉初的闰月。</p>
     
@@ -217,7 +227,7 @@ k = y - y<sub>z</sub> - 19c &nbsp;&nbsp;&nbsp;&nbsp;(6)<br />
 <p>虽然复原历法有效年限估计是秦王政元年前到汉武帝太初元年五月，本网站<a href="index_simp.html">年历网页</a>从公元<span class="nowrap">-220</span>年(即前221年)起才用复原历法、<a href="table_simp.html">朔闰表网页</a>则从<span class="nowrap">N<sub>-220</sub></span>年(即秦始皇二十六年)起才用复原历法(<a href="index_simp.html">年历网页</a>以公历为主、<a href="table_simp.html">朔闰表网页</a>则以农历为主)。两网页都在汉武帝太初元年五月起改用张培瑜《三千五百年历日天象》<sup><a href="#Zhang1997">张培瑜97</a></sup>的数据<sup><a href="#fn4">注四</a></sup>。复原历法的太初元年三月是小月、四月是大月、五月是小月。改了历法后，五月朔提前了一天，使四月变成小月，而新历法的五月又是小月，于是出现了三、四、五三个相连小月，这在平朔法则是不可能的，只有在改历时才可能出现。如果在太初元年六月才改用太初历，就会使五月只有二十八日，这在平时也是不可能出现的。</p>
     
     <br />
-<h2 class="section" id="examples">复 原 历 法 计 算 例 子</h2>
+<sect id="examples">复 原 历 法 计 算 例 子</sect>
     
 <h3 style="letter-spacing:4px;">例一:计算<span class="nowrap">N<sub>-130</sub></span>(汉武帝元光四年)的所有月份，以及小雪、冬至、立春的日期和月龄。</h3>
     
@@ -345,7 +355,7 @@ L = (JD<sub>夏至</sub> - JD<sub>正月朔</sub>)/(29 + 499/940) = 5 + 9189/222
 夏至月龄 = 9189/222072 &approx; 0.8/19。</p>
     
         <br />
-<h2 class="section" id="conjDiff">历 法 后 天 日 数</h2>
+<sect id="conjDiff">历 法 后 天 日 数</sect>
     
 <p>秦与汉初的历法是后天的，即历法的合朔时刻迟于真正的合朔时刻，如下图所示，两者相差的平均值约为一天，所以汉初的日食多发生在晦日(即朔之前一天)，甚至晦日前一天。四分术的朔策比朔望月的平均值稍大，积三百年就会后天一日，所以在图中明显可见后天日数有逐渐增大的趋势。</p>
     
@@ -359,7 +369,7 @@ L = (JD<sub>夏至</sub> - JD<sub>正月朔</sub>)/(29 + 499/940) = 5 + 9189/222
 <p>李忠林在《秦至汉初历法研究》<sup><a href="#Li2016">李忠林16</a></sup>分析指出历法后天极可能受到天命论的政治思想影响，历法家选取历元，往往为了显示统治者合乎天命而舍弃较为合天的历元。例如历法A的历元选秦孝公元年就有强烈的天命论色彩，秦孝公在位期间采纳商鞅的变法使秦国富国强兵。历法C的历元是汉高祖元年，也有明显的天命论色彩。到了汉武帝太初元年的历改天命论色彩更加浓厚，这点在《秦至汉初历法研究》和《中国古代历法》<sup><a href="#ZCBH2008">张陈薄胡</a></sup>都有详细说明。</p>
     
     <br />
-<h2 class="section" id="stermTable">秦 至 汉 初 节 气 表</h2>
+<sect id="stermTable">秦 至 汉 初 节 气 表</sect>
     
 <p>用上述方法可轻易算出二十四节气在秦至汉初一百四十多年间的日期和月龄，其中小雪、冬至、大寒、立春和雨水的数据列于<a href="QinHanSolarTerms_simp.html">此网页</a>。正如上二节例一所示，某些年份有时没有小雪，表中所列的数据是最接近当年十月初一的小雪。从表中可见有一些小雪出现在前一年的后九月末。</p>
     
@@ -407,12 +417,5 @@ L = (JD<sub>夏至</sub> - JD<sub>正月朔</sub>)/(29 + 499/940) = 5 + 9189/222
     
 </div><!-- end of wrapper -->
 
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-</script> 
 </body>
 </html>

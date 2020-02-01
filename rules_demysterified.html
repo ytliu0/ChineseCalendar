@@ -7,6 +7,15 @@
 <head>
 <title>Why Do the Rules for the Chinese Calendar Work?</title>
 <link rel="stylesheet" href="calendar.css">
+<style>
+body {
+  counter-reset:subsec-counter;
+}
+subsect::before {
+  counter-increment: subsec-counter 1;
+  content: counter(subsec-counter, lower-roman) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
 
@@ -24,13 +33,13 @@
 Last major update: April, 2019</p>
 
 <br />
-<h2 class="subsec" id="cycles">Matching Two Cycles</h2>
+<subsect id="cycles">Matching Two Cycles</subsect>
     
 <p>Remember that the goal for a luni-solar calendar is to take into account both the cycle of seasons and cycle of the moon phases. It should be obvious that Rule 3 is designed to accommodate the lunar cycle. By fixing the first day of a month to the day of the new moon, days in a Chinese month are closely related to the moon phases. For example, a full month occurs on the 16th day of a month, give or take one day. Rules 4 and 5 are designed to accommodate the cycle of seasons. Since month 11 must contain the winter solstice, it is winter time in month 11. In fact, month 11 is sometimes referred to as the winter month (&#20908;&#26376;). However, winter solstice is not fixed with respect to the lunation cycle. It can occur on the day of a new moon in one year and on the day before a new moon in another year. This means, according to Rule 3, that winter solstice can be the first day of month 11 or the last day of month 11. This is a much larger variation compared to the Gregorian calendar in which winter solstice is on Dec. 22 give or take one day every year.</p>
     
 <p>Before the calendar reform in 1645, each regular month in the Chinese calendar contained a major solar term (see the discussion near the bottom of the <a href="solarTerms.html">solar terms page</a>). For example, month 11 must contain Z11, month 12 must contain Z12, month 1 must contain Z1 and so on. After the calendar reform, this is still true most of the time but can fail on rare occasions. However, even on those rare occasions the major terms miss the associated months only by one day. Hence we can say that the 12 major solar terms are (almost always) contained in the associated 12 regular months. They can vary up to about 30 days in the calendar from years to years. This is again a larger variation compared to the Gregorian calendar in which each of the 24 solar terms is fixed to within three days from years to years. This is the price the Chinese calendar pays in order to accommodate both the lunar cycle and cycle of seasons.</p>
 <br /> 
-<h2 class="subsec" id="zhang">Myth of the 19-Year Cycle</h2>
+<subsect id="zhang">Myth of the 19-Year Cycle</subsect>
     
 <p>It was known in China around 600 B.C. that the period of 235 (= 12&times;19 + 7) synodic months is close to the period of 19 tropical years. This was known as the <i>Metonic cycle</i> in ancient Greece. In the past, the Chinese used this 19-year cycle to insert leap months in the calendar. Perhaps this is why some articles still say that 7 leap months are inserted to the Chinese calendar every 19 years today. They then explain how a leap month is to be inserted in the Chinese calendar: the rule is to designate the month that does not contain a major solar term a leap month. This is known as the <i>no zh&#333;ngq&#236;</i> rule. People reading the articles may wonder why this rule guarantees 7 leap months being inserted in the calendar every 19 years. The answer is that it doesn't! For one thing, not every month without a major solar term is a leap month. It can be a fake leap month although it is very rare (see the discussion near the bottom of the <a href="examples.html">example page</a>). For another, the 19-year cycle is only an approximation. The period of 19 tropical years is about two hours shorter than the period of 235 synodic months. A calendar based on the 19-year cycle, such as the Jewish calendar, will have the year falling behind the mean tropical year by about one day in 228 years. This is, however, not the case for the Chinese calendar. The 19-year cycle was abandoned in China since the 6th century.</p>
     
@@ -83,7 +92,7 @@ Last major update: April, 2019</p>
 <p>Finally, it should be noted that it is currently impossible to calculate the times (in UTC+8) of lunar conjunctions and 24 solar terms to high precision several hundred years from now. This is due to the irregularity of Earth's rotation, which causes difficulty in predicting the number of leap seconds that will be added to UTC several hundred years from now. The times for the events after 2200 have an estimated uncertainty of a few minutes. If a lunar conjunction (or major solar term) occurs within a few minutes from midnight, the first day of the associated month (or the date of the solar term) may be off by one day. Most of the time the one-day difference will not affect the leap months, but sometimes it will. As a result, one or several of the data shown in the table might turn out to be incorrect. However, the overall pattern of the leap months will remain unchanged.</p>
     
 <br />
-<h2 class="subsec" id="averages">Average Length of Chinese Month and Year</h2>
+<subsect id="averages">Average Length of Chinese Month and Year</subsect>
     
 <p>What are the average length of a month and average length of a year in the Chinese calendar? You might think that they are not easy to calculate because of the complicated rules. However, it is in fact quite easy to guess the approximate values. The average length of a year should be close to the tropical year 365.242 days and the average length of a month should be close to the synodic month 29.5306 days. We can argue by contradiction. If the average length of a month deviates significantly from the synodic month, there will be a secular drift in the time of the new moon from months to months in the Chinese calendar. It will eventually drift away from the first day of a month, but this is impossible because of Rule 3. So we conclude that the average length of a month should be close to the synodic month. A similar argument works for the average of a year. If the average length of a year is significantly different from the tropical year, there will be a secular drift of the winter solstice in the calendar from years to years and eventually the winter solstice will drift away from month 11, which contradicts Rule 4. These arguments only establish approximate values because of the subtle issue of taking averages and the fact that both the synodic month and tropical year are slowly changing with time.</p>
     
@@ -112,12 +121,5 @@ Last major update: April, 2019</p>
     
 </div> <!-- end of wrapper -->
 <br /><br />
-<script>
-var subsec = document.getElementsByClassName("subsec");
-var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = subsecNum[i]+'. '+subsec[i].innerHTML;
-}
-</script>
 </body>
 </html>

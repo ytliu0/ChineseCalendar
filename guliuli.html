@@ -7,6 +7,22 @@
 <head>
 <title>Computation of the Ancient Six Calendars</title>
 <link rel="stylesheet" href="calendar.css" />
+<style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+subsect::before {
+  counter-increment: subsec-counter 1;
+  content: counter(subsec-counter, lower-roman) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
 
@@ -42,7 +58,7 @@
 </div>
     
     <br />
-<h2 class="section" id="sifenSystem">The <i>S&#236;f&#275;n</i> System</h2>
+<sect id="sifenSystem">The <i>S&#236;f&#275;n</i> System</sect>
     
 <p>In the Warring States period (480 B.C. &ndash; 221 B.C.), China was divided into many states. Each state used its own calendar. It was believed that there were six versions of calendars used by the states at that time. They are collectively called <i>g&#468;li&#249;l&#236;</i> (&#21476;&#20845;&#26310;) or ancient six calendars. These six calendars were Zhou, Lu, Huangdi, Yin, Xia and Zhuanxu. They were all based on the <i>s&#236;f&#275;n</i> system. In Chinese, the term <i>s&#236;f&#275;n</i> (&#22235;&#20998;) means "division by four" or "quarter". It comes from the fact that the <i>s&#236;f&#275;n</i> system uses 365.25 days as the solar cycle (tropical year), i.e. 365 and a quarter days. The <i>s&#236;f&#275;n</i> system adopts a lunar cycle (synodic month) that is 19/235 of its solar cycle. That is,<br />
 lunar cycle = (365 + 1/4) days &times; 19/235 = (29 + 499/940) days. As a result, 235 lunar cycles are exactly equal to 19 solar cycles. Since 235=19&times;12+7, if there are 12 lunar months in each year, there will be 7 extra months in 19 years. So 7 intercalary or leap months are added to the calendar every 19 years to keep the calendar year in sync with the solar cycle. This is the basis of the <i>s&#236;f&#275;n</i> system. The 19-year cycle was called the <i>zh&#257;ng</i> cycle (&#31456;&#36913;) in China. It was known as the Metonic  cycle (named after the Greek astronomer Meton of Athens) in the West. Hereafter, the terms lunar cycle and solar cycle will be referred to as the values adopted by the <i>s&#236;f&#275;n</i> system.</p>
@@ -64,7 +80,7 @@ Solar cycle: 1 solar year = (365 + 1/4) days = (12 + 7/19) lunar months<br />
 </p>
     
 <br />
-<h2 class="section" id="epochs">Epochs</h2>
+<sect id="epochs">Epochs</sect>
     
 <p>The ancient six calendars were developed and used in the Warring States period, but none of them was preserved. We can now only learn about them in books such as <i>H&#224;nsh&#363;</i> (&#28450;&#26360; or <i>Book of Han</i>) published in the first century A.D., and <i>X&#249; H&#224;nsh&#363;</i> (&#32396;&#28450;&#26360; or <i>Sequel of the Book of Han</i>) published in the third century A.D. The two books did not provide concrete information about the epochs used by the six calendars. The earliest available information on the epochs is found in the book <i>K&#257;iyu&#225;n Zh&#225;nj&#299;ng</i> (&#38283;&#20803;&#21344;&#32147; or <i>Divination Classic Complied in the K&#257;iyu&#225;n Era</i>) published in the 8th century. The epochs are listed as the number of years between 714 A.D. and <i>sh&#224;ngyu&#225;n</i>s (&#19978;&#20803;), which I will refer to as <i>superior epochs</i> hereafter. A superior epoch was considered to be an ideal epoch at which the Sun and Moon had the same longitude and the five planets were in the same direction in the sky. "Same direction" was a vague description, which was made precise by Chinese astronomers in the Qing dynasty (1644&ndash;1911) to mean the angular separations among the five planets were less than 45&deg;. The following table lists the superior epochs of the six calendars. <i>Sh&#224;ngyu&#225;n j&#299;ni&#225;n</i> (&#19978;&#20803;&#31309;&#24180;) refers to the number of years between 714 A.D. and the superior epoch.</p>
     
@@ -98,7 +114,7 @@ Solar cycle: 1 solar year = (365 + 1/4) days = (12 + 7/19) lunar months<br />
 <p>We don't need to use a ji&#462; z&#464; day as an epoch. Adding an integer multiples of the <i>b&#249;</i> cycles will yield an epoch at which a solar term and conjunction having the same relationship as at the superior epoch. Take the Zhou calendar as an example, subtracting 76&times;3 years from -103 yields -331. That is to say that the winter solstice and conjunction also occurred at midnight in 332 B.C. (actually late December in 333 B.C.). Now 76&times;3 years = 228 years = 83277 days. Straightforward calculation shows that 83277 days before December 25, 105 B.C. was December 25, 333 B.C. The sexagenary day can be calculated, using modular arithmetic, to be d&#299;ng m&#462;o. A <i>b&#249;</i> cycle can be named after the sexagenary name of its first day in the cycle. Thus, 104 B.C. was the first year in the <i>b&#249;</i> cycle of ji&#462; z&#464; of the Zhou calendar. The year 332 B.C. was the first year in the <i>b&#249;</i> cycle of d&#299;ng m&#462;o, 331 B.C. was the second year in the <i>b&#249;</i> cycle of d&#299;ng m&#462;o and so on.</p>
     
 <br />
-<h2 class="section" id="computation">Computation of Lunar Conjunctions and Solar Terms</h2>
+<sect id="computation">Computation of Lunar Conjunctions and Solar Terms</sect>
     
 <p>The epochs of the ancient six calendars are different, which means that the six calendars have six different natural origins from which time is measured. This is inconvenient for developing a general procedure to compute the calendars. Here I introduce a method to overcome the problem.</p>
     
@@ -157,19 +173,19 @@ Here j is the solar-term number counting from the winter solstice, with j=0 for 
 </figure>
 
     <br />
-<h2 class="section" id="firstMonth">Order of Months</h2>
+<sect id="firstMonth">Order of Months</sect>
     
 <p>The Zhou, Lu and Huangdi calendars designate the z&#464; month (present-day month 11), i.e. the month that the winter solstice is in, as the beginning of a year. The Yin calendar designates the ch&#466;u month (present-day month 12) as the beginning of a year<sup><a href="#fn3">fn3</a></sup>. Both versions of the Xia calendar adopt the y&#237;n month (present-day month 1) as the beginning of a year. Months in these calendars are labelled by numerical numbers from 1 to 12 starting from the first month. The naming of leap months will be discussed later. Zhuanxu calendar is special. The first month is the h&#224;i month (present-day month 10) but it is labelled as month 10, the same as the numbering in the Xia calendar. The month labels (excluding leap months) in Zhuanxu calendar are months 10, 11, 12, 1, 2, ..., 9.</p>
     
     <br />
-<h2 class="section" id="intercalation">Intercalation Rules</h2>
+<sect id="intercalation">Intercalation Rules</sect>
     
 <p>Scholars have not come to a consensus on how and where an intercalary (leap) month was placed in the ancient six calendars. Some people think that a leap month was always placed at the end of a year and was simply labelled as a leap month. Others disagree and think a leap month could occur in the middle of a year. A leap month in the middle of a year is indicated by the same number as the previous month, but a "leap" is added before the number. The case for the Zhuanxu calendar is less controversial. It is generally believed that a leap month in the Zhuanxu calendar was placed at the end of a year and was called post month 9 (&#24460;&#20061;&#26376;), but its intercalation rule remains unclear.</p>
     
 <p>Three methods have been proposed as possible intercalation rules. Here I call these three rules the <i>r&#249;ny&#250; rule</i> (&#38287;&#39192;&#27861;), <i>solstice rule</i> (&#22266;&#23450;&#20908;&#33267;&#27861;) and <i>no zh&#333;ngq&#236; rule</i> (&#28961;&#20013;&#27683;&#27861;). The no zh&#333;ngq&#236; rule assigns a month that does not contain a major solar term (see below) as a leap month. The solstice rule places a leap month at the end of a year. The <i>r&#249;ny&#250;</i> rule does not specify explicitly where a leap month should be placed. It can be placed at the end of a year or in the middle of a year using a simple rule. The six calendars computed on our <a href="index.html">calendar page</a> and <a href="table.html">conversion table page</a> follow the same approach as in Zh&#257;ng P&#233;iy&#250;'s two books <i>Tables of Chinese Calendars in the Pre-Qin Period</i><sup><a href="#Zhang87">Zhang87</a></sup> and <i>3500 Years of Calendars and Astronomical Phenomena</i><sup><a href="#Zhang97">Zhang97</a></sup>, which use the solstice rule and place a leap month at the end of a year but also indicate the months without any major solar term for reference.</p>
     
     <br />
-<h3 class="subsection" id="runyu"><i>R&#249;ny&#250;</i> Rule (&#38287; &#39192; &#27861;)</h3>
+<subsect id="runyu"><i>R&#249;ny&#250;</i> Rule (&#38287; &#39192; &#27861;)</subsect>
     
 <p>Let's start with the case for the Zhou calendar and Huangdi calendar. Both of them specify the z&#464; month as the beginning of a year.</p>
     
@@ -186,7 +202,7 @@ Here j is the solar-term number counting from the winter solstice, with j=0 for 
 <p>The <i>su&#236;</i>s containing the leap months in the Lu calendar, Z1 version of the Xia calendar and Zhuanxu calendar are different from the other calendars, but they can be made the same by choosing another <i>su&#236;</i> in their <i>b&#249;</i> cycles as the first <i>su&#236;</i> in a <i>zh&#257;ng</i> cycle. The leap month distribution in all six calendars follows the 3-3-3-2-3-3-2 pattern. The lunation fractions of the winter solstice have a cycle of 19 years and so do the leap months. It is of course a result of the fact that 19 solar cycles are exactly equal to 235 lunar cycles in the <i>s&#236;f&#275;n</i> system. Since 235=19&times;12+7, 7 leap months have to be inserted in 19 years. One of the simplest arrangements is to distribute them evenly in these 235 months. One way to do this is to assign the leap months to occur in the (235j/7)th months (j=1, 2, 3, 4, 5, 6, 7) in a <i>zh&#257;ng</i> cycle. Taking the nearest integers will result in the leap months occurring in the 34th, 67th, 101st, 134th, 168th, 201st and 235th months. They occur in the 3rd, 6th, 9th, 11th, 14th, 17th and 19th <i>su&#236;</i>s in the <i>zh&#257;ng</i> cycle. Here we see the 3-3-3-2-3-3-2 pattern. The Zhou, Yin, Huangdi and solstice version of the Xia calendar all have the lunation fractions of the winter solstice being 0 in the first year of their <i>zh&#257;ng</i> cycles. Using the extended <i>r&#249;ny&#250;</i> rule for placing a leap month in the middle of a year, we find the leap months occurring in the 34th, 68th, 101st, 135th, 168th, 202nd and 235th months. These are almost the same as the rounded numbers of (235j/7). The discrepancies are caused by the extended <i>r&#249;ny&#250;</i> rule requiring the accumulated lunation fraction to reach or exceed 1. We get perfect agreement by rounding up the numbers (235j/7). The leap months occur in different months for the Lu calendar, Z1 version of the Xia calendar and Zhuanxu calendar. This is simply caused by their using different months as the first month in their <i>zh&#257;ng</i> cycles.</p>
     
 <br />
-<h3 class="subsection" id="winterSolRule">Solstice Rule (&#22266; &#23450; &#20908; &#33267; &#27861;)</h3>
+<subsect id="winterSolRule">Solstice Rule (&#22266; &#23450; &#20908; &#33267; &#27861;)</subsect>
     
 <p>The solstice rule requires that a particular month must contain the winter solstice. The Zhou, Lu and Huangdi calendars designate the z&#464; month as the beginning month of a year. For this reason, the first month must contain the winter solstice. Yin calendar designates the ch&#466;u month as the first month. Ch&#466;u month is one month before the z&#464; month, so the solstice rule requires that month 12 must contain the winter solstice in the Yin calendar. The two versions of the Xia calendar assign the y&#237;n month as the first month. Yin month is two months after the z&#464; month, so the solstice rule requires that month 11 must contain the winter solstice in the two versions of the Xia calendar. Finally, Zhuanxu calendar uses the h&#224;i month as the first month but labels it as month 10. The solstice rule requires that month 11 must contain the winter solstice in the Zhuanxu calendar.</p>
     
@@ -199,7 +215,7 @@ Here j is the solar-term number counting from the winter solstice, with j=0 for 
 <p>From the above example, we see that the two rules can give different results when the lunation fraction of the winter solstice is very close to 1 so that it might fall on the same day as the next conjunction. For the Zhou, Lu, Huangdi and solstice version of the Xia calendars, the lunation fractions of the winter solstice are integer multiples of 1/19. This means that the time difference between the winter solstice and the conjunction after it is greater than 1.55 days. It is therefore impossible to have the winter solstice and the next conjunction occurring on the same day. The <i>r&#249;ny&#250;</i> rule and solstice rule give exactly the same result for these calendars.</p>
     
     <br />
-<h3 class="subsection" id="noZhongqi">No Zh&#333;ngq&#236; Rule (&#28961; &#20013; &#27683; &#27861;)</h3>
+<subsect id="noZhongqi">No Zh&#333;ngq&#236; Rule (&#28961; &#20013; &#27683; &#27861;)</subsect>
     
 <p>The no zh&#333;ngq&#236; rule also assigns the winter solstice to a designated month in the same way as the solstice rule. Thus a leap month is inserted in a leap <i>su&#236;</i>. The only difference is where a leap month should be placed in a leap <i>su&#236;</i>. The no zh&#333;ngq&#236; rule specifies that a leap month is placed in the month that does not contain any major solar term.</p>
     
@@ -212,7 +228,7 @@ Here j is the solar-term number counting from the winter solstice, with j=0 for 
 <p>There is no historical record to suggest whether or not the no zh&#333;ngq&#236; rule was implemented before 104 B.C. However, the no zh&#333;ngq&#236; rule was the intercalation rule in the Chinese calendar for more than 2000 years since 104 B.C. In 1645, it was decided that the 24 solar terms are to be computed using the <i>d&#237;nq&#236;</i> method, which takes into account the non-uniform motion of the Sun. The no zh&#333;ngq&#236; rule needs to be modified in order to account for the fact that a month without a major solar term might appear in a normal <i>su&#236;</i> and more than one month can have no major solar term in a leap <i>su&#236;</i>. These were impossible when the solar terms were defined using the <i>p&#237;nq&#236;</i> rule. The current intercalation rule is that there is no leap month in a normal <i>su&#236;</i> no matter whether or not there is a month without a major solar term. In a leap <i>su&#236;</i>, the leap month is placed in the first month after the winter solstice that does not contain a major solar term. If the solar terms are computed using the <i>p&#237;nq&#236;</i> rule, there cannot be a month without a major solar term in a normal <i>su&#236;</i>, and exactly one month without a major solar term in a leap <i>su&#236;</i>. The current rule reduces to the no zh&#333;ngq&#236; rule in this case. So the current rule can be regarded as a generalization of the no zh&#333;ngq&#236; rule.</p>
     
     <br />
-<h2 class="section" id="examples">Examples of Computing the Ancient Six Calendars</h2>
+<sect id="examples">Examples of Computing the Ancient Six Calendars</sect>
     
 <p>In this section I use two examples to demonstrate the computation of the ancient six calendars using the solstice rule and no zh&#333;ngq&#236; rule. For convenience, I use N<sub>y</sub> to denote the calendar year whose New Year day was closest to Jan. 1 in year y in the proleptic Julian calendar, and S<sub>y</sub> to denote the <i>su&#236;</i> whose first day was closest to Jan. 1 in year y. Since the New Year days of the six calendars are in general different, N<sub>y</sub> refers to different time periods for the six calendars. For example, <span class="nowrap">N<sub>-325</sub></span> began on Dec. 19, <span class="nowrap">-326</span> and ended on Dec. 7, <span class="nowrap">-325</span> for the Zhou calendar; <span class="nowrap">N<sub>-325</sub></span> began on Dec. 20, <span class="nowrap">-326</span> and ended on Dec. 8, <span class="nowrap">-325</span> for the Lu calendar; <span class="nowrap">N<sub>-325</sub></span> began on Feb. 16, <span class="nowrap">-325</span> and ended on Mar. 5, <span class="nowrap">-324</span> for the Xia calendar. S<sub>y</sub> also refers to different time periods for the six calendars. </p>
     
@@ -327,7 +343,7 @@ which means that there was a leap month in <span class="nowrap">S<sub>-386</sub>
 <p><sup>*</sup> This was a leap month in N<sub>-387</sub>.</p>
     
     <br />
-<h2 class="section" id="decimals">Using Decimals to Compute the Ancient Six Calendars</h2>
+<sect id="decimals">Using Decimals to Compute the Ancient Six Calendars</sect>
     
 <p>In the previous section, I use fractions to do calendar calculation. The main reason is to introduce the concept of <i>xi&#462;oy&#250;</i>, a term often appears in books and literature. Modern calculations are usually done on a computer. Although fractions are better in terms of computational efficiency, it is more complicated to write a program to handle fractions. That's why all calendar calculations on this website are done by using floating point numbers. The solar cycle is represented by the number 365.25 and the lunar cycle by 29.53085106382979. However, there is one thing we should be careful. When the <i>xi&#462;oy&#250;</i> of a conjunction is exactly 0, the conjunction occurs exactly at midnight. The decimal part of the Julian day is exactly 0.5, but floating point roundoff error may give 0.49999999999 instead, resulting in an off-by-one-day error. This can be prevented by adding 0.0001 to the Julian days in Table 2. The <i>xi&#462;oy&#250;</i>s of conjunctions in the ancient six calendars are always integer multiples of <span class="nowrap">1/940</span> ranging from 0 to <span class="nowrap">939/940</span>. After adding 0.0001, all of the <i>xi&#462;oy&#250;</i>s are shifted by <span class="nowrap">0.094/940</span>. It is now impossible for the <i>xi&#462;oy&#250;</i> to be exactly 0 and the floating point roundoff error will never produce a one-day error. Since the conjunctions can no longer occur at midnight, the nuisance mentioned in Example 1 in the previous Section is gone.</p>
     
@@ -366,17 +382,5 @@ Note the &le; instead of &lt; to take into account the possibility of the winter
 </div> <!-- end of wrapper -->
 <br /><br />
 
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-var subsec = document.getElementsByClassName("subsection");
-var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = subsecNum[i]+'. '+subsec[i].innerHTML;
-}
-</script> 
 </body>
 </html>

@@ -10,6 +10,16 @@
 <script src="header.js"></script>
     
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
 table.compact th, table.compact td {
     padding: 3px;
     text-align: center;
@@ -27,6 +37,13 @@ table.compact th, table.compact td {
 <div id="wrapper0">
 <div id="menu"></div>
 <div id="language"></div>
+    
+<noscript>
+<h1 style="color:brown;">提 示</h1>
+
+<p style="color:brown;">閣下的瀏覽器未有啟用 JavaScript，本網頁中的文獻序號及徵引皆用 JavaScript 編輯。要正確顯示文章內容，請啟用瀏覽器的 JavaScript，然後再進入本網頁。</p>
+<br /><br /><hr />
+</noscript>
     
 <h1>明 朝 《大 統 曆》 的 定 朔 計 算 及 曆 表 朔 日 訂 正</h1>
     
@@ -48,7 +65,7 @@ table.compact th, table.compact td {
 &nbsp;&nbsp;&nbsp;<a href="#references">參 考 文 獻</a>
 </div>
     <br />
-<h2 id="introduction" class="section">引 言</h2>
+<sect id="introduction">引 言</sect>
 
     <!--
     
@@ -74,7 +91,7 @@ table.compact th, table.compact td {
 <p>由於李勇在<a href="#Li2011"></a>已比較了《大統曆》的節氣推步和曆書給出的時刻，本文不再重複比較節氣時刻，而集中比較《大統曆》的定朔推步和曆書給出的時刻。李勇在<a href="#Li2011"></a>文中指出《大統曆》的定朔有兩種不同計算方法，究竟《大統曆》採用哪個方法計算定朔，或許可考察大統曆書載的合朔時刻斷定，這是下面兩節要探討的問題。</p>
     
     <br />
-<h2 id="theory" class="section">《大 統 曆》 的 定 朔 計 算</h2>
+<sect id="theory">《大 統 曆》 的 定 朔 計 算</sect>
     
 <p>明朝《大統曆》基本上沿襲元朝《授時曆》的法數和推步方法。《授時曆》的推步方法在李勇和張培瑜於1996年和李勇及張承志於1998年發表的兩篇文章(<a href="#LiZhang1996"></a>和<a href="#LiZhang1998"></a>)有介紹，這裡就不敘述了，但會簡略介紹定朔的一般計算，以便說明《授時曆》和《大統曆》在計算定朔時可能有一些差異。</p>
     
@@ -105,7 +122,7 @@ f的導數是<br />
     
 <p>李勇在其文章<a href="#Li2011"></a>認為《大統曆》的合朔計算仍然採用公式(5)，即和《授時曆》一樣，他指出邢雲路《古今律曆考》給出的《大統曆》推算朔望和日月食的計算法都依照《授時曆》的公式，所以《大統曆》的術文可能刊誤。既然有存世《大統曆》曆書載有合朔時刻，只要將那些時刻比較公式(5)和公式(6)算出的時刻，或可判別《大統曆》採用的算法。下一節會敘述計算結果。</p>
     <br />
-<h2 id="conjunctions" class="section">合 朔 時 刻 檢 驗</h2>
+<sect id="conjunctions">合 朔 時 刻 檢 驗</sect>
     
 <p>筆者找到的存世《大統曆》曆書，有六部載有合朔時刻，其中有三部在典藏臺灣找到:<a href="http://catalog.digitalarchives.tw/item/00/07/ec/cb.html" target="_blank">《大明萬曆三十二年歲次甲辰大統曆》</a>、<a href="http://catalog.digitalarchives.tw/item/00/07/ec/d6.html" target="_blank">《大明崇禎二年歲次己巳大統曆》</a>及<a href="http://catalog.digitalarchives.tw/item/00/07/ec/da.html" target="_blank">《大明崇禎十二年歲次己卯大統曆》</a>;其餘三部在《國家圖書館藏明代大統曆日彙編》第二冊和第五冊找到:《大明嘉靖十年歲次辛卯大統曆》(《彙編(二)》157-158頁)、《大明嘉靖十一年歲次壬辰大統曆》(《彙編(二)》247-248頁)及《大明萬曆四十四年歲次丙辰大統曆》(《彙編(五)》281-282頁)。《彙編(四)》也有萬曆三十二年的曆書、《彙編(六)》也有崇禎十二年的曆書，但是那兩部曆書沒有合朔時刻。另外，《彙編(二)》有兩部嘉靖十一年曆書、《彙編(五)》有兩部萬曆四十四年曆書，也是一部有合朔時刻而另一部沒有。可見在嘉靖十一年、萬曆三十二年、萬曆四十四年和崇禎十二年，大統曆書至少有兩個不同版本，其他年份可能也是如此。典藏臺灣只有曆書的首頁六(或七)個合朔，三部曆書共19個合朔資料。《彙編》所載的那三部曆書有全年的合朔資料，三部曆書共有37合朔，所以這六部曆書合計有56個合朔。</p>
     
@@ -186,7 +203,7 @@ f的導數是<br />
 <p>雖然D2的合朔時刻和D1相差不遠，但是如果合朔很接近夜半零時可能會使朔日日期有一日之差，這情況在上述崇禎十二年五月朔出現。筆者用D2算出的明朝朔日與《三千五百年历日天象》的朔日比較，發現有88處不合，其中有21例找到了當年明朝的大統曆書，發現D2算出的這21個朔日全錯。用D1算出的朔日與《三千五百年历日天象》比較發現有11處不合，這11處不合改用D2來算仍然不合，也就是說上述那88處D2不合包括了這11個。上面的計算基本上證實了D1的推步方法就是那幾部大統曆書的推步方法，所以這11處不合很值得深入研究，下一節就探討這個問題。</p>
     
     <br />
-<h2 id="corrections" class="section">曆 表 朔 日 訂 正</h2>
+<sect id="corrections">曆 表 朔 日 訂 正</sect>
     
 <p>上一節的計算證實了《大統曆》的定朔計算基本上沿用《授時曆》的公式，只是除消了《授時曆》的歲實消長法，結尾提到用此法算出的朔日在明朝二百七十六年間有11個朔日與《三千五百年历日天象》的數據不合。翻查薛仲三、歐陽頤的《兩千年中西曆對照表》<sup><a href="#Hsueh"></a></sup>、陳垣的《二十史朔閏表》<sup><a href="#Chen1962"></a></sup>及汪曰楨的<a href="https://ctext.org/library.pl?if=gb&res=2969" target="_blank">《歷代長術輯要》</a>，發現三書所載的那十一個朔日也和《三千五百年历日天象》完全相同。筆者嘗試尋找現存的大統曆書核對，找到了其中七個朔日資料。令筆者驚訝的是，這七個朔日全都符合推步結果，也就是說那四本書的七個數據錯了，餘下的四個朔日因為找不到資料而無從判斷，現把這十一個朔日列於下表。</p>
     <br />
@@ -261,10 +278,6 @@ f的導數是<br />
 
 <script>
 var i,j;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
     
 // automatically add reference numbers to citations
 var ref = document.querySelectorAll("#references li");

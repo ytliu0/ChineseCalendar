@@ -10,6 +10,16 @@
 <script src="header.js"></script>
     
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
 table.compact th, table.compact td {
     padding: 3px;
     text-align: center;
@@ -44,7 +54,7 @@ table.compact th, table.compact td {
 </div>
     
     <br />
-<h2 class="section" id="introduction">Introduction</h2>
+<sect id="introduction">Introduction</sect>
     
 <p>The calendrical system used in the Qin and Early Han dynasties (221 B.C. &ndash; 104 B.C.) has been puzzled by scholars in the past centuries. According to <i>Sh&#464;j&#236;</i> (&#21490;&#35352; or <i>Records of the Scribe</i>), the calendar used by the early Han dynasty was the same as that of the Qin dynasty (221 B.C. &ndash; 207 B.C.). <i>H&#224;nsh&#363;</i> (&#28450;&#26360; or <i>Book of Han</i>) further explains that the calendar used by the Qin dynasty was the Zhuanxu calendar, one of the <a href="guliuli.html">ancient six calendars</a> believed to have been used in the Warring States period (480 B.C. &ndash; 222 B.C.). However, it has been known for a long time that the dates computed by the Zhuanxu calendar do not agree with the dates appeared in the historical documents. They match more closely with those computed by the Yin calendar, another one of the ancient six calendars. Scholars from the 11th century to 20th century thought that the Qin and Han calendar was either the Zhuanxu calendar or the Yin calendar. However, an archeological discovery in 1972 shattered this view.</p>
 
@@ -119,7 +129,7 @@ table.compact th, table.compact td {
 <p>Since the reconstructed calendars of Zh&#257;ng and L&#464; both fit the available data and their differences are small, one can choose either of them to reconstruct the calendar between <span class="nowrap">N<sub>-245</sub></span> and <span class="nowrap">N<sub>-104</sub></span>. The calendar from <span class="nowrap">N<sub>-220</sub></span> (or 221 B.C.) to month 4 in <span class="nowrap">N<sub>-103</sub></span> on this website is reconstructed using L&#464;'s method. The following sections describe the implementation.</p>
     
     <br />
-<h2 class="section" id="computation">Computation of Solar Terms and Conjunction</h2>
+<sect id="computation">Computation of Solar Terms and Conjunction</sect>
     
 <p>The calculation of solar terms is the same as in the Zhuanxu calendar, which is described on the <a href="guliuli.html#computation">ancient six calendars page</a>. Here I only list the formulae. According to equation (4) and Table 2 on the <a href="guliuli.html#computation">ancient six calendars page</a>, the Julian day of the winter solstice closest to year y is given by<br />
 JD(W(y)) = 1721050.5 + 19/32 + y&middot;P<sub>s</sub> &nbsp;&nbsp;&nbsp;&nbsp;(1)<br />
@@ -156,7 +166,7 @@ Here P<sub>L</sub> = 29 + 499/940 is the number of days in a lunar cycle in the 
 <p>If we know the number of lunations A(y) associated with the New Year day conjunction of <span class="nowrap">N<sub>y</sub></span> from the epoch conjunction <span class="nowrap">M<sub>0</sub></span>, the New Year day conjunction time can be computed using equation (3) with i replaced by A(y). Having computed the New Year day, the conjunctions associated with the other months in <span class="nowrap">N<sub>y</sub></span> can be computed by adding integer multiples of <span class="nowrap">P<sub>L</sub></span>. However, we need to know the leap months before <span class="nowrap">N<sub>y</sub></span> in order to compute the accumulated months A(y). Leap months and calculation of A(y) are discussed in the following section.</p>
     
     <br />
-<h2 class="section" id="leap">Leap Months and Accumulated Months</h2>
+<sect id="leap">Leap Months and Accumulated Months</sect>
     
 <p>As stated in Introduction, all of the leap months between <span class="nowrap">N<sub>-245</sub></span> and <span class="nowrap">N<sub>-104</sub></span> can be deduced from the excavated calendrical bamboo slips and available historical documents. We can therefore use these known leap months to calculate A(y) without relying on any particular intercalation rule. This is the approach adopted here.</p>
     
@@ -218,7 +228,7 @@ Here floor(x) denotes the largest integer smaller than or equal to x, <span clas
 <p>Even though the reconstruction method is claimed to be valid for calendars from <span class="nowrap">N<sub>-245</sub></span> to month 5 in <span class="nowrap">N<sub>-103</sub></span>, our <a href="index.html">calendar page</a> uses this method from 221 B.C. to month 4 in <span class="nowrap">N<sub>-103</sub></span> and our <a href="table.html">calendar table page</a> uses this method from <span class="nowrap">N<sub>-220</sub></span> to month 4 in <span class="nowrap">N<sub>-103</sub></span> (the <a href="index.html">calendar page</a> is mainly based on the Western calendar and the <a href="table.html">calendar table page</a> is mainly based on the Chinese calendar). Starting in month 5 in <span class="nowrap">N<sub>-103</sub></span>, both pages use the data from the book <i>3500 Years of Calendars and Astronomical Phenomena</i><sup><a href="#Zhang1997">Zhang97</a></sup>, which shows calendar data based on the T&#224;ich&#363; astronomical system (&#22826;&#21021;&#26310;) beginning in month 1 in <span class="nowrap">N<sub>-103</sub></span><sup><a href="#fn4">fn4</a></sup>. In <span class="nowrap">N<sub>-103</sub></span>, month 3 had 29 days and month 4 should have had 30 days according to the reconstructed calendar. However, when the new calendar was used in month 5, the conjunction day moved one day earlier, turning month 4 into a short month. Month 5 was a short month in the new calendar. As a result, months 3, 4, 5 in <span class="nowrap">N<sub>-103</sub></span> all had 29 days. This is impossible for any calendar based on the <i>p&#237;ngshu&#242;</i> rule (based on the mean motions of the Moon and Sun), and could only occur when switching to a new calendar. If the switch is changed to month 6, month 5 will have 28 days, which is also impossible under normal circumstances.</p>
     
     <br />
-<h2 class="section" id="examples">Examples</h2>
+<sect id="examples">Examples</sect>
 
 <h3>Example 1: Calculate all months in <span class="nowrap">N<sub>-130</sub></span>, the dates and lunation fractions of the solar terms Z10, Z11 (winter solstice) and J1.</h3>
     
@@ -342,7 +352,7 @@ L = (JD<sub>Z5</sub> - JD<sub>1</sub>)/(29 + 499/940) = 5 + 9189/222072, <br />
 lunation fraction of Z5 =  9189/222072 &approx; 0.8/19.</p>
     
     <br />
-<h2 class="section" id="conjDiff">Time Lags of the Calendrical Conjunctions</h2>
+<sect id="conjDiff">Time Lags of the Calendrical Conjunctions</sect>
     
 <p>It is well known that the conjunction times determined by calendars in the Qin and Early Han dynasties were later than the astronomical conjunction times. The average of the time differences was about one day. This explains why the recorded solar eclipses in the early Han dynasty often occurred one day (and sometimes two days) before the calendrical conjunction days. The lunar cycle in the <i>s&#236;f&#275;n</i> system is slightly longer than the synodic month. The conjunction times would be one day later, on average, after about 300 years. This is why it's obvious from the figure below that the time lags of the calendrical conjunctions appear to increase steadily.</p>
     
@@ -357,7 +367,7 @@ lunation fraction of Z5 =  9189/222072 &approx; 0.8/19.</p>
 <p>In the book <i>On the Calendric System of the Qin and Early Han Dynasties</i><sup><a href="#Li2016">Li16</a></sup>, L&#464; Zh&#333;ngl&#237;n thinks that the calendar makers were strongly influenced by the <a href="https://en.wikipedia.org/wiki/Mandate_of_Heaven" target="_blank">"mandate of heaven"</a> political doctrine. The epochs were chosen carefully to coincide with significant political events at the expense of reducing the discrepancies between the calendrical and astronomical conjunctions. For example, epoch A was in the year <span class="nowrap">N<sub>-360</sub></span>, which coincided with the year when Duke Xiao of Qin (秦孝公) became the ruler of the Qin state. During his reign, Duke Xiao employed the legalist statesman Shang Yang (商鞅) to carry out a series of ground breaking political, military and economic reforms, transforming Qin into a dominant superpower in the Warring States period. Epoch C was in <span class="nowrap">N<sub>-205</sub></span>, which coincided with the year when Liu Bang  (劉邦), founder of the Han dynasty, attacked the Qin capital, leading to the surrendering of the Qin ruler and the collapse of the Qin dynasty.</p>
     
     <br />
-<h2 class="section" id="stermTable">Table of Solar Terms</h2>
+<sect id="stermTable">Table of Solar Terms</sect>
     
 <p>It is easy to calculate the dates of solar terms in the reconstructed calendar and their lunation fractions using the method described above. The table on <a href="QinHanSolarTerms.html">this page</a> lists the data for the solar terms Z10, Z11, Z12, J1 and Z1 from <span class="nowrap">N<sub>-245</sub></span> to <span class="nowrap">N<sub>-103</sub></span>. As demonstrated in Example 1 in the Section 4, some years might not have Z10. The Z10 column refers to the Z10 that was closest to the New Year day. We can see that some of the Z10's occurred in post month 9 of the previous year.</p>
     
@@ -403,12 +413,5 @@ If I assume that there are mistakes in Table 10, I could find a possible solutio
     
 </div><!-- end of wrapper -->
 
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-</script> 
 </body>
 </html>

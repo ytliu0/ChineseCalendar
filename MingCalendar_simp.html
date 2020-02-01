@@ -10,6 +10,16 @@
 <script src="header.js"></script>
     
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
 table.compact th, table.compact td {
     padding: 3px;
     text-align: center;
@@ -27,6 +37,13 @@ table.compact th, table.compact td {
 <div id="wrapper0">
 <div id="menu"></div>
 <div id="language"></div>
+    
+<noscript>
+<h1 style="color:brown;">提 示</h1>
+
+<p style="color:brown;">阁下的浏览器未有启用 JavaScript，本网页中的文献序号及征引皆用 JavaScript 编辑。要正确显示文章内容，请启用浏览器的 JavaScript，然后再进入本网页。</p>
+<br /><br /><hr />
+</noscript>
     
 <h1>明 朝 《大 统 历》 的 定 朔 计 算 及 历 表 朔 日 订 正</h1>
     
@@ -48,7 +65,7 @@ table.compact th, table.compact td {
 &nbsp;&nbsp;&nbsp;<a href="#references">参 考 文 献</a>
 </div>
     <br />
-<h2 id="introduction" class="section">引 言</h2>
+<sect id="introduction">引 言</sect>
    
 <p>本网站的古代中历资料几乎全部采用张培瑜《三千五百年历日天象》<sup><a href="#Zhang1997"></a></sup>的资料，除了该书外，还有其他中国史历表供史学家参考，例如薛仲三、欧阳颐的《两千年中西历对照表》<sup><a href="#Hsueh"></a></sup>、陈垣的《二十史朔闰表》<sup><a href="#Chen1962"></a></sup>及汪曰桢的<a href="https://ctext.org/library.pl?if=gb&res=2969&remap=gb" target="_blank">《历代长术辑要》</a>等。台湾中央研究院的<a href="http://sinocal.sinica.edu.tw/" target="_blank">两千年中西历转换</a>的古代中历资料就是<a href="http://sinocal.sinica.edu.tw/lusodoc.html" target="_blank">取自薛仲三、欧阳颐的《两千年中西历对照表》</a>。翻查这几本中国史历表，有时会发现历日有差异，笔者不是史学专家，难以考证孰是孰非，但认为最妥当的方法是考察当时政府颁行的历书。</p>
     
@@ -69,7 +86,7 @@ table.compact th, table.compact td {
 <p>由于李勇在<a href="#Li2011"></a>已比较了《大统历》的节气推步和历书给出的时刻，本文不再重复比较节气时刻，而集中比较《大统历》的定朔推步和历书给出的时刻。李勇在<a href="#Li2011"></a>文中指出《大统历》的定朔有两种不同计算方法，究竟《大统历》采用哪个方法计算定朔，或许可考察大统历书载的合朔时刻断定，这是下面两节要探讨的问题。</p>
     
     <br />
-<h2 id="theory" class="section">《大 统 历》 的 定 朔 计 算</h2>
+<sect id="theory">《大 统 历》 的 定 朔 计 算</sect>
     
 <p>明朝《大统历》基本上沿袭元朝《授时历》的法数和推步方法。《授时历》的推步方法在李勇和张培瑜于1996年和李勇及张承志于1998年发表的两篇文章(<a href="#LiZhang1996"></a>和<a href="#LiZhang1998"></a>)有介绍，这里就不叙述了，但会简略介绍定朔的一般计算，以便说明《授时历》和《大统历》在计算定朔时可能有一些差异。</p>
     
@@ -100,7 +117,7 @@ f的导数是<br />
     
 <p>李勇在其文章<a href="#Li2011"></a>认为《大统历》的合朔计算仍然采用公式(5)，即和《授时历》一样，他指出邢云路《古今律历考》给出的《大统历》推算朔望和日月食的计算法都依照《授时历》的公式，所以《大统历》的术文可能刊误。既然有存世《大统历》历书载有合朔时刻，只要将那些时刻比较公式(5)和公式(6)算出的时刻，或可判别《大统历》采用的算法。下一节会叙述计算结果。</p>
     <br />
-<h2 id="conjunctions" class="section">合 朔 时 刻 检 验</h2>
+<sect id="conjunctions">合 朔 时 刻 检 验</sect>
     
 <p>笔者找到的存世《大统历》历书，有六部载有合朔时刻，其中有三部在典藏台湾找到:<a href="http://catalog.digitalarchives.tw/item/00/07/ec/cb.html" target="_blank">《大明万历三十二年岁次甲辰大统历》</a>、<a href="http://catalog.digitalarchives.tw/item/00/07/ec/d6.html" target="_blank">《大明崇祯二年岁次己巳大统历》</a>及<a href="http://catalog.digitalarchives.tw/item/00/07/ec/da.html" target="_blank">《大明崇祯十二年岁次己卯大统历》</a>;其余三部在《国家图书馆藏明代大统历日汇编》第二册和第五册找到:《大明嘉靖十年岁次辛卯大统历》(《汇编(二)》157-158页)、《大明嘉靖十一年岁次壬辰大统历》(《汇编(二)》247-248页)及《大明万历四十四年岁次丙辰大统历》(《汇编(五)》281-282页)。《汇编(四)》也有万历三十二年的历书、《汇编(六)》也有崇祯十二年的历书，但是那两部历书没有合朔时刻。另外，《汇编(二)》有两部嘉靖十一年历书、《汇编(五)》有两部万历四十四年历书，也是一部有合朔时刻而另一部没有。可见在嘉靖十一年、万历三十二年、万历四十四年和崇祯十二年，大统历书至少有两个不同版本，其他年份可能也是如此。典藏台湾只有历书的首页六(或七)个合朔，三部历书共19个合朔资料。《汇编》所载的那三部历书有全年的合朔资料，三部历书共有37合朔，所以这六部历书合计有56个合朔。</p>
     
@@ -181,7 +198,7 @@ f的导数是<br />
 <p>虽然D2的合朔时刻和D1相差不远，但是如果合朔很接近夜半零时可能会使朔日日期有一日之差，这情况在上述崇祯十二年五月朔出现。笔者用D2算出的明朝朔日与《三千五百年历日天象》的朔日比较，发现有88处不合，其中有21例找到了当年明朝的大统历书，发现D2算出的这21个朔日全错。用D1算出的朔日与《三千五百年历日天象》比较发现有11处不合，这11处不合改用D2来算仍然不合，也就是说上述那88处D2不合包括了这11个。上面的计算基本上证实了D1的推步方法就是那几部大统历书的推步方法，所以这11处不合很值得深入研究，下一节就探讨这个问题。</p>
     
     <br />
-<h2 id="corrections" class="section">历 表 朔 日 订 正</h2>
+<sect id="corrections">历 表 朔 日 订 正</sect>
     
 <p>上一节的计算证实了《大统历》的定朔计算基本上沿用《授时历》的公式，只是除消了《授时历》的岁实消长法，结尾提到用此法算出的朔日在明朝二百七十六年间有11个朔日与《三千五百年历日天象》的数据不合。翻查薛仲三、欧阳颐的《两千年中西历对照表》<sup><a href="#Hsueh"></a></sup>、陈垣的《二十史朔闰表》<sup><a href="#Chen1962"></a></sup>及汪曰桢的<a href="https://ctext.org/library.pl?if=gb&res=2969&remap=gb" target="_blank">《历代长术辑要》</a>，发现三书所载的那十一个朔日也和《三千五百年历日天象》完全相同。笔者尝试寻找现存的大统历书核对，找到了其中七个朔日资料。令笔者惊讶的是，这七个朔日全都符合推步结果，也就是说那四本书的七个数据错了，余下的四个朔日因为找不到资料而无从判断，现把这十一个朔日列于下表。</p>
     <br />

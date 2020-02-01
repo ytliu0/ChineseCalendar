@@ -10,6 +10,16 @@
 <script src="header.js"></script>
     
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
 table.compact th, table.compact td {
     padding: 3px;
     text-align: center;
@@ -25,6 +35,14 @@ table.compact th, table.compact td {
     
 <body onload="header(0,'','MingCalendar')">
 <div id="wrapper0">
+    
+<noscript>
+<h1 style="color:brown;">Note</h1>
+<p style="color:brown;">JavaScript is currently disabled on your browser. The reference numbers and citations of articles are generated using JavaScript here, so they are not shown correctly right now. Please enable JavaScript and reload.</p>
+    <br /><br />
+    <hr />
+</noscript>
+    
 <div id="menu"></div>
 <div id="language"></div>
     
@@ -48,7 +66,7 @@ table.compact th, table.compact td {
 &nbsp;&nbsp;&nbsp;<a href="#references">References</a>
 </div>
     <br />
-<h2 id="introduction" class="section">Introduction</h2>
+<sect id="introduction">Introduction</sect>
     
 <p>Almost all of the ancient Chinese calendar data on this website are based on the book <i>3500 Years of Calendars and Astronomical Phenomena</i><sup><a href="#Zhang1997"></a></sup>. There are other calendar data books used by historians and chronologers. Three of them are <i>A Sino-Western Calendar For Two Thousand Years (1-2000)</i><sup><a href="#Hsueh"></a></sup>, <i>Tables of Historical Lunar Conjunctions and Leap Months</i><sup><a href="#Chen1962"></a></sup> and <a href="https://ctext.org/library.pl?if=gb&res=2969" target="_blank">《歷代長術輯要》</a>(<i>Compilation of Historical Calendars</i>) by W&#257;ng Yu&#275;zh&#275;n (汪曰楨). The ancient Chinese calendar data on the <a href="http://sinocal.sinica.edu.tw/" target="_blank">Chinese-Western calendar conversion website</a> created by Academia Sinica in Taiwan are based on the book <i>A Sino-Western Calendar For Two Thousand Years (1-2000)</i>. However, some of the data in these books don't agree. The most reliable way to resolve the discrepancies is to compare the dates with those listed in the official state calendars for those years.</p>
     
@@ -71,7 +89,7 @@ table.compact th, table.compact td {
     
 <p>Since the article by Li <a href="Li2011"></a> already confirms that the 24 solar terms listed in the imperial calendars match the calculation stated in the <i>D&#224;t&#466;ng</i> system, I will not repeat the same calculation here and will focus on the lunar conjunction calculation. The article by Li <a href="Li2011"></a> mentions two different methods of conjunction calculation, and these two methods don't agree. The actual method used by the <i>D&#224;t&#466;ng</i> system may be determined by comparing the dates and times of lunar conjunctions listed in the <i>D&#224;t&#466;ng</i> calendars. This is the subject of the following two sections.</p>
     <br />
-<h2 id="theory" class="section">Conjunction Calculation in the <i>D&#224;t&#466;ng</i> System</h2>
+<sect id="theory">Conjunction Calculation in the <i>D&#224;t&#466;ng</i> System</sect>
 
 <p><i>D&#224;t&#466;ng</i> system adopted the same astronomical system as the <i>Sh&#242;ush&#237;</i> system (授時曆) developed in 1280 with only minor modifications. The conjunction calculation in the <i>Sh&#242;ush&#237;</i> system is explained in <a href="#LiZhang1996"></a> and <a href="#LiZhang1998"></a> and will not be described here. However, the general method used to compute the true conjunctions will be described below in order to explain a possible difference in the conjunction calculation between the <i>D&#224;t&#466;ng</i> system and <i>Sh&#242;ush&#237;</i> system.</p>
     
@@ -102,7 +120,7 @@ t = t<sub>0</sub> + 0.082&times;[S(t<sub>0</sub>) + T(t<sub>0</sub>)]/[V(t<sub>0
 where <span style="text-decoration:overline;">V</span><sub>s</sub> = 0.082 <i>d&#249;</i>/<i>Xi&#224;n</i> = 1 <i>d&#249;</i>/day is the mean angular speed of the Sun. Replacing <span class="nowrap">V<sub>M</sub></span> by <span class="nowrap">V<sub>M</sub></span> - <span class="nowrap"><span style="text-decoration:overline;">V</span><sub>s</sub></span> was an improvement in theory, but it was found by Li in <a href="#Li2011"></a> that the overall accuracy of the conjunction times is worse than using equation (5). It is even worse than the average accuracy of astronomical systems used between the 10th and 13th century. This is not surprising since <i>Sh&#242;ush&#237;</i> system probably chose the specific functions T(t) and S(t) to fit the observation data using equation (5). If equation (6) were to be used instead, T(t) and S(t) would have to be modified in order to fit the observation data accurately. By examining the calculation of eclipses by an astronomer in the Ming dynasty, Li concludes that the Ming astronomer used equation (5) instead of (6) to compute true conjunctions. Li suspects that the formula appeared in the historical record is wrong. This issue may be settled by examining the times of true conjunctions listed in the <i>D&#224;t&#466;ng</i> calendars and see which formula can reproduce the times there. The result will be reported in the next section.</p>
     
     <br />
-<h2 id="conjunctions" class="section">Examining the True Conjunction Times</h2>
+<sect id="conjunctions">Examining the True Conjunction Times</sect>
     
 <p>For convenience, I use N<sub>y</sub> to denote the Chinese year whose New Year day is closest to Jan. 1 in Western year y. For example, <span class="nowrap">N<sub>1524</sub></span> denotes the Third Year of Emperor Jia Jing's Reign, which began on Feb. 4, 1524 and ended on Jan. 22, 1525.</p>
     
@@ -185,7 +203,7 @@ where <span style="text-decoration:overline;">V</span><sub>s</sub> = 0.082 <i>d&
 <p>As mentioned above, if a conjunction occurred close to midnight, the difference in the D2 calculation might make the conjunction occurring on a different day. This happened in the month 5 conjunction in <span class="nowrap">N<sub>1639</sub></span> as shown above. The <i>D&#224;t&#466;ng</i> system was used for the imperial calendars from <span class="nowrap">N<sub>1369</sub></span> to <span class="nowrap">N<sub>1644</sub></span>. Comparing the dates of the D2 conjunctions with those listed in <i>3500 Years of Calendars and Astronomical Phenomena</i> in these years, I find 88 mismatches. In 21 of the mismatches I am able to find the <i>D&#224;t&#466;ng</i> calendars in those years and confirm that the 21 dates computed from D2 are all wrong. Comparing the dates of the D1 conjunctions with those listed in <i>3500 Years of Calendars and Astronomical Phenomena</i> between <span class="nowrap">N<sub>1369</sub></span> and <span class="nowrap">N<sub>1644</sub></span>, I find 11 mismatches. Using D2 to do the calculation does not remove any mismatch. That is to say that the 88 D2 mismatches include these 11 cases. Since the above calculation shows that the D1 method was the method used by the <i>D&#224;t&#466;ng</i> calendars in the conjunction calculation at least for the six years investigated, it is worth to examine these 11 mismatches. The result is unexpected and will be presented in the next section.</p>
     
        <br />
-<h2 id="corrections" class="section">Corrections to Calendar Data</h2>
+<sect id="corrections">Corrections to Calendar Data</sect>
     
 <p>The numerical result reported in the last section indicates that D1 [using equation (5)] was the method adopted by the <i>D&#224;t&#466;ng</i> calendars in the computation of lunar conjunctions. However, there are 11 mismatches between the D1 conjunction dates and those in <i>3500 Years of Calendars and Astronomical Phenomena</i> in the 276 years between <span class="nowrap">N<sub>1369</sub></span> and <span class="nowrap">N<sub>1644</sub></span>. I checked the three books <i>A Sino-Western Calendar For Two Thousand Years (1-2000)</i>, <i>Tables of Historical Lunar Conjunctions and Leap Months</i> and <i>Compilation of Historical Calendars</i> mentioned above and found that the four books all agreed with one another on those 11 conjunction dates. Then I tried to find the <i>D&#224;t&#466;ng</i> calendars in those years. I was able to find the information of 7 of the 11 conjunctions. To my surprise, these 7 conjunction dates all match the D1 calculation, meaning that the dates of the 7 conjunctions in those four books are wrong. I haven't been able to find the information of the remaining 4 conjunctions and so whether the D1 conjunction dates are correct or not remains unknown. The following table lists the information of the 11 lunar conjunctions.</p>
        <br />
@@ -260,10 +278,6 @@ where <span style="text-decoration:overline;">V</span><sub>s</sub> = 0.082 <i>d&
     
 <script>
 var i,j;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
     
 // automatically add reference numbers to citations
 var ref = document.querySelectorAll("#references li");

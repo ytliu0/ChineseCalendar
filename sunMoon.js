@@ -1,6 +1,7 @@
 "use strict";
 
 function init(lang) {
+    document.getElementById('wrapper0').style.display = "block";
     header(lang, 'sunmoon','sunMoon');
     var d = new Date(); // current time from computer's clock
     var year = d.getUTCFullYear();

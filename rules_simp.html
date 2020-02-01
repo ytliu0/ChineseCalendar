@@ -7,6 +7,22 @@
 <head>
 <title>农 历 编 算 法 则</title>
 <link rel="stylesheet" href="calendar_chinese.css">
+<style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+subsect::before {
+  counter-increment: subsec-counter 1;
+  content: counter(subsec-counter, lower-roman) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
 
@@ -28,33 +44,36 @@
 <p><b>内容</b></p>
 <ol>
 <li><a href="#intro">引 言</a></li>
-<li><a href="#concepts">重 要 概 念</a></li>
+<li><a href="#concepts">重 要 概 念</a>
     <ol type="i">
         <li><a href="#times">UT1, UTC, 中 国 标 准 时</a></li>
         <li><a href="#labels">农 历 的 纪 年、纪 月 和 纪 日 法</a></li>
         <li><a href="#conjunctions">朔</a></li>
         <li><a href="#zhongqi">中 气 和 岁</a></li>
     </ol>
+    </li>
 <li><a href="#rules">现 代 农 历 的 编 算 法 则</a></li>
-<li><a href="examples_simp.html">农 历 编 算 例 子</a></li>
+<li><a href="examples_simp.html">农 历 编 算 例 子</a>
     <ol type="i">
         <li><a href="examples_simp.html#ex1">例 一: 推 算 N<sub>2017</sub> (丁 酉 年) 的 所 有 农 历 月</a></li>
         <li><a href="examples_simp.html#ex2">例 二: 推 算 N<sub>2033</sub> (癸 丑 年) 的 所 有 农 历 月</a></li>
         <li><a href="examples_simp.html#exceptional">异 常 的 年 份 N<sub>2033</sub> (癸 丑 年)</a></li>
     </ol>
-<li><a href="rules_demysterified_simp.html">农 历 法 则 之 疑 惑</a></li>
+    </li>
+<li><a href="rules_demysterified_simp.html">农 历 法 则 之 疑 惑</a>
     <ol type="i">
         <li><a href="rules_demysterified_simp.html#cycles">兼 顾 阴 阳 两 周</a></li>
         <li><a href="rules_demysterified_simp.html#zhang">十 九 年 七 闰 法 之 谜</a></li>
         <li><a href="rules_demysterified_simp.html#averages">农 历 年 月 的 平 均 日 数</a></li>
     </ol>
+    </li>
 <li><a href="#newStandard">《农 历 的 编 算 和 颁 行》: 2017 年 国 家 标 准 (GB/T 33661-2017)</a></li>
 </ol>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#references">备注和参考文献</a></p>
 </div>
     
 <br />
-<h2 class="section" id="intro">引 言</h2>
+<sect id="intro">引 言</sect>
     
 <p>历法是为了纪录时间而制。在古代，有三个周期对人们日常生活很重要:昼夜交替的周期、月亮盈亏的周期和季节交替的周期。昼夜交替的平均时间是<a href="https://zh.wikipedia.org/zh-cn/%E5%A4%AA%E9%98%B3%E6%97%A5" target="_blank">平太阳日</a>。月亮盈亏的周期是朔望月，其平均值是29.5306日。季节交替的周期是回归年(古代称「岁实」)，可由两冬至或两春分的平均时间以定，其值为365.2422日<sup><a href="#tropicalYear">注一</a></sup>。「日」的概念缘自昼夜交替，「月」的概念缘自月亮盈亏，「年」或「岁」的概念缘自季节交替。</p>
     
@@ -65,12 +84,12 @@
 <p>安置闰月以使农历一年平均周期接近回归年，即「置闰法则」，是农历要解决的重要问题。历代用过很多不同的置闰法则，有过五次重大的历法改革，最近一次重大改革发生在清顺治二年(公元1645年)。这里只谈现在通用农历的法则，谈法则之前须先阐释对编算农历来说重要的天文和历法概念。</p>
     
 <br />
-<h2 class="section" id="concepts">重 要 概 念</h2>
+<sect id="concepts">重 要 概 念</sect>
     
 <p>要深入了解现代农历的编算，得从现代的时间计量说起。</p>
 
     <br />
-<h3 class="subsec1" id="times">UT1, UTC, 中 国 标 准 时</h3>
+<subsect id="times">UT1, UTC, 中 国 标 准 时</subsect>
     
 <p>世界时(UT)是根据地球自转制定的时间。世界时有几种不同版本，最常用的是UT1和协调世界时(UTC)。UT1是先根据地球上某一特定的经线<sup><a href="#TIO">注二</a></sup>相对于遥远恒星的方位，再通过简单变换得出符合平均太阳时的时间标准。地球自转不均匀，所以UT1的时间也不均匀，这使UT1在应用上有所不便，于是人们创立协调世界时UTC来取代UT1。</p>
 
@@ -79,14 +98,14 @@
 <p><a href="https://baike.baidu.com/item/%E5%8C%BA%E6%97%B6" target="_blank">区时</a>定为与协调世界时UTC相差某个特定的时间，是世界各国采用的时间系统。现在中国各地采用的时间是东八区的区时，比UTC迟八小时，一般以UTC+8表示，也称为北京时间或中国标准时。现在的农历就是以UTC+8为时间基础。</p>
     
 <br />
-<h3 class="subsec1" id="labels">农 历 的 纪 年、纪 月 和 纪 日 法</h3>
+<subsect id="labels">农 历 的 纪 年、纪 月 和 纪 日 法</subsect>
     
 <p>农历现在以干支纪年。月份以正月、二月、三月……十二月表示，闰月取前一个月的月数在前面加上「闰」字，如闰三月、闰九月等。农历每月第一日到第十日依次纪为初一、初二……初十，第十一日到第二十日依次纪为十一、十二……二十，第二十一日到第二十九日依次纪为二十一、二十二……二十九，或者简纪为廿一、廿二……廿九，第三十日纪为三十。农历也可用干支来纪日期，但月份一般不用干支。</p>
     
 <p>众所周知，以前中国常以帝王年号纪年，这种纪年方法到清朝灭亡后废除。中华民国虽然用「民国」纪年，但民国纪的是公历年而非农历年，例如民国元年是指公元1912年，不是农历壬子年。</p>
     
 <br />
-<h3 class="subsec1" id="conjunctions">朔</h3>
+<subsect id="conjunctions">朔</subsect>
     
 <p>朔是指月亮与太阳在同一方向的时刻，这说法过于笼统，现代天文学把朔定义为月球地心视黄经<span class="greek">&lambda;</span><sub>M</sub>与太阳地心视黄经<span class="greek">&lambda;</span><sub>S</sub>相等的时刻。与朔相关的概念有上弦、望和下弦。上弦是<span class="greek">&lambda;</span><sub>M</sub>-<span class="greek">&lambda;</span><sub>S</sub>=90&deg;的时刻;望是<span class="greek">&lambda;</span><sub>M</sub>-<span class="greek">&lambda;</span><sub>S</sub>=180&deg;的时刻;下弦是<span class="greek">&lambda;</span><sub>M</sub>-<span class="greek">&lambda;</span><sub>S</sub>=270&deg;的时刻。笼统地说，上弦是月亮位於太阳以东90&deg;的时候;望是月亮在太阳的相反方向的时候;下弦是月亮位於太阳以西90&deg;的时候。</p>
     
@@ -95,7 +114,7 @@
 <p>农历有一条古老法则一直沿用至今:朔日定为某月的初一日。所以2010年12月6日必是某月的初一日，下面要说的另一法则把此朔日定为十一月初一。下一个朔日发生在公元2011年1月4日，所以下一个月的初一是2011年1月4日。2010年12月6日和2011年1月4日之间有二十九日，由此推出这个十一月是小月。</p>
     
 <br />
-<h3 class="subsec1" id="zhongqi">中 气 和 岁</h3>
+<subsect id="zhongqi">中 气 和 岁</subsect>
     
 <p>如<a href="solarTerms_simp.html">二十四节气网页</a>所述，中国古代用二十四节气来表示太阳在黄道的位置。二十四节气又分为十二个中气和十二个节气:自立春算起，单数的称为节气，双数的称为中气。现代天文把中气定义为太阳的地心视黄经达到30&deg;的整数倍的时刻。</p>
     
@@ -109,7 +128,7 @@
     
 <br />
     
-<h2 class="section" id="rules">现 代 农 历 的 编 算 法 则</h2>
+<sect id="rules">现 代 农 历 的 编 算 法 则</sect>
     
 <p>重要概念都说完了，现在要总结现代农历的编算法则。下面列出的法则是根据中华人民共和国国家质量监督检验检疫总局和中国国家标准化管理委员会联合发布的《农历的编算和颁行》文件<sup><a href="#GBT33661">国标</a></sup>(编号GB/T 33661-2017)，这文件是2017年5月由中国科学院紫金山天文台拟定。以下用《国标》简称这文件。</p>
     
@@ -148,13 +167,13 @@
     
 <br />
     
-<h2 class="section" id="examples"><a href="examples_simp.html">农 历 编 算 例 子</a></h2>
+<sect id="examples"><a href="examples_simp.html">农 历 编 算 例 子</a></sect>
     
 <br />
-<h2 class="section" id="demysterified"><a href="rules_demysterified_simp.html">农 历 法 则 之 疑 惑</a></h2>
+<sect id="demysterified"><a href="rules_demysterified_simp.html">农 历 法 则 之 疑 惑</a></sect>
     
 <br />
-<h2 class="section" id="newStandard">《农 历 的 编 算 和 颁 行》: 2017 年 国 家 标 准 (GB/T 33661-2017)</h2>
+<sect id="newStandard">《农 历 的 编 算 和 颁 行》: 2017 年 国 家 标 准 (GB/T 33661-2017)</sect>
     
 <p>上面说到2017年5月中国科学院紫金山天文台拟定了《农历的编算和颁行》文件<sup><a href="#GBT33661">国标</a></sup>(编号GB/T 33661-2017)，由中华人民共和国国家质量监督检验检疫总局和中国国家标准化管理委员会联合发布。这《国标》文件的出现，应该和下面的历史有关。</p>
     
@@ -193,17 +212,5 @@
 </div> <!-- end of wrapper -->
 <br /><br />
     
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-var subsec = document.getElementsByClassName("subsec1");
-var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = subsecNum[i]+'. '+subsec[i].innerHTML;
-}
-</script> 
 </body>
 </html>

@@ -7,6 +7,22 @@
 <head>
 <title>上元積年系統</title>
 <link rel="stylesheet" href="calendar_chinese.css" />
+<style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+subsect::before {
+  counter-increment: subsec-counter 1;
+  content: counter(subsec-counter, lower-roman) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
 
@@ -40,7 +56,7 @@
 </div>
     
 <br />
-<h2 id="intro" class="section">引 言</h2>
+<sect id="intro">引 言</sect>
     
 <p>從唐朝《大衍曆》開始，曆法的結構分成七個部分:氣朔、發斂、日躔、晷漏、月離、交食、五星。氣朔章討論太陽和月亮的平均運動，發斂章討論易卦、氣候和置閏法，日躔章討論太陽運動的不均勻及相關問題，晷漏章討論晷影和漏刻的計算(即正午時晷影長度、太陽出沒時刻、昏旦中星等)，月離章討論月亮運動的不均勻及相關問題，交食章討論日食和月食的計算，五星章討論水、金、火、木、土五行星的運行及算法。也就是說中國曆法的內容很接近現代天文年曆的內容。</p>
 
@@ -58,12 +74,12 @@
     
 <p>自清朝以來，已有學者探求古代曆法的機理，並取得了不少成果，但是古人推算上元積年的方法一直是學界未解之謎，直到最近三十年才被數學家曲安京破解了這個失傳幾百年的算法。根據他的說法，不是每個週期都參與上元積年的推算。絕大多數的上元僅憑歲名、日名、回歸年和朔望月四個週期確定，其他天文常數如近點月、交點月等以觀測數據為參照，然後調整數值來配合算出的上元。上元積年其實隱含著一套制定天文常數的系統，詳情在以下兩節說明。</p>
     <br />
-<h2 id="computation" class="section">上 元 積 年 的 推 算</h2>
+<sect id="computation">上 元 積 年 的 推 算</sect>
     
-<h3 id="description" class="subsect1">概 述</h3>
+<subsect id="description">概 述</subsect>
 <p>根據曲安京的研究，曆法家推算上元積年的步驟大致如下。首先調取合適的日法，所謂日法是指朔望月或回歸年寫成分數時的分母數字，例如東魏興和曆的朔望月定為<span class="nowrap">6158017/208530日</span>，208530就是興和曆的日法。回歸年和朔望月當然是根據實測，但觀測總會有誤差，在誤差範圍內可以表示成不同的分數，所以可以調取不同的日法。有了回歸年、朔望月和日法後就可以列出三個聯合一次同餘方程組，這樣上元積年的計算只涉及歲名和日名的干支週期、回歸年和朔望月。但是方程未必有解，如果無解或得出的上元積年數超過一億年，就表明這組朔望月和回歸年數據不合用，本輪計算無效，需要重新調取日法，選出另一組在觀測的誤差範圍內可用的回歸年和朔望月數據，再列同餘算式求解，直到求出一個可用的上元積年為止。</p>
     <br />
-<h3 id="equations" class="subsect1">同 餘 方 程 組</h3>
+<subsect id="equations">同 餘 方 程 組</subsect>
 <p>中國曆法往往以天正冬至作為一歲的起算點，所謂天正是指含冬至的月份，即建子月。由於中國自太初元年(前104年)後大多數以建寅為正月，天正冬至就是指上一年的十一月冬至。若用<span class="nowrap">P<sub>s</sub></span>表示回歸年的日數，<span class="nowrap">P<sub>L</sub></span>表示朔望月的日數，N表示某年與上元的積年數，<span class="nowrap">R<sub>0</sub></span>表示該年與上一個甲子年的積年數，<span class="nowrap">r<sub>1</sub></span>表示該年天正冬至與上一個甲子日夜半的日數，<span class="nowrap">r<sub>2</sub></span>表示天正冬至與上一個合朔的日數(即天正冬至的月齡)，則可以列出以下的同餘方程組:</p>
 <p>N&equiv;R<sub>0</sub> (mod 60)， <span class="nowrap">P<sub>s</sub></span>N&equiv;<span class="nowrap">r<sub>1</sub></span> (mod 60)， <span class="nowrap">P<sub>s</sub></span>N&equiv;<span class="nowrap">r<sub>2</sub></span> (mod <span class="nowrap">P<sub>L</sub></span>)。&nbsp;&nbsp;&nbsp;(1)</p>
 <p>此處&equiv;表示同餘，最左邊的方程是說<span class="nowrap">(N-R<sub>0</sub>)</span>是60的整數倍，中間的方程是說<span class="nowrap">(P<sub>s</sub>N-r<sub>1</sub>)</span>是60的整數倍，最右邊的方程是說<span class="nowrap">(P<sub>s</sub>N-r<sub>2</sub>)</span>是<span class="nowrap">P<sub>L</sub></span>的整數倍。注意<span class="nowrap">R<sub>0</sub></span>是整數，但是<span class="nowrap">r<sub>1</sub></span>和<span class="nowrap">r<sub>2</sub></span>一般都不是整數，選取日法的目的是使上述同餘方程組的數字化為整數。</p>
@@ -76,7 +92,7 @@
 <p>其中<span class="nowrap">R<sub>1</sub></span>=<span class="nowrap">Ar<sub>1</sub></span>稱為「氣應」，<span class="nowrap">R<sub>2</sub></span>=<span class="nowrap">Ar<sub>2</sub></span>稱為「閏應」。雖然不再預設閏週，但是閏週還是可以從<span class="nowrap">T/A</span>和<span class="nowrap">U/A</span>的最小公倍數求得，只是《麟德曆》及以後的曆法都以定朔註曆，所以閏週不再是閏月的週期。下面會說U、A和T可能要作調整使同餘方程組有解，廢除閏週前，只能調整U和A，廢除閏週後，U、A和T都可自由調整，這就是兩種方法在計算上元時的差異。</p>
     
     <br />
-<h3 id="conditions" class="subsect1">同 餘 方 程 組 有 解 的 充 要 條 件</h3>
+<subsect id="conditions">同 餘 方 程 組 有 解 的 充 要 條 件</subsect>
 <p>在解這些同餘方程組前，應該先判別方程組是否有解，否則很可能會徒勞無功。這裡用公式(3)的方程組說明。最左邊方程的通解是N=<span class="nowrap">R<sub>0</sub>+60m</span>，而m是任意整數，把這通解代入中間的方程得</p>
 <p>T(R<sub>0</sub>+60m)=R<sub>1</sub>+60An，<p>
 <p>此處n是整數。這公式可寫成</p>
@@ -90,7 +106,7 @@ g<sub>1</sub>=gcd(T,A)，<span class="nowrap">g<sub>2</sub>=gcd(60T,U)</span>，
     
 <p>上述的調整方法只是一個設想，曆法家可能不是這樣調整這些參數的，而是可能用演紀術邊算邊調參數。</p>
        <br />
-<h3 id="yanji" class="subsect1">演 紀 術</h3>
+<subsect id="yanji">演 紀 術</subsect>
 <p>曆家解這些方程組的方法是「演紀術」，此術很簡單，這裡仍以公式(3)的方程組為例說明。演紀術第一步是先解其中一條方程，這裡就選最左邊的方程，上面已求得方程的通解: <span class="nowrap">N=R<sub>0</sub>+60m</span>。第二步是將通解代入中間的方程，這在上面也已計算了，結果是公式(4)，方程有解的充要條件是<span class="nowrap">60g<sub>1</sub>|(R<sub>1</sub>-TR<sub>0</sub>)</span>，如果條件不滿足就要調整<span class="nowrap">R<sub>1</sub></span>，如果在可接受的範圍內沒有合用的<span class="nowrap">R<sub>1</sub></span>，就要重新選取T、U和A。調好了<span class="nowrap">R<sub>1</sub></span>後，公式(4)可以改寫成:</p>
 <p><span class="nowrap">mt-na</span>=<span class="nowrap">S<sub>1</sub></span>，<span class="nowrap">S<sub>1</sub></span>=<span class="nowrap">(R<sub>1</sub>-TR<sub>0</sub>)/(60g<sub>1</sub>)</span>，<br />
 &rArr;&nbsp;&nbsp;mt &equiv; S<sub>1</sub> (mod a)。</p>
@@ -108,7 +124,7 @@ g<sub>1</sub>=gcd(T,A)，<span class="nowrap">g<sub>2</sub>=gcd(60T,U)</span>，
 <p>求得一個合用的上元積年後，下一步是調整其他天文常數來配合這個上元，這就是下一節要討論的問題。
 </p>
     <br />
-<h2 id="constants" class="section">調 整 天 文 常 數</h2>
+<sect id="constants">調 整 天 文 常 數</sect>
 <p>求出了上元積年後，就要調整其他天文常數配合既定的上元。這是因為上元不單止是朔旦冬至，亦是月球過近(遠)地點、過升(降)交點及五星會聚之時刻，但是相關的週期都沒有參與上元的推算，算出的上元當然不能符合實測數據，所以必需調整這些週期。現在以近點月為例說明如何調整數據。</p>
     
 <p>首先引入兩個函數:floor(x)表示不大於x的最大整數，<br />
@@ -122,7 +138,7 @@ mod(X,Y)=X-Y&middot;floor(X/Y)是X除以Y後所得之餘數。</p>
 
 <p>上面的例子說明了如果上元積年足夠大，是可以比較容易找到合用的數值既可附會上元，亦可接近觀測數據。但是上元積年數大使計算不方便，所以必須有所取捨，歷代大多以一億年為上元積年的上限。由於觀測精度的提高，這限制使曆法的精度無法提高，最終導致上元積年的廢除。</p>
 <br />
-<h2 id="abolishment" class="section">上 元 積 年 的 廢 除</h2>
+<sect id="abolishment">上 元 積 年 的 廢 除</sect>
 <p>上元系統的最大弊病是計算複雜，這系統不但在曆法的制定和計算上無甚幫助，反而阻礙曆法的改良，最終在元朝《授時曆》被廢除。李謙應召作《授時曆議》，說明《授時曆》的進步，同時「考證前代人為附會之失」:</p>
 <blockquote>
 <p>曆法之作，所以步日月之躔離，候氣朔之盈虛，不揆其端，無以測知天道，而與之吻合。然日月之行遲速不同，氣朔之運參差不一，昔人立法，必推求往古生數之始，謂之演紀上元。當斯之際，日月五星同度，如合璧連珠然。惟其世代綿遠，馴積其數至逾億萬，後人厭其布算繁多，互相推考，斷截其數而增損日法，以為得改憲之術，此歷代積年日法所以不能相同者也。然行之未遠，浸複差失，蓋天道自然，豈人為附會所能苟合哉。夫七政運行於天，進退自有常度，苟原始要終，候驗周匝，則象數昭著，有不容隱者，又何必舍目前簡易之法，而求億萬年宏闊之術哉。</p>
@@ -143,18 +159,5 @@ mod(X,Y)=X-Y&middot;floor(X/Y)是X除以Y後所得之餘數。</p>
 
 </div> <!-- end of wrapper -->
 <br /><br />
-    
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-var subsec1 = document.getElementsByClassName("subsect1");
-var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-for (i=0; i < subsec1.length; i++) {
-    subsec1[i].innerHTML = subsecNum[i]+'. '+subsec1[i].innerHTML;
-}
-</script> 
 </body>
 </html>

@@ -1,9 +1,10 @@
 "use strict";
 
 function init(lang) {
+    document.getElementById("wrapper0").style.display = "block";
     header(lang,'calendar', 'index'); // print menu
     var d = new Date(); // current time from computer's clock
-    var year = d.getUTCFullYear();
+    var year = d.getFullYear();
     var input = document.getElementById('year');
     input.value = year;
     input.addEventListener('keyup', function(event) {

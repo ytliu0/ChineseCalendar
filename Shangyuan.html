@@ -7,6 +7,22 @@
 <head>
 <title>Shangyuan Astronomical System</title>
 <link rel="stylesheet" href="calendar.css" />
+<style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+subsect::before {
+  counter-increment: subsec-counter 1;
+  content: counter(subsec-counter, lower-roman) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
 
@@ -46,16 +62,16 @@
 </div>
     
 <br />
-<h2 id="intro" class="section">Introduction</h2>
+<sect id="intro">Introduction</sect>
     
-<h3 id="systems" class="subsect1">Ancient Chinese Astronomical Systems</h3>
+<subsect id="systems">Ancient Chinese Astronomical Systems</subsect>
     
 <p>The Chinese term <i>l&#236;f&#462;</i> (曆法) or simply <i>l&#236;</i> (曆) is sometimes translated as <i>calendar</i>, but this translation is inaccurate. From the 7th century, a <i>l&#236;f&#462;</i> documented in an official historical record consisted of seven sections and their contents are: 1) mean motions of the Moon and Sun, 2) climate over the year and some astrological stuff, 3) non-uniform motion of the Sun and related issues, 4) lengths of the shadow cast by the Sun of an upright post at solar noons, times of sunrise and sunset, and stars crossing the meridian at dusk and at dawn over the year, 5) non-uniform motion of the Moon and related issues, 6) computation of eclipses, and 7) motions of Mercury, Venus, Mars, Jupiter and Saturn. These are very close to the contents in a modern astronomical almanac. <i>L&#236;</i> contained a system of mathematical astronomy developed to perform these calculations. Calendar calculation was just one of the calculations in a <i>l&#236;</i>. Thus, a better translation of <i>l&#236;</i> is <i>astronomical system</i> or <i>almanac</i>. Hereafter I will use <i>astronomical system</i> and <i>almanac</i> interchangeably.</p>
     
 <p>All Chinese astronomical systems specified a <i>l&#236;yu&#225;n</i> (曆元), which was a time origin from which time was measured for almanac calculations. In the literature, <i>l&#236;yu&#225;n</i> is sometimes translated as <i>system origin</i>. In modern astronomy, the term <a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)" target="_blank"><i>epoch</i></a> has several meanings. One of them is a temporal point of origin from which time is measured. Therefore, 曆元 is used as the Chinese translation for the term <i>epoch</i> used in modern astronomy. Thus, it seems that <i>epoch</i> is a better translation for <i>l&#236;yu&#225;n</i> used in ancient Chinese astronomical systems and it will be used here.</p>
     
 <br />
-<h3 id="superiorEpoch" class="subsect1">Superior Epoch</h3>
+<subsect id="superiorEpoch">Superior Epoch</subsect>
     
 <p>In modern astronomy, an epoch is just an arbitrary time origin with no astronomical significance. However, this was not the case in ancient Chinese almanacs before 1281. The assumption was that celestial motions were cyclic, and an epoch was chosen to be the beginning of a grand cycle. Epochs in early astronomical systems were chosen to be an instant at which the lunar conjunction and winter solstice were assumed to occur at midnight on a day with a <a href="sexagenary.html">sexagenary</a> day cycle of ji&#462; z&#464;. The epochs were not determined by examining observation data from the past, but calculated based on the observed positions of the Sun and Moon and the cycles of their motions. Near the end of the western Han dynasty in the first century BC, Li&#250; X&#299;n (劉歆) used the <i>I Ching</i> or <i>Book of Changes</i>, an ancient Chinese divination text, to explain the astronomical constants appearing in the <i>T&#224;ich&#363;</i> almanac (太初曆) used at that time. He renamed the almanac the <i>S&#257;nt&#466;ng</i> (三統曆) and introduced the concept of <i>t&#224;ij&#237; sh&#224;ngyu&#225;n</i> (太極上元) or simply <i>sh&#224;ngyu&#225;n</i>. It was an epoch at midnight on a ji&#462; z&#464; day in a year with a sexagenary cycle of ji&#462; z&#464;, and with the following unusual astronomical phenomena: lunar conjunction, winter solstice, the beginning of an eclipse cycle, and five planets aligned in the same direction in the sky. He placed the t&#224;ij&#237; sh&#224;ngyu&#225;n 143,127 years before the winter solstice in 105 B.C.</p>
     
@@ -66,20 +82,20 @@
 <p>It is almost impossible for the simultaneous occurrence of these astronomical phenomena, but it can be made possible by appropriately adjusting the observational data, as will be demonstrated in the next two sections. In the ideal situation, the cycles involved in the calculation are: sexagenary year cycle (60 years), sexagenary day cycle (60 days), synodic month, tropical year, anomalistic month, nodal month, sidereal year, and the synodic periods of the five planets. From observation, one can determine at a particular winter solstice the number of days each of the relevant quantity was from the beginning of each cycle. One can then set up a system of 11 congruence equations for N, which is the number of years between this winter solstice and the superior epoch.</p>
     
     <br />
-<h3 id="mystery" class="subsect1">Mystery of the Superior Epoch Computation</h3>
+<subsect id="mystery">Mystery of the Superior Epoch Computation</subsect>
 <p>Chinese mathematicians developed a general algorithm for solving a system of congruence equations no later than the third century. The algorithm was later known as the <i>d&#224; y&#462;n z&#466;ng sh&#249; sh&#249;</i> (大衍總術數) in China and the direct construction proof of the <a href="https://planetmath.org/ChineseRemainderTheorem" target="_blank">Chinese remainder theorem</a> in the West. It was generally believed that this was the algorithm used by the almanac makers to compute the superior epoch. However, there were two major problems with this algorithm. First, the amount of calculation involved is huge. Even with today's computational knowledge, it's still very difficult to carry out the calculation without the assistance of a computer. A more serious problem is that the Chinese remainder theorem requires the divisors to be pairwise coprime in order to guarantee the existence of a solution, but the divisors in the congruence equations for the superior epoch are not pairwise coprime. This means that the equations may not have a solution unless the remainders in the equations satisfy certain conditions, but the Chinese remainder theorem doesn't provide any method to check the existence of a solution. In the case of no solution, there doesn't seem to have an easy way to fix the situation. Another, unrelated, puzzle is that if the number of years from the superior epoch N was computed by solving the 11 congruence equations, it would be a very large number. Upon examining the values of N for all the almanacs that used a superior epoch, it is found that with two exceptions all of them were less than 100 million years, which were too small if they were really the solution of the 11 equations. How, then, did the almanac makers computed the superior epoch?</p>
     
 <p>Unfortunately, the ancient computation method was gradually forgotten after the abolishment of the <i>sh&#224;ngyu&#225;n</i> system in 1280. As mentioned above, issuing an accurate almanac was one way to demonstrate that the emperor received the mandate of heaven. Therefore, the production and distribution of annual almanacs were monopolized by the government in Imperial China. The technical details of the almanac construction were kept secret, and private study of astronomy was outlawed. Knowledge of almanac making was transmitted within and shared by a small number of specialists. Official historical records have sections on the astronomical systems used at the time, but they only provide formulae that performed various almanac calculations. The theory behind the formulae and how they were derived were kept secret. In the Ming dynasty (1368-1644), the officials in the Imperial Astronomical Bureau (欽天監) were hereditary. The Ming dynasty kept using the almanac developed in 1280, which abandoned the superior epoch, without trying to improve it. In the late 15th century, the almanac failed to predict a number of eclipses. The astronomers in the imperial court who inherited the position didn't study their craft well and were unable to improve the almanac. The imperial court had to ask the Jesuits for help to construct a new almanac.</p>
     
 <p>There were scholars attempting to uncover the mathematical principle behind the ancient almanacs since the 17th century and made a number of discoveries, but the ancient method of computing the superior epoch remained an unsolved problem until about three decades ago when the mathematician Q&#363; &#256;nj&#299;ng (曲安京) solved the mystery. According to his study, only the sexagenary year and day cycle, synodic month and tropical year were involved in the computation of the superior epoch. The observational values of the other astronomical constants such as the anomalistic month, sidereal years and so on were used as a reference and they were adjusted to match the superior epoch. The detail will be explained in the following two sections.</p>
     <br />
-<h2 id="computation" class="section">Computation of the Superior Epoch</h2>
+<sect id="computation">Computation of the Superior Epoch</sect>
     
-<h3 id="description" class="subsect2">General Description</h3>
+<subsect id="description">General Description</subsect>
     
 <p>According to Q&#363; &#256;nj&#299;ng, the ancient method of computing the superior epoch can be divided into a few steps. First, choose an integer A to represent the denominator of the synodic month <span class="nowrap">P<sub>L</sub></span>. That is, write <span class="nowrap">P<sub>L</sub></span> = <span class="nowrap">U/A</span> days, where U is another integer. The tropical year <span class="nowrap">P<sub>s</sub></span> (in days) is also expressed as a fraction, as will be explained below. Both the tropical year and synodic month were determined by observations, but they could be expressed as fractions in various ways that were consistent with observations within measurement errors. Use the chosen values of <span class="nowrap">P<sub>L</sub></span>, <span class="nowrap">P<sub>s</sub></span> and other observation data to set up a system of three congruence equations for N, the number of years between the superior epoch and a particular winter solstice. The system of equations are examined to determine if a solution exists, if a solution doesn't exist or if N is greater than 100 million years, the equations are abandoned. Choose another set of U, A and other parameters and set up the equations for N again. The procedure is repeated until an acceptable solution for N is found.</p>
     <br />
-<h3 id="equations" class="subsect2">Congruence Equations</h3>
+<subsect id="equations">Congruence Equations</subsect>
     
 <p>Chinese almanacs usually took the winter solstice as the beginning of a year, even though most of the time the beginning of a calendar year was about one or two months after the winter solstice. Take a particular winter solstice as a reference time. Let N be the number of years between this winter solstice and the superior epoch, <span class="nowrap">R<sub>0</sub></span> be the number of years between the reference year and the previous ji&#462; z&#464; year, <span class="nowrap">r<sub>1</sub></span> be the number of days between this winter solstice and midnight on the previous ji&#462; z&#464; day, and <span class="nowrap">r<sub>2</sub></span> be the number of days between this winter solstice and the previous lunar conjunction (i.e. the <a href="https://in-the-sky.org/article.php?term=age_of_moon" target="_blank">age of the Moon</a> of this winter solstice). The equations for N can be written as</p>
 <p>N &equiv; R<sub>0</sub> (mod 60), &nbsp;&nbsp; <span class="nowrap">P<sub>s</sub></span>N &equiv; <span class="nowrap">r<sub>1</sub></span> (mod 60), &nbsp;&nbsp;<span class="nowrap">P<sub>s</sub></span> N&equiv; <span class="nowrap">r<sub>2</sub></span> (mod <span class="nowrap">P<sub>L</sub></span>).&nbsp;&nbsp;&nbsp;(1)</p>
@@ -93,7 +109,7 @@
 <p>N &equiv; R<sub>0</sub> (mod 60),&nbsp;&nbsp;TN&equiv;<span class="nowrap">R<sub>1</sub></span> (mod 60A),&nbsp;&nbsp;TN&equiv;<span class="nowrap">R<sub>2</sub></span> (mod U),&nbsp;&nbsp;&nbsp;(3)</p>
 <p>where <span class="nowrap">R<sub>1</sub></span>=<span class="nowrap">Ar<sub>1</sub></span> and <span class="nowrap">R<sub>2</sub></span>=<span class="nowrap">Ar<sub>2</sub></span>. Although the <i>zh&#257;ng</i> cycle is not specified, it can still be calculated by finding the least common multiple of <span class="nowrap">T/A</span> and <span class="nowrap">U/A</span>. However, the computation of lunar conjunctions used for calendars took into account the non-uniform motion of the Moon since the 7th century, whereas only the mean motion of the Moon was taken into account for calendars before. So the <i>zh&#257;ng</i> cycle no longer corresponded to the cycle of leap months. As will be explained below, the values of U, T and A may need to be adjusted in order for the congruence equations to have a solution. When a <i>zh&#257;ng</i> cycle is pre-specified, only U and A can be adjusted. Whereas in the second method U, T and A can be adjusted freely. This is the difference between the two methods in the computation of the superior epoch.</p>
     <br />
-<h3 id="conditions" class="subsect2">Conditions for the Existence of a Solution</h3>
+<subsect id="conditions">Conditions for the Existence of a Solution</subsect>
 
 <p>As mentioned above, it is not guaranteed that the system of congruence equations will have a solution. It's not difficult to derive the necessary and sufficient conditions for the existence of a solution. I will use the equations in (3) as an example. From the first equation we can write <span class="nowrap">N=R<sub>0</sub>+60m</span>, where m is an arbitrary integer. Substituting this expression into the middle equation in (3) gives</p>
 <p>T(R<sub>0</sub>+60m)=R<sub>1</sub>+60An,<p>
@@ -105,7 +121,7 @@ g<sub>1</sub>=gcd(T,A),&nbsp;&nbsp;<span class="nowrap">g<sub>2</sub>=gcd(60T,U)
 <p>If these conditions are not satisfied, the remainders <span class="nowrap">R<sub>1</sub>=Ar<sub>1</sub></span> and <span class="nowrap">R<sub>2</sub>=Ar<sub>2</sub></span> will need to be adjusted. However, values of <span class="nowrap">r<sub>1</sub></span> and <span class="nowrap">r<sub>2</sub></span> are obtained from observations and they have little rooms for adjustment. The general principle was that values of <span class="nowrap">r<sub>1</sub></span> and <span class="nowrap">r<sub>2</sub></span> cannot deviate from observations by more than 0.01 days. If it is impossible to find <span class="nowrap">R<sub>1</sub></span> and <span class="nowrap">R<sub>2</sub></span> within the acceptable range, another set of U, T and A has to be chosen so that <span class="nowrap">U/A</span> and <span class="nowrap">T/A</span> can approximate <span class="nowrap">P<sub>L</sub></span> and <span class="nowrap">P<sub>s</sub></span> within measurement errors. Another set of congruence equations are set up based on these new parameters. The remainders <span class="nowrap">R<sub>1</sub></span> and <span class="nowrap">R<sub>2</sub></span> are then tuned to satisfy the conditions. If this fails again, the procedure of choosing a new set of T, U, A, <span class="nowrap">R<sub>1</sub></span> and <span class="nowrap">R<sub>2</sub></span> has to be repeated until a suitable set of parameters is found.</p>
 <p>However, the procedure described above was probably not the method used by the ancient almanac makers to adjust the parameters. The adjustments were probably carried out while solving the equations using the <i>y&#462;nj&#236;</i> algorithm described below.</p>
     <br />
-<h3 id="yanji" class="subsect2"><i>Y&#462;nj&#236;</i> Algorithm (演 紀 術)</h3>
+<subsect id="yanji"><i>Y&#462;nj&#236;</i> Algorithm (演 紀 術)</subsect>
 
 <p>The ancient Chinese used the <i>y&#462;nj&#236;</i> algorithm (演紀術) to solve the system of congruence equations. The algorithm is very simple. Here I again use the system of equations in (3) as an example. The algorithm takes one equation at a time. Let's start with the first equation in (3). We have found that the general solution is <span class="nowrap">N=R<sub>0</sub>+60m</span>. The next step is to substitute this general solution into the second equation. This has also been done above and the result is equation (4). The condition <span class="nowrap">60g<sub>1</sub>|(R<sub>1</sub>-TR<sub>0</sub>)</span> has to be satisfied in order to have a solution. The parameter <span class="nowrap">R<sub>1</sub></span> is tuned to satisfy the condition. If it's impossible to find an <span class="nowrap">R<sub>1</sub></span> in the acceptable range. Another set of parameters A, U and T have to be chosen. Suppose an acceptable <span class="nowrap">R<sub>1</sub></span> is found. Equation (4) can be written as</p>
 <p><span class="nowrap">mt - na</span> = <span class="nowrap">S<sub>1</sub></span>,&nbsp; where <span class="nowrap">S<sub>1</sub></span> = <span class="nowrap">(R<sub>1</sub> - TR<sub>0</sub>)/(60g<sub>1</sub>)</span>,<br />
@@ -124,7 +140,7 @@ g<sub>1</sub>=gcd(T,A),&nbsp;&nbsp;<span class="nowrap">g<sub>2</sub>=gcd(60T,U)
 <p>When an acceptable value of N is obtained, the next step is to adjust the other astronomical constants to match the superior epoch.</p>
     
     <br />
-<h2 id="constants" class="section">Adjustment of Astronomical Constants</h2>
+<sect id="constants">Adjustment of Astronomical Constants</sect>
     
 <p>As seen above, the computation of superior epoch only involves the sexagenary year and day cycle, tropical year and synodic month. The superior epoch is also supposed to be the time origin of the other cycles, but those cycles are not involved in the calculation. So there are mismatches between the observation data and the computed superior epoch. To remove the discrepancies, we need to adjust the astronomical constants. Here I take the anomalistic month as an example to demonstrate how this can be done.</p>
     
@@ -140,7 +156,7 @@ be the remainder of X divided by Y.</p>
 <p>From the example above, we see that as long as the number of years N from the superior epoch is large, it's easier to approximate the measurement values to match the superior epoch without sacrificing almanac accuracy. However, large N made almanac calculations inconvenient. So there was a tradeoff between computational convenience and accuracy. The upper bound for N was chosen to be 100 million years. As observation accuracy continued to improve, the restriction on N became the limiting factor for the almanac accuracy, eventually leading to the abolishment of the superior epoch.</p>
     
     <br />
-<h2 id="abolishment" class="section">Abolishment of the Superior Epoch</h2>
+<sect id="abolishment">Abolishment of the Superior Epoch</sect>
     
 <p>The major issue with the superior epoch was its tedious computation. It not only didn't help with the almanac making but also became an obstacle to the further improvement of almanacs.</p>
     
@@ -159,22 +175,6 @@ be the remainder of X divided by Y.</p>
 
 </div> <!-- end of wrapper -->
 <br /><br />
-  
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-var subsec = document.getElementsByClassName("subsect1");
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = subsecNum[i]+'. '+subsec[i].innerHTML;
-}
-subsec = document.getElementsByClassName("subsect2");
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = subsecNum[i]+'. '+subsec[i].innerHTML;
-}
-</script> 
+
 </body>
 </html>

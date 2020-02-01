@@ -1,6 +1,7 @@
 "use strict";
 
 function init(lang) {
+    document.getElementById('wrapper0').style.display = "block";
     header(lang,'', 'Julian'); // print menu
     var dat = new Date(); // current time from computer's clock
     var y = dat.getFullYear();

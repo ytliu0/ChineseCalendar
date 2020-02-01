@@ -260,3 +260,82 @@ div.panel {
 .panel th, .panel td {
     letter-spacing: 4px;
 }
+
+input.accordion {
+    display: none;
+}
+
+label {
+    display: block;    
+    margin: 0 0 1em 0;
+    cursor: pointer;
+    background: #F5F5F5;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+    
+label:before {
+     content: '\2795';
+     font-size: 20px;
+     color: #777;
+     font-weight: bold;
+     margin-left: 0.5em;
+     float: right;
+}
+
+label:hover {
+    background: #E0E0E0;
+}
+
+.content {
+    background: white;
+    padding: 10px 25px;
+    border: 1px solid #E0E0E0;
+    margin: 0 0 1px 0;
+}
+
+input.accordion + label + .content {
+    display: none;
+}
+
+input.accordion:checked + label + .content {
+    display: block;
+}
+    
+input.accordion:checked + label:before {
+    content: '\2796';
+}
+    
+input.accordion:checked + label {
+    background: #E0E0E0;
+}
+
+sect {
+    font-size: 24px;
+    font-weight:bold;
+	margin:1em 0 1em 0;
+	line-height: 26px;
+}
+
+sect:after{
+    content: '\a \a';
+    white-space:pre;
+}
+
+subsect {
+	font-size: 20px;
+    font-weight:bold;
+	margin-left: 0px;
+	margin-top:5px;
+    margin-bottom:5px;
+}
+	
+subsect:after{
+    content: '\a \a';
+    white-space:pre;
+}

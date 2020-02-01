@@ -26,9 +26,10 @@
     
 <p>下表列出朔日的差异。第二栏的农历月份和第三栏的初一日期是根据当时清朝的时宪历，最后一栏的合朔时刻则用现代方法计算。现代方法是指<a href="rules_simp.html">农历法则网页</a>所述的计算方法。</p>
     
-<button class="accordion">点 击 以 显 示 / 隐 藏 表 格</button>
+<input type="checkbox" class="accordion" id="conj" />
+<label for="conj">点 击 以 显 示 / 隐 藏 表 格</label>
 
-<div class="panel">
+<div class="content">
 <br />
 
 <table>
@@ -66,9 +67,10 @@
     
 <p>下表列出二十四节气日期的差异。第三栏的日期是根据当时清朝颁行的时宪历，最后一栏的节气时刻则用现代方法计算。现代方法是指用<a href="rules_simp.html">农历法则网页</a>所述的计算方法。</p>
     
-<button class="accordion">点 击 以 显 示 / 隐 藏 表 格</button>
+<input type="checkbox" class="accordion" id="solarT" />
+<label for="solarT">点 击 以 显 示 / 隐 藏 表 格</label>
 
-<div class="panel">
+<div class="content">
 <br />
 <table>
 <tr><th>公 历 年</th> <th>节 气</th> <th>公 历 日 期<sup>*</sup></th> <th>准 确 时 刻 (UT1+8)</th>
@@ -342,22 +344,5 @@
 </div><!-- end of wrapper -->
 <br /><br />
     
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].onclick = function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  }
-}
-</script> 
-
 </body>
 </html>

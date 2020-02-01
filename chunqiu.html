@@ -7,6 +7,15 @@
 <head>
 <title>Reconstruction of the Chunqiu Calendar</title>
 <link rel="stylesheet" href="calendar.css" />
+<style>
+body {
+  counter-reset:sec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
 
@@ -37,7 +46,7 @@
 </div>
     
 <br />
-<h2 class="section" id="computation">Computation of Lunar Conjunctions</h2>
+<sect id="computation">Computation of Lunar Conjunctions</sect>
     
 <p>According to Zh&#257;ng's research, the lunar cycle adopted by the Chunqiu calendar was between 29.5306703 days and 29.5306755 days. For practical calculation, the number 30328/1027 days = (29 + 545/1027) days = 29.53067186 days may be used. This number is quite close to the lunar cycle at that time (29.530583 days) and is more accurate than (29 + 499/940) days adopted by the calendars in the Warring States period (480 B.C. &ndash; 222 B.C.). The accumulated error of the adopted lunar cycle would reach one day in 900 years. Chinese calendars before the 7th century A.D. used <i>p&#237;ngshu&#242;</i> for the calculation of lunar conjunction, which only takes into account the mean motions of the moon and Sun. If we know a particular conjunction time, the other conjunction times can be determined by simply adding integral multiples of the adopted lunar cycle.</p>
     
@@ -54,7 +63,7 @@
 
     <br />
     
-<h2 class="section" id="leapMons">Leap Months and Accumulated Months</h2>
+<sect id="leapMons">Leap Months and Accumulated Months</sect>
     
 <p>There was no fixed rule for inserting the leap months in the Chunqiu calendar. Instead, the insertion of leap months was determined by astronomical observations. Leap months in the Chunqiu calendar can only be inferred from the chronicle <i>Chunqiu</i>. Based on his research and studies of other scholars, Zh&#257;ng constructed a table of the New Year days in the Chunqiu calendar. The table was reproduced in Table 3-7 of <i>Ancient Chinese Calendars and Almanacs</i>. Table 3-7 lists the sexagenary days of the New Year days, the <i>ji&#224;n</i> (i.e. the branch name, see <a href="sexagenary.html#jian">sexagenary cycle page</a>) of the first month, the <i>xi&#462;oy&#250;</i> of the conjunction associated with the New Year day, the dates of winter solstices in proleptic Julian calendar, and also the Chunqiu calendar data reconstructed by W&#225;ng T&#257;o (&#29579;&#38876;), a scholar in the 19th century, for comparison. It is possible to determine if there was leap month from Table 3-7. The simplest method is to compare the <i>xi&#462;oy&#250;</i>s in two successive years.</p>
     
@@ -66,9 +75,10 @@ We can use these two equations to determine from Table 3-7 whether or not a give
     
 <br />
 
-<button class="accordion">Table of Accumulated Months (click to show/hide table)</button>
+<input type="checkbox" class="accordion" id="table" />
+<label for="table">Table of Accumulated Months (click to show/hide table)</label>
 
-<div class="panel">
+<div class="content">
 <br />
 <table>
 <tr> <th>Chunqiu Cal. year</th> <th>Acc. months</th> <th>Ji&#224;n</th> <th>Sexagenary date</th> <th>Julian Cal. Date</th> <th>Xi&#462;oy&#250;</th> </tr>
@@ -418,7 +428,7 @@ The integer part was 26282 and the <i>xi&#462;oy&#250;</i> was 574, consistent w
     
 <br />
     
-<h2 class="section" id="typos">Typos in Table 3-7 in <i>Ancient Chinese Calendars and Almanacs</i></h2>
+<sect id="typos">Typos in Table 3-7 in <i>Ancient Chinese Calendars and Almanacs</i></sect>
     
 <p>I used the calculated A(y) to compute the sexagenary cycle of the New Year day and the <i>ji&#224;n</i> of the first month in each year, and then compared with those listed in Table 3-7 in <i>Ancient Chinese Calendars and Almanacs</i>. I find agreement in most years, but there are discrepancies in 5 years. After further analysis, I find that the data in Table 3-7 for those 5 years are inconsistent with the <i>xi&#462;oy&#250;</i>s, which means that at least one of them is incorrect. My analysis suggests that the data should be corrected as shown below.</p>
     
@@ -447,21 +457,21 @@ The integer part was 355 and the <i>xi&#462;oy&#250;</i> was 26. It is easy to s
 <p>Zh&#257;ng P&#233;iy&#250; has another book titled <i>S&#257;nqi&#257;n W&#468;b&#462;ini&#462;n L&#236;r&#236; Ti&#257;nxi&#224;ng</i> (&#12298;&#19977;&#21315;&#20116;&#30334;&#24180;&#21382;&#26085;&#22825;&#35937;&#12299; or <i>3500 Years of Calendars and Astronomical Phenomena</i>), in which there are also calendar dates for the Chunqiu calendar. The New Year days of N<sub>-721</sub>, N<sub>-681</sub> and N<sub>-680</sub> agree with my corrected dates. However, the New Year days of N<sub>-675</sub>, N<sub>-674</sub>, N<sub>-600</sub>, N<sub>-519</sub> and N<sub>-502</sub> differ by one month compared to those in Table 3-7 of <i>Ancient Chinese Calendars and Almanacs</i>. I do not use the data of <i>3500 Years of Calendars and Astronomical Phenomena</i> on this website in the Spring and Autumn period, as the reconstruction method is not stated and so it is difficult to assess the reliability of the data.<sup><a href="#fn2">fn2</a></sup></p>
     
 <br />
-<h2 class="section" id="firstMonth">Leap Month and <i>Ji&#224;n</i> in the Chunqiu Calendar</h2>
+<sect id="firstMonth">Leap Month and <i>Ji&#224;n</i> in the Chunqiu Calendar</sect>
     
 <p>Scholars have not come to an agreement on the position of the leap months in the Chunqiu calendar. The 19th century scholar W&#225;ng T&#257;o placed some of the leap months in the middle of the years in order to account for some of the dates recorded by the chronicle <i>Chunqiu</i>, which were otherwise irreconcilable with his reconstructed calendar. Zh&#257;ng points out that leap months are only mentioned twice in <i>Chunqiu</i> and they were all placed at the end of the years. He also doesn't think that there was any natural algorithm in the Chunqiu calendar to place a leap month in the middle of a year. Thus he thinks all leap months were placed at the end of the years. I adopt Zh&#257;ng's view and place all leap months at the end of the years on this website.</p>
     
 <p>As there were no fixed rules for inserting leap months, the <i>ji&#224;n</i>s of the first months were not fixed either. Looking at the table above, we see that the <i>ji&#224;n</i>s wandered between h&#224;i (present-day month 10) and y&#237;n (present-day month 1), with ch&#466;u (present-day month 12) occurring more often in the early years and z&#464; (present-day month 11) occurring more often in the later years. Zh&#257;ng speculates that the Chunqiu calendar makers probably discovered the 19-year cycle (known as the Metonic cycle in ancient Greece) and the cycle of the tropical year in later years, and intentionally shifted the first month's <i>ji&#224;n</i> from ch&#466;u to z&#464;. Sometime in the Warring States period (480 B.C. &ndash; 222 B.C.), the Lu state used the Lu calendar, one of the <i>g&#468;li&#249;l&#236;</i> (<i>ancient six calendars</i>) used in that period, in which a rule for inserting leap months was developed and the first month was fixed in the z&#464; month.</p>
     
 <br />
-<h2 class="section" id="reliability">Reliability of the Reconstructed Chunqiu Calendar</h2>
+<sect id="reliability">Reliability of the Reconstructed Chunqiu Calendar</sect>
     
 <p>Zh&#257;ng's reconstructed Chunqiu calendar is based on a lunar cycle and leap months deduced from the dates recorded in the chronicle <i>Chunqiu</i>. We can only say that it is a model constructed to fit the data. The lunar conjunction is computed by adding integer multiples of the lunar cycle to a constant, which is consistent with the <i>p&#237;ngshu&#242;</i> rule. However, using one lunar cycle for the entire period of 242 years implies that the rules of calendar did not change over 200+ years, which does not seem to be possible. However, using a simple model to fit the data is reasonable given the lack of information on the calendar evolution at that time. One way to assess the reliability of the reconstructed calendar is to examine how well the model fits the data.</p>
     
 <p>According to Zh&#257;ng's description in Section 3.5 in <i>Ancient Chinese Calendars and Almanacs</i>, there are 393 pieces of calendrical dates mentioned in the chronicle <i>Chunqiu</i>. Most of the dates are consistent with the reconstructed calendar, but 45 of them are inconsistent. Of these 45, 11 of them can be resolved if leap months were inserted in the middle of the years. The current version of <i>Chunqiu</i> was passed down over many generations by hand copying the texts over 2000+ years. Mistakes are inevitable. It is also found that there are incompatible texts in <i>Chunqiu</i>. Of course, some discripancies may be explained by typos. However, it is difficult to decide whether a descrpancy is caused by typos or a true discrpancy between the reconstructed calendar and the texts. If we assume that all of the 45 mismatches are true descrpancies, the reconstructed calendar can explain about 89% of the calendrical dates mentioned in <i>Chunqiu</i>. Comparing the two reconstructed calendars between Zh&#257;ng and W&#225;ng T&#257;o listed in Table 3-7 in <i>Ancient Chinese Calendars and Almanacs</i>, we see that sometimes their New Year days can differ by one month. This is caused by their different opinions on whether or not a leap month could appear in the middle of a year. Based on these pieces of information, I speculate it is very likely that there are true discrepancies between Zh&#257;ng's reconstructed calendar and the true calendar used at that time, but the amount of deviations may be small. The reconstructed calendar is of great value for historians.</p>
     
 <br />
-<h2 class="section" id="julian">Julian Days</h2>
+<sect id="julian">Julian Days</sect>
     
 <p>In the example demonstrated above, time is measured from the midnight of the  New Year day of N<sub>-721</sub>. In modern calendar calculations, time is often measured from noon on January 1, 4713 B.C. in the proleptic Julian calendar. This day-counting system is known as the Julian days. Here for convenience, the time origin is assumed to be the local time for the Lu state. The Julian day at midnight on the New Year day of N<sub>-721</sub> is 1457727.5. Therefore, the Julian day of any given time (measured from the midnight of the  New Year day of N<sub>-721</sub>) can be obtained by adding 1457727.5.</p>
     
@@ -492,28 +502,6 @@ Here floor(x) denotes the largest integer smaller than or equal to x. JD + 0.5 -
 </ul>
 
 </div> <!-- end of wrapper -->
-<br /><br />
-    
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].onclick = function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  }
-}
-    
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-</script> 
+<br /><br /> 
 </body>
 </html>

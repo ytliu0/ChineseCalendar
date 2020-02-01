@@ -7,14 +7,24 @@
 <head>
 <title>Chinese-Western Calendar Conversion Table</title>
 <link rel="stylesheet" href="calendar.css">
-<script src="header.js"></script>  
+<script src="header.js"></script>
 <script src="calendarData.js"></script>
 <script src="ancientCalendars.js"></script>
 <script src="split.js"></script>
-<script src="table.js"></script>    
+<script src="table.js"></script>
 </head>
 
-<body onload="init(0)">
+<body>
+
+<noscript>
+<h1 style="color:brwon;">Oops!</h1>
+
+<p style="color:brown;font-weight:bold;">Your browser doesn't support JavaScript. The conversion tables below won't work without JavaScript.</p>
+<p style="color:brown;font-weight:bold;">Please enable JavaScript and reload.</p>
+<br /><br />
+<hr />
+</noscript>
+    
 <div id="menu"></div>
 <div id="language"></div>
     
@@ -120,10 +130,9 @@
 <div id="returnMainMenuEnd" style="display:none;">
 <p><button class="return" onClick="return_menu()">Return to menu and choose another period</button></p>
 <br />
-    
 </div>
 <br /><br /><hr />
 <p style="font-size:90%;">First created in September 2018 (only covering 1901&ndash;2200). The last major update was in late June,  2019, in which calendar data for several additional dynasties in 221-280, 384-589, and 947-1279 were added.</p>
-
+<script>init(0);</script>
 </body>
 </html>

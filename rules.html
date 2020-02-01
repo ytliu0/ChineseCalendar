@@ -10,6 +10,20 @@
 <script src="header.js"></script>
 
 <style>
+body {
+  counter-reset:sec-counter;
+}
+sect {
+    counter-reset:subsec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+subsect::before {
+  counter-increment: subsec-counter 1;
+  content: counter(subsec-counter, lower-roman) ". ";
+}
 ol.rules {
     counter-reset: item;
     list-style-type: none;
@@ -41,26 +55,29 @@ Last major update: April, 2019</p>
 <p><b>Contents</b></p>
 <ol>
 <li><a href="#intro">Introduction</a></li>
-<li><a href="#concepts">Important Concepts</a></li>
+<li><a href="#concepts">Important Concepts</a>
     <ol type="i">
         <li><a href="#times">UT1, UTC, and China Standard Time</a></li>
         <li><a href="#labels">Counting Years, Months and Days</a></li>
         <li><a href="#conjunctions">Lunar Conjunction (New Moon)</a></li>
         <li><a href="#zhongqi">Major Solar Terms and Su&#236;</a></li>
     </ol>
+    </li>
 <li><a href="#rules">Rules for the Modern Chinese Calendar</a></li>
-<li><a href="examples.html">Examples of Computing the Chinese Calendar</a></li>
+<li><a href="examples.html">Examples of Computing the Chinese Calendar</a>
     <ol type="i">
         <li><a href="examples.html#ex1">Example 1: N<sub>2017</sub></a></li>
         <li><a href="examples.html#ex2">Example 2: N<sub>2033</sub></a></li>
         <li><a href="examples.html#exceptional">The Exceptional Year N<sub>2033</sub></a></li>
     </ol>
-<li><a href="rules_demysterified.html">Why Do the Rules Work?</a></li>
+    </li>
+<li><a href="rules_demysterified.html">Why Do the Rules Work?</a>
     <ol type="i">
         <li><a href="rules_demysterified.html#cycles">Matching Two Cycles</a></li>
         <li><a href="rules_demysterified.html#zhang">Myth of the 19-Year Cycle</a></li>
         <li><a href="rules_demysterified.html#averages">Average Length of Chinese Month and Year</a></li>
     </ol>
+    </li>
 <li><a href="#newStandard">New Standards 2017 (GB/T 33661-2017)</a></li>
 </ol>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#references">Footnotes and References</a></p>
@@ -68,7 +85,7 @@ Last major update: April, 2019</p>
 </div>
     
 <br />
-<h2 class="section" id="intro">Introduction</h2>
+<sect id="intro">Introduction</sect>
     
 <p>Calendars were created to keep track of time. There are three cycles occurring in nature that were important to people in the ancient time. They are the cycle of day and night, the cycle of moon phases (lunar cycle) and the cycle of seasons (solar cycle). The cycle of day and night can be characterized by the average value of a solar day, which is the average time between two successive <a href="https://www.timeanddate.com/astronomy/solar-noon.html" target="_blank">solar noons</a>. The lunar cycle can be characterized by the average time between two successive new moons, or the synodic month. The cycle of seasons can be characterized by the tropical year, which is <i>approximately</i> the average time between two successive winter solstices (or between two successive vernal equinoxes)<sup>[<a href="#tropicalYear">fn1</a>]</sup>. The concept of a day is directly related to the cycle of day and night. The concept of a month is (at least initially) related to the lunar cycle, and the concept of a year is related to the cycle of seasons.</p>
     
@@ -79,11 +96,11 @@ Last major update: April, 2019</p>
 <p>The challenge is to derive a scheme to insert a leap month so that a Chinese year is close to the tropical year on average. Various schemes were used over the history of China. There were five significant reforms in the Chinese calendar. The last one occurred in 1645. Here I only talk about the rules applied to the modern Chinese calendar. Several important concepts need to be explained first before describing the rules.</p>
 <br />
     
-<h2 class="section" id="concepts">Important Concepts</h2>
+<sect id="concepts">Important Concepts</sect>
 
 <p>To fully understand how the modern Chinese calendar works, we need to first understand how we measure time today.</p>
     <br />
-<h3 class="subsec1" id="times">UT1, UTC, and China Standard Time</h3>
+<subsect id="times">UT1, UTC, and China Standard Time</subsect>
     
 <p>Universal Time (UT) is a time standard based on Earth's rotation with respect to the Sun. There are several <a href="https://en.wikipedia.org/wiki/Universal_Time#Versions" target="_blank">versions</a> of universal time. The most commonly used are UT1 and the Coordinated Universal Time (UTC). UT1 is based on the orientation of a reference meridian<sup>[<a href="#TIO">fn2</a>]</sup> on Earth's surface relative to distant stars, and then use a simple transformation to obtain a time standard in accord with the mean <a href="https://en.wikipedia.org/wiki/Solar_time" target="_blank">solar time</a>. The problem is that Earth's rotation is not uniform, which makes UT1 inconvenient for many applications. As a result, the Coordinated Universal Time (UTC) is introduced to approximate UT1.</p>
     
@@ -91,11 +108,11 @@ Last major update: April, 2019</p>
     
 <p><a href="https://en.wikipedia.org/wiki/Civil_time" target="_blank">Civil time</a> is related to UTC by a <a href="https://en.wikipedia.org/wiki/UTC_offset" target="_blank">UTC offset</a>. A UTC offset is a multiple of 15 minutes, and the majority of offsets are in whole hours. As far as the Chinese calendar is concerned, the most important civil time is the China standard time, which is UTC+08:00, meaning that it is 8 hours ahead of UTC. This is the local time for the meridians of 120&deg; East.</p>
 <br />
-<h3 class="subsec1" id="labels">Counting Years, Months and Days</h3>
+<subsect id="labels">Counting Years, Months and Days</subsect>
 
 <p>In Chinese calendar, years are counted in <a href="sexagenary.html">sexagenary cycle</a>. Months are simply indicated by numbers 1, 2, 3, ..., 12. A leap month is indicated by the same number as the previous month, but a "leap" is added before the number. Days in a month are also simply indicated by 1, 2, 3, ..., 30. On my <a href="index.html">calendar page</a>, dates in the Chinese calendar are indicated by MM-DD, where MM represents the month number and DD represents the day number in the month. Dates in a leap month are represented by leap MM-DD. For example, 11-15 means the 15th day of month 11. It should be noted that this MM-DD convention is not used everywhere else.</p>
 <br />
-<h3 class="subsec1" id="conjunctions">Lunar Conjunction (New Moon)</h3>
+<subsect id="conjunctions">Lunar Conjunction (New Moon)</subsect>
 
 <p>The lunar conjunction, or new moon, is the moment when the Moon and the Sun are in the same direction. The above description is too vague by modern standard. In modern astronomy, lunar conjunction (new moon) is defined as the time when the apparent geocentric longitude of the Moon <span class="greek">&lambda;</span><sub>M</sub> is equal to the apparent geocentric longitude of the Sun <span class="greek">&lambda;</span><sub>S</sub>. Three other related concepts are the first quarter, full moon (or lunar opposition) and third quarter. First quarter is defined as the time when <span class="greek">&lambda;</span><sub>M</sub> - <span class="greek">&lambda;</span><sub>S</sub> = 90&deg; (modulo 360&deg;); full moon is defined as the time when <span class="greek">&lambda;</span><sub>M</sub> - <span class="greek">&lambda;</span><sub>S</sub> = 180&deg; (modulo 360&deg;); third quarter is defined as the time when <span class="greek">&lambda;</span><sub>M</sub> - <span class="greek">&lambda;</span><sub>S</sub> = 270&deg; (modulo 360&deg;).</p>
     
@@ -103,7 +120,7 @@ Last major update: April, 2019</p>
     
 <p>One of the rules of the Chinese calendar is that the first day of a month must occur on the day of a new moon. Therefore, December 6, 2010 was the first day of a Chinese month. It was in fact the first day of month 11 (see below). The next new moon occurred on January 4, 2011 at 17:03 (UTC+8). So January 4, 2011 was the first day of a month. It was month 12. Since there were 29 days between December 6, 2010 and January 4, 2011, month 11 had 29 days. It was a short month.</p>
     <br />
-<h3 class="subsec1" id="zhongqi">Major Solar Terms and Su&#236;</h3>
+<subsect id="zhongqi">Major Solar Terms and Su&#236;</subsect>
     
 <p>As explained in the <a href="solarTerms.html">24 solar term page</a>, ancient Chinese used the 24 solar terms to keep track of the Sun's position on the ecliptic. The 24 solar terms are grouped into 12 major solar terms and 12 minor solar terms. The major solar terms can be defined as the times when the apparent geocentric longitude of the Sun reaches integral multiples of 30&deg;. The major solar terms are labelled by Z followed by a number on the <a href="solarTerms.html">24 solar term page</a>.</p>
     
@@ -116,7 +133,7 @@ Last major update: April, 2019</p>
 <p>Since there are 12 major solar terms in a su&#236; and there are 13 months in a leap su&#236;, it follows that at least one month in a leap su&#236; does not contain a major solar term. Here is an important rule: in a leap su&#236;, the first month (after month 11) that does not contain a major solar term is a leap month. In a leap su&#236;, the 11 <i>regular</i> months (i.e. non-leap months) following month 11 are assigned the numbers 12, 1, 2, ..., 10. The leap month is assigned the same number as its preceding month. In a leap su&#236;, the Chinese new year is the first day of the second regular month after month 11.</p>
     
 <br />
-<h2 class="section" id="rules">Rules for the Modern Chinese Calendar</h2>
+<sect id="rules">Rules for the Modern Chinese Calendar</sect>
     
 <p>Most of the rules have already been mentioned as the important concepts are explained. It is time to gather them together. The following is a summary of the rules. </p>
     
@@ -157,13 +174,13 @@ This leap month is the first in the su&#236; that contains no major solar term.<
 <p>These steps determine the months from month 11 in <span class="nowrap">N<sub>Y-1</sub></span> to month 10 in <span class="nowrap">N<sub>Y</sub></span>. To determine the rest of the months in N<sub>Y</sub>, one needs to go through the above steps for the su&#236; <span class="nowrap">S<sub>Y+1</sub></span>.</p>
     
 <br />
-<h2 class="section" id="examples"><a href="examples.html">Examples of Computing the Chinese Calendar</a></h2>
+<sect id="examples"><a href="examples.html">Examples of Computing the Chinese Calendar</a></sect>
 <br /> 
-<h2 class="section" id="rulesDemysterified"><a href="rules_demysterified.html">Why Do the Rules Work?</a></h2>
+<sect id="rulesDemysterified"><a href="rules_demysterified.html">Why Do the Rules Work?</a></sect>
     
 <br />
     
-<h2 class="section" id="newStandard">New Standards 2017 (GB/T 33661-2017)</h2>
+<sect id="newStandard">New Standards 2017 (GB/T 33661-2017)</sect>
     
 <p>In May 2017, the Chinese government issued a document (labelled GB/T 33661-2017) drafted by astronomers at the <a href="https://en.wikipedia.org/wiki/Purple_Mountain_Observatory" target="_blank">Purple Mountain Observatory</a> (PMO) on new standards for computing the Chinese calendar<sup><a href="#GBT33661">PMO17</a></sup>. The reason for issuing this document is probably related to the following history.</p>
 
@@ -209,17 +226,5 @@ to the Astronomical Almanac</i></a>, ed. by S.E. Urban and P.K. Seidelmann, thir
 </div> <!-- end of wrapper -->
 <br /><br />
     
-<script>
-var i;
-var sec = document.getElementsByClassName("section");
-for (i=0; i < sec.length; i++) {
-    sec[i].innerHTML = (i+1)+'. '+sec[i].innerHTML;
-}
-var subsec = document.getElementsByClassName("subsec1");
-var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = subsecNum[i]+'. '+subsec[i].innerHTML;
-}
-</script>
 </body>
 </html>

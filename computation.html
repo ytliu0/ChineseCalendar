@@ -7,6 +7,15 @@
 <head>
 <title>Calendar Calculation on This Website</title>
 <link rel="stylesheet" href="calendar.css">
+<style>
+body {
+  counter-reset:sec-counter;
+}
+sect::before {
+  counter-increment: sec-counter 1;
+  content: counter(sec-counter) ". ";
+}
+</style>
 <script src="header.js"></script>
 </head>
     
@@ -49,7 +58,7 @@
 </div>
     
     <br />
-<h2 class="subsec" id="modern">Modern Period (1912 &ndash; 2200)</h2>
+<sect id="modern">Modern Period (1912 &ndash; 2200)</sect>
     
 <p>In this period, I follow the rules stated by the GB/T 33661-2017 document<sup><a href="#GBT33661">PMO17</a></sup> mentioned in the <a href="rules.html">Chinese calendar rules page</a> to calculate the Chinese calendar and checked the results with the calendar data from the publications of the Purple Mountain Observatory. Positions of the Sun and Moon are computed based on the planetary and lunar ephemeris DE431<sup><a href="#DE">DE</a></sup> developed by the Jet Propulsion Laboratory (JPL). JPL's DE-series ephemerides are based on numerical integration and DE431 is one of the most accurate ephemerides covering long time span. The calculation takes into account gravitational perturbations from 343 relatively large-mass asteroids. General relativistic effects are included by using dynamical equations derived from a parametrized post-Newtonian n-body metric. Additional accelerations arising from non-spherical effects of extended bodies including the Earth, Moon and Sun are also included. The DE431 ephemeris data are used to compute the geometric positions of the Sun and Moon, which are then corrected for the combined effect of <a href="https://en.wikipedia.org/wiki/Light-time_correction" target="_blank">light time</a> and <a href="https://en.wikipedia.org/wiki/Aberration_of_light" target="_blank">aberration of light</a>. The result is the apparent geocentric positions expressed in rectangular coordinates in the <a href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System" target="_blank">International Celestial Reference System</a> (ICRS). They are then transformed to the ecliptic coordinates of date by taking into account the frame bias matrix, precession and nutation. Precession is calculated using the precession model of Vondr&#225;k et. al.<sup><a href="#vondrak11">Vondr&#225;k</a></sup> developed in 2011. Nutation is calculated by the IAU 2000A nutation model using formulas provided by IERS Conventions (2010)<sup><a href="#iers2010">IERS10</a></sup> and Kaplan 2005<sup><a href="#kaplan05">Kaplan05</a></sup>. Times of moon phases and 24 solar terms are first computed in <a href="https://en.wikipedia.org/wiki/Barycentric_Dynamical_Time" target="_blank">barycentric dynamical time</a> (TDB) using the <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson root-finding method</a>. They are then converted to UT1+8 for years before 1972 and UTC+8 in and after 1972. The difference between TDB and TT (<a href="https://en.wikipedia.org/wiki/Terrestrial_Time" target="_blank">Terrestrial Time</a>) is ignored since it is less than two milliseconds over several millennia. For years before 1972, values of TT-UT1 are calculated using the analytic fitting formula by <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html" target="_blank">Espenak and Meeus</a>. For years between 1972 and present, TT-UTC is calculated from the published leap seconds. For years beyond 2020, approximate value of TT-UTC is estimated according to the polynomial expressions by <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html" target="_blank">Espenak and Meeus</a>. The expressions are for TT-UT1, but can be used to approximate TT-UTC since by construction |UTC-UT1| &lt; 0.9 seconds. The mathematical detail of all these calculations is explained in <a href="docs/sunMoon.pdf" target="_blank">this pdf file</a>.</p>
     
@@ -106,7 +115,7 @@
 </table>
     
     <br />
-<h2 class="subsec" id="qing">The Qing Period (1645 &ndash; 1911)</h2>
+<sect id="qing">The Qing Period (1645 &ndash; 1911)</sect>
     
 <p>The rules for the calendar calculation in this period is basically the same as the modern rules. The only difference is that times were computed for the Beijing meridian instead of 120&deg;E (UT1+8), and apparent solar time was used instead of the mean solar time. To reconstruct the calendar in this period, I first used the modern method to calculate the calendar and then modified the data to match the calendar issued by the Qing government. The source of the Qing calendar data are from the book <i>New Edition of W&#224;nni&#225;nl&#236;</i><sup><a href="#pmo86">PMO86</a></sup> and <i>3500 Calendars and Astronomical Phenomena</i><sup><a href="#Zhang1997">Zhang97</a></sup>. Calendar data in <i>New Edition of W&#224;nni&#225;nl&#236;</i> were taken from the <i>Sh&#237;xi&#224;n Calendar</i> issued by the Qing government, but the book only covered the years starting from 1840. Calendar data in <i>3500 Calendars and Astronomical Phenomena</i> were computed using the calendar rules stated in the historical documents and were compared to available calendar data. Most all of the calendars issued by the government over the past 400 years or so have been preserved and so most of the data in the book should be the same as the actual calendar used in this period. I compared the data in the two books between 1840 and 1911 and didn't find any mismatch.</p> 
     
@@ -127,7 +136,7 @@
 <p>With the adoption of the <i>d&#237;nq&#236;</i> rule, problems relating to the leap months arise. The no zh&#333;ngq&#236; rule that had been used over 1700 years no longer works, because it is now possible to have a month without a major solar term in a regular su&#236; and more than one month without a major solar term in a leap su&#236;. This problem was already noticed by the officials in the calendar office in the late Ming dynasty. One official named L&#464; Ti&#257;nj&#299;ng (&#26446;&#22825;&#32147;) proposed a method to resolve the issue. If a solar term and conjunction occur on the same day, the traditional convention is that the solar term is considered to be in the month associated with the conjunction. L&#464; proposed that if the solar term occurred earlier than the conjunction, it should be considered to be in the preceding month even if they were on the same day. Only if the solar term occurred later than the conjunction would it to be considered to be in the month associated with the conjunction. This method would be able to handle almost all situations. In <span class="nowrap">N<sub>1645</sub></span>, the <i>Sh&#237;xi&#224;n Calendar</i> listed the date of the major solar term Z6 to be on the first day in leap month 6, breaking the traditional rule that a leap month must not contain any major solar term. W&#257;ng Yu&#275;zh&#275;n explained in <i>Compilation of Historical Calendars</i> that even though the solar term Z6 and the lunar conjunction associated with the month occurred on the same day, Z6 occurred earlier in the day than the lunar conjunction and was counted as a major solar term of the previous month. As a result, leap month 6 did not contain any major solar term. This was exactly the idea proposed by L&#464;. However, this rule was only used in <span class="nowrap">N<sub>1645</sub></span>. It was never used again after this year. Historical document indicates that the rule that was used later was to place a leap month in the first month that did not contain a major solar term after the winter solstice in a leap su&#236;. This is the origin of Rule 5 stated in the <a href="rules.html#rules">Chinese calendar rules page</a>. This rule was made by Schall von Bell. The reason why L&#464;'s rule was not adopted was probably because the traditional no zh&#333;ngq&#236; rule could handle most leap months. Having a month without a major solar term in a regular su&#236; or more than one month without a major solar term in a leap su&#236; is very rare, and these situations can be resolved by slightly modifying the no zh&#333;ngq&#236; rule. Using L&#464;'s rule will result in the same situation as in <span class="nowrap">N<sub>1645</sub></span>: a leap month that can be handled by the no zh&#333;ngq&#236; rule is modified to a leap month that violates tradition. Adopting the <i>d&#237;nq&#236;</i> rule already generated controversies. Had L&#464;'s rule been used, even more controversies would surely have been generated.</p>
     
     <br />
-<h2 class="subsec" id="imperial">Middle Han to Ming Period (104 B.C. &ndash; 1644 A.D.)</h2>
+<sect id="imperial">Middle Han to Ming Period (104 B.C. &ndash; 1644 A.D.)</sect>
     
 <p>There were more than 40 different astronomical systems developed to calculate the calendars in this period spanning more than 1700 years. All of these methods were quite different from the modern method. Studying these systems one by one and then checking the resulting calculations would take too much time. Instead, I use the calendar data in the book <i>3500 Calendars and Astronomical Phenomena</i><sup><a href="#Zhang1997">Zhang97</a></sup> in this period. When checking the data in the book, I found more than 40 mistakes in the book. Most of these mistakes have been pointed out by X&#468; Ji&#224;nw&#283;i (&#35377;&#21133;&#20553;), creator of the software Sh&#242;ux&#299;ng Almanac (<a href="http://www.nongli.net/sxwnl/" target="_blank">&#23551;&#26143;&#22825;&#25991;&#21382;</a>). All of the errors discovered so far are compiled on <a href="3500Calendars_errors.html">this page</a> for those who can read Chinese.</p>
     
@@ -166,14 +175,14 @@
 <li><p>The Julian calendar was proposed by Julius Caesar, the dictator of the Roman Republic. Caesar adopted the calendar system designed by the astronomer Sosigenes of Alexandria. The calendar took effect on Jan. 1, 45 B.C. Caesar was soon assassinated in 44 B.C. and the leap years were not implemented correctly in the first 36 years. A leap day was inserted every three years instead of every four years. When the error was realized in 8 B.C., three additional leap days had been added. It was then decided to skip three leap years in the following 12 years and the system was operated as Caesar intended after 4 A.D. I follow the usual convention of not taking into account the leap-year error of the Julian calendar and simply extending the Julian calendar backwards to dates before 8 A.D. This is known as the <a href="https://en.wikipedia.org/wiki/Proleptic_Julian_calendar" target="_blank">proleptic Julian calendar</a>.</p></li>
 </ol>    
 <br />
-<h2 class="subsec" id="qinhan">Qin and Early Han Period (221 B.C. &ndash; 104 B.C.)</h2>
+<sect id="qinhan">Qin and Early Han Period (221 B.C. &ndash; 104 B.C.)</sect>
     
 <p>The calendars used between 221 B.C. and 104 B.C. were modified versions of the Zhuanxu calendar, one of the old calendars used in the third century B.C. in the state of Qin. The first month was the h&#224;i month (present-day month 10). However, it was still called month 10 instead of month 1. The numerical order of the months in a year was 10, 11, 12, 1, 2, ..., 9. The intercalary month was placed at the end of a year, called post month 9 (&#24460;&#20061;&#26376;). There was a major calendar reform in 104 B.C., where the first month of a year was changed to month 1 and the intercalary month was placed in the month that did not contain a major solar term. The Chinese year in 104 B.C. had 15 Chinese months as a result of the change. The calendars in this period are reconstructed according to the description in the article by L&#464; Zh&#333;ngl&#237;n (&#26446;&#24544;&#26519;) in 2012<sup><a href="#Li2012">Li</a></sup>. The computation method is explained on <a href="QinHanCalendars.html">this page</a>.</p>
     
 <p>Even though the reconstruction method is claimed to be valid for calendar from <span class="nowrap">N<sub>-245</sub></span> to month 5 in <span class="nowrap">N<sub>-103</sub></span>, our <a href="index.html">calendar page</a> uses this method from 221 B.C. to month 4 in <span class="nowrap">N<sub>-103</sub></span> and our <a href="table.html">calendar table page</a> uses this method from <span class="nowrap">N<sub>-220</sub></span> to month 4 in <span class="nowrap">N<sub>-103</sub></span> (the <a href="index.html">calendar page</a> is mainly based on the Western calendar and the <a href="table.html">calendar table page</a> is mainly based on the Chinese calendar). Starting in month 5 in <span class="nowrap">N<sub>-103</sub></span>, both pages use the data from the book <i>3500 Years of Calendars and Astronomical Phenomena</i><sup><a href="#Zhang1997">Zhang97</a></sup>, which shows calendar data based on the T&#224;ich&#363; system (&#22826;&#21021;&#26310;) beginning in month 1 in <span class="nowrap">N<sub>-103</sub></span><sup><a href="#fn2">fn2</a></sup>. In <span class="nowrap">N<sub>-103</sub></span>, month 3 had 29 days and month 4 should have had 30 days according to the reconstructed calendar. However, when the new calendar was used in month 5, the conjunction day moved one day earlier, turning month 4 into a short month. Month 5 was a short month in the new calendar. As a result, months 3, 4, 5 in <span class="nowrap">N<sub>-103</sub></span> all had 29 days. This is impossible for any calendar based on the <i>p&#237;ngshu&#242;</i> rule (i.e. based on the mean motion of the Moon and Sun), and could only occur when switching to a new calendar. If the switch is changed to month 6, month 5 will have 28 days, which is also impossible under normal circumstances.</p>
     
 <br />
-<h2 class="subsec" id="warring">Warring States Period (480 B.C. &ndash; 222 B.C.)</h2>
+<sect id="warring">Warring States Period (480 B.C. &ndash; 222 B.C.)</sect>
     
 <p>In the Warring States period, China was divided into many states. Each state used its own calendar. It was believed that there were six versions of calendars used by the states at that time. They are collectively called g&#468;li&#249;l&#236; (&#21476;&#20845;&#26310;) or ancient six calendars. These six calendars were Zhou, Lu, Huangdi, Yin, Xia and Zhuanxu. They were all based on a similar algorithm. However, the first month of a year was not the same. The epoch (used to specify the initial data for the lunar conjunction and winter solstice) used in each calendar was also different. The calendars in g&#468;li&#249;l&#236; on this website are reconstructed based on the information in Section 3.6 of the book <i>Zh&#333;ng Gu&#243; G&#468; D&#224;i L&#236; F&#462;</i> (&#12298;&#20013;&#22269;&#21476;&#20195;&#21382;&#27861;&#12299; or <i>Ancient Chinese Calendars and Almanacs</i>)<sup><a href="#ZCBH2008">ZCBH</a></sup>. The computation method is explained in the <a href="guliuli.html">ancient six calendars page</a>.</p>
     
@@ -184,7 +193,7 @@
 <p>It is believed that the ancient six calendars were developed in the Warring States period, but none of them is preserved today. We can now only learn about them from literature hundreds of years later. The reliability of the information remains uncertain to this date.</p>
     
 <br />
-<h2 class="subsec" id="spring">Spring and Autumn Period (722 B.C. &ndash; 481 B.C.)</h2>
+<sect id="spring">Spring and Autumn Period (722 B.C. &ndash; 481 B.C.)</sect>
     
 <p>In the Spring and Autumn period, China was divided into many states. Each state used its own calendar. In this period, we only have fragmented information about the calendar used by the Lu state from the chronicle <i>Chunqiu</i> revised by Confucius. This calendar is called Chunqiu here. The Chunqiu calendar on our website is reconstructed based on the information in Section 3.5 of the book <i>Ancient Chinese Calendars and Almanacs</i><sup><a href="#ZCBH2008">ZCBH</a></sup>. The computation method is explained on the <a href="chunqiu.html">Chunqiu Calendar page</a>.</p>
     
@@ -237,13 +246,5 @@ DE430 and DE431"</a>, IPN Progress Report 42-196, February 15, 2014.</li>
 <br />
 </div><!-- end of wrapper -->
     
-<script>
-var subsec = document.getElementsByClassName("subsec");
-//var subsecNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-for (i=0; i < subsec.length; i++) {
-    subsec[i].innerHTML = (i+1).toString()+'. '+subsec[i].innerHTML;
-}
-</script> 
-
 </body>
 </html>

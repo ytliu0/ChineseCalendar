@@ -24,9 +24,10 @@
     
 <p>The following table lists the discrepancies in the dates of lunar conjunction calculated using the method at the time (third column) and by the modern method (last column) described in the <a href="rules.html">calendar rules page</a>.</p>
     
-<button class="accordion">Click to show/hide table</button>
+<input type="checkbox" class="accordion" id="conj" />
+<label for="conj">Click to show/hide table</label>
     
-<div class="panel">
+<div class="content">
 <br />
 
 <table>
@@ -64,9 +65,10 @@
     
 <p>The following table lists the discrepancies in the dates of 24 solar terms calculated using the method at the time (third column) and by the modern method (last column) described in the <a href="rules.html">calendar rules page</a>.</p>
     
-<button class="accordion">Click to show/hide table</button>
+<input type="checkbox" class="accordion" id="solarT" />
+<label for="solarT">Click to show/hide table</label>
 
-<div class="panel">
+<div class="content">
 <br />
 <table>
 <tr><th>Year</th> <th>Solar Term</th> <th>Date<sup>*</sup></th> <th>Accurate Time (UT1+8)</th>
@@ -339,23 +341,6 @@
 <p>N<sub>1645</sub> was the first year the calendar was issued in which the 24 solar terms were calculated using d&#236;ngq&#236;. As pointed out in the <a href="solarTerms.html">solar terms page</a>, the "no zh&#333;ngq&#236; rule" used previously to insert leap months is incompatible with d&#236;ngq&#236;, where two major solar terms can occur in a month and there can have two months without a major solar term in a su&#236;. It is apparent that the rule for leap months was not ironed out in N<sub>1645</sub>. Historical document indicates that the rule that was used later was to place a leap month in the first month that did not contain a major solar term after the winter solstice in a leap su&#236;. This is the origin of rule 5 stated in the <a href="rules.html">rules page</a>.</p>
 <br /><br />
 </div><!-- end of wrapper -->
-    
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].onclick = function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  }
-}
-</script> 
 
 </body>
 </html>
