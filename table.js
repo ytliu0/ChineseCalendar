@@ -1519,7 +1519,7 @@ function table_yuan(lang) {
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
         tit.innerHTML = '<h1>蒙 古 和 元 朝 朔 閏 表 (1234 &ndash; 1367)</h1>';
-        tab.innerHTML = '<p>下表列出蒙古和元朝時(1280年至1367年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tab.innerHTML = '<p>下表列出蒙古和元朝時(1234年至1367年)農曆每月初一的公曆日期 MM-DD。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
         tit.innerHTML = '<h1>蒙 古 和 元 朝 朔 闰 表 (1234 &ndash; 1367)</h1>';
