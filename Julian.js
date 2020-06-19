@@ -221,7 +221,7 @@ function write_output(lang, JDnoon, jd) {
             document.getElementById('second').disabled = false;
         }
     }
-    var txt, cal;
+    var txt, cal,year;
     var w = (JDnoon + 1) % 7;
     if (w < 0) { w += 7;}
     var sexNum = (JDnoon - 11) % 60;
