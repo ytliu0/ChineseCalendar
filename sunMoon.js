@@ -46,6 +46,9 @@ function submitYear(lang) {
         addContent(lang, year-1, 'ym1', moon, sun);
         addContent(lang, year, 'y', moon, sun);
         addContent(lang, year+1, 'y1', moon, sun);
+        // *** TEST ***
+        //outputContent_forTesting(lang, -3500, 3500, moon, sun);
+        // *************
         moon = null;
         sun = null;
         // Hide the years y-1 and y+1
@@ -58,7 +61,7 @@ function submitYear(lang) {
     }
 }
 
-function addContent(lang, y, id, moon, sun, addClickMesg) {
+function addContent(lang, y, id, moon, sun) {
     var cal = "Gregorian Year: ";
     if (y==1582) {
         cal = "Julian/Gregorian Year: ";
@@ -103,28 +106,64 @@ function addContent(lang, y, id, moon, sun, addClickMesg) {
                     "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
         }
     }
-    var ind = y - moon[0][0];
+    var ind = y - yrange_sunMoon()[0];
     var i;
     var ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
     
+    // uncompress data
+    // Moon phases
+    // Moon phase data are stored in a 2D array.
+    // moon[k][] is the data for the kth year starting from y1
+    // moon[k][0] is an integer between 0 and 3:
+    //         0 if moon[k][1] corresponds to a new moon
+    //         1 if moon[k][1] corresponds to a first quarter
+    //         2 if moon[k][1] corresponds to a full moon
+    //         3 if moon[k][1] corresponds to a third quarter
+    // moon[k][1]: date and time of moon phases represent by an integer L0 so that
+    // floor(L0/1441) is the number of days from Jan 0 and L0 - 1441*floor(L0/1441)
+    // is the number of minutes from the midnight (UT1+8/UTC+8).
+    // moon[k][i] (i=2,3,..., end index): L[i] - L[i-1] - 9377, where L[i] is the integer
+    // representing the moon phase time so that floor(L[i]/1441) is the number of days
+    // from Jan 0 and L[i] - 1441*floor(L[i]/1441) is the number of minutes from
+    // the midnight (UT1+8/UTC+8).
+    var moony = [moon[ind][0], moon[ind][1]];
+    for (i=2; i < moon[ind].length; i++) {
+        moony.push(moony[i-1] + moon[ind][i] + 9377);
+    }
+    // 24 solar terms
+    // Data are stored in a 2D array
+    // sun[k][] is the data for the kth year starting from y1
+    // sun[k][0] is an integer L representing Z11 (usually in the previous year) so that
+    // floor(L/1441) is the number of days from Jan 0 and L - 1441*floor(L/1441) is
+    // the number of minutes from the midnight (UT1+8/UTC+8).
+    // sun[k][i] (i=1,2,...,23): integer L[i] - L[i-1] - 20895, where L[i] is the
+    // integer representing the solar term in the same way as L in sun[k][0].
+    var stermy = [sun[ind][0], sun[ind][1], sun[ind][2], sun[ind][3],
+                  sun[ind][4], sun[ind][5], sun[ind][6], sun[ind][7], 
+                  sun[ind][8], sun[ind][9], sun[ind][10], sun[ind][11], 
+                  sun[ind][12], sun[ind][13], sun[ind][14], sun[ind][15], 
+                  sun[ind][16], sun[ind][17], sun[ind][18], sun[ind][19], 
+                  sun[ind][20], sun[ind][21], sun[ind][22], sun[ind][23]];
+    for (i=1; i < stermy.length; i++) {
+        stermy[i] += stermy[i-1] + 20895;
+    }
+    // add two more solar terms: Z11 and J12 following J11
+    stermy.push(sun[ind+1][0] + 1441*ndays[1], 
+               sun[ind+1][0]+sun[ind+1][1]+20895 + 1441*ndays[1]);
+    
     // Moon phases
     // Data structure:
-    // moon is a 2D array storing the moon phases data
-    // moon[k][0] is the Gregorian/Julian year of the kth year in the array
-    // moon[k][1] is an integer between 0 and 3:
-    //         0 if moon[k][2] corresponds to a new moon
-    //         1 if moon[k][2] corresponds to a first quarter
-    //         2 if moon[k][2] corresponds to a full moon
-    //         3 if moon[k][2] corresponds to a third quarter
-    // moon[k][2] -- moon[k][(end index)]: date and time of moon phases represent
-    // by an integer, dhhmm, determined by d, h, m. Here h and m are integers
-    // representing the hour and minute so that h:m is the time of the
-    // moon phases in UT1+8/UTC+8. d is the number of days from Jan 0, moon[k][0].
-    // The number dhhmm is calculated by dhhmm = d*1e4 + h*100 + m.
-    // For example, 1230621 means the moon phase is at 06:21 on the date that's
-    // 123 days from Jan 0, which is May 3 at 06:21 if there is no leap day in the year;
-    // -81207 means at 12:07 on the date that's -8 days from Jan 0, which is
-    // Dec. 23 at 12:07 in the previous year.
+    // moony is an array storing the moon phases data
+    // moony[0] is an integer between 0 and 3:
+    //         0 if moony[1] corresponds to a new moon
+    //         1 if moony[1] corresponds to a first quarter
+    //         2 if moony[1] corresponds to a full moon
+    //         3 if moony[1] corresponds to a third quarter
+    // moony[i] (i=1,2,... end of index): date and time of 
+    //          moon phases represent by an integer 
+    //          L so that floor(L/1441) is the number of days 
+    //          from Jan 0 and L - 1441*floor(L/1441) is the 
+    //          number of minutes from the midnight (UT1+8/UTC+8).
     txt = "<br />";
     if (lang==0) {
         txt += "<h2>Phases of the Moon</h2>";
@@ -133,15 +172,15 @@ function addContent(lang, y, id, moon, sun, addClickMesg) {
     }
     txt += "<table>";
     txt += "<tr> <th>"+mpName[0]+"</th><th>"+mpName[1]+"</th><th>"+mpName[2]+"</th><th>"+mpName[3]+"</th></tr>";
-    var ph = moon[ind][1]; // First moon phase in the year
+    var ph = moony[0]; // First moon phase in the year
     if (ph != 0) {
         txt += '<tr> <td colspan="'+ph+'"></td>';
     }
-    for (i=2; i<moon[ind].length; i++) {
+    for (i=1; i<moony.length; i++) {
         if (ph==0) { txt += "<tr>";}
-        txt += addDateTime(y, moon[ind][i], ndays, lang);
+        txt += addDateTime(y, moony[i], ndays, lang);
         if (ph==3) { txt += "</tr>";}
-        if (i == moon[ind].length-1 && ph != 3) {
+        if (i == moony.length-1 && ph != 3) {
             txt += '<td colspan="'+(3-ph)+'"></td></tr>';
         }
         ph = (ph + 1) % 4;
@@ -150,12 +189,12 @@ function addContent(lang, y, id, moon, sun, addClickMesg) {
     
     // 24 solar terms
     // Data structure:
-    // sun is a 2D array storing the 24 solar term data
-    // sun[k][] is the data for the kth year;
-    // sun[k][0] is the Gregorian/Julian year of the kth year in the array
-    // sun[k][1] -- sun[k][24]: dates and times of the solar terms starting from
-    // Z11 (usually in the previous year) to J11. Each of them is an integer 
-    // calculated in the same way as in the dates and times of the moon phases.
+    // stermy is an array storing the 24 solar term data
+    // stermy[i] (i=0, 1, ... 26): dates and times of the solar terms 
+    // starting from Z11 (usually in the previous year) to J12 
+    // in the following year. 
+    // Each of them is an integer calculated in the same way as in the 
+    // dates and times of the moon phases.
     txt += "<br />";
     if (lang==0) {
         txt += "<h2>24 Solar Terms</h2>";
@@ -172,43 +211,24 @@ function addContent(lang, y, id, moon, sun, addClickMesg) {
     } else {
         txt += "<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>";
     }
-    for (i=1; i < 25; i++) {
-        if (i % 2 ==1) {
+    for (i=0; i < 24; i++) {
+        if (i % 2 ==0) {
             txt += "<tr>";
         }
-        txt += "<td>"+stermName[i-1]+"</td>";
-        txt += addDateTime(y, sun[ind][i], ndays, lang);
-        if (i % 2 == 1) {
+        txt += "<td>"+stermName[i]+"</td>";
+        txt += addDateTime(y, stermy[i], ndays, lang);
+        if (i % 2 == 0) {
             txt += "<td></td>";
         } else {
             txt += "</tr>";
         }
     }
-    // Add 2 more solar terms: Z11 and J12 following J11
+    // Two more solar terms: Z11 and J12 following J11
     txt += "<tr>";
     txt += "<td>"+stermName[0]+"</td>";
-    var dhhmm = sun[ind+1][1];
-    var day, hhmm;
-    if (dhhmm < 0) {
-        day = -Math.floor(-1e-4*dhhmm);
-        hhmm = -dhhmm + day*1e4;
-        day += ndays[1];
-        dhhmm = day*1e4 + hhmm;
-    } else {
-        dhhmm += ndays[1]*1e4;
-    }
-    txt += addDateTime(y, dhhmm, ndays, lang);
+    txt += addDateTime(y, stermy[24], ndays, lang);
     txt += "<td></td><td>"+stermName[1]+"</td>";
-    dhhmm = sun[ind+1][2];
-    if (dhhmm < 0) {
-        day = -Math.floor(-1e-4*dhhmm);
-        hhmm = -dhhmm + day*1e4;
-        day += ndays[1];
-        dhhmm = day*1e4 + hhmm;
-    } else {
-        dhhmm += ndays[1]*1e4;
-    }
-    txt += addDateTime(y, dhhmm, ndays, lang) + "</tr>";
+    txt += addDateTime(y, stermy[25], ndays, lang) + "</tr>";
     txt += "</table>";
     document.getElementById(id+'content').innerHTML = txt;
 }
@@ -255,14 +275,15 @@ function ymd2(dayIn, ndays, lang) {
     return mmdd;
 }
 
-function addDateTime(y, dhhmm, ndays, lang) {
+function addDateTime(y, m, ndays, lang) {
     var txt = "<td>";
     var nday = ndays[1];
-    var day = (dhhmm < 0 ? -Math.floor(-1e-4*dhhmm):Math.floor(1e-4*dhhmm));
-    // add '000' to make sure the string length of x is at least 4
-    var x = '000' + dhhmm.toString(); 
-    var hh = x.substr(-4,2);
-    var mm = x.substr(-2);
+    var day = Math.floor(m/1441);
+    var md = m - 1441*day;
+    var hh = Math.floor(md/60);
+    var mm = md - 60*hh;
+    if (hh < 10) { hh = '0'+hh;}
+    if (mm < 10) { mm = '0'+mm;}
     if (day < 1) {
         txt += "(" + (y-1) + ") ";
         day += ndays[0];
@@ -273,4 +294,183 @@ function addDateTime(y, dhhmm, ndays, lang) {
         nday = ndays[1];
     }
     return txt+ymd2(day, nday, lang)+", "+hh+":"+mm+"</td>";
+}
+
+// ------------------------------------------------------------------
+// The following functions are for testing purpose
+//
+function addContent_forTesting(lang, y, moon, sun) {
+    var cal = "Gregorian Year: ";
+    if (y==1582) {
+        cal = "Julian/Gregorian Year: ";
+    } else if (y < 1582 && y >= 8) {
+        cal = "Julian Year: ";
+    } else if (y < 8) {
+        cal = "(Proleptic) Julian Year: ";
+    }
+    var txt;
+    if (lang==0) {
+        txt = cal+y;
+    } else {
+        txt ='公元'+y+'年';
+    }
+    if (y <= 0) {
+        if (lang==0) {
+            txt += ' ('+(1-y)+' B.C.)';
+        } else {
+            txt += '(前'+(1-y)+'年)';
+        }
+    }
+    //if (addClickMesg) {
+    //    txt += '&nbsp; <span style="font-size:80%;">(' + 
+    //        (lang==0 ? 'Click to show/hide data':'點擊以顯示/隱藏數據')+')</span>';
+    //}
+    txt += '\n';
+    
+    var mpName = ["New Moon", "First Quarter", "Full Moon", "Last Quarter"];
+    var stermName = ["Z11 (Dec. solstice)", "J12", "Z12", "J1", "Z1", "J2", 
+                     "Z2 (March equinox)", "J3","Z3", 
+                     "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
+                     "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11"];
+    if (lang != 0) {
+        mpName = ["朔", "上弦", "望", "下弦"];
+        if (lang==1) {
+           stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "驚蟄", "春分", "清明", 
+                    "穀雨", "立夏", "小滿", "芒種", "夏至", "小暑", "大暑", "立秋", 
+                    "處暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
+        } else {
+           stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", 
+                    "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", 
+                    "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
+        }
+    }
+    var ind = y - yrange_sunMoon()[0];
+    var i;
+    var ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
+    
+    // uncompress data
+    var moony = [moon[ind][0], moon[ind][1]];
+    for (i=2; i < moon[ind].length; i++) {
+        moony.push(moony[i-1] + moon[ind][i] + 9377);
+    }
+    var stermy = [sun[ind][0], sun[ind][1], sun[ind][2], sun[ind][3],
+                  sun[ind][4], sun[ind][5], sun[ind][6], sun[ind][7], 
+                  sun[ind][8], sun[ind][9], sun[ind][10], sun[ind][11], 
+                  sun[ind][12], sun[ind][13], sun[ind][14], sun[ind][15], 
+                  sun[ind][16], sun[ind][17], sun[ind][18], sun[ind][19], 
+                  sun[ind][20], sun[ind][21], sun[ind][22], sun[ind][23]];
+    for (i=1; i < stermy.length; i++) {
+        stermy[i] += stermy[i-1] + 20895;
+    }
+    // add two more solar terms: Z11 and J12 following J11
+    stermy.push(sun[ind+1][0] + 1441*ndays[1], 
+               sun[ind+1][0]+sun[ind+1][1]+20895 + 1441*ndays[1]);
+    
+    // Moon phases
+    // Data structure:
+    // moony is an array storing the moon phases data
+    // moony[0] is an integer between 0 and 3:
+    //         0 if moony[1] corresponds to a new moon
+    //         1 if moony[1] corresponds to a first quarter
+    //         2 if moony[1] corresponds to a full moon
+    //         3 if moony[1] corresponds to a third quarter
+    // moony[i] (i=1,2,... end of index): date and time of 
+    //          moon phases represent by an integer 
+    //          L so that floor(L/1441) is the number of days 
+    //          from Jan 0 and L - 1441*floor(L/1441) is the 
+    //          number of minutes from the midnight (UT1+8/UTC+8).
+    txt += "<br />";
+    if (lang==0) {
+        txt += "<h2>Phases of the Moon</h2>";
+    } else {
+        txt += "<h2>月相</h2>";
+    }
+    txt += '\n';
+    txt += "<table>\n";
+    txt += "<tr> <th>"+mpName[0]+"</th><th>"+mpName[1]+"</th><th>"+mpName[2]+"</th><th>"+mpName[3]+"</th></tr>\n";
+    var ph = moony[0]; // First moon phase in the year
+    if (ph != 0) {
+        txt += '<tr> <td colspan="'+ph+'"></td>';
+    }
+    for (i=1; i<moony.length; i++) {
+        if (ph==0) { txt += "<tr>";}
+        txt += addDateTime(y, moony[i], ndays, lang);
+        if (ph==3) { txt += "</tr>\n";}
+        if (i == moony.length-1 && ph != 3) {
+            txt += '<td colspan="'+(3-ph)+'"></td></tr>\n';
+        }
+        ph = (ph + 1) % 4;
+    }
+    txt += "</table>\n";
+    
+    // 24 solar terms
+    // Data structure:
+    // stermy is an array storing the 24 solar term data
+    // stermy[i] (i=0, 1, ... 26): dates and times of the solar terms 
+    // starting from Z11 (usually in the previous year) to J12 
+    // in the following year. 
+    // Each of them is an integer calculated in the same way as in the 
+    // dates and times of the moon phases.
+    txt += "<br />\n";
+    if (lang==0) {
+        txt += "<h2>24 Solar Terms</h2>";
+    } else if (lang==1) {
+        txt += "<h2>二十四節氣</h2>";
+    } else {
+        txt += "<h2>二十四节气</h2>";
+    }
+    txt += '\n';
+    txt += "<table>\n";
+    if (lang==0) {
+        txt += "<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>";
+    } else if (lang==1) {
+        txt += "<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>";
+    } else {
+        txt += "<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>";
+    }
+    txt += '\n';
+    for (i=0; i < 24; i++) {
+        if (i % 2 ==0) {
+            txt += "<tr>";
+        }
+        txt += "<td>"+stermName[i]+"</td>";
+        txt += addDateTime(y, stermy[i], ndays, lang);
+        if (i % 2 == 0) {
+            txt += "<td></td>";
+        } else {
+            txt += "</tr>\n";
+        }
+    }
+    // Two more solar terms: Z11 and J12 following J11
+    txt += "<tr>";
+    txt += "<td>"+stermName[0]+"</td>";
+    txt += addDateTime(y, stermy[24], ndays, lang);
+    txt += "<td></td><td>"+stermName[1]+"</td>";
+    txt += addDateTime(y, stermy[25], ndays, lang) + "</tr>\n";
+    txt += "</table>\n";
+    return txt;
+}
+
+// Output from years y1 to y2
+function outputContent_forTesting(lang, y1, y2, moon, sun) {
+    var txt = addContent_forTesting(lang, y1, moon, sun)
+    for (var y=y1+1; y <= y2; y++) {
+        txt += addContent_forTesting(lang, y, moon, sun);
+    }
+    download_txt(txt, 'sunMoon_test2.txt');
+}
+
+// Create file for download
+function download_txt(data, filename) {
+    // create link to download data
+    var hiddenElement = window.document.createElement('a');
+    hiddenElement.href = window.URL.createObjectURL(new Blob([data], {type: 'text/csv'}));
+    hiddenElement.download = filename;
+
+    // Append anchor to body.
+    document.body.appendChild(hiddenElement);
+    hiddenElement.click();
+
+    // Remove anchor from body
+    document.body.removeChild(hiddenElement);
 }

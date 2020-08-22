@@ -14,6 +14,9 @@ function init(lang) {
         }
     });
     submitYear(lang);
+    // *** TEST ***
+    //outputContent_forTesting(lang, -100,2200);
+    // ***
 }
 
 function submitYear(lang) {
@@ -2107,4 +2110,154 @@ function getJD(yyyy,mm,dd) {
     }
     var jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400000.5;
     return jd;
+}
+
+// TEST
+function calendarOut(lang, year) {
+    var langVars = langConstant(lang);
+    //langVars.region = split_calendar_handler(lang,year);
+    langVars.region = 'default';
+    var calVars = calDataYear(year, langVars);
+    var cal = '';
+    
+    // How many Chinese years does this Gregorian/Julian calendar span?
+    var n = calVars.cmonthDate.length;
+    var Ncyear = calVars.cmonthYear[n-1] - calVars.cmonthYear[0] + 1;
+    
+    // Determine the date(s) of the Chinese new year
+    var i,j,k,mm,dd;
+    var mm1 = [], dd1 = [];
+    var firstMonth = [0,0,0];
+    for (i=0; i<3; i++) {
+       if (year > -110) {
+           firstMonth[i] = firstMonthNum(year-1+i);
+       } else {
+           firstMonth[i] = calVars.firstMonthNum;
+       }
+    }
+    for (i=1; i<Ncyear; i++) {
+        var firstMon = firstMonth[calVars.cmonthYear[0] + i];
+        for(j=1; j<n; j++) {
+            if (calVars.cmonthYear[j]==calVars.cmonthYear[0]+i && 
+                calVars.cmonthNum[j]==firstMon) {
+                dd = calVars.cmonthDate[j];
+                for (k=0; k<13; k++) {
+                    if (dd <= calVars.mday[k]) {
+                        mm = k;
+                        break;
+                    }
+                }
+                mm1.push(mm); dd1.push(dd - calVars.mday[mm-1]);
+            }
+        }
+    }
+    
+    // The % operator doesn't work well for negative numbers, 
+    // so need to add adj for negative years
+    var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
+    var ih0 = (year + adj + 5) % 10;
+    var ie0 = (year + adj + 7) % 12;
+    var cyear = [" ", " ", " "];
+    cyear[0] = langVars.heaven[ih0]+' '+langVars.earth[ie0]+' ('+langVars.animal[ie0]+')';
+    var ih = (year + adj + 6) % 10;
+    var ie = (year + adj + 8) % 12;
+    cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie]+' ('+langVars.animal[ie]+')';
+    var ih2 = (year + adj + 7) % 10;
+    var ie2 = (year + adj + 9) % 12;
+    cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2]+' ('+langVars.animal[ie2]+')';
+    var gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
+    if (year==1582) { gcal = "Gregorian/Julian";}
+    var yearc = year.toString();
+    if (year < 1) {
+        yearc += (lang==0 ? ' ('+(1-year)+' B.C.)':' (&#21069;'+(1-year)+')');
+    }
+    var cy0 = calVars.cmonthYear[0];
+    if (lang==0) {
+        cal += '<h1>'+gcal+' Year: '+yearc+'</h1>\n';
+        cal += '<h1>Chinese year:</h1>\n'
+        if (Ncyear==1) {
+            cal += '<h2>'+cyear[cy0]+'</h2> <br />\n';
+        } else if (Ncyear==2) {
+            cal += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' on and after '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+'</h2> <br />\n';
+        } else {
+            cal += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' between '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+' and '+langVars.gMonth[mm1[1]-1]+' '+(dd1[1]-1)+',<br />'+cyear[cy0+2]+' on and after '+langVars.gMonth[mm1[1]-1]+' '+dd1[1]+'</h2> <br />\n';
+        }      
+    } else {
+        if (lang==1) {
+            cyear[0] += eraName(year-1, langVars.region);
+            cyear[1] += eraName(year, langVars.region);
+            cyear[2] += eraName(year+1, langVars.region);
+        } else {
+            cyear[0] += eraNameSim(year-1, langVars.region);
+            cyear[1] += eraNameSim(year, langVars.region);
+            cyear[2] += eraNameSim(year+1, langVars.region);
+        }
+        if (lang==1) {
+            cal += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>\n';
+            cal += '<h1>&#36786;&#26310;&#24180;:</h1>\n';
+        } else {
+            cal += '<h1>公历年: '+yearc+'</h1>\n';
+            cal += '<h1>农历年:</h1>\n';
+        }
+        var tmp;
+        if (Ncyear==1) {
+            cal += '<h2>'+cyear[cy0]+'</h2> <br />\n';
+        } else if (Ncyear==2) {
+            tmp = '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+', ';
+            if (year < 1912) {
+                tmp += '<br />';
+            }
+            tmp += mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+1]+'</h2><br />';
+            cal += tmp+'\n';
+        } else {
+            cal += '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+',<br /> '+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#33267;'+mm1[1]+'&#26376;'+(dd1[1]-1)+'&#26085;: '+cyear[cy0+1]+',<br />'+mm1[1]+'&#26376;'+dd1[1]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+2]+'</h2><br />\n';
+        }
+    }
+    
+    if (lang==0) {
+        cyear[0] = langVars.heaven[ih0]+' '+langVars.earth[ie0];
+        cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie];
+        cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2];
+    } else {
+        cyear[0] = langVars.heaven[ih0]+langVars.earth[ie0]+'&#24180;';
+        cyear[1] = langVars.heaven[ih]+langVars.earth[ie]+'&#24180;';
+        cyear[2] = langVars.heaven[ih2]+langVars.earth[ie2]+'&#24180;';
+    }
+    
+    // Add additional information after the year info
+    var info = addYearInfo(year, langVars, calVars);
+    if (info != "") {
+        var h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
+        cal += h3+info+'</h3><br /><br />\n';
+    }
+    
+    for (var m=0; m<12; m++) {
+        cal += printMonth(m, lang, year, cyear, firstMonth, 
+                                    langVars, calVars)+'\n';
+    }
+    
+    return cal;
+}
+
+function outputContent_forTesting(lang, y1, y2) {
+    var txt = calendarOut(lang,y1);
+    for (var y=y1+1; y <= y2; y++) {
+        txt += calendarOut(lang, y);
+    }
+    download_txt(txt, 'calendar.txt');
+}
+
+// Create file for download
+function download_txt(data, filename) {
+    // create link to download data
+    var hiddenElement = window.document.createElement('a');
+    hiddenElement.href = window.URL.createObjectURL(new Blob([data], {type: 'text/csv'}));
+    hiddenElement.download = filename;
+
+    // Append anchor to body.
+    document.body.appendChild(hiddenElement);
+    hiddenElement.click();
+
+    // Remove anchor from body
+    document.body.removeChild(hiddenElement);
 }
