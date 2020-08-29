@@ -15,7 +15,11 @@ function init(lang) {
     });
     submitYear(lang);
     // *** TEST ***
-    //outputContent_forTesting(lang, -100,2200);
+    //outputContent_forTesting_allYears_default(lang);
+    //outputContent_forTesting_period(lang, 'SpringWarring');
+    //outputContent_forTesting_period(lang, 'ShuWu');
+    //outputContent_forTesting_period(lang, 'SouthNorth');
+    //outputContent_forTesting_period(lang, 'LiaoJinYuan');
     // ***
 }
 
@@ -261,16 +265,16 @@ function firstMonthNum(y) {
 
 // Decompress time: time t has been compressed to retain information 
 // to the nearest minute. The compression algorithm is 
-// t = floor(x+100)*1441 + m, where x is the original time expressed 
+// t = floor(x)*1441 + m, where x is the original time expressed 
 // in the number of days from Jan 0. The inverse transform is 
-// y = floor(t/1441), x_approx = y + (t - y*1441)/1440 - 100
+// y = floor(t/1441), x_approx = y + (t - y*1441)/1440
 function decompress_time(t) {
     var x = [];
     for (var i=0; i<t.length; i++) {
         var y = Math.floor(t[i]/1441);
         var m = t[i] - 1441*y;
         if (m > 1439.5) { m = 1439.9;}
-        x.push(y - 100 + m/1440.0);
+        x.push(y + m/1440.0);
     }
     return x;
 }
@@ -293,27 +297,36 @@ function calDataYear(y, langVars) {
     var ndays1 = NdaysGregJul(y-1);
     
     // *** 24 solar terms in year y **
+    var offsets = offsets_sunMoon();
     var solarAll = solarTerms();
-    var inds = y - solarAll[0][0];
+    var inds = y - solarTermMoonPhase_ystart();
     var solar = solarAll[inds];
-    solar.shift(); // remove the first column, which is Greg. year
-    // solar contains all the 24 solar terms in year y, starting from 
-    // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
+    var solar2 = [solar.pop()];
+    solar = decompress_solarTerms(y, 1, offsets.solar, solar);
+    // solar[] contains solar terms in year y starting from 
+    // J12 (Xiaohan) to J11 (daxue). It stores the dates 
     // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
-    // Add one more to solar if J12 occurs before Jan 3.
-    if (solar[0] < 148423) {
-        solar.push(solarAll[inds+1][1]+ndays*1441);
+    
+    // solar2[] contains the compressed winter solstice in year y.
+    // Add one more to solar2 if J12 occurs before Jan 3.
+    if (solar[0] < 4323) {
+        solar2.push(solarAll[inds+1][0]);
     }
     solarAll = null; // remove large array
+    solar2 = decompress_solarTerms(y+1, 0, offsets.solar, solar2);
+    var i;
+    for (i=0; i < solar2.length; i++) { solar.push(solar2[i]+ndays*1441);}
     solar = decompress_time(solar);
     
     // ** new moons, quarters and full moons in year y **
-    var Q0 = (newMoons())[inds];
-    var Q1 = (firstQuarters())[inds];
-    var Q2 = (fullMoons())[inds];
-    var Q3 = (thirdQuarters())[inds];
-    // remove the first column, which is just Greg. year
-    Q0.shift(); Q1.shift(); Q2.shift(); Q3.shift();
+    var Q0 = (newMoons())[inds]; Q0.unshift(0);
+    var Q1 = (firstQuarters())[inds]; Q1.unshift(1);
+    var Q2 = (fullMoons())[inds]; Q2.unshift(2);
+    var Q3 = (thirdQuarters())[inds]; Q3.unshift(3);
+    Q0 = decompress_moonPhases(y, offsets.lunar, Q0, 1);
+    Q1 = decompress_moonPhases(y, offsets.lunar, Q1, 1);
+    Q2 = decompress_moonPhases(y, offsets.lunar, Q2, 1);
+    Q3 = decompress_moonPhases(y, offsets.lunar, Q3, 1);
     // decompress moon phase data
     Q0 = decompress_time(Q0); Q1 = decompress_time(Q1); 
     Q2 = decompress_time(Q2); Q3 = decompress_time(Q3); 
@@ -1158,15 +1171,18 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
         } else {
             if (datong==0) {
                 var calSolTerms = calendricalSolarTerms();
-                var ind = calVars.year - calSolTerms[0][0];
+                var ind = calVars.year - calendricalSolarTerms_ystart();
                 solar = calSolTerms[ind];
-                solar.shift(); // remove the first column, which is Greg./Julian year
+                // decompress
+                for (var i=1; i<solar.length; i++) { 
+                    solar[i] += solar[i-1]+14;
+                }
                 // solar contains all the 24 solar terms in year y, starting from 
                 // J12 (Xiaohan) to Z11 (winter solstice). It stores the dates 
                 // of the solar terms counting from Dec. 31, y-1 at 0h (UTC+8).
                 // Add one more to solar if J12 occurs before Jan 3.
-                if (solar[0] < 3.0) {
-                    solar.push(calSolTerms[ind+1][1] + NdaysGregJul(calVars.year));
+                if (solar[0] < 3) {
+                    solar.push(calSolTerms[ind+1][0] + NdaysGregJul(calVars.year));
                 }
                 calSolTerms = null;
             } else {
@@ -2113,10 +2129,10 @@ function getJD(yyyy,mm,dd) {
 }
 
 // TEST
-function calendarOut(lang, year) {
+function calendarOut(lang, year, region) {
     var langVars = langConstant(lang);
     //langVars.region = split_calendar_handler(lang,year);
-    langVars.region = 'default';
+    langVars.region = region;
     var calVars = calDataYear(year, langVars);
     var cal = '';
     
@@ -2239,12 +2255,103 @@ function calendarOut(lang, year) {
     return cal;
 }
 
-function outputContent_forTesting(lang, y1, y2) {
-    var txt = calendarOut(lang,y1);
+function outputContent_forTesting(lang, y1, y2, region, outfile) {
+    var txt = calendarOut(lang,y1, region);
     for (var y=y1+1; y <= y2; y++) {
-        txt += calendarOut(lang, y);
+        txt += calendarOut(lang, y, region);
     }
-    download_txt(txt, 'calendar.txt');
+    download_txt(txt, outfile);
+}
+
+function outputContent_forTestingMed(lang, y1, y2, region) {
+    var txt = calendarOut(lang,y1, region);
+    for (var y=y1+1; y <= y2; y++) {
+        txt += calendarOut(lang, y, region);
+    }
+    return txt;
+}
+
+function outputContent_forTesting_allYears_default(lang) {
+    // Default setting: -721 - 2200
+    var menu = ancient_calendar_menu('Spring');
+    var item, i;
+    for (i=0; i<menu.length; i++) {
+        item = document.getElementById(menu[i].id);
+        if (item.classList.contains('active')) { 
+            item.classList.remove('active');
+            break;
+         }
+    }
+    menu = ancient_calendar_menu('Warring');
+    for (i=0; i<menu.length; i++) {
+        item = document.getElementById(menu[i].id);
+        if (item.classList.contains('active')) { 
+            item.classList.remove('active');
+            break;
+         }
+    }
+    document.getElementById('chunqiuSpring').classList.add('active');
+    document.getElementById('zhouWarring').classList.add('active');
+    outputContent_forTesting(lang, -721, 2200, 'default', 'default.txt');
+}
+
+function outputContent_forTesting_period(lang, period) {
+    var i, txt ='';
+    if (period=='SpringWarring') {
+        var menu = ancient_calendar_menu('Spring');
+        var item;
+        for (i=0; i<menu.length; i++) {
+            item = document.getElementById(menu[i].id);
+            if (item.classList.contains('active')) { 
+                item.classList.remove('active');
+                break;
+             }
+        }
+        for (i=1; i<menu.length; i++) {
+            item = document.getElementById(menu[i].id);
+            item.classList.add('active');
+            txt += menu[i].id+'\n';
+            txt += outputContent_forTestingMed(lang, -721, -480, 'default');
+            item.classList.remove('active');
+        }
+        item = document.getElementById(menu[0].id);
+        item.classList.add('active');
+        
+        menu = ancient_calendar_menu('Warring');
+        for (i=0; i<menu.length; i++) {
+            item = document.getElementById(menu[i].id);
+            if (item.classList.contains('active')) { 
+                item.classList.remove('active');
+                break;
+             }
+        }
+        for (i=1; i<menu.length; i++) {
+            item = document.getElementById(menu[i].id);
+            item.classList.add('active');
+            txt += menu[i].id+'\n';
+            txt += outputContent_forTestingMed(lang, -479, -221, 'default');
+            item.classList.remove('active');
+        }
+        item = document.getElementById(menu[0].id);
+        item.classList.add('active');
+    } else if (period=='ShuWu') {
+        txt = 'Shu\n';
+        txt += outputContent_forTestingMed(lang, 221, 263, 'Shu');
+        txt += 'Wu\n';
+        txt += outputContent_forTestingMed(lang, 222, 280, 'Wu');
+    } else if (period=='SouthNorth') {
+        txt = 'Later Qin\n';
+        txt += outputContent_forTestingMed(lang, 384, 417, 'LaterQin');
+        txt += 'Northern Liang\n';
+        txt += outputContent_forTestingMed(lang, 412, 439, 'NorthernLiang');
+        txt += 'Northern Wei, Western Wei, Northern Zhou, Sui\n';
+        txt += outputContent_forTestingMed(lang, 398, 590, 'WeiZhouSui');
+        txt += 'Eastern Wei, Northern Qi\n';
+        txt += outputContent_forTestingMed(lang, 534, 577, 'WeiQi');
+    } else if (period=='LiaoJinYuan') {
+        txt = outputContent_forTestingMed(lang, 947, 1279, 'LiaoJinYuan');
+    }
+    download_txt(txt, period+'.txt');
 }
 
 // Create file for download

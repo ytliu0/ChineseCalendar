@@ -110,46 +110,15 @@ function addContent(lang, y, id, moon, sun) {
     var i;
     var ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
     
-    // uncompress data
-    // Moon phases
-    // Moon phase data are stored in a 2D array.
-    // moon[k][] is the data for the kth year starting from y1
-    // moon[k][0] is an integer between 0 and 3:
-    //         0 if moon[k][1] corresponds to a new moon
-    //         1 if moon[k][1] corresponds to a first quarter
-    //         2 if moon[k][1] corresponds to a full moon
-    //         3 if moon[k][1] corresponds to a third quarter
-    // moon[k][1]: date and time of moon phases represent by an integer L0 so that
-    // floor(L0/1441) is the number of days from Jan 0 and L0 - 1441*floor(L0/1441)
-    // is the number of minutes from the midnight (UT1+8/UTC+8).
-    // moon[k][i] (i=2,3,..., end index): L[i] - L[i-1] - 9377, where L[i] is the integer
-    // representing the moon phase time so that floor(L[i]/1441) is the number of days
-    // from Jan 0 and L[i] - 1441*floor(L[i]/1441) is the number of minutes from
-    // the midnight (UT1+8/UTC+8).
-    var moony = [moon[ind][0], moon[ind][1]];
-    for (i=2; i < moon[ind].length; i++) {
-        moony.push(moony[i-1] + moon[ind][i] + 9377);
-    }
-    // 24 solar terms
-    // Data are stored in a 2D array
-    // sun[k][] is the data for the kth year starting from y1
-    // sun[k][0] is an integer L representing Z11 (usually in the previous year) so that
-    // floor(L/1441) is the number of days from Jan 0 and L - 1441*floor(L/1441) is
-    // the number of minutes from the midnight (UT1+8/UTC+8).
-    // sun[k][i] (i=1,2,...,23): integer L[i] - L[i-1] - 20895, where L[i] is the
-    // integer representing the solar term in the same way as L in sun[k][0].
-    var stermy = [sun[ind][0], sun[ind][1], sun[ind][2], sun[ind][3],
-                  sun[ind][4], sun[ind][5], sun[ind][6], sun[ind][7], 
-                  sun[ind][8], sun[ind][9], sun[ind][10], sun[ind][11], 
-                  sun[ind][12], sun[ind][13], sun[ind][14], sun[ind][15], 
-                  sun[ind][16], sun[ind][17], sun[ind][18], sun[ind][19], 
-                  sun[ind][20], sun[ind][21], sun[ind][22], sun[ind][23]];
-    for (i=1; i < stermy.length; i++) {
-        stermy[i] += stermy[i-1] + 20895;
-    }
+    // decompress data
+    var offsets = offset_sunMoon();
+    var moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
+    moony.unshift(moon[ind][0]);
+    var stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
+    var sun_temp = [sun[ind+1][0], sun[ind+1][1]];
     // add two more solar terms: Z11 and J12 following J11
-    stermy.push(sun[ind+1][0] + 1441*ndays[1], 
-               sun[ind+1][0]+sun[ind+1][1]+20895 + 1441*ndays[1]);
+    var st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
+    stermy.push(st2[0]+1441*ndays[1], st2[1]+1441*ndays[1]);
     
     // Moon phases
     // Data structure:
@@ -240,6 +209,22 @@ function NdaysGregJul(y) {
      ndays += (y % 100 == 0 ? -1:0) + (y % 400 == 0 ? 1:0);
   }
   return ndays;
+}
+
+// Compute JD at midnight UT
+function getJD(yyyy,mm,dd) {
+    var m1 = mm, yy = yyyy;
+    if (m1 <= 2) {m1 +=12; yy--;}
+    var b;
+    if (10000*yy+100*m1+dd <= 15821004) {
+        // Julian calendar
+        b = -2 + Math.floor((yy+4716)/4) - 1179;
+    } else {
+        // Gregorian calendar
+        b = Math.floor(yy/400) - Math.floor(yy/100) + Math.floor(yy/4);
+    }
+    var jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400000.5;
+    return jd;
 }
 
 // day from Dec 31, y-1 -> m, d (assume 1 <= day <= ndays )
@@ -348,23 +333,15 @@ function addContent_forTesting(lang, y, moon, sun) {
     var i;
     var ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
     
-    // uncompress data
-    var moony = [moon[ind][0], moon[ind][1]];
-    for (i=2; i < moon[ind].length; i++) {
-        moony.push(moony[i-1] + moon[ind][i] + 9377);
-    }
-    var stermy = [sun[ind][0], sun[ind][1], sun[ind][2], sun[ind][3],
-                  sun[ind][4], sun[ind][5], sun[ind][6], sun[ind][7], 
-                  sun[ind][8], sun[ind][9], sun[ind][10], sun[ind][11], 
-                  sun[ind][12], sun[ind][13], sun[ind][14], sun[ind][15], 
-                  sun[ind][16], sun[ind][17], sun[ind][18], sun[ind][19], 
-                  sun[ind][20], sun[ind][21], sun[ind][22], sun[ind][23]];
-    for (i=1; i < stermy.length; i++) {
-        stermy[i] += stermy[i-1] + 20895;
-    }
+    // decompress data
+    var offsets = offset_sunMoon();
+    var moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
+    moony.unshift(moon[ind][0]);
+    var stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
+    var sun_temp = [sun[ind+1][0], sun[ind+1][1]];
     // add two more solar terms: Z11 and J12 following J11
-    stermy.push(sun[ind+1][0] + 1441*ndays[1], 
-               sun[ind+1][0]+sun[ind+1][1]+20895 + 1441*ndays[1]);
+    var st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
+    stermy.push(st2[0]+1441*ndays[1], st2[1]+1441*ndays[1]);
     
     // Moon phases
     // Data structure:
