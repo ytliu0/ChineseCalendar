@@ -108,7 +108,7 @@ function decompress_moonPhases(y, offset_comp, lunar_comp, dp) {
     var offset = 2451545 - jd0 - delta_T;
     var lsyn = 29.5306;
     var p0 = lunar_comp[0]; // the first moon phase
-    var jdL0 = 2451550.260211753 + 0.25*p0*lsyn;
+    var jdL0 = 2451550.259469 + 0.25*p0*lsyn; 
     
     // Find the lunation number of the first moon phase in the year
     var Lm0 = Math.floor((jd0 + 1 - jdL0)/lsyn)-1;
