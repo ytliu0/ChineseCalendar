@@ -295,8 +295,8 @@ function table_spring(lang) {
     var tab = document.getElementById('description');
     var langCon = langConstant(lang);
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (722 B.C. &ndash; 481 B.C.)</h1>';
-        tab.innerHTML = '<p>The following table lists the proleptic Julian dates MM-DD of the first day of each month in the Chinese calendar. Julian year 0 means 1 B.C., -1 means 2 B.C. and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (722 BCE &ndash; 481 BCE)</h1>';
+        tab.innerHTML = '<p>The following table lists the proleptic Julian dates MM-DD of the first day of each month in the Chinese calendar. Julian year 0 means 1 BCE, -1 means 2 BCE and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. The last column lists the total number of days in the Chinese year.</p>';
         langCon.Wyear = "Julian<br />year";
     } else if (lang==1) {
         tit.innerHTML = '<h1>春 秋 時 代 朔 閏 表 (前722 &ndash; 前481)</h1>';
@@ -369,8 +369,8 @@ function table_warring(lang) {
     var tab = document.getElementById('description');
     var langCon = langConstant(lang);
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (480 B.C. &ndash; 222 B.C.)</h1>';
-        tab.innerHTML = '<p>The following table lists the proleptic Julian dates MM-DD of the first day of each month in the Chinese calendar. Julian year 0 means 1 B.C., -1 means 2 B.C. and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (480 BCE &ndash; 222 BCE)</h1>';
+        tab.innerHTML = '<p>The following table lists the proleptic Julian dates MM-DD of the first day of each month in the Chinese calendar. Julian year 0 means 1 BCE, -1 means 2 BCE and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. The last column lists the total number of days in the Chinese year.</p>';
         langCon.Wyear = "Julian<br />year";
     } else if (lang==1) {
         tit.innerHTML = '<h1>戰 國 時 代 朔 閏 表 (前480 &ndash; 前222)</h1>';
@@ -447,8 +447,8 @@ function table_qinhanxin(lang) {
     var tit = document.getElementById('title');
     var tab = document.getElementById('description');
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (221 B.C. &ndash; 24 A.D.)</h1>';
-        tab.innerHTML = '<p>The following table lists the (proleptic before 8 A.D.) Julian dates MM-DD of the first day of each month in the Chinese calendar in the Qin, Western Han, and Xin dynasty (221 B.C. &ndash; 24 A.D.). Julian year 0 means 1 B.C., -1 means 2 B.C. and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (221 BCE &ndash; 24 CE)</h1>';
+        tab.innerHTML = '<p>The following table lists the (proleptic before 8 CE) Julian dates MM-DD of the first day of each month in the Chinese calendar in the Qin, Western Han, and Xin dynasty (221 BCE &ndash; 24 CE). Julian year 0 means 1 BCE, -1 means 2 BCE and so on. MM indicates the Julian month and DD indicates the Julian date. When MM is 13, it means January in the following Julian year. When MM is negative, it means the month in the previous year. For example, -11-27 means November 27th in the previous year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p><br />';
     } else if (lang==1) {
         tit.innerHTML = '<h1>秦、 西 漢 及 新 朝 朔 閏 表 (前221 &ndash; 24)</h1>';
@@ -465,7 +465,7 @@ function table_qinhanxin(lang) {
     var info;
     tab = document.getElementById('table');
     if (lang==0) {
-        info = '<p style="color:brown;">The calendar used between 221 B.C. and 104 B.C. largely followed the convention used by the Zhuanxu calendar, one of the old calendars used in the third century B.C. in the state of Qin. The first month was the h&#224;i month (present day month 10). However, it was still called month 10 instead of month 1. The numerical order of the months in a year was 10, 11, 12, 1, 2, ..., 9. The intercalary month was placed at the end of a year, called post month 9. There was a major calendar reform in 104 B.C., where the first month of a year was changed to month 1 and the intercalary month was placed in the month that did not contain a major solar term. The Chinese year in 104 B.C. had 15 Chinese months as a result of the change.</p> <p style="color:brown;">The calendars in this period are reconstructed according to the description in the article "Researches on Calendars from Qin to early Han (246 B.C. to 104 B.C.) &mdash; centering on excavated calendrical bamboo slips" (秦至汉初(前246至前104)历法研究&mdash;以出土历简为中心), L&#464; Zh&#333;ngl&#237;n (李忠林), in <i>Studies in Chinese History</i> (《中国史研究》), issue no. 2, pp. 17&ndash;69 (2012). Our computation method is explained on <a href="QinHanCalendars.html">this page</a>.</p>';
+        info = '<p style="color:brown;">The calendar used between 221 BCE and 104 BCE largely followed the convention used by the Zhuanxu calendar, one of the old calendars used in the third century BCE in the state of Qin. The first month was the h&#224;i month (present day month 10). However, it was still called month 10 instead of month 1. The numerical order of the months in a year was 10, 11, 12, 1, 2, ..., 9. The intercalary month was placed at the end of a year, called post month 9. There was a major calendar reform in 104 BCE, where the first month of a year was changed to month 1 and the intercalary month was placed in the month that did not contain a major solar term. The Chinese year in 104 BCE had 15 Chinese months as a result of the change.</p> <p style="color:brown;">The calendars in this period are reconstructed according to the description in the article "Researches on Calendars from Qin to early Han (246 B.C. to 104 B.C.) &mdash; centering on excavated calendrical bamboo slips" (秦至汉初(前246至前104)历法研究&mdash;以出土历简为中心), L&#464; Zh&#333;ngl&#237;n (李忠林), in <i>Studies in Chinese History</i> (《中国史研究》), issue no. 2, pp. 17&ndash;69 (2012). Our computation method is explained on <a href="QinHanCalendars.html">this page</a>.</p>';
         langCon.Wyear = "Julian<br />year";
         langCon.month_num = ["10","11","12","1","2","3","4","5","6","7","8","9","post<br />9"];
     } else if (lang==1) {
@@ -508,7 +508,7 @@ function table_qinhanxin(lang) {
     
     // Manually create the table for -103
     if (lang==0) {
-        info = '<p style="color:red;">The calendar reform in 104 B.C. (-103) caused that year having 15 Chinese months.</p>'
+        info = '<p style="color:red;">The calendar reform in 104 BCE (-103) caused that year having 15 Chinese months.</p>'
         info += '<table>';
         info += '<tr> <th rowspan="2">Julian<br />year</th> <th rowspan="2">Chinese<br />year</th> <th colspan="8">Months in Chinese Calendar</th></tr>';
         info += '<tr> <th>10</th> <th>11</th> <th>12</th> <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th></tr>';
@@ -586,7 +586,7 @@ function table_qinhanxin(lang) {
     
     tab.innerHTML += tableYears(1, 8, date2, langCon);
     if (lang==0) {
-        info = '<p style="color:red;">The Xin dynasty was established in 9 A.D. The ch&#466;u month (present day month 12) was desnigated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 A.D. (W&#249; ch&#233;n) had only 11 months. When the Xin dynasty was overthrown in 23 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 23 A.D. had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month).</p>';
+        info = '<p style="color:red;">The Xin dynasty was established in 9 CE The ch&#466;u month (present day month 12) was desnigated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 CE (W&#249; ch&#233;n) had only 11 months. When the Xin dynasty was overthrown in 23 CE, the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 23 CE had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month).</p>';
     } else if (lang==1) {
         info = '<p style="color:red;">公元9年，王莽建立新朝，改正朔以殷正建丑(即現在的十二月)為年首，故公元8年的農曆年(戊辰年)只有十一個月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。新朝於地皇四年(癸未年，公元23年)亡，次年恢復以建寅(即現在的正月)為年首。公元23年的農曆年(癸未年)有兩個十二月(建子和建丑)。</p>';
     } else {
@@ -740,7 +740,7 @@ function table_weishuwu(lang) {
     tab.innerHTML += tableYears(230, 236, date2, langCon);
     
     if (lang==0) {
-        info = '<p style="color:red;">In 237 A.D., emperor Mingdi of the Wei dynasty declared that the ch&#466;u month (present day month 12) would be the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. The new system was imposed after month 2 in the Chinese year in 237, in which month 4 was followed by month 2. When the emperor died in 239 A.D., the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 239 had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month). In addition, month 12 in the Chinese year in 236 A.D. had only 28 days as a new version of the Chinese calendar was adopted. There are discrepancies between the data in the main text and Appendix 2 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. The main text uses the new calendar in month 1, but Appendix 2 uses the new calendar in month 6. Here the data in the main text are used, in which the first days of each month before month 6 are one day earlier.</p>';
+        info = '<p style="color:red;">In 237 CE, emperor Mingdi of the Wei dynasty declared that the ch&#466;u month (present day month 12) would be the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. The new system was imposed after month 2 in the Chinese year in 237, in which month 4 was followed by month 2. When the emperor died in 239 CE, the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 239 had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month). In addition, month 12 in the Chinese year in 236 CE had only 28 days as a new version of the Chinese calendar was adopted. There are discrepancies between the data in the main text and Appendix 2 in the book <i>3500 Years of Calendars and Astronomical Phenomena</i>. The main text uses the new calendar in month 1, but Appendix 2 uses the new calendar in month 6. Here the data in the main text are used, in which the first days of each month before month 6 are one day earlier.</p>';
         langCon.month_num[0] = '1 (y&#237;n)';
         langCon.month_num[1] = '2 (m&#462;o)';
         langCon.month_num[3] = '4 (ch&#233;n)';

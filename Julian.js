@@ -230,7 +230,7 @@ function write_output(lang, JDnoon, jd) {
     if (lang==0) {
         txt = '<br /><h3><u>Result</u></h3><p style="color:blue;">';
         cal = 'Date in '+(JDnoon > 2299160 ? 'Gregorian ':(y < 8 ? 'Proleptic Julian':'Julian'))+' calendar: ';
-        year = (y > 0 ? y+' A.D.':(1-y)+' B.C.');
+        year = (y > 0 ? y+' CE':(1-y)+' BCE');
         txt += cal+dd+' '+langVars.gMonth[mm-1]+', '+year;
         txt += '&nbsp;&nbsp;&nbsp; Time: '+dat.timeString+'</p>';
         txt += '<p style="color:blue;">Julian date = '+jdRound+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day of week: ';

@@ -78,7 +78,7 @@ function addContent(lang, y, id, moon, sun) {
     }
     if (y <= 0) {
         if (lang==0) {
-            txt += ' ('+(1-y)+' B.C.)';
+            txt += ' ('+(1-y)+' BCE)';
         } else {
             txt += '(前'+(1-y)+'年)';
         }
@@ -301,7 +301,7 @@ function addContent_forTesting(lang, y, moon, sun) {
     }
     if (y <= 0) {
         if (lang==0) {
-            txt += ' ('+(1-y)+' B.C.)';
+            txt += ' ('+(1-y)+' BCE)';
         } else {
             txt += '(前'+(1-y)+'年)';
         }
