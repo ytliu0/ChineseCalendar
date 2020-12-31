@@ -1,40 +1,107 @@
 "use strict";
 
 function header(lang, page, link) {
-    var txt = '<ul>';
+    let menulist = [], menu;
     if (lang==0) {
         // English
-        txt += '<li id="menucalendar"><a href="index.html">Yearly<br />Calendar</a></li>';
-        txt += '<li id="menutable"><a href="table.html">Conversion<br /> Table</a></li>';
-        txt += '<li id="menusolarterms"><a href="solarTerms.html">24 Solar<br /> Terms</a></li>';
-        txt += '<li id="menusexagenary"><a href="sexagenary.html">Sexagenary<br /> Cycle</a></li>';
-        txt += '<li id="menurules"><a href="rules.html">Calendar<br /> Rules</a></li>';
-        txt += '<li id="menucomputation"><a href="computation.html">Calendar<br /> Calculation</a></li>';
-        txt += '<li id="menusunmoon"><a href="sunMoon.html">Sun &amp; Moon<br />Phenomena</a></li>';
+        menu = {id:'menuconversion', title:'Calendar<br />Conversion'};
+        menu.sub = [{title:'Yearly Calendar', url:'index.html'},
+                    {title:'Conversion Table', url:'table.html'},
+                    {title:'Sun &amp; Moon Phenomena', url:'sunMoon.html'},
+                    {title:'Julian &amp; Sexagenary Date Calculator', url:'Julian.html'}];
+        menulist.push(menu);
+            
+        menu = {id:'menuCalendarBasics', title:'Chinese Calendar<br />Basics'};
+        menu.sub = [{title:'24 Solar Terms', url:'solarTerms.html'},
+                    {title:'Sexagenary Cycle', url:'sexagenary.html'},
+                    {title:'Chinese Calendar Rules', url:'rules.html'} ];
+        menulist.push(menu);
+        
+        menu = {id:'menuCalendarComputation', title:'Calendar<br />Computation'};
+        menu.sub = [{title:'Chinese Calendar Generation', url:'computation.html'}, 
+                    {title:'Moon Phases and Solar Terms', url:'docs/sunMoon.pdf'},
+                    {title:'Chunqiu Calendar', url:'chunqiu.html'},
+                    {title:'Ancient Six Calendars', url:'guliuli.html'},
+                    {title:'Qin &amp; Early Han Calendars', url:'QinHanCalendars.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuMisc', title:'Other<br />Links', 
+               url:'others.html', sub:[]};
+        menulist.push(menu);
     } else if (lang==1) {
         // traditional Chinese
-        txt += '<li id="menucalendar"><a href="index_chinese.html">年 曆</a></li>';
-        txt += '<li id="menutable"><a href="table_chinese.html">朔 閏 表</a></li>';
-        txt += '<li id="menusolarterms"><a href="solarTerms_chinese.html">二 十 四 節 氣</a></li>';
-        txt += '<li id="menusexagenary"><a href="sexagenary_chinese.html">六 十 干 支</a></li>';
-        txt += '<li id="menurules"><a href="rules_chinese.html">農 曆 法 則</a></li>';
-        txt += '<li id="menucomputation"><a href="computation_chinese.html">編 算 農 曆</a></li>';
-        txt += '<li id="menusunmoon"><a href="sunMoon_chinese.html">氣 朔 時 刻</a></li>';
+        menu = {id:'menuconversion', title:'中 西 曆 對 照'};
+        menu.sub = [{title:'年曆', url:'index_chinese.html'},
+                    {title:'朔閏表', url:'table_chinese.html'},
+                    {title:'氣朔時刻', url:'sunMoon_chinese.html'},
+                    {title:'中國歷史年表', url:'era_names.html'},
+                    {title:'儒略日數和日干支計算器', url:'Julian_chinese.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuCalendarBasics', title:'農 曆 知 識'};
+        menu.sub = [{title:'二十四節氣', url:'solarTerms_chinese.html'},
+                    {title:'六十干支', url:'sexagenary_chinese.html'},
+                    {title:'農曆編算法則', url:'rules_chinese.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuCalendarComputation', title:'曆 法 計 算'};
+        menu.sub = [{title:'編算農曆', url:'computation_chinese.html'},
+                    {title:'月相和二十四節氣算法', url:'docs/sunMoon_chinese.pdf'},
+                    {title:'春秋曆復原法', url:'chunqiu_chinese.html'},
+                    {title:'古六曆計算法', url:'guliuli_chinese.html'},
+                    {title:'秦至漢初的曆法復原', url:'QinHanCalendars_chinese.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuMisc', title:'其 他', url:'others_chinese.html', sub:[]};
+        menulist.push(menu);
     } else {
         // simplified Chinese
-        txt += '<li id="menucalendar"><a href="index_simp.html">年 历</a></li>';
-        txt += '<li id="menutable"><a href="table_simp.html">朔 闰 表</a></li>';
-        txt += '<li id="menusolarterms"><a href="solarTerms_simp.html">二 十 四 节 气</a></li>';
-        txt += '<li id="menusexagenary"><a href="sexagenary_simp.html">六 十 干 支</a></li>';
-        txt += '<li id="menurules"><a href="rules_simp.html">农 历 法 则</a></li>';
-        txt += '<li id="menucomputation"><a href="computation_simp.html">编 算 农 历</a></li>';
-        txt += '<li id="menusunmoon"><a href="sunMoon_simp.html">气 朔 时 刻</a></li>';
+                menu = {id:'menuconversion', title:'中 西 历 对 照'};
+        menu.sub = [{title:'年历', url:'index_simp.html'},
+                    {title:'朔闰表', url:'table_simp.html'},
+                    {title:'气朔时刻', url:'sunMoon_simp.html'},
+                    {title:'中国历史年表', url:'era_names_simp.html'},
+                    {title:'儒略日数和日干支计算器', url:'Julian_simp.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuCalendarBasics', title:'农 历 知 识'};
+        menu.sub = [{title:'二十四节气', url:'solarTerms_simp.html'},
+                    {title:'六十干支', url:'sexagenary_simp.html'},
+                    {title:'农历编算法则', url:'rules_simp.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuCalendarComputation', title:'历 法 计 算'};
+        menu.sub = [{title:'编算农历', url:'computation_simp.html'},
+                    {title:'月相和二十四节气算法', url:'docs/sunMoon_simp.pdf'},
+                    {title:'春秋历复原法', url:'chunqiu_simp.html'},
+                    {title:'古六历计算法', url:'guliuli_simp.html'},
+                    {title:'秦至汉初的历法复原', url:'QinHanCalendars_simp.html'}];
+        menulist.push(menu);
+        
+        menu = {id:'menuMisc', title:'其 他', url:'others_simp.html', sub:[]};
+        menulist.push(menu);
     }
-    txt += '</ul>';
+    
+    let txt = '';
+    menulist.forEach(add_menu);
+    
+    function add_menu(x) {
+        txt += '<div class="dropdown" id="'+x.id+'">';
+        let n = x.sub.length;
+        if (n==0) {
+            txt += '<button class="dropbtn" style="cursor:pointer;"  onclick="myloadurl('+"'"+x.url+"'"+')">'+x.title+'</button></div>';
+        } else {
+            txt += '<button class="dropbtn" onclick="display_dropdown_menu('+"'"+x.id+"'"+')">'+x.title+'</button>';
+            txt += '<div class="dropdown-content">';
+            for (let i=0; i<n; i++) {
+                txt += '<p onclick="myloadurl('+"'"+x.sub[i].url+"'"+')">'+x.sub[i].title+'</p>';
+            }
+            txt += '</div></div>';
+        }
+    }
+    
     document.getElementById('menu').innerHTML = txt;
-    if (page != "") {
-        document.getElementById('menu'+page).classList.add("active");
-    }
+    
     if (link != "") {
         txt = '<h2 style="text-align:right;">';
         if (lang==0) {
@@ -46,4 +113,27 @@ function header(lang, page, link) {
         }
         document.getElementById('language').innerHTML = txt;
     }
+}
+
+// The click event is created to handle devices with touch screen
+function display_dropdown_menu(id) {
+    document.getElementById(id).classList.toggle('showdropdown');
+    let x = document.getElementsByClassName('showdropdown');
+    let n = x.length;
+    for (let i=0; i<n; i++) {
+        if (x[i].id != id) {
+            x[i].classList.remove('showdropdown');
+            break;
+        }
+    }
+}
+
+// remove showdropdown class and load url
+function myloadurl(url) {
+    let x = document.getElementsByClassName('showdropdown');
+    let n = x.length;
+    if (n==1) {
+        x[0].classList.remove('showdropdown');
+    }
+    location.href = url;
 }

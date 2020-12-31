@@ -8,6 +8,7 @@ function setup_table(lang, period) {
     document.getElementById('mainMenu').style.display = "none";
     document.getElementById('returnMainMenu').style.display = "block";
     document.getElementById('returnMainMenuEnd').style.display = "block";
+    document.getElementById('menu').scrollIntoView();
     if (period == "Spring") {
         document.getElementById("Spring").style.display = "block";
     }
