@@ -30,6 +30,11 @@ table {
     font:14px/18px verdana, arial, helvetica, sans-serif;
 }
 
+#table th, #table td {
+    margin:0;
+    padding:0;
+}
+
 #calendar th, #calendar td {
     padding:5px;
     width:100px;
@@ -369,8 +374,8 @@ subsect:after{
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #ffff4d;}
 
-@media (hover: none) { 
-    .dropdown.showdropdown .dropdown-content {display: block;}
-    .dropdown.showdropdown p:hover {background-color: #ddd;}
-    .dropdown.showdropdown .dropbtn {background-color: #ffff4d;}
-}
+/* @media (hover: none) { */
+.dropdown.showdropdown .dropdown-content {display: block;}
+.dropdown.showdropdown p:hover {background-color: #ddd;}
+.dropdown.showdropdown .dropbtn {background-color: #ffff4d;}
+/* } */
