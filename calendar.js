@@ -3,9 +3,22 @@
 function init(lang) {
     document.getElementById("wrapper0").style.display = "block";
     header(lang,'calendar', 'index'); // print menu
-    var d = new Date(); // current time from computer's clock
-    var year = d.getFullYear();
-    var input = document.getElementById('year');
+    let year = 99999999;
+    let input = document.getElementById('year');
+    // Get input from url
+    let x = location.search;
+    if (x != '' && x !== null) {
+        x = x.substring(1);
+        let para = x.split('&');
+        para.forEach(function (p) {
+            let v = p.split('=');
+            if (v[0]=='y') { year = parseInt(v[1], 10);}
+        });
+    } 
+    if (isNaN(year) || year < -721 || year > 2200) {
+      let d = new Date(); // current time from computer's clock
+      year = d.getFullYear();
+    }
     input.value = year;
     input.addEventListener('keyup', function(event) {
         if (event.keyCode === 13) {
@@ -25,10 +38,10 @@ function init(lang) {
 
 function submitYear(lang) {
     document.getElementById('err').innerHTML = "";
-    var year = parseInt(document.getElementById('year').value);
-    var menu,i,li;
+    let year = parseInt(document.getElementById('year').value, 10);
+    let menu,i,li;
     if (isNaN(year) || year < -721 || year > 2200) {
-        var message = ['Invalid input! Please enter an integer between -721 and 2200.', 
+        let message = ['Invalid input! Please enter an integer between -721 and 2200.', 
         '輸入錯誤﹗請輸入包括 -721 和 2200 之間的整數。','输入错误！请输入包括 -721 和 2200 之间的整数。'];
         document.getElementById('err').innerHTML = message[lang];
     } else {
@@ -44,7 +57,7 @@ function submitYear(lang) {
 
 // Show/hide between show/hide Jilian day number at noon
 function showHideJulian(lang,ins) {
-    var s = parseInt(ins);
+    let s = parseInt(ins, 10);
     document.getElementById('Julian'+ins).checked = true;
     document.getElementById('Julian'+(1-s)).checked = false;
     if (document.getElementById('err').innerHTML == '') {
@@ -503,18 +516,22 @@ function calendar(lang, year) {
         }
     }
     
-    // The % operator doesn't work well for negative numbers, 
-    // so need to add adj for negative years
-    var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
-    var ih0 = (year + adj + 5) % 10;
-    var ie0 = (year + adj + 7) % 12;
+    //var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
+    var ih0 = (year + 725) % 10;
+    var ie0 = (year + 727) % 12;
+    if (ih0 < 0) { ih0 += 10;}
+    if (ie0 < 0) { ie0 += 12;}
     var cyear = [" ", " ", " "];
     cyear[0] = langVars.heaven[ih0]+' '+langVars.earth[ie0]+' ('+langVars.animal[ie0]+')';
-    var ih = (year + adj + 6) % 10;
-    var ie = (year + adj + 8) % 12;
+    var ih = (year + 726) % 10;
+    var ie = (year + 728) % 12;
+    if (ih < 0) { ih += 10;}
+    if (ie < 0) { ie += 12;}
     cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie]+' ('+langVars.animal[ie]+')';
-    var ih2 = (year + adj + 7) % 10;
-    var ie2 = (year + adj + 9) % 12;
+    var ih2 = (year + 727) % 10;
+    var ie2 = (year + 729) % 12;
+    if (ih2 < 0) { ih2 += 10;}
+    if (ie2 < 0) { ie2 += 12;}
     cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2]+' ('+langVars.animal[ie2]+')';
     var gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
     if (year==1582) { gcal = "Gregorian/Julian";}
@@ -781,8 +798,9 @@ function addChineseMonths(m, lang, y, cyear, langVars,
     var m1 = calVars.mday[m+1];
     
     // Sexagenary year cycle for year y-1
-    var adj = (y > 10 ? 0:60*Math.floor(-y/60 + 2));
-    var ihy1 = (y + adj -5) % 10;
+    //var adj = (y > 10 ? 0:60*Math.floor(-y/60 + 2));
+    var ihy1 = (y + 725) % 10;
+    if (ihy1 < 0) { ihy1 += 10;}
     
     var nMonth = 1, j, tmp, cm, jian;
     var cmonth = [], cmyear = [];
@@ -2168,18 +2186,22 @@ function calendarOut(lang, year, region) {
         }
     }
     
-    // The % operator doesn't work well for negative numbers, 
-    // so need to add adj for negative years
-    var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
-    var ih0 = (year + adj + 5) % 10;
-    var ie0 = (year + adj + 7) % 12;
+    //var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
+    var ih0 = (year + 725) % 10;
+    var ie0 = (year + 727) % 12;
+    if (ih0 < 0) { ih0 += 10;}
+    if (ie0 < 0) { ie0 += 12;}
     var cyear = [" ", " ", " "];
     cyear[0] = langVars.heaven[ih0]+' '+langVars.earth[ie0]+' ('+langVars.animal[ie0]+')';
-    var ih = (year + adj + 6) % 10;
-    var ie = (year + adj + 8) % 12;
+    var ih = (year + 726) % 10;
+    var ie = (year + 728) % 12;
+    if (ih < 0) { ih += 10;}
+    if (ie < 0) { ie += 12;}
     cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie]+' ('+langVars.animal[ie]+')';
-    var ih2 = (year + adj + 7) % 10;
-    var ie2 = (year + adj + 9) % 12;
+    var ih2 = (year + 727) % 10;
+    var ie2 = (year + 729) % 12;
+    if (ih2 < 0) { ih2 += 10;}
+    if (ie2 < 0) { ie2 += 12;}
     cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2]+' ('+langVars.animal[ie2]+')';
     var gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
     if (year==1582) { gcal = "Gregorian/Julian";}

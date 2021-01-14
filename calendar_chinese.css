@@ -1,5 +1,5 @@
 body{
-   font:16px/20px verdana, arial, helvetica, sans-serif;
+   font:16px/20px arial, verdana, helvetica, sans-serif;
 	color:#333;
 	background-color:white;
 	margin: 20px;
@@ -20,14 +20,14 @@ max-width:1000px;
 }
 
 table {
-    font:16px/20px verdana, arial, helvetica, sans-serif;
+    font:16px/20px arial, verdana, helvetica, sans-serif;
 	color:#333;
 	margin:2px;
 	padding:2px;
 }
 
 #table table, #calendar table {
-    font:14px/18px verdana, arial, helvetica, sans-serif;
+    font:14px/18px arial, verdana, helvetica, sans-serif;
 }
 
 #table th, #table td {
@@ -86,14 +86,14 @@ h4 {
 }
 	
 p {
-	font:16px/20px verdana, arial, helvetica, sans-serif;
+	font:16px/20px arial, verdana, helvetica, sans-serif;
 	margin:0px 0px 5px 0px;
     letter-spacing: 4px;
     line-height:22px;
 }
 
 ul {
-	font:16px/20px verdana, arial, helvetica, sans-serif;
+	font:16px/20px arial, verdana, helvetica, sans-serif;
 	margin: 10px 0px 0px 16px;
 	padding:2px;
 }

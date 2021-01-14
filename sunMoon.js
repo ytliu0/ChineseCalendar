@@ -3,8 +3,6 @@
 function init(lang) {
     document.getElementById('wrapper0').style.display = "block";
     header(lang, 'sunmoon','sunMoon');
-    var d = new Date(); // current time from computer's clock
-    var year = d.getUTCFullYear();
     var input = document.getElementById("year");
     input.addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
@@ -12,6 +10,21 @@ function init(lang) {
        document.getElementById("myBtn").click();
       }
     });
+    // Get input from url
+    let year = 99999999;
+    let x = location.search;
+    if (x != '' && x !== null) {
+        x = x.substring(1);
+        let para = x.split('&');
+        para.forEach(function (p) {
+            let v = p.split('=');
+            if (v[0]=='y') { year = parseInt(v[1], 10);}
+        });
+    } 
+    if (isNaN(year) || year < -3500 || year > 3500) {
+      let d = new Date(); // current time from computer's clock
+      year = d.getFullYear();
+    }
     input.value = year;
 
     // Hide the years y-1 and y+1
