@@ -12,15 +12,10 @@ function init(lang) {
     });
     // Get input from url
     let year = 99999999;
-    let x = location.search;
-    if (x != '' && x !== null) {
-        x = x.substring(1);
-        let para = x.split('&');
-        para.forEach(function (p) {
-            let v = p.split('=');
-            if (v[0]=='y') { year = parseInt(v[1], 10);}
-        });
-    } 
+    const p = new URLSearchParams(window.location.search);
+    if (p.has('y')) {
+        year = parseInt(p.get('y'), 10);
+    }
     if (isNaN(year) || year < -3500 || year > 3500) {
       let d = new Date(); // current time from computer's clock
       year = d.getFullYear();
