@@ -1,15 +1,15 @@
-# Conversion between Western and Chinese Calendar (722 B.C. - 2200 A.D.) 
+# Conversion between Western and Chinese Calendar (722 BCE - 2200 CE) 
 # 公 曆 和 農 曆 日 期 對 照 (公元前722年- 公元2200年)
 
 This package contains HTML files, javascript files, and pdf documentation. 
 
-The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Western calendar and Chinese calendar for any year between 722 B.C. and 2200 A.D. The other pages are linked at the top of the main page. They are self-explanatory. 
+The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Western calendar and Chinese calendar for any year between 722 BCE and 2200 CE (CE = [Common Era](https://en.wikipedia.org/wiki/Common_Era)). The other pages are linked at the top of the main page. They are self-explanatory. 
 
 ## Files:
 
 Almost all of the following HTML files have English, traditional Chinese and simplified Chinese versions. They have the same names but with \_chinese and \_simp as suffixes.
 
-- index.html: main HTML page showing the conversion between the Western calendar and Chinese calendar for any year between 722 B.C. and 2200 A.D.
+- index.html: main HTML page showing the conversion between the Western calendar and Chinese calendar for any year between 722 BCE and 2200 CE. 
 - table.html: HTML page showing a conversion table between the two calendars.
 - solarTerms.html: HTML page explaining the 24 solar terms.
 - sexagenary.html: HTML page explaining the sexagenary cycle.
@@ -36,7 +36,7 @@ Almost all of the following HTML files have English, traditional Chinese and sim
 - calendar.js: JavaScript file for handling the activities on index.html, index_chinese and index_simp.html.
 - table.js: JavaScript file for handling the activities on table.html, table_chinese.html and table_simp.html.
 - split.js: JavaScript file for handling calendars in 221-280, 384-589 and 947-1279.
-- ancientCalendars.js: contain functions that handle the calendars before 104 B.C.
+- ancientCalendars.js: contain functions that handle the calendars before 104 BCE.
 - sunMoonData.js: Dates and times of moon phases and solar terms from -3501 to 3502 in JSON.
 - sunMoon.js: JavaScript file for handling the activities on sunMoon.html, sunMoon_chinese.html and sunMoon_simp.html
 - Julian.js: JavaScript file for handling the activities Julian.html, Julian_chinese.html and Julian_simp.html
