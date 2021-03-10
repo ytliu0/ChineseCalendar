@@ -1349,14 +1349,20 @@ function newMoonCloseToMidnight(y, j) {
     if (y==2097) {
         warn = (j==7 ? 1:0);
     }
+    if (y==2115) {
+        warn = (j==2 ? 1:0);
+    }
+    if (y==2116) {
+        warn = (j==4 ? 1:0);
+    }
     if (y==2133) {
         warn = (j==9 ? 1:0);
     }
+    if (y==2165) {
+        warn = (j==11 ? 1:0);
+    }
     if (y==2172) {
         warn = (j==9 ? 1:0);
-    }
-    if (y==2192) {
-        warn = (j==4 ? 1:0);
     }
     
     return warn;
@@ -1931,14 +1937,6 @@ function warningMessage(y, m, lang, langVars) {
         }
     }
     
-    //if(y==1914) {
-    //    if (m==11) warn = langVars.note1929;
-    //}
-    
-    //if (y==1916) {
-    //    if (m==2) warn = langVars.note1929;
-    //}
-    
     if (y==1917) {
         if (m==12) {
             if (lang==0) {
@@ -1950,10 +1948,6 @@ function warningMessage(y, m, lang, langVars) {
             }
         }
     }
-    
-    //if (y==1920) {
-    //    if (m==11) warn = langVars.note1929;
-    //}
     
     if (y==1927) {
         if (m==9) {
@@ -2023,13 +2017,6 @@ function warningMessage(y, m, lang, langVars) {
                 warn = "&#26149;&#20998;"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
-        if (m==6) {
-            if (lang==0) {
-                warn = "The time of J5"+suffix_eng;
-            } else {
-                warn = (lang==1 ? "芒種"+suffix_chi:"芒种"+suffix_sim);
-            }
-        }
     }
     
     if (y==2089) {
@@ -2037,53 +2024,75 @@ function warningMessage(y, m, lang, langVars) {
     }
     
     if (y==2097) {
-        if (m==8) warn = langVars.note_late;
+        if (m==8) warn = langVars.note_early;
     }
     
-    if (y==2133) {
-        if (m==9) warn = langVars.note_late;
-    }
-    
-    if (y==2135) {
-        if (m==10) {
+    if (y==2114) {
+        if (m==11) {
             if (lang==0) {
-                warn = "The time of J9"+suffix_eng;
+                warn = "The time of Z10"+suffix_eng;
             } else {
-                warn = "&#23506;&#38706;"+(lang==1 ? suffix_chi:suffix_sim);
+                warn = "小雪"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
     
-    if (y==2150) {
+    if (y==2115) {
+        if (m==2) warn = langVars.note_late;
+    }
+    
+    if (y==2116) {
+        if (m==5) warn = langVars.note_late;
+    }
+    
+    if (y==2133) {
+        if (m==9) warn = langVars.note_early;
+    }
+    
+    if (y==2142) {
+        if (m==9) {
+            if (lang==0) {
+                warn = "The time of J8"+suffix_eng;
+            } else {
+                warn = "白露"+(lang==1 ? suffix_chi:suffix_sim);
+            }
+        }
+    }
+    
+    if (y==2155) {
+        if (m==10) {
+            if (lang==0) {
+                warn = "The time of Z9"+suffix_eng;
+            } else {
+                warn = "霜降"+(lang==1 ? suffix_chi:suffix_sim);
+            }
+        }
+    }
+    
+    if (y==2157) {
+        if (m==12) {
+            if (lang==0) {
+                warn = "The time of Z11 (December solstice)"+suffix_eng;
+            } else {
+                warn = "冬至"+(lang==1 ? suffix_chi:suffix_sim);
+            }
+        }
+    }
+    
+    if (y==2165) {
+        if (m==12) warn = langVars.note_early;
+    }
+    
+    if (y==2172) {
+        if (m==10) warn = langVars.note_early;
+    }
+    
+    if (y==2183) {
         if (m==3) {
             if (lang==0) {
                 warn = "The time of Z2 (March equinox)"+suffix_eng;
             } else {
-                warn = "&#26149;&#20998;"+(lang==1 ? suffix_chi:suffix_sim);
-            }
-        }
-    }
-    
-    if (y==2168) {
-        if (m==6) {
-            if (lang==0) {
-                warn = "The time of Z5 (June solstice)"+suffix_eng;
-            } else {
-                warn = "&#22799;&#33267;"+(lang==1 ? suffix_chi:suffix_sim);
-            }
-        }
-    }
-    
-    if (y==2172) {
-        if (m==10) warn = langVars.note_late;
-    }
-    
-    if (y==2185) {
-        if (m==1) {
-            if (lang==0) {
-                warn = "The time of Z12"+suffix_eng;
-            } else {
-                warn = "&#22823;&#23506;"+(lang==1 ? suffix_chi:suffix_sim);
+                warn = "春分"+(lang==1 ? suffix_chi:suffix_sim);
             }
         }
     }
@@ -2097,31 +2106,7 @@ function warningMessage(y, m, lang, langVars) {
             }
         }
     }
-    
-    if (y==2191) {
-        if (m==7) {
-            if (lang==0) {
-                warn = "The time of Z6"+suffix_eng;
-            } else {
-                warn = "&#22823;&#26257;"+(lang==1 ? suffix_chi:suffix_sim);
-            }
-        }
-    }
-    
-    if (y==2192) {
-        if (m==5) warn = langVars.note_early;
-    }
-    
-    if (y==2199) {
-        if (m==4) {
-            if (lang==0) {
-                warn = "The time of J3"+suffix_eng;
-            } else {
-                warn = "&#28165;&#26126;"+(lang==1 ? suffix_chi:suffix_sim);
-            }
-        }
-    }
-    
+ 
     return warn;
 }
 

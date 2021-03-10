@@ -3,7 +3,7 @@
 function init(lang) {
     document.getElementById('wrapper0').style.display = "block";
     header(lang, 'sunmoon','sunMoon');
-    var input = document.getElementById("year");
+    let input = document.getElementById("year");
     input.addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
        event.preventDefault();
@@ -23,8 +23,8 @@ function init(lang) {
     input.value = year;
 
     // Hide the years y-1 and y+1
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+    let acc = document.getElementsByClassName("accordion");
+    let i;
     for (i = 0; i < acc.length; i++) {
       acc[i].onclick = function() {
         this.classList.toggle("active");
@@ -55,7 +55,7 @@ function submitYear(lang) {
         addContent(lang, year, 'y', moon, sun);
         addContent(lang, year+1, 'y1', moon, sun);
         // *** TEST ***
-        //outputContent_forTesting(lang, -3500, 3500, moon, sun);
+        //outputContent_forTesting(lang, 1972, 2021, moon, sun);
         // *************
         moon = null;
         sun = null;

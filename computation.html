@@ -25,7 +25,7 @@ sect::before {
 <div id="language"></div>
     
 <h1>Calendar Calculation on This Website</h1>
-<p>First draft: October 2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last major update: December 4, 2019</p>
+<p>First draft: October 2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last major update: March 8, 2021</p>
 <br />
  
 <p>The time span of calendars on this website is from 722 BCE to 2200 CE It can be divided into six periods: modern period (1912&ndash;2200), Qing period (1645 &ndash; 1911), middle Han to Ming period (104 BCE&ndash;1644 CE), Qin and Early Han period (221 BCE&ndash;104 BCE), Warring States period (480 BCE&ndash;222 BCE), Spring and Autumn period (722 BCE&ndash;481 BCE). Different methods are used to generate calendars in these periods, which are described in the following sections.</p>
@@ -46,24 +46,13 @@ sect::before {
 </ol>
 <!-- p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#contact">Contact</a></p -->
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#references">Footnotes and References</a></p>
-<!--
-    <br />
-<p>Relevant articles/webpages (excluding the pages linked at the top of this page):</p>
-<ul style="list-style-type:none;">
-<li><a href="docs/sunMoon.pdf">Calculation of Moon Phases and 24 Solar Terms</a></li>
-<li><a href="chunqiu.html">Reconstruction of the Chunqiu Calendar</a></li>
-<li><a href="guliuli.html">Computation of the Ancient Six Calendars</a></li>
-<li><a href="QinHanCalendars.html">Reconstruction of Calendars in the Qin and Early Han Dynasties</a></li>
-<li><a href="MingCalendar.html">Lunar Conjunction Calculation in the Ming Dynasty and Corrections to the Ming Calendar Data</a></li>
-<li><a href="http://ytliu.epizy.com/Shixian/" target="_blank">Solar and Lunar Motion in the Shixian Astronomical System in the Qing Dynasty (1645-1911)</a></li>
-</ul>
--->
 </div>
     
     <br />
 <sect id="modern">Modern Period (1912 &ndash; 2200)</sect>
     
-<p>In this period, I follow the rules stated by the GB/T 33661-2017 document<sup><a href="#GBT33661">PMO17</a></sup> mentioned in the <a href="rules.html">Chinese calendar rules page</a> to calculate the Chinese calendar and checked the results with the calendar data from the publications of the Purple Mountain Observatory. Positions of the Sun and Moon are computed based on the planetary and lunar ephemeris DE431<sup><a href="#DE">DE</a></sup> developed by the Jet Propulsion Laboratory (JPL). JPL's DE-series ephemerides are based on numerical integration and DE431 is one of the most accurate ephemerides covering long time span. The calculation takes into account gravitational perturbations from 343 relatively large-mass asteroids. General relativistic effects are included by using dynamical equations derived from a parameterized post-Newtonian n-body metric. Additional accelerations arising from non-spherical effects of extended bodies including the Earth, Moon and Sun are also included. The DE431 ephemeris data are used to compute the geometric positions of the Sun and Moon, which are then corrected for the combined effect of <a href="https://en.wikipedia.org/wiki/Light-time_correction" target="_blank">light time</a> and <a href="https://en.wikipedia.org/wiki/Aberration_of_light" target="_blank">aberration of light</a>. The result is the apparent geocentric positions expressed in rectangular coordinates in the <a href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System" target="_blank">International Celestial Reference System</a> (ICRS). They are then transformed to the ecliptic coordinates of date by taking into account the frame bias matrix, precession and nutation. Precession is calculated using the precession model of Vondr&#225;k et. al.<sup><a href="#vondrak11">Vondr&#225;k</a></sup> developed in 2011. Nutation is calculated by the IAU 2000A nutation model using formulas provided by IERS Conventions (2010)<sup><a href="#iers2010">IERS10</a></sup> and Kaplan 2005<sup><a href="#kaplan05">Kaplan05</a></sup>. Times of moon phases and 24 solar terms are first computed in <a href="https://en.wikipedia.org/wiki/Barycentric_Dynamical_Time" target="_blank">barycentric dynamical time</a> (TDB) using the <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson root-finding method</a>. They are then converted to UT1+8 for years before 1972 and UTC+8 in and after 1972. The difference between TDB and TT (<a href="https://en.wikipedia.org/wiki/Terrestrial_Time" target="_blank">Terrestrial Time</a>) is ignored since it is less than two milliseconds over several millennia. For years before 1972, values of TT-UT1 are calculated using the analytic fitting formula by <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html" target="_blank">Espenak and Meeus</a>. For years between 1972 and present, TT-UTC is calculated from the published leap seconds. For years beyond 2021, approximate value of TT-UTC is estimated according to the polynomial expressions by <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html" target="_blank">Espenak and Meeus</a>. The expressions are for TT-UT1, but can be used to approximate TT-UTC since by construction |UTC-UT1| &lt; 0.9 seconds. The mathematical detail of all these calculations is explained in <a href="docs/sunMoon.pdf" target="_blank">this pdf file</a>.</p>
+<p>In this period, I follow the rules stated by the GB/T 33661-2017 document<sup><a href="#GBT33661">PMO17</a></sup> mentioned in the <a href="rules.html">Chinese calendar rules page</a> to calculate the Chinese calendar and checked the results with the calendar data from the publications of the Purple Mountain Observatory. Positions of the Sun and Moon are computed based on the planetary and lunar ephemeris DE431<sup><a href="#DE">DE</a></sup> developed by the Jet Propulsion Laboratory (JPL). JPL's DE-series ephemerides are based on numerical integration and DE431 is one of the most accurate ephemerides covering long time span. The calculation takes into account gravitational perturbations from 343 relatively large-mass asteroids. General relativistic effects are included by using dynamical equations derived from a parameterized post-Newtonian n-body metric. Additional accelerations arising from non-spherical effects of extended bodies including the Earth, Moon and Sun are also included. The DE431 ephemeris data are used to compute the geometric positions of the Sun and Moon, which are then corrected for the combined effect of <a href="https://en.wikipedia.org/wiki/Light-time_correction" target="_blank">light time</a> and <a href="https://en.wikipedia.org/wiki/Aberration_of_light" target="_blank">aberration of light</a>. The result is the apparent geocentric positions expressed in rectangular coordinates in the <a href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System" target="_blank">International Celestial Reference System</a> (ICRS). They are then transformed to the ecliptic coordinates of date by taking into account the frame bias matrix, precession and nutation. Precession is calculated using the precession model of Vondr&#225;k et. al.<sup><a href="#vondrak11">Vondr&#225;k</a></sup> developed in 2011. Nutation is calculated by the IAU 2000A nutation model using formulas provided by IERS Conventions (2010)<sup><a href="#iers2010">IERS10</a></sup> and Kaplan 2005<sup><a href="#kaplan05">Kaplan05</a></sup>. Times of moon phases and 24 solar terms are first computed in <a href="https://en.wikipedia.org/wiki/Barycentric_Dynamical_Time" target="_blank">barycentric dynamical time</a> (TDB) using the <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson root-finding method</a>. They are then converted to UT1+8 for years before 1972 and UTC+8 in and after 1972. The difference between TDB and TT (<a href="https://en.wikipedia.org/wiki/Terrestrial_Time" target="_blank">Terrestrial Time</a>) is ignored since it is less than two milliseconds over several millennia. For years before 1972, values of TT-UT1 are calculated using the fitting and extrapolation formulae by <a href="http://astro.ukho.gov.uk/nao/lvm/" target="_blank">Stephenson et al (2016) and Morrison et al (2021)</a><sup><a href="#sm2016">SM16</a></sup>. For years between 1972 and present, TT-UTC is calculated from the published leap seconds. For years beyond 2021, approximate value of TT-UTC is estimated according to an extrapolation formula derived by <a href="http://astro.ukho.gov.uk/nao/lvm/" target="_blank">Stephenson et al (2016) and Morrison et al (2021)</a>. The equation is for TT-UT1, but can be used to approximate TT-UTC since by construction |UTC-UT1| &lt; 0.9 seconds. The mathematical detail of all these calculations is explained in <a href="docs/sunMoon.pdf" target="_blank">this pdf file</a>.</p>
+<p>In this period, I follow the rules stated by the GB/T 33661-2017 document<sup><a href="#GBT33661">PMO17</a></sup> mentioned in the <a href="rules.html">Chinese calendar rules page</a> to calculate the Chinese calendar and checked the results with the calendar data from the publications of the Purple Mountain Observatory. Positions of the Sun and Moon are computed based on the planetary and lunar ephemeris DE431<sup><a href="#DE">DE</a></sup> developed by the Jet Propulsion Laboratory (JPL). JPL's DE-series ephemerides are based on numerical integration and DE431 is one of the most accurate ephemerides covering long time span. The calculation takes into account gravitational perturbations from 343 relatively large-mass asteroids. General relativistic effects are included by using dynamical equations derived from a parameterized post-Newtonian n-body metric. Additional accelerations arising from non-spherical effects of extended bodies including the Earth, Moon and Sun are also included. The DE431 ephemeris data are used to compute the geometric positions of the Sun and Moon, which are then corrected for the combined effect of <a href="https://en.wikipedia.org/wiki/Light-time_correction" target="_blank">light time</a> and <a href="https://en.wikipedia.org/wiki/Aberration_of_light" target="_blank">aberration of light</a>. The result is the apparent geocentric positions expressed in rectangular coordinates in the <a href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System" target="_blank">International Celestial Reference System</a> (ICRS). They are then transformed to the ecliptic coordinates of date by taking into account the frame bias matrix, precession and nutation. Precession is calculated using the precession model of Vondr&#225;k et. al.<sup><a href="#vondrak11">Vondr&#225;k</a></sup> developed in 2011. Nutation is calculated by the IAU 2000A nutation model using formulas provided by IERS Conventions (2010)<sup><a href="#iers2010">IERS10</a></sup> and Kaplan 2005<sup><a href="#kaplan05">Kaplan05</a></sup>. Times of moon phases and 24 solar terms are first computed in <a href="https://en.wikipedia.org/wiki/Barycentric_Dynamical_Time" target="_blank">barycentric dynamical time</a> (TDB) using the <a href="https://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson root-finding method</a>. They are then converted to UT1+8 for years before 1972 and UTC+8 in and after 1972. The difference between TDB and TT (<a href="https://en.wikipedia.org/wiki/Terrestrial_Time" target="_blank">Terrestrial Time</a>) is ignored since it is less than two milliseconds over several millennia. For years before 1972, values of TT-UT1 are calculated using the fitting and extrapolation formulae by <a href="http://astro.ukho.gov.uk/nao/lvm/" target="_blank">Stephenson et al (2016) and Morrison et al (2021)</a><sup><a href="#sm2016">SM16</a></sup>. For years between 1972 and present, TT-UTC is calculated from the published leap seconds. For years beyond 2021, approximate value of TT-UTC is estimated according to an extrapolation formula derived by <a href="http://astro.ukho.gov.uk/nao/lvm/" target="_blank">Stephenson et al (2016) and Morrison et al (2021)</a>. The expressions are for TT-UT1, but can be used to approximate TT-UTC since by construction |UTC-UT1| &lt; 0.9 seconds. The mathematical detail of all these calculations is explained in <a href="docs/sunMoon.pdf" target="_blank">this pdf file</a>.</p>
     
 <p>Previously, I used the IAU 2006 precession model to calculate precession for this website, but the IAU 2006 model is only accurate within about 1000 years from the year 2000. This website only covered 1841 &ndash; 2200 and so it was fine, but now the time span is extended to 722 BCE &ndash; 2200. Even though the past Chinese calendar on this website is based on the calendar issued at that time, times of moon phases and 24 solar terms in UT1+8 calculated using the modern method are also included for reference. Thus, the IAU 2006 model is inadequate for the years before 1000 CE The Vondr&#225;k et. al. model is an improvement over IAU 2006 and is valid within 200,000 years from 2000. I compare the times of moon phases and solar terms computed by these two precession models. I find that between 1600 and 2500 the time differences of the solar terms are no more than 0.19 seconds and the time differences of the moon phases are no more than 0.00038 seconds. Hence, we can regard the two precession models as identical in this period.</p>
     
@@ -72,7 +61,7 @@ sect::before {
 <table>
 <tr><th>Chinese Year</th> <th>Chinese Month</th> <th>Conjunction Day<sup>*</sup></th> <th>Conjunction Time (UT1+8)</th></tr>
 <tr><td>N<sub>1914</sub></td> <td>10</td> <td>Nov. 17, 1914</td> <td>Nov. 18, 1914 at 00:02</td></tr>
-<tr><td>N<sub>1916</sub></td> <td>1</td> <td>Feb. 3, 1916</td> <td>Feb. 4, 1914 at 00:05</td></tr>
+<tr><td>N<sub>1916</sub></td> <td>1</td> <td>Feb. 3, 1916</td> <td>Feb. 4, 1916 at 00:05</td></tr>
 <tr><td>N<sub>1920</sub></td> <td>10</td> <td>Nov. 10, 1920</td> <td>Nov. 11, 1920 at 00:05</td></tr>
 </table>
 <p><sup>*</sup> These dates are based on the calendars issued by the Chinese government at those times.</p>
@@ -94,27 +83,27 @@ sect::before {
     <br />
 <table>
 <tr><th>Year</th> <th>Predicted Date and Time (in UTC+8) of Lunar Conjunction</th></tr>
-<tr><td>2057</td> <td>Sep. 29 at 00:00:04.5</td></tr>
-<tr><td>2089</td> <td>Sep. 4 at 23:57:36</td></tr>
-<tr><td>2097</td> <td>Aug. 7 at 23:59:41</td></tr>
-<tr><td>2133</td> <td>Sep. 28 at 23:59</td></tr>
-<tr><td>2172</td> <td>Oct. 17 at 23:57</td></tr>
-<tr><td>2192</td> <td>May 12 at 00:03</td></tr>
+<tr><td>2057</td> <td>Sep. 29 at 00:00:40</td></tr>
+<tr><td>2089</td> <td>Sep. 4 at 23:59:11</td></tr>
+<tr><td>2097</td> <td>Aug. 8 at 00:02</td></tr>
+<tr><td>2115</td> <td>Feb. 24 at 23:59</td></tr>
+<tr><td>2116</td> <td>May 12 at 23:59</td></tr>
+<tr><td>2133</td> <td>Sep. 29 at 00:02</td></tr>
+<tr><td>2165</td> <td>Dec. 4 at 00:00:29</td></tr>
+<tr><td>2172</td> <td>Oct. 18 at 00:01</td></tr>
 </table>
     <br />
 <table>
 <tr><th>Year</th> <th>Solar Term</th> <th>Predicted Date and Time (in UTC+8)</th></tr>
-<tr><td>2051</td> <td>Z2</td> <td>Mar. 20 at 23:59</td></tr>
-<tr><td>2083</td> <td>J1</td> <td>Feb. 3 at 23:58</td></tr>
-<tr><td>2084</td> <td>Z2</td> <td>Mar. 19 at 23:59</td></tr>
-<tr><td>2084</td> <td>J5</td> <td>June 5 at 00:02</td></tr>
-<tr><td>2135</td> <td>J9</td> <td>Oct. 9 at 00:02</td></tr>
-<tr><td>2150</td> <td>Z2</td> <td>Mar. 21 at 00:01</td></tr>
-<tr><td>2168</td> <td>Z5</td> <td>June 21 at 00:02</td></tr>
-<tr><td>2185</td> <td>Z12</td> <td>Jan. 20 at 00:01</td></tr>
-<tr><td>2186</td> <td>J1</td> <td>Feb. 3 at 23:57</td></tr>
-<tr><td>2191</td> <td>Z6</td> <td>July 23 at 00:00:03</td></tr>
-<tr><td>2199</td> <td>J3</td> <td>Apr. 4 at 23:59</td></tr>
+<tr><td>2051</td> <td>Z2</td> <td>Mar. 20 at 23:59:19</td></tr>
+<tr><td>2083</td> <td>J1</td> <td>Feb. 3 at 23:59:27</td></tr>
+<tr><td>2084</td> <td>Z2</td> <td>Mar. 20 at 00:00:35</td></tr>
+<tr><td>2114</td> <td>Z10</td> <td>Nov. 22 at 23:58</td></tr>
+<tr><td>2142</td> <td>J8</td> <td>Sep. 8 at 00:00:11</td></tr>
+<tr><td>2155</td> <td>Z9</td> <td>Oct. 23 at 23:58</td></tr>
+<tr><td>2157</td> <td>Z11</td> <td>Dec. 21 at 23:59</td></tr>
+<tr><td>2183</td> <td>Z2</td> <td>Mar. 20 at 23:59:46</td></tr>
+<tr><td>2186</td> <td>J1</td> <td>Feb. 4 at 00:02</td></tr>
 </table>
     
     <br />
@@ -240,6 +229,9 @@ DE430 and DE431"</a>, IPN Progress Report 42-196, February 15, 2014.</li>
 <li id="GBT33661">[<span class="ref">PMO17</span>] <a href="http://www.nongli.net/cn/11028.html" target="_blank">&#12298;&#20892;&#21382;&#30340;&#32534;&#31639;&#21644;&#39041;&#34892;&#12299;("Calculation and promulgation of the Chinese calendar")</a>, revised version (June 28, 2017), issued jointly by General Administration of Quality Supervision, Inspection and Quarantine of the People's Republic of China and Standardization Administration of the People's Republic of China, drafted by <a href="https://en.wikipedia.org/wiki/Purple_Mountain_Observatory" target="_blank">Purple Mountain Observatory</a>. </li>
     
 <li id="pmo86">[<span class="ref">PMO86</span>] <a href="https://books.google.com/books?id=ndNIAAAAMAAJ&source=gbs_book_other_versions_r&cad=3" target="_blank">&#12298;&#26032;&#32534;&#19975;&#24180;&#21382;&#65288;&#20462;&#23450;&#26412;&#65289;&#12299;</a> (<i>New Edition of W&#224;nni&#225;nl&#236;</i>, revised edition), edited by &#20013;&#22269;&#31185;&#23398;&#38498;&#32043;&#37329;&#23665;&#22825;&#25991;&#21488; (Purple Mountain Observatory, CAS), &#31185;&#23398;&#26222;&#21450;&#20986;&#29256;&#31038; (Popular Science Press), 1986.</li>
+    
+<li id="sm2016">[<span class="ref">SM16</span>] F.R. Stephenson, L.V. Morrison, and C.Y. Hohenkerk, <a href="https://royalsocietypublishing.org/doi/10.1098/rspa.2016.0404" target="_blank">Measurement of the Earth's rotation: 720 BC to AD 2015</a>, Proc. R. Soc. A., 472:20160404 (2016); 
+L.V. Morrison, F.R. Stephenson, C.Y. Hohenkerk, and M. Zawilski, <a href="https://royalsocietypublishing.org/doi/10.1098/rspa.2020.0776" target="_blank">Addendum 2020 to 'Measurement of the Earth's rotation: 720 BC to AD 2015'</a>, Proc. R. Soc. A., 477:20200776 (2021). See also the <a href="http://astro.ukho.gov.uk/nao/lvm/" target="_blank">HMNAO Earth rotation webpage</a> for a summary of their results.</li>
     
 <li id="vondrak11"><p>[<span class="ref">Vondr&#225;k</span>] J. Vondr&#225;k, N. Capitaine, P. Wallace, <a href="https://ui.adsabs.harvard.edu/abs/2011A%26A...534A..22V/abstract" target="_blank">"New precession expressions, valid for long time intervals"</a>, Astron. Astrophys., 534, A22 (2011).</p></li>
     

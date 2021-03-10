@@ -1691,14 +1691,20 @@ function newMoonCloseToMidnight(y, j) {
     if (y==2097) {
         warn = (j==7 ? 1:0);
     }
+    if (y==2115) {
+        warn = (j==2 ? 1:0);
+    }
+    if (y==2116) {
+        warn = (j==4 ? 1:0);
+    }
     if (y==2133) {
         warn = (j==9 ? 1:0);
     }
+    if (y==2165) {
+        warn = (j==11 ? 1:0);
+    }
     if (y==2172) {
         warn = (j==9 ? 1:0);
-    }
-    if (y==2192) {
-        warn = (j==4 ? 1:0);
     }
     
     return warn;
@@ -1811,10 +1817,10 @@ function printWarningMessage(y, langCon) {
         }
     }
     
-    if (y==2060 || y==2200) {
+    if (y==2060 || y==2100 || y==2140 || y==2170 || y==2180) {
         warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_early;
     }
-    if (y==2090 || y==2100 || y==2140 || y==2180) {
+    if (y==2090 || y==2120) {
         warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_late;
     }
     return warn;
