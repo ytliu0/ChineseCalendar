@@ -70,7 +70,7 @@ function submitYear(lang) {
 }
 
 function addContent(lang, y, id, moon, sun) {
-    var cal = "Gregorian Year: ";
+    let cal = "Gregorian Year: ";
     if (y==1582) {
         cal = "Julian/Gregorian Year: ";
     } else if (y < 1582 && y >= 8) {
@@ -78,7 +78,7 @@ function addContent(lang, y, id, moon, sun) {
     } else if (y < 8) {
         cal = "(Proleptic) Julian Year: ";
     }
-    var txt;
+    let txt;
     if (lang==0) {
         txt = cal+y;
     } else {
@@ -97,8 +97,8 @@ function addContent(lang, y, id, moon, sun) {
     //}
     document.getElementById(id).innerHTML = txt;
     
-    var mpName = ["New Moon", "First Quarter", "Full Moon", "Last Quarter"];
-    var stermName = ["Z11 (Dec. solstice)", "J12", "Z12", "J1", "Z1", "J2", 
+    let mpName = ["New Moon", "First Quarter", "Full Moon", "Last Quarter"];
+    let stermName = ["Z11 (Dec. solstice)", "J12", "Z12", "J1", "Z1", "J2", 
                      "Z2 (March equinox)", "J3","Z3", 
                      "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
                      "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11"];
@@ -114,18 +114,18 @@ function addContent(lang, y, id, moon, sun) {
                     "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
         }
     }
-    var ind = y - yrange_sunMoon()[0];
-    var i;
-    var ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
+    let ind = y - yrange_sunMoon()[0];
+    let i;
+    let ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
     
     // decompress data
-    var offsets = offset_sunMoon();
-    var moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
+    let offsets = offset_sunMoon();
+    let moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
     moony.unshift(moon[ind][0]);
-    var stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
-    var sun_temp = [sun[ind+1][0], sun[ind+1][1]];
+    let stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
+    let sun_temp = [sun[ind+1][0], sun[ind+1][1]];
     // add two more solar terms: Z11 and J12 following J11
-    var st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
+    let st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
     stermy.push(st2[0]+1441*ndays[1], st2[1]+1441*ndays[1]);
     
     // Moon phases
@@ -149,13 +149,67 @@ function addContent(lang, y, id, moon, sun) {
     }
     txt += "<table>";
     txt += "<tr> <th>"+mpName[0]+"</th><th>"+mpName[1]+"</th><th>"+mpName[2]+"</th><th>"+mpName[3]+"</th></tr>";
-    var ph = moony[0]; // First moon phase in the year
+    let ph = moony[0]; // First moon phase in the year
     if (ph != 0) {
         txt += '<tr> <td colspan="'+ph+'"></td>';
     }
+    
+    // eclipses
+    let iec = y - eclipse_year_range()[0];
+    // sol_eclipse is a 2D array that stores the info of solar 
+    // eclipses in year y. It has the form 
+    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
+    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
+    // d: eclipse day counting from Dec 31, y-1.
+    // ind: index of the eclipse (for eclipse link)
+    // type: type of eclipse (0=partial, 1=annular, 2=total, 3=hybrid)
+    let links = solar_eclipse_link();
+    let no_eclipse = {solar:false, lunar:false};
+    let sol_eclipse = {solar:true, lunar:false, 
+                      eclipses:links[iec]};
+    let extra_links = links[iec-1];
+    extra_links.forEach(function(e) {
+        if (ndays[0] - e[0] < 3) {
+            // this is close to Jan 1, y; add it to be save
+            sol_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
+        }
+    });
+    extra_links = links[iec+1];
+    extra_links.forEach(function(e) {
+        if (e[0] < 3) {
+            // this is close to Dec 31, y; add it to be save
+            sol_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
+        }
+    });
+    // lun_eclipse is a 2D array that stores the info of lunar 
+    // eclipses in year y. It has the form 
+    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
+    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
+    // d: eclipse day counting from Dec 31, y-1.
+    // ind: index of the eclipse (for eclipse link)
+    // type: type of eclipse (0=penumbral, 1=partial, 2=total)
+    links = lunar_eclipse_link();
+    let lun_eclipse = {solar:false, lunar:true, 
+                      eclipses:links[iec]};
+    extra_links = links[iec-1];
+    extra_links.forEach(function(e) {
+        if (ndays[0] - e[0] < 3) {
+            // this is close to Jan 1, y; add it to be save
+            lun_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
+        }
+    });
+    extra_links = links[iec+1];
+    extra_links.forEach(function(e) {
+        if (e[0] < 3) {
+            // this is close to Dec 31, y; add it to be save
+            lun_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
+        }
+    });
+    links = null;
     for (i=1; i<moony.length; i++) {
         if (ph==0) { txt += "<tr>";}
-        txt += addDateTime(y, moony[i], ndays, lang);
+        let eclipse = (ph==0 ? sol_eclipse:(ph==2 ? lun_eclipse:no_eclipse));
+        txt += addDateTime(y, moony[i], ndays, lang, eclipse);
         if (ph==3) { txt += "</tr>";}
         if (i == moony.length-1 && ph != 3) {
             txt += '<td colspan="'+(3-ph)+'"></td></tr>';
@@ -193,7 +247,7 @@ function addContent(lang, y, id, moon, sun) {
             txt += "<tr>";
         }
         txt += "<td>"+stermName[i]+"</td>";
-        txt += addDateTime(y, stermy[i], ndays, lang);
+        txt += addDateTime(y, stermy[i], ndays, lang, no_eclipse);
         if (i % 2 == 0) {
             txt += "<td></td>";
         } else {
@@ -203,9 +257,9 @@ function addContent(lang, y, id, moon, sun) {
     // Two more solar terms: Z11 and J12 following J11
     txt += "<tr>";
     txt += "<td>"+stermName[0]+"</td>";
-    txt += addDateTime(y, stermy[24], ndays, lang);
+    txt += addDateTime(y, stermy[24], ndays, lang, no_eclipse);
     txt += "<td></td><td>"+stermName[1]+"</td>";
-    txt += addDateTime(y, stermy[25], ndays, lang) + "</tr>";
+    txt += addDateTime(y, stermy[25], ndays, lang, no_eclipse) + "</tr>";
     txt += "</table>";
     document.getElementById(id+'content').innerHTML = txt;
 }
@@ -268,13 +322,13 @@ function ymd2(dayIn, ndays, lang) {
     return mmdd;
 }
 
-function addDateTime(y, m, ndays, lang) {
-    var txt = "<td>";
-    var nday = ndays[1];
-    var day = Math.floor(m/1441);
-    var md = m - 1441*day;
-    var hh = Math.floor(md/60);
-    var mm = md - 60*hh;
+function addDateTime(y, m, ndays, lang, eclipse) {
+    let txt = "<td>";
+    let nday = ndays[1];
+    let day = Math.floor(m/1441);
+    let md = m - 1441*day;
+    let hh = Math.floor(md/60);
+    let mm = md - 60*hh;
     if (hh < 10) { hh = '0'+hh;}
     if (mm < 10) { mm = '0'+mm;}
     if (day < 1) {
@@ -286,7 +340,51 @@ function addDateTime(y, m, ndays, lang) {
         day -= ndays[1];
         nday = ndays[1];
     }
-    return txt+ymd2(day, nday, lang)+", "+hh+":"+mm+"</td>";
+    txt += ymd2(day, nday, lang)+", "+hh+":"+mm;
+    txt += add_eclipse_link(y, m, eclipse, lang);
+    return txt+"</td>";
+}
+
+function add_eclipse_link(y, m, eclipse, lang) {
+    if (!eclipse.solar && !eclipse.lunar) { return '';}
+    
+    let ybeg = 1 + 100*Math.floor(0.01*(y - 0.5));
+    let day = Math.floor(m/1441);
+    day += (m - 1441*day)/1440;
+    let txt = '';
+    eclipse.eclipses.forEach(function(e) {
+        if (Math.abs(day - e[0]) < 5) {
+            if (y==ybeg && e[1] > 200) { 
+                ybeg -= 100;
+            } else if (y-ybeg==99 && e[1] < 200) {
+                ybeg += 100;
+            }
+            let type;
+            let linkg = 'http://ytliu.epizy.com/eclipse/';
+            if (eclipse.solar) {
+                if (lang==0) {
+                    type = ['Partial solar eclipse', 'Annnular solar eclipse', 'Total solar eclipse', 'Hybrid solar eclipse'];
+                } else if (lang==1) {
+                    type = ['日偏食', '日環食', '日全食', '日全環食'];
+                } else {
+                    type = ['日偏食', '日环食', '日全食', '日全环食'];
+                }
+                linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1];
+            } else {
+                if (lang==0) {
+                    type = ['Penumbral lunar eclipse', 'Partial lunar eclipse', 'Total lunar eclipse'];
+                } else {
+                    type = ['半影月食', '月偏食', '月全食'];
+                }
+                linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1];
+            }
+            //let jd = getJD(y-1,12,31) + day - 1.0/3;
+            //let dT = 86400*DeltaT_new((jd-2451545)/36525);
+            txt = '<br /><a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
+        }
+    });
+    
+    return txt;
 }
 
 // ------------------------------------------------------------------
@@ -377,9 +475,63 @@ function addContent_forTesting(lang, y, moon, sun) {
     if (ph != 0) {
         txt += '<tr> <td colspan="'+ph+'"></td>';
     }
+    
+    // eclipses
+    let iec = y - eclipse_year_range()[0];
+    // sol_eclipse is a 2D array that stores the info of solar 
+    // eclipses in year y. It has the form 
+    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
+    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
+    // d: eclipse day counting from Dec 31, y-1.
+    // ind: index of the eclipse (for eclipse link)
+    // type: type of eclipse (0=partial, 1=annular, 2=total, 3=hybrid)
+    let links = solar_eclipse_link();
+    let no_eclipse = {solar:false, lunar:false};
+    let sol_eclipse = {solar:true, lunar:false, 
+                      eclipses:links[iec]};
+    let extra_links = links[iec-1];
+    extra_links.forEach(function(e) {
+        if (ndays[0] - e[0] < 3) {
+            // this is close to Jan 1, y; add it to be save
+            sol_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
+        }
+    });
+    extra_links = links[iec+1];
+    extra_links.forEach(function(e) {
+        if (e[0] < 3) {
+            // this is close to Dec 31, y; add it to be save
+            sol_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
+        }
+    });
+    // lun_eclipse is a 2D array that stores the info of lunar 
+    // eclipses in year y. It has the form 
+    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
+    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
+    // d: eclipse day counting from Dec 31, y-1.
+    // ind: index of the eclipse (for eclipse link)
+    // type: type of eclipse (0=penumbral, 1=partial, 2=total)
+    links = lunar_eclipse_link();
+    let lun_eclipse = {solar:false, lunar:true, 
+                      eclipses:links[iec]};
+    extra_links = links[iec-1];
+    extra_links.forEach(function(e) {
+        if (ndays[0] - e[0] < 3) {
+            // this is close to Jan 1, y; add it to be save
+            lun_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
+        }
+    });
+    extra_links = links[iec+1];
+    extra_links.forEach(function(e) {
+        if (e[0] < 3) {
+            // this is close to Dec 31, y; add it to be save
+            lun_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
+        }
+    });
+    links = null;
     for (i=1; i<moony.length; i++) {
         if (ph==0) { txt += "<tr>";}
-        txt += addDateTime(y, moony[i], ndays, lang);
+        let eclipse = (ph==0 ? sol_eclipse:(ph==2 ? lun_eclipse:no_eclipse));
+        txt += addDateTime(y, moony[i], ndays, lang, eclipse);
         if (ph==3) { txt += "</tr>\n";}
         if (i == moony.length-1 && ph != 3) {
             txt += '<td colspan="'+(3-ph)+'"></td></tr>\n';
@@ -419,7 +571,7 @@ function addContent_forTesting(lang, y, moon, sun) {
             txt += "<tr>";
         }
         txt += "<td>"+stermName[i]+"</td>";
-        txt += addDateTime(y, stermy[i], ndays, lang);
+        txt += addDateTime(y, stermy[i], ndays, lang, no_eclipse);
         if (i % 2 == 0) {
             txt += "<td></td>";
         } else {
@@ -429,9 +581,9 @@ function addContent_forTesting(lang, y, moon, sun) {
     // Two more solar terms: Z11 and J12 following J11
     txt += "<tr>";
     txt += "<td>"+stermName[0]+"</td>";
-    txt += addDateTime(y, stermy[24], ndays, lang);
+    txt += addDateTime(y, stermy[24], ndays, lang, no_eclipse);
     txt += "<td></td><td>"+stermName[1]+"</td>";
-    txt += addDateTime(y, stermy[25], ndays, lang) + "</tr>\n";
+    txt += addDateTime(y, stermy[25], ndays, lang, no_eclipse) + "</tr>\n";
     txt += "</table>\n";
     return txt;
 }

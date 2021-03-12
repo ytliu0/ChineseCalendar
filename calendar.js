@@ -62,50 +62,40 @@ function showHideJulian(lang,ins) {
 
 // Language-specific constants
 function langConstant(lang) {
-    var gMonth, weeks, heaven, earth, animal, month_num, monthL, 
+    let gMonth, weeks, heaven, earth, animal, month_num, monthL, 
         Qnames, soltermNames, note_early, note_late, note1929, note1914;
     
-    var gMonthEng = ["January", "February", "March", "April", "May", "June", 
+    let gMonthEng = ["January", "February", "March", "April", "May", "June", 
               "July", "August", "September", "October", "November", "December"];
-    var weeksEng = ["Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"];
-    var heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
+    let weeksEng = ["Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"];
+    let heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
                   "J&#464;", "G&#275;ng","X&#299;n","R&#233;n", "Gu&#464;"];
-    var earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
+    let earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
                 "s&#236;", "w&#468;", "w&#232;i", "sh&#275;n", "y&#466;u", 
                 "x&#363;", "h&#224;i"];
-    var animalEng = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat",
+    let animalEng = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat",
                  "Monkey","Chicken","Dog","Pig"];
-    var month_numEng = ["1","2","3","4","5","6","7","8","9","10","11","12"];
-    var monthLEng = ["S", "L"];
-    var QnamesEng = ["Q0", "Q1", "Q2", "Q3"];
-    var note_earlyEng = "The lunar conjunction/new moon (Q0) is close to the midnight. The start day of the month may be one day earlier.";
-    var note_lateEng = "The lunar conjunction/new moon (Q0) is close to the midnight. The start day of the month may be one day later.";
-    var note1929Eng = "Note that the lunar conjunction/new moon (Q0) occurred past the midnight of the second day of the month. Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25' E), which are about 14 minutes earlier than the times listed here based on the meridians of 120&deg;E. This explains why the lunar conjunction date listed here is one day later than the first day of the month.";
-    var note1914Eng = "Note that the lunar conjunction/new moon (Q0) did not fall on the first day of the month. This was caused by two factors: 1) Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25'E), which are about 14 minutes earlier than the times listed here based on the meridians of 120&deg;E; 2) Before 1914, the method used to calculate the lunar conjunction was not very accurate.";
-    var soltermNamesEng = ["J12", "Z12", "J1", "Z1", "J2", "Z2 (March equinox)", "J3","Z3", 
+    let month_numEng = ["1","2","3","4","5","6","7","8","9","10","11","12"];
+    let monthLEng = ["S", "L"];
+    let QnamesEng = ["Q0", "Q1", "Q2", "Q3"];
+    let note_earlyEng = "The lunar conjunction/new moon (Q0) is close to the midnight. The start day of the month may be one day earlier.";
+    let note_lateEng = "The lunar conjunction/new moon (Q0) is close to the midnight. The start day of the month may be one day later.";
+    let note1929Eng = "Note that the lunar conjunction/new moon (Q0) occurred past the midnight of the second day of the month. Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25' E), which are about 14 minutes earlier than the times listed here based on the meridians of 120&deg;E. This explains why the lunar conjunction date listed here is one day later than the first day of the month.";
+    let note1914Eng = "Note that the lunar conjunction/new moon (Q0) did not fall on the first day of the month. This was caused by two factors: 1) Before 1929, the times of lunar conjunction were calculated for the Beijing meridian (116&deg;25'E), which are about 14 minutes earlier than the times listed here based on the meridians of 120&deg;E; 2) Before 1914, the method used to calculate the lunar conjunction was not very accurate.";
+    let soltermNamesEng = ["J12", "Z12", "J1", "Z1", "J2", "Z2 (March equinox)", "J3","Z3", 
                          "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
                         "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11", "Z11 (Dec. solstice)", "J12"];
     
-    var gMonthChi = ["1 &#26376;", "2 &#26376;", "3 &#26376;", 
-                  "4 &#26376;", "5 &#26376;", "6 &#26376;", 
-                  "7 &#26376;", "8 &#26376;", "9 &#26376;", 
-                  "10 &#26376;", "11 &#26376;", 
-                  "12 &#26376;"];
-    var weeksChi =["&#26143;&#26399;&#26085;", "&#26143;&#26399;&#19968;", "&#26143;&#26399;&#20108;", "&#26143;&#26399;&#19977;", "&#26143;&#26399;&#22235;", 
-                   "&#26143;&#26399;&#20116;", "&#26143;&#26399;&#20845;"];
-    var heavenChi = ["&#x7532;","&#x4E59;","&#x4E19;","&#x4E01;","&#x620A;", 
-                 "&#x5DF1;","&#x5E9A;","&#x8F9B;","&#x58EC;","&#x7678;"];
-    var earthChi = ["&#x5B50;","&#x4E11;","&#x5BC5;","&#x536F;","&#x8FB0;", 
-                "&#x5DF3;","&#x5348;","&#x672A;","&#x7533;","&#x9149;", 
-                "&#x620C;","&#x4EA5;"];
-    var animalChi = ["&#x9F20;","&#x725B;","&#x864E;","&#x5154;","&#x9F8D;", 
-                 "&#x86C7;","&#x99AC;","&#x7F8A;","&#x7334;","&#x96DE;", 
-                 "&#x72D7;","&#x8C6C;"];
-    var animalSim = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
-    var month_numChi = ["&#27491;","&#x4E8C;","&#x4E09;","&#x56DB;","&#x4E94;", 
-                    "&#x516D;","&#x4E03;","&#x516B;","&#x4E5D;","&#x5341;", 
-                    "&#x5341;&#x4E00;","&#x5341;&#x4E8C;"];
-    var date_numChi = ["初一"];
+    let gMonthChi = ["1 月", "2 月", "3 月", "4 月", "5 月", "6 月", 
+                  "7 月", "8 月", "9 月", "10 月", "11 月", "12 月"];
+    let weeksChi =["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    let heavenChi = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+    let earthChi = ["子","丑","寅","卯","辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+    let animalChi = ["鼠", "牛", "虎", "兔", "龍", "蛇", "馬", "羊", "猴", "雞", "狗", "豬"];
+    let animalSim = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
+    let month_numChi = ["正","二","三","四","五", "六","七","八","九","十", 
+                    "十一","十二"];
+    let date_numChi = ["初一"];
     for (var i=2; i<11; i++) {
         date_numChi.push("初"+month_numChi[i-1]);
     }
@@ -119,34 +109,26 @@ function langConstant(lang) {
         date_numChi.push("廿"+month_numChi[i-21]);
     }
     date_numChi.push("三十");
-    var monthLChi = ["小","大"];
-    var QnamesChi = ["朔", "上弦", "望", "下弦"];
-    var soltermNamesChi = ["&#23567;&#23506;", "&#22823;&#23506;", 
-                           "&#31435;&#26149;", "&#38632;&#27700;", 
-                          "&#39514;&#34756;", "&#26149;&#20998;", 
-                          "&#28165;&#26126;", "&#31296;&#38632;", 
-                          "&#31435;&#22799;", "&#23567;&#28415;", 
-                          "&#33426;&#31278;", "&#22799;&#33267;", 
-                          "&#23567;&#26257;", "&#22823;&#26257;", 
-                          "&#31435;&#31179;", "&#34389;&#26257;", 
-                          "&#30333;&#38706;", "&#31179;&#20998;", 
-                          "&#23506;&#38706;", "&#38684;&#38477;", 
-                          "&#31435;&#20908;", "&#23567;&#38634;", 
-                          "&#22823;&#38634;", "&#20908;&#33267;", 
-                          "&#23567;&#23506;"];
-    var soltermNamesSim = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", 
-                           "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", 
-                           "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至", 
+    let monthLChi = ["小","大"];
+    let QnamesChi = ["朔", "上弦", "望", "下弦"];
+    let soltermNamesChi = ["小寒", "大寒", "立春", "雨水", "驚蟄", "春分", 
+                          "清明", "穀雨", "立夏", "小滿", "芒種", "夏至", 
+                          "小暑", "大暑", "立秋", "處暑", "白露", "秋分", 
+                          "寒露", "霜降", "立冬", "小雪", "大雪", "冬至", 
+                          "小寒"];
+    let soltermNamesSim = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", 
+                           "清明", "谷雨", "立夏", "小满", "芒种", "夏至", 
+                           "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至", 
                            "小寒"];
         
-    var note_earlyChi = "&#26388;&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#21021;&#19968;&#25110;&#26371;&#25552;&#26089;&#19968;&#22825;&#12290;";
-    var note_lateChi = "&#26388;&#30340;&#26178;&#21051;&#25509;&#36817;&#21320;&#22812;&#38646;&#26178;&#65292;&#21021;&#19968;&#25110;&#26371;&#25512;&#36978;&#19968;&#22825;&#12290;";
-    var note_earlySim = "朔的时刻接近午夜零时，初一或会提早一天。";
-    var note_lateSim = "朔的时刻接近午夜零时，初一或会推迟一天。";
-    var note1929Chi = "注意朔的時刻稍稍過了初二的零時。這是因為1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時。 東經120&deg;標準時比北京地方時遲約14分鐘，這就是朔的時刻過了初二零時的緣故。";
-    var note1914Chi = "注意合朔時刻不在初一日，這是由兩個因數造成。其一是1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的合朔計算方法不是很準確。";
-    var note1929Sim = "注意朔的时刻稍稍过了初二的零时。这是因为1929年以前的朔日计算是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时。 东经120&deg;标准时比北京地方时迟约14分钟，这就是朔的时刻过了初二零时的缘故。";
-    var note1914Sim = "注意合朔时刻不在初一日，这是由两个因数造成。其一是1929年以前的朔日计算是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时比北京地方时迟约14分钟。其二是1914年前用的合朔计算方法不是很准确。";
+    let note_earlyChi = "朔的時刻接近午夜零時，初一或會提早一天。";
+    let note_lateChi = "朔的時刻接近午夜零時，初一或會推遲一天。";
+    let note_earlySim = "朔的时刻接近午夜零时，初一或会提早一天。";
+    let note_lateSim = "朔的时刻接近午夜零时，初一或会推迟一天。";
+    let note1929Chi = "注意朔的時刻稍稍過了初二的零時。這是因為1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時。 東經120&deg;標準時比北京地方時遲約14分鐘，這就是朔的時刻過了初二零時的緣故。";
+    let note1914Chi = "注意合朔時刻不在初一日，這是由兩個因數造成。其一是1929年以前的朔日計算是用北京地方時(東經116&deg;24')，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時比北京地方時遲約14分鐘。其二是1914年前用的合朔計算方法不是很準確。";
+    let note1929Sim = "注意朔的时刻稍稍过了初二的零时。这是因为1929年以前的朔日计算是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时。 东经120&deg;标准时比北京地方时迟约14分钟，这就是朔的时刻过了初二零时的缘故。";
+    let note1914Sim = "注意合朔时刻不在初一日，这是由两个因数造成。其一是1929年以前的朔日计算是用北京地方时(东经116&deg;24')，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时比北京地方时迟约14分钟。其二是1914年前用的合朔计算方法不是很准确。";
     
     if (lang==0) {
         // English
@@ -194,7 +176,7 @@ function langConstant(lang) {
         note1929 = note1929Sim;
         note1914 = note1914Sim;
     }
-    var julian = document.getElementById('Julian1').checked;
+    let julian = document.getElementById('Julian1').checked;
     return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, julian:julian, 
     date_numChi:date_numChi, note_early:note_early, 
     note_late:note_late, note1929:note1929, note1914:note1914};
@@ -202,7 +184,7 @@ function langConstant(lang) {
 
 // Number of days in a Gregorian/Julian year
 function NdaysGregJul(y) {
-  var ndays = (y==1582 ? 355:365) + (Math.abs(y) % 4 == 0 ? 1:0);
+  let ndays = (y==1582 ? 355:365) + (Math.abs(y) % 4 == 0 ? 1:0);
   if (y > 1582) {
      ndays += (y % 100 == 0 ? -1:0) + (y % 400 == 0 ? 1:0);
   }
@@ -218,8 +200,8 @@ function NdaysGregJul(y) {
 // year offset: 0 if the year number doesn't change, 
 //             -1 if in the previous year,  +1 if in the following year.
 function jianToMonthYearoffset(jianIn, y, region) {
-    var jian = Math.abs(jianIn);
-    var yearOffset=0, monNum=jian;
+    let jian = Math.abs(jianIn);
+    let yearOffset=0, monNum=jian;
     
     // Han dynasty
     if (y < -103 && jian > 9) {
@@ -265,7 +247,7 @@ function jianToMonthYearoffset(jianIn, y, region) {
 // Determine the month number for the first month of a year.
 // This is usually just 1 but is different in some periods
 function firstMonthNum(y) {
-    var firstMonth = 1;
+    let firstMonth = 1;
     if (y < -102) { firstMonth = 10;}
     if (y > 689 && y < 701) { firstMonth = 11;}
     return firstMonth;
@@ -277,10 +259,10 @@ function firstMonthNum(y) {
 // in the number of days from Jan 0. The inverse transform is 
 // y = floor(t/1441), x_approx = y + (t - y*1441)/1440
 function decompress_time(t) {
-    var x = [];
-    for (var i=0; i<t.length; i++) {
-        var y = Math.floor(t[i]/1441);
-        var m = t[i] - 1441*y;
+    let x = [];
+    for (let i=0; i<t.length; i++) {
+        let y = Math.floor(t[i]/1441);
+        let m = t[i] - 1441*y;
         if (m > 1439.5) { m = 1439.9;}
         x.push(y + m/1440.0);
     }
@@ -292,24 +274,24 @@ function calDataYear(y, langVars) {
     // *** Data for Gregorian/Julian calendar ***
     
     // Is y a leap year?
-    var ndays = NdaysGregJul(y);
-    var leap = (ndays==366 ? 1:0);
+    let ndays = NdaysGregJul(y);
+    let leap = (ndays==366 ? 1:0);
     // number of days in the beg of the 12 months
-    var mday = [0, 31, 59+leap, 90+leap, 120+leap, 151+leap, 181+leap, 212+leap, 243+leap, 273+leap, 304+leap, 334+leap, 365+leap];
+    let mday = [0, 31, 59+leap, 90+leap, 120+leap, 151+leap, 181+leap, 212+leap, 243+leap, 273+leap, 304+leap, 334+leap, 365+leap];
     if (y==1582) {
         mday = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 294, 324, 355];
     }
     // Julian day on Dec 30, y-1 at noon UT
-    var jd0 = Math.floor(getJD(y-1,12,30) + 1);
+    let jd0 = Math.floor(getJD(y-1,12,30) + 1);
     // number of days in year y-1, will be used below
-    var ndays1 = NdaysGregJul(y-1);
+    let ndays1 = NdaysGregJul(y-1);
     
     // *** 24 solar terms in year y **
-    var offsets = offsets_sunMoon();
-    var solarAll = solarTerms();
-    var inds = y - solarTermMoonPhase_ystart();
-    var solar = solarAll[inds];
-    var solar2 = [solar.pop()];
+    let offsets = offsets_sunMoon();
+    let solarAll = solarTerms();
+    let inds = y - solarTermMoonPhase_ystart();
+    let solar = solarAll[inds];
+    let solar2 = [solar.pop()];
     solar = decompress_solarTerms(y, 1, offsets.solar, solar);
     // solar[] contains solar terms in year y starting from 
     // J12 (Xiaohan) to J11 (daxue). It stores the dates 
@@ -322,15 +304,15 @@ function calDataYear(y, langVars) {
     }
     solarAll = null; // remove large array
     solar2 = decompress_solarTerms(y+1, 0, offsets.solar, solar2);
-    var i;
+    let i;
     for (i=0; i < solar2.length; i++) { solar.push(solar2[i]+ndays*1441);}
     solar = decompress_time(solar);
     
     // ** new moons, quarters and full moons in year y **
-    var Q0 = (newMoons())[inds]; Q0.unshift(0);
-    var Q1 = (firstQuarters())[inds]; Q1.unshift(1);
-    var Q2 = (fullMoons())[inds]; Q2.unshift(2);
-    var Q3 = (thirdQuarters())[inds]; Q3.unshift(3);
+    let Q0 = (newMoons())[inds]; Q0.unshift(0);
+    let Q1 = (firstQuarters())[inds]; Q1.unshift(1);
+    let Q2 = (fullMoons())[inds]; Q2.unshift(2);
+    let Q3 = (thirdQuarters())[inds]; Q3.unshift(3);
     Q0 = decompress_moonPhases(y, offsets.lunar, Q0, 1);
     Q1 = decompress_moonPhases(y, offsets.lunar, Q1, 1);
     Q2 = decompress_moonPhases(y, offsets.lunar, Q2, 1);
@@ -344,14 +326,67 @@ function calDataYear(y, langVars) {
     // Q1-Q3 are the same but for 1st quarters, full moons 
     // and 3rd quarters
     
+    // eclipses
+    let iec = y - eclipse_year_range()[0];
+    // sol_eclipse is a 2D array that stores the info of solar 
+    // eclipses in year y. It has the form 
+    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
+    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
+    // d: eclipse day counting from Dec 31, y-1.
+    // ind: index of the eclipse (for eclipse link)
+    // type: type of eclipse (0=partial, 1=annular, 2=total, 3=hybrid)
+    let links = solar_eclipse_link();
+    let sol_eclipse = links[iec];
+    let extra_links = links[iec-1];
+    extra_links.forEach(function(e) {
+        if (ndays1 - e[0] < 3) {
+            // this is close to Jan 1, y; add it to be save
+            sol_eclipse.push([e[0]-ndays1, e[1], e[2]]);
+        }
+    });
+    extra_links = links[iec+1];
+    extra_links.forEach(function(e) {
+        if (e[0] < 3) {
+            // this is close to Dec 31, y; add it to be save
+            sol_eclipse.push([e[0]+ndays, e[1], e[2]]);
+        }
+    });
+    // lun_eclipse is a 2D array that stores the info of lunar 
+    // eclipses in year y. It has the form 
+    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
+    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
+    // d: eclipse day counting from Dec 31, y-1.
+    // ind: index of the eclipse (for eclipse link)
+    // type: type of eclipse (0=penumbral, 1=partial, 2=total)
+    links = lunar_eclipse_link();
+    let lun_eclipse = links[iec];
+    extra_links = links[iec-1];
+    extra_links.forEach(function(e) {
+        if (ndays1 - e[0] < 3) {
+            // this is close to Jan 1, y; add it to be save
+            lun_eclipse.push([e[0]-ndays1, e[1], e[2]]);
+        }
+    });
+    extra_links = links[iec+1];
+    extra_links.forEach(function(e) {
+        if (e[0] < 3) {
+            // this is close to Dec 31, y; add it to be save
+            lun_eclipse.eclipses.push([e[0]+ndays, e[1], e[2]]);
+        }
+    });
+    links = null;
+    
     // Before year -104
     if (y < -104) {
-        return calDataYear_ancient(y, jd0, ndays, mday, solar, Q0, Q1, Q2, Q3);
+        let out = calDataYear_ancient(y, jd0, ndays, mday, solar, Q0, Q1, Q2, Q3);
+        out.sol_eclipse = sol_eclipse;
+        out.lun_eclipse = lun_eclipse;
+        return out;
     }
     
     // *** Data for Chinese calendar ***
-    var region = langVars.region;
-    var cdate, ind, cmdate1, cmdate, pingqi, ncdays, ncdays1;
+    let region = langVars.region;
+    let cdate, ind, cmdate1, cmdate, pingqi, ncdays, ncdays1;
     if (region=='default') {
         cdate = ChineseToGregorian();
         // cdate is a 2D array. Each row contains data for a Chinese year
@@ -376,16 +411,16 @@ function calDataYear(y, langVars) {
         cdate = null;
     }
     // Gather Chinese months within year y
-    var i, d, n = cmdate1.cmonthDate.length;
-    var cmonthDate=[], cmonthJian=[], cmonthNum=[], cmonthLong = [], cmonthYear = [];
+    let d, n = cmdate1.cmonthDate.length;
+    let cmonthDate=[], cmonthJian=[], cmonthNum=[], cmonthLong = [], cmonthYear = [];
     // cmonthXiaYear: Chinese year according to the Xia calendar (yin month being the 
     //                first month); 0 means previous year, 1 current year.
-    var cmonthXiaYear = []; 
-    var jian, jianInfo; // jian number: 1=yin, 2=mao, ...
+    let cmonthXiaYear = []; 
+    let jian, jianInfo; // jian number: 1=yin, 2=mao, ...
     for (i=2; i<n; i++) {
         if (cmdate1.cmonthDate[i] > ndays1+1) {
             // cmdate1.cmonthDate[i-1] is the last month before Jan 1, y
-            for (var j=i-1; j<n; j++) {
+            for (let j=i-1; j<n; j++) {
                 cmonthDate.push(cmdate1.cmonthDate[j] - ndays1);
                 cmonthXiaYear.push(0);
                 jian = cmdate1.cmonthNum[j];
@@ -434,10 +469,11 @@ function calDataYear(y, langVars) {
         }
     }
     
-    var out = {jd0:jd0, mday:mday, cmonthDate:cmonthDate, cmonthXiaYear, 
+    let out = {jd0:jd0, mday:mday, cmonthDate:cmonthDate, cmonthXiaYear, 
                cmonthJian:cmonthJian, cmonthNum:cmonthNum, 
                cmonthYear:cmonthYear, cmonthLong:cmonthLong,             
-               solar:solar,  Q0:Q0, Q1:Q1, Q2:Q2, Q3:Q3, year:y};
+               solar:solar,  Q0:Q0, Q1:Q1, Q2:Q2, Q3:Q3, year:y, 
+               sol_eclipse:sol_eclipse, lun_eclipse:lun_eclipse};
     if (region != 'default') {
         out.pingqi = pingqi;
     }
@@ -447,10 +483,10 @@ function calDataYear(y, langVars) {
 // Sort the Chinese months in chronological order by placing 
 // the leap month to the appropriate place
 function sortMonths(cmdate) {
-    var cmonthDate = [];
-    var cmonthNum = []; // Jian number
-    var leapM = cmdate[14];
-    var i;
+    let cmonthDate = [];
+    let cmonthNum = []; // Jian number
+    let leapM = cmdate[14];
+    let i;
     if (leapM==0) {
         for (i=0; i<12; i++) {
             cmonthDate.push(cmdate[i+1]);
@@ -473,20 +509,20 @@ function sortMonths(cmdate) {
 
 // Set up the calendar for the Gregorian/Julian year
 function calendar(lang, year) {
-    var langVars = langConstant(lang);
+    let langVars = langConstant(lang);
     langVars.region = split_calendar_handler(lang,year);
-    var calVars = calDataYear(year, langVars);
-    var cal = document.getElementById('calendar');
+    let calVars = calDataYear(year, langVars);
+    let cal = document.getElementById('calendar');
     cal.innerHTML = "";
     
     // How many Chinese years does this Gregorian/Julian calendar span?
-    var n = calVars.cmonthDate.length;
-    var Ncyear = calVars.cmonthYear[n-1] - calVars.cmonthYear[0] + 1;
+    let n = calVars.cmonthDate.length;
+    let Ncyear = calVars.cmonthYear[n-1] - calVars.cmonthYear[0] + 1;
     
     // Determine the date(s) of the Chinese new year
-    var i,j,k,mm,dd;
-    var mm1 = [], dd1 = [];
-    var firstMonth = [0,0,0];
+    let i,j,k,mm,dd;
+    let mm1 = [], dd1 = [];
+    let firstMonth = [0,0,0];
     for (i=0; i<3; i++) {
        if (year > -110) {
            firstMonth[i] = firstMonthNum(year-1+i);
@@ -495,7 +531,7 @@ function calendar(lang, year) {
        }
     }
     for (i=1; i<Ncyear; i++) {
-        var firstMon = firstMonth[calVars.cmonthYear[0] + i];
+        let firstMon = firstMonth[calVars.cmonthYear[0] + i];
         for(j=1; j<n; j++) {
             if (calVars.cmonthYear[j]==calVars.cmonthYear[0]+i && 
                 calVars.cmonthNum[j]==firstMon) {
@@ -511,30 +547,29 @@ function calendar(lang, year) {
         }
     }
     
-    //var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
-    var ih0 = (year + 725) % 10;
-    var ie0 = (year + 727) % 12;
+    let ih0 = (year + 725) % 10;
+    let ie0 = (year + 727) % 12;
     if (ih0 < 0) { ih0 += 10;}
     if (ie0 < 0) { ie0 += 12;}
-    var cyear = [" ", " ", " "];
+    let cyear = [" ", " ", " "];
     cyear[0] = langVars.heaven[ih0]+' '+langVars.earth[ie0]+' ('+langVars.animal[ie0]+')';
-    var ih = (year + 726) % 10;
-    var ie = (year + 728) % 12;
+    let ih = (year + 726) % 10;
+    let ie = (year + 728) % 12;
     if (ih < 0) { ih += 10;}
     if (ie < 0) { ie += 12;}
     cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie]+' ('+langVars.animal[ie]+')';
-    var ih2 = (year + 727) % 10;
-    var ie2 = (year + 729) % 12;
+    let ih2 = (year + 727) % 10;
+    let ie2 = (year + 729) % 12;
     if (ih2 < 0) { ih2 += 10;}
     if (ie2 < 0) { ie2 += 12;}
     cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2]+' ('+langVars.animal[ie2]+')';
-    var gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
+    let gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
     if (year==1582) { gcal = "Gregorian/Julian";}
-    var yearc = year.toString();
+    let yearc = year.toString();
     if (year < 1) {
         yearc += (lang==0 ? ' ('+(1-year)+' BCE)':' (&#21069;'+(1-year)+')');
     }
-    var cy0 = calVars.cmonthYear[0];
+    let cy0 = calVars.cmonthYear[0];
     if (lang==0) {
         cal.innerHTML += '<h1>'+gcal+' Year: '+yearc+'</h1>';
         cal.innerHTML += '<h1>Chinese year:</h1>'
@@ -562,7 +597,7 @@ function calendar(lang, year) {
             cal.innerHTML += '<h1>公历年: '+yearc+'</h1>';
             cal.innerHTML += '<h1>农历年:</h1>';
         }
-        var tmp;
+        let tmp;
         if (Ncyear==1) {
             cal.innerHTML += '<h2>'+cyear[cy0]+'</h2> <br />';
         } else if (Ncyear==2) {
@@ -588,7 +623,7 @@ function calendar(lang, year) {
     }
     
     // Add additional information after the year info
-    var info = addYearInfo(year, langVars, calVars);
+    let info = addYearInfo(year, langVars, calVars);
     if (info != "") {
         var h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
         cal.innerHTML += h3+info+'</h3><br /><br />';
@@ -685,16 +720,16 @@ function addYearInfo(y, langVars, calVars) {
 
 // Print the table for one Gregorian/Julian month
 function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
-    var cmon = addChineseMonths(m, lang, year, cyear, langVars, calVars);
-    var nMonth=cmon.nMonth, cmyear=cmon.cmyear, cmonth=cmon.cmonth;
-    var yearc = year.toString();
+    let cmon = addChineseMonths(m, lang, year, cyear, langVars, calVars);
+    let nMonth=cmon.nMonth, cmyear=cmon.cmyear, cmonth=cmon.cmonth;
+    let yearc = year.toString();
     if (year < 1) {
         yearc = (lang==0 ? (1-year).toString()+' BCE':'&#21069;'+(1-year).toString());
     }
     if (lang != 0) yearc += '&#24180;';
     
-    var txt='<table>';
-    var i;
+    let txt='<table>';
+    let i;
     if (nMonth==1) {
         txt += '<tr><th colspan="2"><h2>'+yearc+'<br />'+langVars.gMonth[m]+'</h2></th>'+'<th colspan="5"><h3>'+cmyear[0]+' '+cmonth[0]+'</h3></th></tr>';
     } else {
@@ -712,15 +747,15 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
     txt += '</tr>';
 
     // Determine the day of week of the first date of month
-    var week1 = (calVars.jd0 + calVars.mday[m] + 3) % 7;
+    let week1 = (calVars.jd0 + calVars.mday[m] + 3) % 7;
     
     if (week1 > 0) {
         txt += '<tr>';
         txt += '<td colspan="'+week1+'"></td>';
     }
     // # of days in the months
-    var n = calVars.mday[m+1] - calVars.mday[m];
-    var week;
+    let n = calVars.mday[m+1] - calVars.mday[m];
+    let week;
     for (i=1; i<=n; i++) {
         week = (week1 + i - 1) % 7;
         if (week==0) txt += '<tr>';
@@ -746,6 +781,7 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
     }
     
     txt += '</table>';
+    
     txt += addMoonPhases(m, lang, langVars, calVars);
     txt += add24solterms(m, lang, langVars, calVars);
     if (year < 1734) {
@@ -756,7 +792,7 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
             txt += addCalSolterms(m, lang, langVars, calVars, 1);
         }
     }
-    var warn = warningMessage(year, m+1, lang, langVars);
+    let warn = warningMessage(year, m+1, lang, langVars);
     if (warn != '') {
         txt += '<p style="color:red;"><sup>*</sup>'+warn+'</p>';
     }
@@ -1052,23 +1088,45 @@ function addSexagenaryDays(m,d,langVars, calVars) {
 }
 
 function addMoonPhases(m,lang,langVars, calVars) {
-    var m0 = calVars.mday[m];
-    var m1 = calVars.mday[m+1];
-    var i, dd, h;
-    var txt; 
+    let m0 = calVars.mday[m];
+    let m1 = calVars.mday[m+1];
+    let i, dd, h;
+    let txt; 
     if (lang==0) {
         txt = '<p><b>Moon Phases</b>: '
     } else {
         txt = '<p style="letter-spacing:normal;"><b>&#26376;&#30456;</b>: '
     }
     
-    var phases = [];
+    let phases = [];
     // new moon
-    var name = '['+langVars.Qnames[0]+'] ';
+    let name = '['+langVars.Qnames[0]+'] ';
     for (i=0; i<calVars.Q0.length; i++) {
         dd = Math.floor(calVars.Q0[i]);
         if (dd > m0 && dd <= m1) {
-            phases.push({phase:name, time:calVars.Q0[i]-m0});
+            let ec = '-';
+            calVars.sol_eclipse.forEach(function(e) {
+                if (Math.abs(dd - e[0]) < 5) {
+                    let ybeg = 1 + 100*Math.floor(0.01*(calVars.year - 0.5));
+                    if (calVars.year==ybeg && e[1] > 200) {
+                        ybeg -= 100;
+                    } else if (calVars.year-ybeg==99 && e[1] < 200){
+                        ybeg += 100;
+                    }
+                    let type;
+                    let linkg = 'http://ytliu.epizy.com/eclipse/';
+                    if (lang==0) {
+                        type = ['Partial solar eclipse', 'Annnular solar eclipse', 'Total solar eclipse', 'Hybrid solar eclipse'];
+                    } else if (lang==1) {
+                        type = ['日偏食', '日環食', '日全食', '日全環食'];
+                    } else {
+                        type = ['日偏食', '日环食', '日全食', '日全环食'];
+                    }
+                    linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1];
+                    ec = '<a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
+                }
+            });
+            phases.push({phase:name, time:calVars.Q0[i]-m0, ec:ec});
         }
     }
     // first quarter 
@@ -1076,7 +1134,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
     for (i=0; i<calVars.Q1.length; i++) {
         dd = Math.floor(calVars.Q1[i]);
         if (dd > m0 && dd <= m1) {
-            phases.push({phase:name, time:calVars.Q1[i]-m0});
+            phases.push({phase:name, time:calVars.Q1[i]-m0, ec:'-'});
         }
     }
     // full moon
@@ -1084,7 +1142,22 @@ function addMoonPhases(m,lang,langVars, calVars) {
     for (i=0; i<calVars.Q2.length; i++) {
         dd = Math.floor(calVars.Q2[i]);
         if (dd > m0 && dd <= m1) {
-            phases.push({phase:name, time:calVars.Q2[i]-m0});
+            let ec = '-';
+            calVars.lun_eclipse.forEach(function(e) {
+                if (Math.abs(dd - e[0]) < 5) {
+                    let ybeg = 1 + 100*Math.floor(0.01*(calVars.year - 0.5));
+                    let type;
+                    let linkg = 'http://ytliu.epizy.com/eclipse/';
+                    if (lang==0) {
+                        type = ['Penumbral lunar eclipse', 'Partial lunar eclipse', 'Total lunar eclipse'];
+                    } else {
+                        type = ['半影月食', '月偏食', '月全食'];
+                    }
+                    linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1];
+                    ec = '<a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
+                }
+            });
+            phases.push({phase:name, time:calVars.Q2[i]-m0, ec:ec});
         }
     }
     // third quarter
@@ -1092,21 +1165,12 @@ function addMoonPhases(m,lang,langVars, calVars) {
     for (i=0; i<calVars.Q3.length; i++) {
         dd = Math.floor(calVars.Q3[i]);
         if (dd > m0 && dd <= m1) {
-            phases.push({phase:name, time:calVars.Q3[i]-m0});
+            phases.push({phase:name, time:calVars.Q3[i]-m0, ec:'-'});
         }
     }
     
     // sort events in chronological order
-    var n = phases.length;
-    for (i=n-1; i>0; i--) {
-        for (var j=0; j<i; j++) {
-            if (phases[j].time > phases[j+1].time) {
-                var tmp = phases[j+1];
-                phases[j+1] = phases[j];
-                phases[j] = tmp;
-            }
-        }
-    }
+    phases.sort((a,b) => a.time - b.time);
     
     // Correct for Gregorian calendar reform
     // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
@@ -1116,10 +1180,14 @@ function addMoonPhases(m,lang,langVars, calVars) {
         }
     }
     
+    let n = phases.length;
     for (i=0; i<n; i++) {
-        var h = 24.0*(phases[i].time - Math.floor(phases[i].time));
+        let h = 24.0*(phases[i].time - Math.floor(phases[i].time));
         txt += phases[i].phase + ' ' + Math.floor(phases[i].time) 
                + '<sup>d</sup>' + convertHM(h);
+        if (phases[i].ec != '-') {
+            txt += ' ('+phases[i].ec+')';
+        }
         if (i < n-1) txt += '&nbsp;&nbsp;';
     }
     
