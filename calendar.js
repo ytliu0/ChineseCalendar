@@ -1116,7 +1116,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
                     let type;
                     let linkg = 'http://ytliu.epizy.com/eclipse/';
                     if (lang==0) {
-                        type = ['Partial solar eclipse', 'Annnular solar eclipse', 'Total solar eclipse', 'Hybrid solar eclipse'];
+                        type = ['Partial solar eclipse', 'Annular solar eclipse', 'Total solar eclipse', 'Hybrid solar eclipse'];
                     } else if (lang==1) {
                         type = ['日偏食', '日環食', '日全食', '日全環食'];
                     } else {
