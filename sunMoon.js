@@ -170,14 +170,14 @@ function addContent(lang, y, id, moon, sun) {
     let extra_links = links[iec-1];
     extra_links.forEach(function(e) {
         if (ndays[0] - e[0] < 3) {
-            // this is close to Jan 1, y; add it to be save
+            // this is close to Jan 1, y; add it to be safe
             sol_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
         }
     });
     extra_links = links[iec+1];
     extra_links.forEach(function(e) {
         if (e[0] < 3) {
-            // this is close to Dec 31, y; add it to be save
+            // this is close to Dec 31, y; add it to be safe
             sol_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
         }
     });
@@ -194,14 +194,14 @@ function addContent(lang, y, id, moon, sun) {
     extra_links = links[iec-1];
     extra_links.forEach(function(e) {
         if (ndays[0] - e[0] < 3) {
-            // this is close to Jan 1, y; add it to be save
+            // this is close to Jan 1, y; add it to be safe
             lun_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
         }
     });
     extra_links = links[iec+1];
     extra_links.forEach(function(e) {
         if (e[0] < 3) {
-            // this is close to Dec 31, y; add it to be save
+            // this is close to Dec 31, y; add it to be safe
             lun_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
         }
     });
@@ -492,14 +492,14 @@ function addContent_forTesting(lang, y, moon, sun) {
     let extra_links = links[iec-1];
     extra_links.forEach(function(e) {
         if (ndays[0] - e[0] < 3) {
-            // this is close to Jan 1, y; add it to be save
+            // this is close to Jan 1, y; add it to be safe
             sol_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
         }
     });
     extra_links = links[iec+1];
     extra_links.forEach(function(e) {
         if (e[0] < 3) {
-            // this is close to Dec 31, y; add it to be save
+            // this is close to Dec 31, y; add it to be safe
             sol_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
         }
     });
@@ -516,14 +516,14 @@ function addContent_forTesting(lang, y, moon, sun) {
     extra_links = links[iec-1];
     extra_links.forEach(function(e) {
         if (ndays[0] - e[0] < 3) {
-            // this is close to Jan 1, y; add it to be save
+            // this is close to Jan 1, y; add it to be safe
             lun_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
         }
     });
     extra_links = links[iec+1];
     extra_links.forEach(function(e) {
         if (e[0] < 3) {
-            // this is close to Dec 31, y; add it to be save
+            // this is close to Dec 31, y; add it to be safe
             lun_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
         }
     });
