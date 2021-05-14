@@ -371,7 +371,7 @@ function calDataYear(y, langVars) {
     extra_links.forEach(function(e) {
         if (e[0] < 3) {
             // this is close to Dec 31, y; add it to be safe
-            lun_eclipse.eclipses.push([e[0]+ndays, e[1], e[2]]);
+            lun_eclipse.push([e[0]+ndays, e[1], e[2]]);
         }
     });
     links = null;
@@ -1174,13 +1174,13 @@ function addMoonPhases(m,lang,langVars, calVars) {
     
     // Correct for Gregorian calendar reform
     // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
+    let n = phases.length;
     if (m1-m0 < 25) {
         for (i=0; i<n; i++) {
             phases[i].time += (phases[i].time >= 5.0 ? 10.0:0.0);
         }
     }
     
-    let n = phases.length;
     for (i=0; i<n; i++) {
         let h = 24.0*(phases[i].time - Math.floor(phases[i].time));
         txt += phases[i].phase + ' ' + Math.floor(phases[i].time) 
@@ -2362,7 +2362,7 @@ function outputContent_forTesting_allYears_default(lang) {
     }
     document.getElementById('chunqiuSpring').classList.add('active');
     document.getElementById('zhouWarring').classList.add('active');
-    outputContent_forTesting(lang, -721, 2200, 'default', 'default.txt');
+    outputContent_forTesting(lang, -721, 2200, 'default', 'calendar_default_-721to2200.txt');
 }
 
 function outputContent_forTesting_period(lang, period) {
@@ -2421,7 +2421,7 @@ function outputContent_forTesting_period(lang, period) {
     } else if (period=='LiaoJinYuan') {
         txt = outputContent_forTestingMed(lang, 947, 1279, 'LiaoJinYuan');
     }
-    download_txt(txt, period+'.txt');
+    download_txt(txt, 'calendar_'+period+'.txt');
 }
 
 // Create file for download
