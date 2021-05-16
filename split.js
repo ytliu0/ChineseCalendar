@@ -2,7 +2,7 @@
 
 // Setting display menu and return region
 function split_calendar_handler(lang, y) {
-    var txt, disp, region = 'default';
+    let txt, disp, region = 'default';
     document.getElementById("ThreeKingdoms").style.display = "none";
     document.getElementById("SouthNorth").style.display = "none";
     document.getElementById("SongLiaoJinYuan").style.display = "none";
@@ -14,8 +14,8 @@ function split_calendar_handler(lang, y) {
         document.getElementById("TkiWei").innerHTML = txt[lang];
         document.getElementById("TkiShu").style.display = (y > 263.5 ? "none":"inline");
         document.getElementById("TkiWu").style.display = (y < 221.5 ? "none":"inline");
-        var Shu = document.getElementById('TkiShu').classList.contains('active');
-        var Wu = document.getElementById('TkiWu').classList.contains('active');
+        let Shu = document.getElementById('TkiShu').classList.contains('active');
+        let Wu = document.getElementById('TkiWu').classList.contains('active');
         if (Shu && y > 263.5) {
             // Shu dynasty was conquered by Wei
             document.getElementById('TkiShu').classList.remove('active');
@@ -76,10 +76,10 @@ function split_calendar_handler(lang, y) {
         document.getElementById('SN1WeiQi').innerHTML = txt[lang];
         
         // Set region, default is the south dynasties
-        var LaterQin = document.getElementById('SN1LaterQin').classList.contains('active');
-        var NorthernLiang = document.getElementById('SN1NorthernLiang').classList.contains('active');
-        var WeiZhouSui = document.getElementById('SN1WeiZhouSui').classList.contains('active');
-        var WeiQi = document.getElementById('SN1WeiQi').classList.contains('active');
+        let LaterQin = document.getElementById('SN1LaterQin').classList.contains('active');
+        let NorthernLiang = document.getElementById('SN1NorthernLiang').classList.contains('active');
+        let WeiZhouSui = document.getElementById('SN1WeiZhouSui').classList.contains('active');
+        let WeiQi = document.getElementById('SN1WeiQi').classList.contains('active');
         
         if (LaterQin && y > 417.5) {
             // Later Qin was conquered by Jin
@@ -168,11 +168,11 @@ function split_calendar_handler(lang, y) {
 
 // Select calendar
 function select_calendar_split(id, lang) {
-    var err = document.getElementById('err').innerHTML;
+    let err = document.getElementById('err').innerHTML;
     if (err != "") { return;}
     
-    var menu, item;
-    var period = id.substr(0,3);
+    let menu, item;
+    let period = id.substr(0,3);
     if (period=='Tki') {
         menu = ["TkiWei", "TkiShu", "TkiWu"];
     } else if (period=='SN1') {
@@ -182,7 +182,7 @@ function select_calendar_split(id, lang) {
         menu = ['SN2South', 'SN2North'];
     }
     
-    for (var i=0; i < menu.length; i++) {
+    for (let i=0; i < menu.length; i++) {
         item = document.getElementById(menu[i])
         if (item.classList.contains('active')) { 
             item.classList.remove('active');
@@ -200,7 +200,7 @@ function select_calendar_split(id, lang) {
 // JD of winter solstice in year y-1 = JDw + y*solar
 // JD of conjunctions = jd_epoch + i*lunar for any integer i.
 function get_li_parameters(li) {
-    var lunar=0, solar=0, jd_epoch=0, JDw=0, dtc_round=0, dts_round=0;
+    let lunar=0, solar=0, jd_epoch=0, JDw=0, dtc_round=0, dts_round=0;
     switch (li) {
         case "Sifen":
             // 東漢四分
@@ -252,6 +252,9 @@ function get_li_parameters(li) {
             break;
         case "fakeMingKeRang":
             // 明克讓, lost; parameters tweaked from 正光
+            // according to p. 24 in Volume 6 of 《歷代長術輯要》
+            // by 汪曰楨: 此術無考，劉氏長術仍借正光術推之，但依史文移置閏月。
+            // 今從其例增節氣小餘十分之四，乃與當時置閏相符。
             lunar = 29.0 + 39769.0/74952.0;
             solar = 365.0 + 1477.0/6060.0;
             JDw = 1721048.5 + 569.0/1515.0 + 0.4;
@@ -323,12 +326,12 @@ function get_li_parameters(li) {
 // Here solar is the solar cycle in days.
 // jdc: Julian day from which days are counted
 function compute_pingqi(y, para, jdc) {
-    var dqi = para.solar/24.0;
-    var J12 = para.JDw + y*para.solar + dqi;
+    let dqi = para.solar/24.0;
+    let J12 = para.JDw + y*para.solar + dqi;
     // Dates of the 24 solar terms (pingqi) starting from J12 and 
     // ending on J12 in the following sui
-    var stermDate = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    for (var i=0; i<25; i++) {
+    let stermDate = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    for (let i=0; i<25; i++) {
         stermDate[i] = Math.floor(J12 + i*dqi + 0.5) - jdc;
     }
     return stermDate;
@@ -338,35 +341,35 @@ function compute_pingqi(y, para, jdc) {
 // determine all months in a Chinese year using the No Zhongqi rule.
 // jdc: Julian day from which days are counted
 function cmonthDate_pingshou_noZhongqi(y, para, jdc) {
-    var Z1 = para.JDw + (y + 1.0/6.0)*para.solar;
+    let Z1 = para.JDw + (y + 1.0/6.0)*para.solar;
     // midnight after Z1 in y+1
-    var Z1b = Math.floor(Z1 + para.solar + 0.5) + 0.5; 
-    var i1 = Math.floor((Math.floor(Z1 +0.5) + 0.5 - para.jd_epoch)/para.lunar);
-    var m1 = para.jd_epoch + i1*para.lunar; // New year in N_y
+    let Z1b = Math.floor(Z1 + para.solar + 0.5) + 0.5; 
+    let i1 = Math.floor((Math.floor(Z1 +0.5) + 0.5 - para.jd_epoch)/para.lunar);
+    let m1 = para.jd_epoch + i1*para.lunar; // New year in N_y
     // has leap month?
-    var leap = (m1 + 13*para.lunar > Z1b ? 0:1);
+    let leap = (m1 + 13*para.lunar > Z1b ? 0:1);
     // Number of days in N_y
-    var cndays = Math.floor(m1 + (12+leap)*para.lunar + 0.5) - Math.floor(m1+0.5);
+    let cndays = Math.floor(m1 + (12+leap)*para.lunar + 0.5) - Math.floor(m1+0.5);
     
     // First days of months. 
     // cmonthDate[12] = First day of a leap month
     // cmonthDate[13] = leap month number
     // cmonthDate[14] = Number of days in N_y (Note: may be modified when another calendar was used in the following year)
     // If no leap month, cmonthDate[12] = cmonthDate[13] = 0.
-    var cmonthDate = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,cndays];
-    var i;
+    let cmonthDate = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,cndays];
+    let i;
     if (leap==0) {
         for (i=0; i<12; i++) {
             cmonthDate[i] = Math.floor(m1 + i*para.lunar + 0.5) - jdc;
         }
     } else {
-        var offset = 0;
-        var dmqi = para.solar/12.0;
+        let offset = 0;
+        let dmqi = para.solar/12.0;
         for (i=0; i<12; i++) {
-            var d = m1 + (i+offset)*para.lunar + 0.5;
+            let d = m1 + (i+offset)*para.lunar + 0.5;
             if (offset==0) {
                 // determine if this is a leap month
-                var dm = Z1 + i*dmqi + 0.5;
+                let dm = Z1 + i*dmqi + 0.5;
                 if (Math.floor(dm) > Math.floor(d + para.lunar) - 0.01) {
                     // This is a leap month
                     cmonthDate[13] = i;
@@ -388,14 +391,14 @@ function cmonthDate_pingshou_noZhongqi(y, para, jdc) {
 // Set up calendar data for the calendar page
 function setup_region_calendar(region, y, calc_pingqi) {
     // Julian date number at noon on Dec 31, y-1 
-    var accleap = Math.floor(0.25*(y + 799) + 1e-5);
-    var jdc = 1429223 + accleap + 365*(y+799);
+    let accleap = Math.floor(0.25*(y + 799) + 1e-5);
+    let jdc = 1429223 + accleap + 365*(y+799);
     
     if (region=='LiaoJinYuan') {
         return cmonthDate_LiaoJinYuan(y, jdc, calc_pingqi);
     }
     
-    var i, cmonthDate, pingqi;
+    let i, cmonthDate, pingqi;
     switch (region) {
         case 'Shu':
             cmonthDate = cmonthDate_Shu(y, jdc, calc_pingqi);
@@ -416,8 +419,8 @@ function setup_region_calendar(region, y, calc_pingqi) {
             cmonthDate = cmonthDate_WeiQi(y, jdc, calc_pingqi);
             break;
     }
-    var cm = [y,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    var out;
+    let cm = [y,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    let out;
     if (calc_pingqi) {
         for (i=0; i<15; i++) { cm[i+1] = cmonthDate.cm[i];}
         out = {cm:cm, pingqi:cmonthDate.pingqi};
@@ -430,28 +433,28 @@ function setup_region_calendar(region, y, calc_pingqi) {
 
 // Shu dynasty 
 function cmonthDate_Shu(y, jdc, calc_pingqi) {
-    var para = get_li_parameters('Sifen');
-    var out = (calc_pingqi ? {cm:cmonthDate_pingshou_noZhongqi(y, para, jdc), pingqi:compute_pingqi(y, para, jdc)}:cmonthDate_pingshou_noZhongqi(y, para, jdc));
+    let para = get_li_parameters('Sifen');
+    let out = (calc_pingqi ? {cm:cmonthDate_pingshou_noZhongqi(y, para, jdc), pingqi:compute_pingqi(y, para, jdc)}:cmonthDate_pingshou_noZhongqi(y, para, jdc));
     return out;
 }
 
 // Wu dynasty
 function cmonthDate_Wu(y, jdc, calc_pingqi) {
-    var li = (y < 222.5 ? 'Sifen':'Qianxiang');
-    var para = get_li_parameters(li);
-    var cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
+    let li = (y < 222.5 ? 'Sifen':'Qianxiang');
+    let para = get_li_parameters(li);
+    let cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
     // Manually correct the dates in N_{244} month 12 and N_{247} month 9
     if (y==244) { cm[11]++;}
     if (y==247) { cm[8]--;}
-    var out;
+    let out;
     if (calc_pingqi) {
-        var pingqi = compute_pingqi(y, para, jdc);
+        let pingqi = compute_pingqi(y, para, jdc);
         if (y==223) {
             // pingqi before J1 still used Sifen almanac 
             // because they were in N_{222}.
             para = get_li_parameters('Sifen');
-            var pingqi2 = compute_pingqi(223, para, jdc);
-            for (var i=0; i<3; i++) { pingqi[i] = pingqi2[i];}
+            let pingqi2 = compute_pingqi(223, para, jdc);
+            for (let i=0; i<3; i++) { pingqi[i] = pingqi2[i];}
         } 
         out = {cm:cm, pingqi:pingqi};
     } else {
@@ -462,24 +465,24 @@ function cmonthDate_Wu(y, jdc, calc_pingqi) {
 
 // Later Qin
 function cmonthDate_LaterQin(y, jdc, calc_pingqi) {
-    var para = get_li_parameters('Sanji');
-    var out = (calc_pingqi ? {cm:cmonthDate_pingshou_noZhongqi(y, para, jdc), pingqi:compute_pingqi(y, para, jdc)}:cmonthDate_pingshou_noZhongqi(y, para, jdc));
+    let para = get_li_parameters('Sanji');
+    let out = (calc_pingqi ? {cm:cmonthDate_pingshou_noZhongqi(y, para, jdc), pingqi:compute_pingqi(y, para, jdc)}:cmonthDate_pingshou_noZhongqi(y, para, jdc));
     return out;
 }
 
 // Northern Liang
 function cmonthDate_NorthernLiang(y, jdc, calc_pingqi) {
-    var para = get_li_parameters('Xuanshi');
-    var cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
+    let para = get_li_parameters('Xuanshi');
+    let cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
     // Manually correct the data in N_{430} month 2
     if (y==430) { cm[1]++;}
-    var out = (calc_pingqi ? {cm:cm, pingqi:compute_pingqi(y, para, jdc)}:cm);
+    let out = (calc_pingqi ? {cm:cm, pingqi:compute_pingqi(y, para, jdc)}:cm);
     return out;
 }
 
 // Northern Wei, Western Wei, Northern Zhou, Sui
 function cmonthDate_WeiZhouSui(y, jdc, calc_pingqi) {
-    var li;
+    let li;
     if (y < 451.5) {
         li = 'Jingchu';
     } else if (y < 522.5) {
@@ -495,18 +498,18 @@ function cmonthDate_WeiZhouSui(y, jdc, calc_pingqi) {
     } else {
         li = 'Kaihuang';
     }
-    var para = get_li_parameters(li);
-    var cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
+    let para = get_li_parameters(li);
+    let cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
     // Manually correct the data in N_{430} month 2, 
     if (y==430) { cm[1]++;}
     // Correct the number of days in N_{565} caused by the change of 
     // calendar in N_{566}
     if (y==565) { cm[14]++;}
-    var out;
+    let out;
     if (calc_pingqi) {
-        var pingqi = compute_pingqi(y, para, jdc);
+        let pingqi = compute_pingqi(y, para, jdc);
         // Deal with the transition years
-        var i, pingqi2;
+        let i, pingqi2;
         if (y==452) {
             // Change J12, Z12 and J1
             para = get_li_parameters('Jingchu');
@@ -547,7 +550,7 @@ function cmonthDate_WeiZhouSui(y, jdc, calc_pingqi) {
 
 // Eastern Wei and Northern Qi
 function cmonthDate_WeiQi(y, jdc, calc_pingqi) {
-    var li;
+    let li;
     if (y < 539.5) {
         li = 'Zhengguang';
     } else if (y < 550.5) {
@@ -555,13 +558,13 @@ function cmonthDate_WeiQi(y, jdc, calc_pingqi) {
     } else {
         li = 'Tianbao';
     }
-    var para = get_li_parameters(li);
-    var cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
-    var out;
+    let para = get_li_parameters(li);
+    let cm = cmonthDate_pingshou_noZhongqi(y, para, jdc);
+    let out;
     if (calc_pingqi) {
-        var pingqi = compute_pingqi(y, para, jdc);
+        let pingqi = compute_pingqi(y, para, jdc);
         // Deal with the transition years
-        var i, pingqi2;
+        let i, pingqi2;
         if (y==540) {
             // Change J12, Z12
             para = get_li_parameters('Zhengguang');
@@ -600,24 +603,24 @@ function LiaoJinYuanCorrection() { return {y949:[10,298], y955:[8,232], y958:[9,
 
 // Liao, Jun, Mongol/Yuan calendars in 947-1279
 function cmonthDate_LiaoJinYuan(y, jdc, calc_pingqi) {
-    var cdate = ChineseToGregorian();
-    var cm = cdate[y - cdate[0][0]];
+    let cdate = ChineseToGregorian();
+    let cm = cdate[y - cdate[0][0]];
     cdate = null;
-    var corr = LiaoJinYuanCorrection();
-    var prop = 'y'+y.toString();
+    let corr = LiaoJinYuanCorrection();
+    let prop = 'y'+y.toString();
     if (prop in corr) {
         // Correction for year y
-        var corr_array = corr[prop];
-        for (var i=0; i<corr_array.length; i += 2) {
+        let corr_array = corr[prop], n = corr_array.length;
+        for (let i=0; i<n; i += 2) {
             cm[corr_array[i]] = corr_array[i+1];
         }
     }
     
-    var out;
+    let out;
     if (calc_pingqi) {
-        var li = (y < 1085.5 ? 'Xuanming':'RevisedDaming');
-        var para = get_li_parameters(li);
-        var pingqi = compute_pingqi(y, para, jdc);
+        let li = (y < 1085.5 ? 'Xuanming':'RevisedDaming');
+        let para = get_li_parameters(li);
+        let pingqi = compute_pingqi(y, para, jdc);
         // Correction to pingqi
         if (y==999) { pingqi[9]--;}
         if (y==1015) { pingqi[15]--;}

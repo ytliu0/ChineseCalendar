@@ -28,7 +28,7 @@ function init(lang) {
     for (i = 0; i < acc.length; i++) {
       acc[i].onclick = function() {
         this.classList.toggle("active");
-        var panel = this.nextElementSibling;
+        let panel = this.nextElementSibling;
         if (panel.style.maxHeight){
           panel.style.maxHeight = null;
         } else {
@@ -41,27 +41,27 @@ function init(lang) {
 
 function submitYear(lang) {
     document.getElementById('err').innerHTML = "";
-    var year = parseInt(document.getElementById('year').value);
+    let year = parseInt(document.getElementById('year').value, 10);
     if (isNaN(year) || year < -3500 || year > 3500) {
-        var message = ['Invalid input! Please enter an integer between -3500 and 3500.', 
+        let message = ['Invalid input! Please enter an integer between -3500 and 3500.', 
         '輸入錯誤﹗請輸入包括 -3500 和 3500 之間的整數。', 
         '输入错误！请输入包括 -3500 和 3500 之间的整数。'];
         document.getElementById('err').innerHTML = message[lang];
     } else {
         document.getElementById('year').value = year;
-        var moon = mphases();
-        var sun = sterms();
+        let moon = mphases();
+        let sun = sterms();
         addContent(lang, year-1, 'ym1', moon, sun);
         addContent(lang, year, 'y', moon, sun);
         addContent(lang, year+1, 'y1', moon, sun);
         // *** TEST ***
-        //outputContent_forTesting(lang, 1972, 2021, moon, sun);
+        //outputContent_forTesting(lang, -3500, 3500, moon, sun);
         // *************
         moon = null;
         sun = null;
         // Hide the years y-1 and y+1
-        var acc = document.getElementsByClassName("accordion");
-        for (var i=0; i < acc.length; i++) {
+        let acc = document.getElementsByClassName("accordion");
+        for (let i=0; i < acc.length; i++) {
             if (acc[i].classList.contains('active')) {
                 acc[i].click();
             }
@@ -85,11 +85,8 @@ function addContent(lang, y, id, moon, sun) {
         txt ='公元'+y+'年';
     }
     if (y <= 0) {
-        if (lang==0) {
-            txt += ' ('+(1-y)+' BCE)';
-        } else {
-            txt += '(前'+(1-y)+'年)';
-        }
+        let app = [' ('+(1-y)+' BCE)', '(前'+(1-y)+'年)', '(前'+(1-y)+'年)'];
+        txt += app[lang];
     }
     //if (addClickMesg) {
     //    txt += '&nbsp; <span style="font-size:80%;">(' + 
@@ -142,12 +139,9 @@ function addContent(lang, y, id, moon, sun) {
     //          from Jan 0 and L - 1441*floor(L/1441) is the 
     //          number of minutes from the midnight (UT1+8/UTC+8).
     txt = "<br />";
-    if (lang==0) {
-        txt += "<h2>Phases of the Moon</h2>";
-    } else {
-        txt += "<h2>月相</h2>";
-    }
-    txt += "<table>";
+    let app = ['<h2>Phases of the Moon</h2>', 
+              '<h2>月相</h2>', '<h2>月相</h2>'];
+    txt += app[lang] + '<table>';
     txt += "<tr> <th>"+mpName[0]+"</th><th>"+mpName[1]+"</th><th>"+mpName[2]+"</th><th>"+mpName[3]+"</th></tr>";
     let ph = moony[0]; // First moon phase in the year
     if (ph != 0) {
@@ -227,21 +221,12 @@ function addContent(lang, y, id, moon, sun) {
     // Each of them is an integer calculated in the same way as in the 
     // dates and times of the moon phases.
     txt += "<br />";
-    if (lang==0) {
-        txt += "<h2>24 Solar Terms</h2>";
-    } else if (lang==1) {
-        txt += "<h2>二十四節氣</h2>";
-    } else {
-        txt += "<h2>二十四节气</h2>";
-    }
-    txt += "<table>";
-    if (lang==0) {
-        txt += "<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>";
-    } else if (lang==1) {
-        txt += "<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>";
-    } else {
-        txt += "<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>";
-    }
+    app = ['<h2>24 Solar Terms</h2>', '<h2>二十四節氣</h2>', '<h2>二十四节气</h2>'];
+    txt += app[lang]+'<table>';
+    app = ['<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>', 
+          '<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>', 
+          '<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>'];
+    txt += app[lang];
     for (i=0; i < 24; i++) {
         if (i % 2 ==0) {
             txt += "<tr>";
@@ -264,46 +249,19 @@ function addContent(lang, y, id, moon, sun) {
     document.getElementById(id+'content').innerHTML = txt;
 }
 
-// Number of days in a Gregorian/Julian year
-function NdaysGregJul(y) {
-  var ndays = (y==1582 ? 355:365) + (Math.abs(y) % 4 == 0 ? 1:0);
-  if (y > 1582) {
-     ndays += (y % 100 == 0 ? -1:0) + (y % 400 == 0 ? 1:0);
-  }
-  return ndays;
-}
-
-// Compute JD at midnight UT
-function getJD(yyyy,mm,dd) {
-    var m1 = mm, yy = yyyy;
-    if (m1 <= 2) {m1 +=12; yy--;}
-    var b;
-    if (10000*yy+100*m1+dd <= 15821004) {
-        // Julian calendar
-        b = -2 + Math.floor((yy+4716)/4) - 1179;
-    } else {
-        // Gregorian calendar
-        b = Math.floor(yy/400) - Math.floor(yy/100) + Math.floor(yy/4);
-    }
-    var jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400000.5;
-    return jd;
-}
-
 // day from Dec 31, y-1 -> m, d (assume 1 <= day <= ndays )
 function ymd2(dayIn, ndays, lang) {
-    var leap = (ndays==366 ? 1:0);
+    let leap = (ndays==366 ? 1:0);
     
-    var day = dayIn;
+    let day = dayIn;
     if (ndays < 360 && dayIn > 277) { day += 10;} // Gregorian reform
-    
-    var m,d;
-
-    var mday = [0, 31, 59+leap, 90+leap, 120+leap, 151+leap, 181+leap, 212+leap,
+    let m,d;
+    let mday = [0, 31, 59+leap, 90+leap, 120+leap, 151+leap, 181+leap, 212+leap,
            243+leap, 273+leap, 304+leap, 334+leap, 365+leap];
     if (day < 1) {
         m=0; d=day;
     } else {
-        for (var i=1; i<13; i++) {
+        for (let i=1; i<13; i++) {
             if (day-mday[i] < 1) {
                 m=i-1; d = day-mday[i-1];
                 break;
@@ -311,9 +269,9 @@ function ymd2(dayIn, ndays, lang) {
         }
     }
     
-    var mmdd;
+    let mmdd;
     if (lang==0) {
-        var mname = ["Jan. ", "Feb. ", "Mar. ", "Apr. ", "May ", "June ", "July ", 
+        let mname = ["Jan. ", "Feb. ", "Mar. ", "Apr. ", "May ", "June ", "July ", 
             "Aug. ", "Sep. ", "Oct. ", "Nov. ", "Dec. "];
         mmdd = mname[m] + d;
     } else {
@@ -378,8 +336,6 @@ function add_eclipse_link(y, m, eclipse, lang) {
                 }
                 linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1];
             }
-            //let jd = getJD(y-1,12,31) + day - 1.0/3;
-            //let dT = 86400*DeltaT_new((jd-2451545)/36525);
             txt = '<br /><a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
         }
     });
@@ -391,7 +347,7 @@ function add_eclipse_link(y, m, eclipse, lang) {
 // The following functions are for testing purpose
 //
 function addContent_forTesting(lang, y, moon, sun) {
-    var cal = "Gregorian Year: ";
+    let cal = "Gregorian Year: ";
     if (y==1582) {
         cal = "Julian/Gregorian Year: ";
     } else if (y < 1582 && y >= 8) {
@@ -399,18 +355,15 @@ function addContent_forTesting(lang, y, moon, sun) {
     } else if (y < 8) {
         cal = "(Proleptic) Julian Year: ";
     }
-    var txt;
+    let txt;
     if (lang==0) {
         txt = cal+y;
     } else {
         txt ='公元'+y+'年';
     }
     if (y <= 0) {
-        if (lang==0) {
-            txt += ' ('+(1-y)+' BCE)';
-        } else {
-            txt += '(前'+(1-y)+'年)';
-        }
+        let app = [' ('+(1-y)+' BCE)', '(前'+(1-y)+'年)', '(前'+(1-y)+'年)'];
+        txt += app[lang];
     }
     //if (addClickMesg) {
     //    txt += '&nbsp; <span style="font-size:80%;">(' + 
@@ -418,8 +371,8 @@ function addContent_forTesting(lang, y, moon, sun) {
     //}
     txt += '\n';
     
-    var mpName = ["New Moon", "First Quarter", "Full Moon", "Last Quarter"];
-    var stermName = ["Z11 (Dec. solstice)", "J12", "Z12", "J1", "Z1", "J2", 
+    let mpName = ["New Moon", "First Quarter", "Full Moon", "Last Quarter"];
+    let stermName = ["Z11 (Dec. solstice)", "J12", "Z12", "J1", "Z1", "J2", 
                      "Z2 (March equinox)", "J3","Z3", 
                      "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
                      "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11"];
@@ -435,18 +388,18 @@ function addContent_forTesting(lang, y, moon, sun) {
                     "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
         }
     }
-    var ind = y - yrange_sunMoon()[0];
-    var i;
-    var ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
+    let ind = y - yrange_sunMoon()[0];
+    let i;
+    let ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
     
     // decompress data
-    var offsets = offset_sunMoon();
-    var moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
+    let offsets = offset_sunMoon();
+    let moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
     moony.unshift(moon[ind][0]);
-    var stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
-    var sun_temp = [sun[ind+1][0], sun[ind+1][1]];
+    let stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
+    let sun_temp = [sun[ind+1][0], sun[ind+1][1]];
     // add two more solar terms: Z11 and J12 following J11
-    var st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
+    let st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
     stermy.push(st2[0]+1441*ndays[1], st2[1]+1441*ndays[1]);
     
     // Moon phases
@@ -463,28 +416,16 @@ function addContent_forTesting(lang, y, moon, sun) {
     //          from Jan 0 and L - 1441*floor(L/1441) is the 
     //          number of minutes from the midnight (UT1+8/UTC+8).
     txt += "<br />";
-    if (lang==0) {
-        txt += "<h2>Phases of the Moon</h2>";
-    } else {
-        txt += "<h2>月相</h2>";
-    }
-    txt += '\n';
-    txt += "<table>\n";
+    let app = ['<h2>Phases of the Moon</h2>', '<h2>月相</h2>', '<h2>月相</h2>'];
+    txt += app[lang] + '\n<table>\n';
     txt += "<tr> <th>"+mpName[0]+"</th><th>"+mpName[1]+"</th><th>"+mpName[2]+"</th><th>"+mpName[3]+"</th></tr>\n";
-    var ph = moony[0]; // First moon phase in the year
+    let ph = moony[0]; // First moon phase in the year
     if (ph != 0) {
         txt += '<tr> <td colspan="'+ph+'"></td>';
     }
     
     // eclipses
     let iec = y - eclipse_year_range()[0];
-    // sol_eclipse is a 2D array that stores the info of solar 
-    // eclipses in year y. It has the form 
-    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
-    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
-    // d: eclipse day counting from Dec 31, y-1.
-    // ind: index of the eclipse (for eclipse link)
-    // type: type of eclipse (0=partial, 1=annular, 2=total, 3=hybrid)
     let links = solar_eclipse_link();
     let no_eclipse = {solar:false, lunar:false};
     let sol_eclipse = {solar:true, lunar:false, 
@@ -503,13 +444,7 @@ function addContent_forTesting(lang, y, moon, sun) {
             sol_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
         }
     });
-    // lun_eclipse is a 2D array that stores the info of lunar 
-    // eclipses in year y. It has the form 
-    // [[d_eclipse1, ind_eclipse1, type_eclipse1], 
-    //  [d_eclipse2, ind_eclipse2, type_eclipse2], ...]
-    // d: eclipse day counting from Dec 31, y-1.
-    // ind: index of the eclipse (for eclipse link)
-    // type: type of eclipse (0=penumbral, 1=partial, 2=total)
+
     links = lunar_eclipse_link();
     let lun_eclipse = {solar:false, lunar:true, 
                       eclipses:links[iec]};
@@ -541,31 +476,13 @@ function addContent_forTesting(lang, y, moon, sun) {
     txt += "</table>\n";
     
     // 24 solar terms
-    // Data structure:
-    // stermy is an array storing the 24 solar term data
-    // stermy[i] (i=0, 1, ... 26): dates and times of the solar terms 
-    // starting from Z11 (usually in the previous year) to J12 
-    // in the following year. 
-    // Each of them is an integer calculated in the same way as in the 
-    // dates and times of the moon phases.
     txt += "<br />\n";
-    if (lang==0) {
-        txt += "<h2>24 Solar Terms</h2>";
-    } else if (lang==1) {
-        txt += "<h2>二十四節氣</h2>";
-    } else {
-        txt += "<h2>二十四节气</h2>";
-    }
-    txt += '\n';
-    txt += "<table>\n";
-    if (lang==0) {
-        txt += "<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>";
-    } else if (lang==1) {
-        txt += "<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>";
-    } else {
-        txt += "<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>";
-    }
-    txt += '\n';
+    app = ['<h2>24 Solar Terms</h2>', '<h2>二十四節氣</h2>', '<h2>二十四节气</h2>'];
+    txt += app[lang]+'\n<table>\n';
+    app = ['<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>', 
+          '<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>', 
+          '<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>'];
+    txt += app[lang]+'\n';
     for (i=0; i < 24; i++) {
         if (i % 2 ==0) {
             txt += "<tr>";
@@ -590,8 +507,8 @@ function addContent_forTesting(lang, y, moon, sun) {
 
 // Output from years y1 to y2
 function outputContent_forTesting(lang, y1, y2, moon, sun) {
-    var txt = addContent_forTesting(lang, y1, moon, sun)
-    for (var y=y1+1; y <= y2; y++) {
+    let txt = addContent_forTesting(lang, y1, moon, sun)
+    for (let y=y1+1; y <= y2; y++) {
         txt += addContent_forTesting(lang, y, moon, sun);
     }
     download_txt(txt, 'sunMoon_test2.txt');
@@ -600,7 +517,7 @@ function outputContent_forTesting(lang, y1, y2, moon, sun) {
 // Create file for download
 function download_txt(data, filename) {
     // create link to download data
-    var hiddenElement = window.document.createElement('a');
+    let hiddenElement = window.document.createElement('a');
     hiddenElement.href = window.URL.createObjectURL(new Blob([data], {type: 'text/csv'}));
     hiddenElement.download = filename;
 

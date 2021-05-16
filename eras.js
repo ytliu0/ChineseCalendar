@@ -3,9 +3,9 @@
 // Insert era name (年號) if appropriate
 function eraName(year, region) {
     // set up an array of objects to store era name information
-    var eras = [{y:1912, e:""}, {y:-99999, e:""}];
-    var nian = "年";
-    var zhou, lu, zhuanxu, chunqiu, shown;
+    let eras = [{y:1912, e:""}, {y:-99999, e:""}];
+    let nian = "年";
+    let zhou, lu, zhuanxu, chunqiu, shown;
     
     //Spring and Autumn period
     if (year >= -722 && year <=-480) {
@@ -85,7 +85,7 @@ function eraName(year, region) {
     
     // Qin, Western Han and Xin dynasties
     if (year > -220 && year <=25) {
-        var eras = [{y:1912, e:""}, 
+        eras = [{y:1912, e:""}, 
                     {y:25, e:"漢更始三年/光武帝建武元年", offset:-1},
                     {y:24, e:"漢更始二年", offset:-1},
                     {y:23, e:"新地皇四年/漢更始元年", offset:-1}, 
@@ -720,15 +720,15 @@ function eraName(year, region) {
            {y:1644, e:"清世祖順治"}, {y:-99999, e:""}];
     }
     
-    var chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];
-    var n = eras.length;
-    var era="";
-    for (var i=0; i<n; i++) {
+    let chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];
+    let n = eras.length;
+    let era="";
+    for (let i=0; i<n; i++) {
         if (year >= eras[i].y) {
             if (eras[i].e != "") {
                 era = "("+eras[i].e;
-                var offset = ('offset' in eras[i] ? eras[i].offset:0);
-                var ey = year - eras[i].y + 1 + offset;
+                let offset = ('offset' in eras[i] ? eras[i].offset:0);
+                let ey = year - eras[i].y + 1 + offset;
                 if (offset >= 0) {
                     if (ey==1) {
                         era += "元"+nian+")";
@@ -737,8 +737,8 @@ function eraName(year, region) {
                     } else if (ey < 20) {
                         era += chineseNumbers[9]+chineseNumbers[ey-11] + nian + ")";
                     } else {
-                        var i1 = Math.floor(ey*0.1);
-                        var i0 = ey - 10*i1;
+                        let i1 = Math.floor(ey*0.1);
+                        let i0 = ey - 10*i1;
                         era += chineseNumbers[i1-1]+chineseNumbers[9];
                         if (i0 > 0) {
                             era += chineseNumbers[i0-1];
@@ -757,9 +757,9 @@ function eraName(year, region) {
 
 function eraNameSim(year, region) {
     // set up an array of objects to store era name information
-    var eras = [{y:1912, e:""}, {y:-99999, e:""}];
-    var nian = "年";
-    var zhou, lu, zhuanxu, chunqiu, shown;
+    let eras = [{y:1912, e:""}, {y:-99999, e:""}];
+    let nian = "年";
+    let zhou, lu, zhuanxu, chunqiu, shown;
     
     //Spring and Autumn period
     if (year >= -722 && year <=-480) {
@@ -839,7 +839,7 @@ function eraNameSim(year, region) {
     
     // Qin, Western Han and Xin dynasties
     if (year > -220 && year <=25) {
-        var eras = [{y:1912, e:""}, 
+        eras = [{y:1912, e:""}, 
                     {y:25, e:"汉更始三年/光武帝建武元年", offset:-1},
                     {y:24, e:"汉更始二年", offset:-1},
                     {y:23, e:"新地皇四年/汉更始元年", offset:-1}, 
@@ -1473,15 +1473,15 @@ function eraNameSim(year, region) {
            {y:1644, e:"清世祖顺治"}, {y:-99999, e:""}];
     }
     
-    var chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];
-    var n = eras.length;
-    var era="";
-    for (var i=0; i<n; i++) {
+    let chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];
+    let n = eras.length;
+    let era="";
+    for (let i=0; i<n; i++) {
         if (year >= eras[i].y) {
             if (eras[i].e != "") {
                 era = "("+eras[i].e;
-                var offset = ('offset' in eras[i] ? eras[i].offset:0);
-                var ey = year - eras[i].y + 1 + offset;
+                let offset = ('offset' in eras[i] ? eras[i].offset:0);
+                let ey = year - eras[i].y + 1 + offset;
                 if (offset >= 0) {
                     if (ey==1) {
                         era += "元"+nian+")";
@@ -1490,8 +1490,8 @@ function eraNameSim(year, region) {
                     } else if (ey < 20) {
                         era += chineseNumbers[9]+chineseNumbers[ey-11] + nian + ")";
                     } else {
-                        var i1 = Math.floor(ey*0.1);
-                        var i0 = ey - 10*i1;
+                        let i1 = Math.floor(ey*0.1);
+                        let i0 = ey - 10*i1;
                         era += chineseNumbers[i1-1]+chineseNumbers[9];
                         if (i0 > 0) {
                             era += chineseNumbers[i0-1];

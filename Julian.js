@@ -3,11 +3,11 @@
 function init(lang) {
     document.getElementById('wrapper0').style.display = "block";
     header(lang,'', 'Julian'); // print menu
-    var dat = new Date(); // current time from computer's clock
-    var y = dat.getFullYear();
-    var mm = dat.getMonth()+1;
-    var dd = dat.getDate();
-    var h=12, m=0, s=0;
+    let dat = new Date(); // current time from computer's clock
+    let y = dat.getFullYear();
+    let mm = dat.getMonth()+1;
+    let dd = dat.getDate();
+    let h=12, m=0, s=0;
     document.getElementById('midnight').checked = false;
     document.getElementById('noon').checked = true;
     document.getElementById('custom').checked = false;
@@ -22,7 +22,7 @@ function init(lang) {
     document.getElementById('second').disabled = true;
     getJDSexagenary(lang, document.getElementById('calendarDate'));
     
-    var input = document.getElementById('JD');
+    let input = document.getElementById('JD');
     input.addEventListener('keyup', function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
@@ -96,38 +96,38 @@ function getJDSexagenary(lang, form) {
     document.getElementById('err').innerHTML = "";
     document.getElementById('output').innerHTML = "";
     // sanity check
-    var errid = 'err';
-    var y = parseInt(form.year.value);
-    var min = parseInt(form.year.min);
-    var max = parseInt(form.year.max);
-    var str = ['Year', '年份', '年份'];
-    var message = generate_message(lang, str[lang], min, max);
+    let errid = 'err';
+    let y = parseInt(form.year.value);
+    let min = parseInt(form.year.min);
+    let max = parseInt(form.year.max);
+    let str = ['Year', '年份', '年份'];
+    let message = generate_message(lang, str[lang], min, max);
     sanityCheck(y, 'year', min, max, message, errid);
-    var mm = parseInt(form.month.value);
+    let mm = parseInt(form.month.value);
     min = parseInt(form.month.min);
     max = parseInt(form.month.max);
     str = ['Month', '月份', '月份'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(mm, 'month', min, max, message, errid);
-    var dd = parseInt(form.date.value);
+    let dd = parseInt(form.date.value);
     min = parseInt(form.date.min);
     max = parseInt(form.date.max);
     str = ['Date', '日期', '日期'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(dd, 'date', min, max, message, errid);
-    var h = parseInt(form.hour.value);
+    let h = parseInt(form.hour.value);
     min = parseInt(form.hour.min);
     max = parseInt(form.hour.max);
     str = ['Hour', '小時', '小时'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(h, 'hour', min, max, message, errid);
-    var m = parseInt(form.minute.value);
+    let m = parseInt(form.minute.value);
     min = parseInt(form.minute.min);
     max = parseInt(form.minute.max);
     str = ['Minute', '分鐘', '分钟'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(m, 'minute', min, max, message, errid);
-    var s = parseInt(form.second.value);
+    let s = parseInt(form.second.value);
     min = parseInt(form.second.min);
     max = parseInt(form.second.max);
     str = ['Second', '秒的', '秒的'];
@@ -136,10 +136,10 @@ function getJDSexagenary(lang, form) {
     
     if (document.getElementById('err').innerHTML=='') {
         if (y==1582 && mm==10 && dd>4 && dd<15) { dd += 10;}
-        var JDnoon = getJDnoon(y,mm,dd);
-        var facJD = h/24.0 + m/1440.0 + s/86400.0 - 0.5;
+        let JDnoon = getJDnoon(y,mm,dd);
+        let facJD = h/24.0 + m/1440.0 + s/86400.0 - 0.5;
         //if (h==0 && m==0 && s==0) { facJD += (jd < 0 ? -1e-7:1e-7);}
-        var jd = JDnoon + facJD;
+        let jd = JDnoon + facJD;
         write_output(lang, JDnoon, jd);
         // reset background color for JD
         document.getElementById('JD').style.backgroundColor = 'transparent';
@@ -149,9 +149,9 @@ function getJDSexagenary(lang, form) {
 function JDtoCalendar(lang) {
     document.getElementById('err').innerHTML = "";
     document.getElementById('output').innerHTML = "";
-    var jd = parseFloat(document.getElementById('JD').value);
-    var max = 5373850.499988, min = -1931442.5;
-    var message;
+    let jd = parseFloat(document.getElementById('JD').value);
+    let max = 5373850.499988, min = -1931442.5;
+    let message;
     if (lang==0) {
         message = 'Invalid Julian date input! Please enter a number between '+min+' and '+max+'.';
     } else if (lang==1) {
@@ -162,18 +162,18 @@ function JDtoCalendar(lang) {
     sanityCheck(jd, 'JD', min, max, message, 'err');
     
     if (document.getElementById('err').innerHTML=='') {
-        var JDnoon = Math.floor(jd+0.5);
+        let JDnoon = Math.floor(jd+0.5);
         write_output(lang, JDnoon, jd);
         // reset background colors
-        var id = ['year', 'month', 'date', 'hour', 'minute', 'second'];
-        for (var i=0; i<id.length; i++) {
+        let id = ['year', 'month', 'date', 'hour', 'minute', 'second'];
+        for (let i=0; i<id.length; i++) {
             document.getElementById(id[i]).style.backgroundColor = 'transparent';
         }
     }
 }
 
 function generate_message(lang, str, min, max) {
-    var txt;
+    let txt;
     if (lang==0) {
         txt = 'Invalid '+str+' input! Please input a number between '+min+' and '+max+'.';
     } else if (lang==1) {
@@ -185,22 +185,22 @@ function generate_message(lang, str, min, max) {
 }
 
 function write_output(lang, JDnoon, jd) {
-    var jdRound = parseFloat(jd.toFixed(6));
+    let jdRound = parseFloat(jd.toFixed(6));
     document.getElementById('JD').value = jdRound;
-    var dat = CalDat(jd);
-    var langVars = langConstant(lang);
-    var y = dat.yy, mm = dat.mm, dd = dat.dd;
-    var h = dat.h, m = dat.m, s = dat.s;
-    var form = document.getElementById('calendarDate');
+    let dat = CalDat(jd);
+    let langVars = langConstant(lang);
+    let y = dat.yy, mm = dat.mm, dd = dat.dd;
+    let h = dat.h, m = dat.m, s = dat.s;
+    let form = document.getElementById('calendarDate');
     form.year.value = y;
     form.month.value = mm;
     form.date.value = dd;
     form.hour.value = h;
     form.minute.value = m;
     form.second.value = s;
-    var noon = document.getElementById('noon');
-    var midnight = document.getElementById('midnight');
-    var custom = document.getElementById('custom');
+    let noon = document.getElementById('noon');
+    let midnight = document.getElementById('midnight');
+    let custom = document.getElementById('custom');
     if (h==0 && m==0 && s==0) {
         if (noon.checked) {
             noon.checked = false;
@@ -221,12 +221,12 @@ function write_output(lang, JDnoon, jd) {
             document.getElementById('second').disabled = false;
         }
     }
-    var txt, cal,year;
-    var w = (JDnoon + 1) % 7;
+    let txt, cal,year;
+    let w = (JDnoon + 1) % 7;
     if (w < 0) { w += 7;}
-    var sexNum = (JDnoon - 11) % 60;
+    let sexNum = (JDnoon - 11) % 60;
     if (sexNum < 0) {sexNum += 60;}
-    var ih = sexNum % 10, ie = sexNum % 12;
+    let ih = sexNum % 10, ie = sexNum % 12;
     if (lang==0) {
         txt = '<br /><h3><u>Result</u></h3><p style="color:blue;">';
         cal = 'Date in '+(JDnoon > 2299160 ? 'Gregorian ':(y < 8 ? 'Proleptic Julian':'Julian'))+' calendar: ';
@@ -260,9 +260,9 @@ function write_output(lang, JDnoon, jd) {
 
 // Compute JD at noon
 function getJDnoon(yyyy,mm,dd) {
-    var m1 = mm, yy = yyyy;
+    let m1 = mm, yy = yyyy;
     if (m1 <= 2) {m1 +=12; yy--;}
-    var b;
+    let b;
     if (10000*yy+100*m1+dd <= 15821004) {
         // Julian calendar
         b = -2 + Math.floor((yy+4716)/4) - 1179;
@@ -270,7 +270,7 @@ function getJDnoon(yyyy,mm,dd) {
         // Gregorian calendar
         b = Math.floor(yy/400) - Math.floor(yy/100) + Math.floor(yy/4);
     }
-    var jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400001;
+    let jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400001;
     return jd;
 }
 
@@ -284,9 +284,9 @@ function getJDnoon(yyyy,mm,dd) {
 // Ported from Astronomy on Personal Computer, p. 15-16
 //-------------------------------------------------
 function CalDat(jdin) {
-    var a,b,c,d,e,f;
+    let a,b,c,d,e,f;
     // Convert Julian day number to calendar date
-    var jd = jdin + 0.5/86400; // for rounding
+    let jd = jdin + 0.5/86400; // for rounding
     a = Math.floor(jd+0.5);
     if (a < 0) {
         return CalDatNegativeJD(jd);
@@ -302,16 +302,16 @@ function CalDat(jdin) {
     e = 365*d + Math.floor(0.25*d);
     f = Math.floor((c-e)/30.6001);
     if (f < 0) {f++;}
-    var dd = c-e - Math.floor(30.6001*f);
-    var mm = f - 1 - 12*Math.floor(f/14+1e-5);
-    var yy = d - 4715 - Math.floor((7+mm)/10+1e-5);
-    var dateString = generateDateString(yy,mm,dd);
-    var FracOfDay = jd - Math.floor(jd+0.5) + 0.5;
-    var Hour = 24*FracOfDay;
-    var h = Math.floor(Hour);
-    var m = Math.floor(60*(Hour-h));
-    var s = Math.floor((Hour - h - m/60)*3600);
-    var timeString = generateTimeString(h,m,s);
+    let dd = c-e - Math.floor(30.6001*f);
+    let mm = f - 1 - 12*Math.floor(f/14+1e-5);
+    let yy = d - 4715 - Math.floor((7+mm)/10+1e-5);
+    let dateString = generateDateString(yy,mm,dd);
+    let FracOfDay = jd - Math.floor(jd+0.5) + 0.5;
+    let Hour = 24*FracOfDay;
+    let h = Math.floor(Hour);
+    let m = Math.floor(60*(Hour-h));
+    let s = Math.floor((Hour - h - m/60)*3600);
+    let timeString = generateTimeString(h,m,s);
     return {yy:yy, mm:mm, dd:dd, h:h, m:m, s:s, 
            dateString:dateString, timeString:timeString};
 }
@@ -324,14 +324,14 @@ function CalDat(jdin) {
 // 
 //-------------------------------------------------
 function CalDatNegativeJD(jdin) {
-    var jd = jdin + 0.5/86400; // for rounding
-    var mjd = -Math.floor(jd+0.5);
-    var md = mjd - Math.floor(mjd/1461);
-    var dyear = Math.floor(md/(365+1e-10)) + 1;
-    var yyyy = -4712 - dyear;
-    var mjd0 = dyear*365 + Math.floor(dyear/4) + 1;
-    var dFromY = mjd0 - mjd;
-    var monthTable;
+    let jd = jdin + 0.5/86400; // for rounding
+    let mjd = -Math.floor(jd+0.5);
+    let md = mjd - Math.floor(mjd/1461);
+    let dyear = Math.floor(md/(365+1e-10)) + 1;
+    let yyyy = -4712 - dyear;
+    let mjd0 = dyear*365 + Math.floor(dyear/4) + 1;
+    let dFromY = mjd0 - mjd;
+    let monthTable;
     if (dyear % 4 ==0) {
        monthTable = [0, 31, 60, 91, 121, 152, 182, 213, 244, 
                     274, 305, 335, 366];
@@ -339,7 +339,7 @@ function CalDatNegativeJD(jdin) {
        monthTable = [0, 31, 59, 90, 120, 151, 181, 212, 243, 
                     273, 304, 334, 365];
     }
-    var i,mm,dd;
+    let i,mm,dd;
     for (i=1; i<13; i++) {
         if (dFromY <= monthTable[i]) {
             mm = i;
@@ -347,13 +347,13 @@ function CalDatNegativeJD(jdin) {
             break;
         }
     }
-    var dateString = generateDateString(yyyy,mm,dd);
-    var FracOfDay = 0.5+ (jd + mjd);
-    var Hour = 24*FracOfDay;
-    var h = Math.floor(Hour);
-    var m = Math.floor(60*(Hour-h));
-    var s = Math.floor((Hour - h - m/60)*3600);
-    var timeString = generateTimeString(h,m,s);
+    let dateString = generateDateString(yyyy,mm,dd);
+    let FracOfDay = 0.5+ (jd + mjd);
+    let Hour = 24*FracOfDay;
+    let h = Math.floor(Hour);
+    let m = Math.floor(60*(Hour-h));
+    let s = Math.floor((Hour - h - m/60)*3600);
+    let timeString = generateTimeString(h,m,s);
     return {yy:yyyy, mm:mm, dd:dd, h:h, m:m, s:s, 
            dateString:dateString, timeString:timeString};
 }
@@ -361,7 +361,7 @@ function CalDatNegativeJD(jdin) {
 // Generate date string from yyyy, mm and dd:
 // return yyyy-mm-dd
 function generateDateString(yyyy,mm,dd) {
-    var absy = Math.abs(yyyy);
+    let absy = Math.abs(yyyy);
     if (absy < 10) {
         absy = "000"+absy;
     } else if (absy < 100) {
@@ -371,11 +371,11 @@ function generateDateString(yyyy,mm,dd) {
     } else {
         absy = absy.toString();
     }
-    var yStr = absy;
+    let yStr = absy;
     if (yyyy < 0) {yStr = "-"+yStr;}
-    var mmString = mm.toString();
+    let mmString = mm.toString();
     if (mm < 10) {mmString = "0"+mmString;}
-    var ddString = dd.toString();
+    let ddString = dd.toString();
     if (dd < 10) {ddString = "0"+ddString;}
     return yStr+"-"+mmString+"-"+ddString;
 }
@@ -383,10 +383,10 @@ function generateDateString(yyyy,mm,dd) {
 // Generate time string from h,m,s: 
 // return hh:mm:ss 
 function generateTimeString(h,m,s) {
-    var hround = h + m/60 + (s+0.5)/3600;
-    var hh = Math.floor(hround);
-    var mm = Math.floor((hround-hh)*60);
-    var ss= Math.floor(3600*(hround-hh-mm/60));
+    let hround = h + m/60 + (s+0.5)/3600;
+    let hh = Math.floor(hround);
+    let mm = Math.floor((hround-hh)*60);
+    let ss= Math.floor(3600*(hround-hh-mm/60));
     hh = hh.toString(); mm = mm.toString(); ss = ss.toString();
     if (hh.length < 2) {hh = "0"+hh;}
     if (mm.length < 2) {mm = "0"+mm;}
@@ -396,29 +396,26 @@ function generateTimeString(h,m,s) {
 
 // Language-specific constants
 function langConstant(lang) {
-    var gMonth, weeks, heaven, earth, animal, month_num, monthL, 
+    let gMonth, weeks, heaven, earth, animal, month_num, monthL, 
         Qnames, soltermNames, note_early, note_late, note1929, note1914;
     
-    var gMonthEng = ["January", "February", "March", "April", "May", "June", 
+    let gMonthEng = ["January", "February", "March", "April", "May", "June", 
               "July", "August", "September", "October", "November", "December"];
-    var weeksEng = ["Sunday", "Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    var heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
+    let weeksEng = ["Sunday", "Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
                   "J&#464;", "G&#275;ng","X&#299;n","R&#233;n", "Gu&#464;"];
-    var earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
+    let earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
                 "s&#236;", "w&#468;", "w&#232;i", "sh&#275;n", "y&#466;u", 
                 "x&#363;", "h&#224;i"];
-    var gMonthChi = ["1 &#26376;", "2 &#26376;", "3 &#26376;", 
-                  "4 &#26376;", "5 &#26376;", "6 &#26376;", 
-                  "7 &#26376;", "8 &#26376;", "9 &#26376;", 
-                  "10 &#26376;", "11 &#26376;", 
-                  "12 &#26376;"];
-    var weeksChi =["&#26143;&#26399;&#26085;", "&#26143;&#26399;&#19968;", "&#26143;&#26399;&#20108;", "&#26143;&#26399;&#19977;", "&#26143;&#26399;&#22235;", 
-                   "&#26143;&#26399;&#20116;", "&#26143;&#26399;&#20845;"];
-    var heavenChi = ["&#x7532;","&#x4E59;","&#x4E19;","&#x4E01;","&#x620A;", 
-                 "&#x5DF1;","&#x5E9A;","&#x8F9B;","&#x58EC;","&#x7678;"];
-    var earthChi = ["&#x5B50;","&#x4E11;","&#x5BC5;","&#x536F;","&#x8FB0;", 
-                "&#x5DF3;","&#x5348;","&#x672A;","&#x7533;","&#x9149;", 
-                "&#x620C;","&#x4EA5;"];
+    let gMonthChi = ["1 月;", "2 月", "3 月", 
+                  "4 月", "5 月", "6 月", 
+                  "7 月", "8 月", "9 月", 
+                  "10 月", "11 月", 
+                  "12 月"];
+    let weeksChi =["星期日", "星期一", "星期二", "星期三", "星期四", 
+                   "星期五", "星期六"];
+    let heavenChi = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+    let earthChi = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
     
     if (lang==0) {
         // English
@@ -444,7 +441,7 @@ function sanityCheck(x,inputId,min,max,message,errid) {
     document.getElementById(inputId).style.backgroundColor = 'transparent';
     if (isNaN(x) || x < min || x > max) {
         document.getElementById(inputId).style.backgroundColor = "#e2a8a8";
-        var text = '<p style="color:red;">'+message+'</p>';
+        let text = '<p style="color:red;">'+message+'</p>';
         document.getElementById(errid).innerHTML += text;
     }
 }

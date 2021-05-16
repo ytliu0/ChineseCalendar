@@ -96,16 +96,16 @@ function langConstant(lang) {
     let month_numChi = ["正","二","三","四","五", "六","七","八","九","十", 
                     "十一","十二"];
     let date_numChi = ["初一"];
-    for (var i=2; i<11; i++) {
+    for (let i=2; i<11; i++) {
         date_numChi.push("初"+month_numChi[i-1]);
     }
     date_numChi.push("十一");
-    for (var i=12; i<20; i++) {
+    for (let i=12; i<20; i++) {
         date_numChi.push("十"+month_numChi[i-11]);
     }
     date_numChi.push("二十");
     date_numChi.push("廿一");
-    for (var i=22; i<30; i++) {
+    for (let i=22; i<30; i++) {
         date_numChi.push("廿"+month_numChi[i-21]);
     }
     date_numChi.push("三十");
@@ -180,15 +180,6 @@ function langConstant(lang) {
     return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, julian:julian, 
     date_numChi:date_numChi, note_early:note_early, 
     note_late:note_late, note1929:note1929, note1914:note1914};
-}
-
-// Number of days in a Gregorian/Julian year
-function NdaysGregJul(y) {
-  let ndays = (y==1582 ? 355:365) + (Math.abs(y) % 4 == 0 ? 1:0);
-  if (y > 1582) {
-     ndays += (y % 100 == 0 ? -1:0) + (y % 400 == 0 ? 1:0);
-  }
-  return ndays;
 }
 
 // Convert the jian number to month number, determine the year number offset 
@@ -512,8 +503,7 @@ function calendar(lang, year) {
     let langVars = langConstant(lang);
     langVars.region = split_calendar_handler(lang,year);
     let calVars = calDataYear(year, langVars);
-    let cal = document.getElementById('calendar');
-    cal.innerHTML = "";
+    let txt = '';
     
     // How many Chinese years does this Gregorian/Julian calendar span?
     let n = calVars.cmonthDate.length;
@@ -571,14 +561,14 @@ function calendar(lang, year) {
     }
     let cy0 = calVars.cmonthYear[0];
     if (lang==0) {
-        cal.innerHTML += '<h1>'+gcal+' Year: '+yearc+'</h1>';
-        cal.innerHTML += '<h1>Chinese year:</h1>'
+        txt += '<h1>'+gcal+' Year: '+yearc+'</h1>';
+        txt += '<h1>Chinese year:</h1>'
         if (Ncyear==1) {
             cal.innerHTML += '<h2>'+cyear[cy0]+'</h2> <br />';
         } else if (Ncyear==2) {
-            cal.innerHTML += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' on and after '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+'</h2> <br />';
+            txt += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' on and after '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+'</h2> <br />';
         } else {
-            cal.innerHTML += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' between '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+' and '+langVars.gMonth[mm1[1]-1]+' '+(dd1[1]-1)+',<br />'+cyear[cy0+2]+' on and after '+langVars.gMonth[mm1[1]-1]+' '+dd1[1]+'</h2> <br />';
+            txt += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' between '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+' and '+langVars.gMonth[mm1[1]-1]+' '+(dd1[1]-1)+',<br />'+cyear[cy0+2]+' on and after '+langVars.gMonth[mm1[1]-1]+' '+dd1[1]+'</h2> <br />';
         }      
     } else {
         if (lang==1) {
@@ -591,24 +581,24 @@ function calendar(lang, year) {
             cyear[2] += eraNameSim(year+1, langVars.region);
         }
         if (lang==1) {
-            cal.innerHTML += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>';
-            cal.innerHTML += '<h1>&#36786;&#26310;&#24180;:</h1>';
+            txt += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>';
+            txt += '<h1>&#36786;&#26310;&#24180;:</h1>';
         } else {
-            cal.innerHTML += '<h1>公历年: '+yearc+'</h1>';
-            cal.innerHTML += '<h1>农历年:</h1>';
+            txt += '<h1>公历年: '+yearc+'</h1>';
+            txt += '<h1>农历年:</h1>';
         }
         let tmp;
         if (Ncyear==1) {
-            cal.innerHTML += '<h2>'+cyear[cy0]+'</h2> <br />';
+            txt += '<h2>'+cyear[cy0]+'</h2> <br />';
         } else if (Ncyear==2) {
             tmp = '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+', ';
             if (year < 1912) {
                 tmp += '<br />';
             }
             tmp += mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+1]+'</h2><br />';
-            cal.innerHTML += tmp;
+            txt += tmp;
         } else {
-            cal.innerHTML += '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+',<br /> '+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#33267;'+mm1[1]+'&#26376;'+(dd1[1]-1)+'&#26085;: '+cyear[cy0+1]+',<br />'+mm1[1]+'&#26376;'+dd1[1]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+2]+'</h2><br />';
+            txt += '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+',<br /> '+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#33267;'+mm1[1]+'&#26376;'+(dd1[1]-1)+'&#26085;: '+cyear[cy0+1]+',<br />'+mm1[1]+'&#26376;'+dd1[1]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+2]+'</h2><br />';
         }
     }
     
@@ -625,18 +615,20 @@ function calendar(lang, year) {
     // Add additional information after the year info
     let info = addYearInfo(year, langVars, calVars);
     if (info != "") {
-        var h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
-        cal.innerHTML += h3+info+'</h3><br /><br />';
+        let h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
+        txt += h3+info+'</h3><br /><br />';
     }
     
-    for (var m=0; m<12; m++) {
-        cal.innerHTML += printMonth(m, lang, year, cyear, firstMonth, 
+    for (let m=0; m<12; m++) {
+        txt += printMonth(m, lang, year, cyear, firstMonth, 
                                     langVars, calVars);
     }
+    
+    document.getElementById('calendar').innerHTML = txt;
 }
 
 function addYearInfo(y, langVars, calVars) {
-    var info = '', lang = langVars.lang, region = langVars.region;
+    let info = '', lang = langVars.lang, region = langVars.region;
     
     // Qin and early Han dynasty
     if (y >= -220 && y <= -103) {
@@ -809,12 +801,12 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
 // Also calculate the sexagenary month cycle for years > -480.
 function addChineseMonths(m, lang, y, cyear, langVars, 
                            calVars) {
-    var i;
-    var leap = (lang==0 ? "leap ":"&#38287;");
-    if (lang==2) { leap = "闰";}
+    let i;
+    let txt = ['leap ', '&#38287;', '闰'];
+    let leap = txt[lang];
     if (y==-104) {
-        leap = (lang==0 ? "post ":"&#24460;");
-        if (lang==2) { leap = "后";}
+        txt = ['post ', '&#24460;', '后'];
+        leap = txt[lang];
     }
     if (y < -104) {
         leap = calVars.leap;
@@ -825,26 +817,27 @@ function addChineseMonths(m, lang, y, cyear, langVars,
             leap = (calVars.leap=="post 9" ? "后九":"闰");
         }
     }
-    var m0 = calVars.mday[m];
-    var m1 = calVars.mday[m+1];
+    let m0 = calVars.mday[m];
+    let m1 = calVars.mday[m+1];
     
     // Sexagenary year cycle for year y-1
-    //var adj = (y > 10 ? 0:60*Math.floor(-y/60 + 2));
-    var ihy1 = (y + 725) % 10;
+    //let adj = (y > 10 ? 0:60*Math.floor(-y/60 + 2));
+    let ihy1 = (y + 725) % 10;
     if (ihy1 < 0) { ihy1 += 10;}
     
-    var nMonth = 1, j, tmp, cm, jian;
-    var cmonth = [], cmyear = [];
+    let nMonth = 1, j, tmp, cm, jian;
+    let cmonth = [], cmyear = [];
     // Determine the Chinese month on the first day of 
     // this Gregorian/Julian month
-    for (i=0; i<calVars.cmonthDate.length; i++) {
+    let n = calVars.cmonthDate.length;
+    for (i=0; i<n; i++) {
         if (calVars.cmonthDate[i] <= m0+1 && calVars.cmonthDate[i+1] > m0+1) {
             cm = calVars.cmonthNum[i];
             jian = calVars.cmonthJian[i];
             // sexagenary month cycle
-            var cmsex = '';
+            let cmsex = '';
             if (cm > 0 && y > -104) {
-                var mm = 12*(ihy1 + calVars.cmonthXiaYear[i]) + jian;
+                let mm = 12*(ihy1 + calVars.cmonthXiaYear[i]) + jian;
                 mm = (mm+1) % 10;
                 cmsex = langVars.heaven[mm];
                 if (lang==0) cmsex += ' ';
@@ -901,16 +894,16 @@ function addChineseMonths(m, lang, y, cyear, langVars,
             break;
         }
     }
-    for (i=j; i<calVars.cmonthDate.length; i++) {
-       var d1 = calVars.cmonthDate[i];
+    for (i=j; i<n; i++) {
+       let d1 = calVars.cmonthDate[i];
        if (d1 > m0+1 && d1 <= m1) {
            nMonth++;
            cm = calVars.cmonthNum[i];
            jian = calVars.cmonthJian[i];
            // sexagenary month cycle
-            var cmsex = '';
+            let cmsex = '';
             if (cm > 0 && y > -104) {
-                var mm = 12*(ihy1 + calVars.cmonthXiaYear[i]) + jian;
+                let mm = 12*(ihy1 + calVars.cmonthXiaYear[i]) + jian;
                 mm = (mm+1) % 10;
                 cmsex = langVars.heaven[mm];
                 if (lang==0) cmsex += ' ';
@@ -969,10 +962,10 @@ function addChineseMonths(m, lang, y, cyear, langVars,
 
 function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
     // # of days from Dec 31 in the previous year
-    var dd = calVars.mday[m] + d; 
+    let dd = calVars.mday[m] + d; 
     
     // Determine the month and date in Chinese calendar
-    var i, cd, longM, cmIsFirstMonth, cm=0, n=calVars.cmonthDate.length;
+    let i, cd, longM, cmIsFirstMonth, cm=0, n=calVars.cmonthDate.length;
     for (i=0; i<n-1; i++) {
         if (dd >= calVars.cmonthDate[i] && dd < calVars.cmonthDate[i+1]) {
             cm = calVars.cmonthNum[i];
@@ -991,7 +984,7 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
         if (y==-103 || y==700) {cmIsFirstMonth = false;}
     }
     
-    var txt, m1, warn;
+    let txt, m1, warn;
     
     if (lang==0) {
         // English
@@ -1006,7 +999,7 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
                 m1 = 'leap '+m1;
             }
         }
-        var d1 = "0"+cd;
+        let d1 = "0"+cd;
         d1 = d1.substr(-2);
         if (cmIsFirstMonth && cd==1) {
             txt = '<p style="color:red;"><b>'+m1+'-'+d1;
@@ -1070,12 +1063,12 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
 
 function addSexagenaryDays(m,d,langVars, calVars) {
     // # of days from Dec 31 in the previous year
-    var dd = calVars.mday[m] + d; 
-    var jd = calVars.jd0 + dd + 1;
+    let dd = calVars.mday[m] + d; 
+    let jd = calVars.jd0 + dd + 1;
     
-    var h = langVars.heaven[(jd-1) % 10];
-    var e = langVars.earth[(jd+1) % 12];
-    var txt;
+    let h = langVars.heaven[(jd-1) % 10];
+    let e = langVars.earth[(jd+1) % 12];
+    let txt;
     if (langVars.lang==0) {
         txt ='<p>'+h+' '+e+'</p>';
     } else {
@@ -1101,7 +1094,8 @@ function addMoonPhases(m,lang,langVars, calVars) {
     let phases = [];
     // new moon
     let name = '['+langVars.Qnames[0]+'] ';
-    for (i=0; i<calVars.Q0.length; i++) {
+    let n = calVars.Q0.length;
+    for (i=0; i<n; i++) {
         dd = Math.floor(calVars.Q0[i]);
         if (dd > m0 && dd <= m1) {
             let ec = '-';
@@ -1131,7 +1125,8 @@ function addMoonPhases(m,lang,langVars, calVars) {
     }
     // first quarter 
     name = '['+langVars.Qnames[1]+'] ';
-    for (i=0; i<calVars.Q1.length; i++) {
+    n = calVars.Q1.length;
+    for (i=0; i<n; i++) {
         dd = Math.floor(calVars.Q1[i]);
         if (dd > m0 && dd <= m1) {
             phases.push({phase:name, time:calVars.Q1[i]-m0, ec:'-'});
@@ -1139,7 +1134,8 @@ function addMoonPhases(m,lang,langVars, calVars) {
     }
     // full moon
     name = '['+langVars.Qnames[2]+'] ';
-    for (i=0; i<calVars.Q2.length; i++) {
+    n = calVars.Q2.length;
+    for (i=0; i<n; i++) {
         dd = Math.floor(calVars.Q2[i]);
         if (dd > m0 && dd <= m1) {
             let ec = '-';
@@ -1162,7 +1158,8 @@ function addMoonPhases(m,lang,langVars, calVars) {
     }
     // third quarter
     name = '['+langVars.Qnames[3]+'] ';
-    for (i=0; i<calVars.Q3.length; i++) {
+    n = calVars.Q3.length;
+    for (i=0; i<n; i++) {
         dd = Math.floor(calVars.Q3[i]);
         if (dd > m0 && dd <= m1) {
             phases.push({phase:name, time:calVars.Q3[i]-m0, ec:'-'});
@@ -1174,7 +1171,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
     
     // Correct for Gregorian calendar reform
     // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
-    let n = phases.length;
+    n = phases.length;
     if (m1-m0 < 25) {
         for (i=0; i<n; i++) {
             phases[i].time += (phases[i].time >= 5.0 ? 10.0:0.0);
@@ -1197,9 +1194,9 @@ function addMoonPhases(m,lang,langVars, calVars) {
 }
 
 function add24solterms(m,lang,langVars, calVars) {
-    var m0 = calVars.mday[m];
-    var m1 = calVars.mday[m+1];
-    var txt; 
+    let m0 = calVars.mday[m];
+    let m1 = calVars.mday[m+1];
+    let txt; 
     if (lang==0) {
         txt = '<p><b>24 solar terms ';
         if (calVars.year < 1734) {
@@ -1220,14 +1217,14 @@ function add24solterms(m,lang,langVars, calVars) {
         txt +='</b>: ';
     }
     
-    var empty = 1;
-    for (var i=0; i<calVars.solar.length; i++) {
-        var dd = Math.floor(calVars.solar[i]);
+    let empty = 1;
+    for (let i=0; i<calVars.solar.length; i++) {
+        let dd = Math.floor(calVars.solar[i]);
         if (dd > m0 && dd <= m1) {
             if (empty==0) txt += '&nbsp;&nbsp;&nbsp;';
             txt += '['+langVars.soltermNames[i]+'] ';
-            var h = 24.0*(calVars.solar[i] - dd);
-            var d = dd - m0;
+            let h = 24.0*(calVars.solar[i] - dd);
+            let d = dd - m0;
             // Correct for Gregorian calendar reform
             // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
             if (m1-m0 < 25) {
@@ -1245,17 +1242,18 @@ function add24solterms(m,lang,langVars, calVars) {
 
 // Add calendrical solar terms
 function addCalSolterms(m,lang,langVars, calVars, datong) {
-    var solar;
+    let solar;
     if (calVars.year >= -104) {
         if ('pingqi' in calVars) {
             solar = calVars.pingqi;
         } else {
             if (datong==0) {
-                var calSolTerms = calendricalSolarTerms();
-                var ind = calVars.year - calendricalSolarTerms_ystart();
+                let calSolTerms = calendricalSolarTerms();
+                let ind = calVars.year - calendricalSolarTerms_ystart();
                 solar = calSolTerms[ind];
                 // decompress
-                for (var i=1; i<solar.length; i++) { 
+                let n = solar.length;
+                for (let i=1; i<n; i++) { 
                     solar[i] += solar[i-1]+14;
                 }
                 // solar contains all the 24 solar terms in year y, starting from 
@@ -1278,10 +1276,10 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
         }
     }
     
-    var m0 = calVars.mday[m];
-    var m1 = calVars.mday[m+1];
-    var txt = ''; 
-    var split = false;
+    let m0 = calVars.mday[m];
+    let m1 = calVars.mday[m+1];
+    let txt = ''; 
+    let split = false;
     if (calVars.year==1666 && m > 0.5) { split=true;}
     if (calVars.year > 1666 && calVars.year < 1670) { split=true;}
     if (calVars.year==1670 && m < 1.5) { split=true;}
@@ -1333,13 +1331,13 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
     }
     
     if (txt != '') {
-        var empty = 1;
-        for (var i=0; i<solar.length; i++) {
-            var dd = solar[i];
+        let empty = 1;
+        for (let i=0; i<solar.length; i++) {
+            let dd = solar[i];
             if (dd > m0 && dd <= m1) {
                 if (empty==0) txt += '&nbsp;&nbsp;&nbsp;';
                 txt += '['+langVars.soltermNames[i]+'] ';
-                var d = dd - m0;
+                let d = dd - m0;
                 // Correct for Gregorian calendar reform
                 // Oct 1582 has only 21 days; The day after Oct 4 was Oct 15
                 if (m1-m0 < 25) {
@@ -1356,15 +1354,17 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
 }
 
 // Set up the solar terms according to the Datong system in year y
+// This is for 1666-1669 when the Qing calendar was temporarily 
+// switched to the Datong and Muslim system.
 function datongSolarTerms(y) {
-    var ps = 365.2425; // solar cycle in the Datong system
-    var JDw = 1721049.9175 + 1e-8; // Z11 epoch JD
-    var jd0 = getJD(y-1,12,31); // JD on Dec 31, y-1 at noon
-    var j = Math.floor((jd0 - JDw)/ps);
-    var dqi = ps/24.0;
-    var J12 = JDw + j*ps - jd0 + dqi; // JD of J12 in year y
-    var qi = [];
-    for (var i=0; i<25; i++) {
+    let ps = 365.2425; // solar cycle in the Datong system
+    let JDw = 1721049.9175 + 1e-8; // Z11 epoch JD
+    let jd0 = getJD(y-1,12,31); // JD on Dec 31, y-1 at noon
+    let j = Math.floor((jd0 - JDw)/ps);
+    let dqi = ps/24.0;
+    let J12 = JDw + j*ps - jd0 + dqi; // JD of J12 in year y
+    let qi = [];
+    for (let i=0; i<25; i++) {
         qi.push(Math.floor(J12 + i*dqi));
     }
     return qi;
@@ -1372,26 +1372,26 @@ function datongSolarTerms(y) {
 
 // hours -> hh:mm
 function convertHM(h) {
-    var h1 = h + 0.5/60.0;
-    var hh = Math.floor(h1);
-    var mm = Math.floor(60.0*(h1-hh));
+    let h1 = h + 0.5/60.0;
+    let hh = Math.floor(h1);
+    let mm = Math.floor(60.0*(h1-hh));
     hh = '0'+hh; mm = '0'+mm;
     return hh.substr(-2)+'<sup>h</sup>'+mm.substr(-2)+'<sup>m</sup>';
 }
 
 // day from Dec 31, y-1 -> m, d (assume day > 0)
 function ymd(day, leap) {
-    var ndays = 365+leap;
-    var m,d;
+    let ndays = 365+leap;
+    let m,d;
     if (day > ndays) {
         m = 13; d = day-ndays;
     } else {
-        var mday = [0, 31, 59+leap, 90+leap, 120+leap, 151+leap, 181+leap, 212+leap,
+        let mday = [0, 31, 59+leap, 90+leap, 120+leap, 151+leap, 181+leap, 212+leap,
                243+leap, 273+leap, 304+leap, 334+leap, ndays];
         if (day < 1) {
             m=1; d=day;
         } else {
-            for (var i=0; i<13; i++) {
+            for (let i=0; i<13; i++) {
                 if (day-mday[i] < 1) {
                     m=i; d = day-mday[i-1];
                     break;
@@ -1400,14 +1400,14 @@ function ymd(day, leap) {
         }
     }
     
-    var mm = "0"+m, dd = "0"+d;
+    let mm = "0"+m, dd = "0"+d;
     return mm.substr(-2)+'-'+dd.substr(-2);
 }
 
 // Determine if the new moon associated with month j in year y 
 // is too close to midnight
 function newMoonCloseToMidnight(y, j) {
-    var warn = 0;
+    let warn = 0;
     if (y==2057) {
         warn = (j==9 ? 1:0);
     }
@@ -1438,11 +1438,12 @@ function newMoonCloseToMidnight(y, j) {
 
 // Warning message at the bottom of Gregorian month m 
 // in year y.
+// TODO: This function is very messy and needs a complete rewrite!
 function warningMessage(y, m, lang, langVars) {
-    var suffix_eng = " is close to the midnight. The actual date may be off by one day.";
-    var suffix_chi = "的時刻接近午夜零時，實際日期或會與所示日期有一日之差。";
-    var suffix_sim = "的时刻接近午夜零时，实际日期或会与所示日期有一日之差。";
-    var warn = '';
+    let suffix_eng = " is close to the midnight. The actual date may be off by one day.";
+    let suffix_chi = "的時刻接近午夜零時，實際日期或會與所示日期有一日之差。";
+    let suffix_sim = "的时刻接近午夜零时，实际日期或会与所示日期有一日之差。";
+    let warn = '';
     
     // Han calendar reform
     if (y==-103 && m==6) {
@@ -1691,11 +1692,11 @@ function warningMessage(y, m, lang, langVars) {
     
     // Warning for years before 1900
     if (y < 1900) {
-        var wQ0 = langVars.note1914;
-        var items = [];
+        let wQ0 = langVars.note1914;
+        let items = [];
         //items = [{y:1842, m:1, w:wQ0}, {y:1863, m:1, w:wQ0}, 
         //             {y:1880, m:11, w:wQ0}, {y:1896, m:2, w:wQ0}];
-        var desc, desc1, desc2, desc3;
+        let desc, desc1, desc2, desc3;
         if (lang==0) {
             desc1 = "The calendar at the time listed the date of ";
             desc2 = " on ";
@@ -1970,7 +1971,7 @@ function warningMessage(y, m, lang, langVars) {
             items.push({y:1899, m:10, w:desc});
         }
         
-        var i;
+        let i;
         for (i=0; i<items.length; i++) {
             if (y==items[i].y) {
                 if (m==items[i].m) {
@@ -2178,38 +2179,21 @@ function warningMessage(y, m, lang, langVars) {
     return warn;
 }
 
-// Compute JD at midnight UT
-function getJD(yyyy,mm,dd) {
-    var m1 = mm, yy = yyyy;
-    if (m1 <= 2) {m1 +=12; yy--;}
-    var b;
-    if (10000*yy+100*m1+dd <= 15821004) {
-        // Julian calendar
-        b = -2 + Math.floor((yy+4716)/4) - 1179;
-    } else {
-        // Gregorian calendar
-        b = Math.floor(yy/400) - Math.floor(yy/100) + Math.floor(yy/4);
-    }
-    var jd = 365*yy - 679004 + b + Math.floor(30.6001*(m1+1)) + dd + 2400000.5;
-    return jd;
-}
-
 // TEST
 function calendarOut(lang, year, region) {
-    var langVars = langConstant(lang);
-    //langVars.region = split_calendar_handler(lang,year);
+    let langVars = langConstant(lang);
     langVars.region = region;
-    var calVars = calDataYear(year, langVars);
-    var cal = '';
+    let calVars = calDataYear(year, langVars);
+    let cal = '';
     
     // How many Chinese years does this Gregorian/Julian calendar span?
-    var n = calVars.cmonthDate.length;
-    var Ncyear = calVars.cmonthYear[n-1] - calVars.cmonthYear[0] + 1;
+    let n = calVars.cmonthDate.length;
+    let Ncyear = calVars.cmonthYear[n-1] - calVars.cmonthYear[0] + 1;
     
     // Determine the date(s) of the Chinese new year
-    var i,j,k,mm,dd;
-    var mm1 = [], dd1 = [];
-    var firstMonth = [0,0,0];
+    let i,j,k,mm,dd;
+    let mm1 = [], dd1 = [];
+    let firstMonth = [0,0,0];
     for (i=0; i<3; i++) {
        if (year > -110) {
            firstMonth[i] = firstMonthNum(year-1+i);
@@ -2218,7 +2202,7 @@ function calendarOut(lang, year, region) {
        }
     }
     for (i=1; i<Ncyear; i++) {
-        var firstMon = firstMonth[calVars.cmonthYear[0] + i];
+        let firstMon = firstMonth[calVars.cmonthYear[0] + i];
         for(j=1; j<n; j++) {
             if (calVars.cmonthYear[j]==calVars.cmonthYear[0]+i && 
                 calVars.cmonthNum[j]==firstMon) {
@@ -2234,30 +2218,29 @@ function calendarOut(lang, year, region) {
         }
     }
     
-    //var adj = (year > 0 ? 0:60*Math.floor(-year/60 + 1));
-    var ih0 = (year + 725) % 10;
-    var ie0 = (year + 727) % 12;
+    let ih0 = (year + 725) % 10;
+    let ie0 = (year + 727) % 12;
     if (ih0 < 0) { ih0 += 10;}
     if (ie0 < 0) { ie0 += 12;}
-    var cyear = [" ", " ", " "];
+    let cyear = [" ", " ", " "];
     cyear[0] = langVars.heaven[ih0]+' '+langVars.earth[ie0]+' ('+langVars.animal[ie0]+')';
-    var ih = (year + 726) % 10;
-    var ie = (year + 728) % 12;
+    let ih = (year + 726) % 10;
+    let ie = (year + 728) % 12;
     if (ih < 0) { ih += 10;}
     if (ie < 0) { ie += 12;}
     cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie]+' ('+langVars.animal[ie]+')';
-    var ih2 = (year + 727) % 10;
-    var ie2 = (year + 729) % 12;
+    let ih2 = (year + 727) % 10;
+    let ie2 = (year + 729) % 12;
     if (ih2 < 0) { ih2 += 10;}
     if (ie2 < 0) { ie2 += 12;}
     cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2]+' ('+langVars.animal[ie2]+')';
-    var gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
+    let gcal = (year > 1582 ? "Gregorian":(year > 7 ? "Julian":"(Proleptic) Julian"));
     if (year==1582) { gcal = "Gregorian/Julian";}
-    var yearc = year.toString();
+    let yearc = year.toString();
     if (year < 1) {
         yearc += (lang==0 ? ' ('+(1-year)+' BCE)':' (&#21069;'+(1-year)+')');
     }
-    var cy0 = calVars.cmonthYear[0];
+    let cy0 = calVars.cmonthYear[0];
     if (lang==0) {
         cal += '<h1>'+gcal+' Year: '+yearc+'</h1>\n';
         cal += '<h1>Chinese year:</h1>\n'
@@ -2285,7 +2268,7 @@ function calendarOut(lang, year, region) {
             cal += '<h1>公历年: '+yearc+'</h1>\n';
             cal += '<h1>农历年:</h1>\n';
         }
-        var tmp;
+        let tmp;
         if (Ncyear==1) {
             cal += '<h2>'+cyear[cy0]+'</h2> <br />\n';
         } else if (Ncyear==2) {
@@ -2311,13 +2294,13 @@ function calendarOut(lang, year, region) {
     }
     
     // Add additional information after the year info
-    var info = addYearInfo(year, langVars, calVars);
+    let info = addYearInfo(year, langVars, calVars);
     if (info != "") {
-        var h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
+        let h3 = (lang==0 ? '<h3 style="color:brown;line-height:26px;">':'<h3 style="color:brown;letter-spacing:4px;line-height:30px;">');
         cal += h3+info+'</h3><br /><br />\n';
     }
     
-    for (var m=0; m<12; m++) {
+    for (let m=0; m<12; m++) {
         cal += printMonth(m, lang, year, cyear, firstMonth, 
                                     langVars, calVars)+'\n';
     }
@@ -2326,16 +2309,16 @@ function calendarOut(lang, year, region) {
 }
 
 function outputContent_forTesting(lang, y1, y2, region, outfile) {
-    var txt = calendarOut(lang,y1, region);
-    for (var y=y1+1; y <= y2; y++) {
+    let txt = calendarOut(lang,y1, region);
+    for (let y=y1+1; y <= y2; y++) {
         txt += calendarOut(lang, y, region);
     }
     download_txt(txt, outfile);
 }
 
 function outputContent_forTestingMed(lang, y1, y2, region) {
-    var txt = calendarOut(lang,y1, region);
-    for (var y=y1+1; y <= y2; y++) {
+    let txt = calendarOut(lang,y1, region);
+    for (let y=y1+1; y <= y2; y++) {
         txt += calendarOut(lang, y, region);
     }
     return txt;
@@ -2343,8 +2326,8 @@ function outputContent_forTestingMed(lang, y1, y2, region) {
 
 function outputContent_forTesting_allYears_default(lang) {
     // Default setting: -721 - 2200
-    var menu = ancient_calendar_menu('Spring');
-    var item, i;
+    let menu = ancient_calendar_menu('Spring');
+    let item, i;
     for (i=0; i<menu.length; i++) {
         item = document.getElementById(menu[i].id);
         if (item.classList.contains('active')) { 
@@ -2362,14 +2345,15 @@ function outputContent_forTesting_allYears_default(lang) {
     }
     document.getElementById('chunqiuSpring').classList.add('active');
     document.getElementById('zhouWarring').classList.add('active');
-    outputContent_forTesting(lang, -721, 2200, 'default', 'calendar_default_-721to2200.txt');
+    let sub = (lang==0 ? '_eng':(lang==1 ? '_chinese':'_simp'));
+    outputContent_forTesting(lang, -721, 2200, 'default', 'calendar_default_-721to2200'+sub+'.txt');
 }
 
 function outputContent_forTesting_period(lang, period) {
-    var i, txt ='';
+    let i, txt ='';
     if (period=='SpringWarring') {
-        var menu = ancient_calendar_menu('Spring');
-        var item;
+        let menu = ancient_calendar_menu('Spring');
+        let item;
         for (i=0; i<menu.length; i++) {
             item = document.getElementById(menu[i].id);
             if (item.classList.contains('active')) { 
@@ -2421,13 +2405,14 @@ function outputContent_forTesting_period(lang, period) {
     } else if (period=='LiaoJinYuan') {
         txt = outputContent_forTestingMed(lang, 947, 1279, 'LiaoJinYuan');
     }
-    download_txt(txt, 'calendar_'+period+'.txt');
+    let sub = (lang==0 ? '_eng':(lang==1 ? '_chinese':'_simp'));
+    download_txt(txt, 'calendar_'+period+sub+'.txt');
 }
 
 // Create file for download
 function download_txt(data, filename) {
     // create link to download data
-    var hiddenElement = window.document.createElement('a');
+    let hiddenElement = window.document.createElement('a');
     hiddenElement.href = window.URL.createObjectURL(new Blob([data], {type: 'text/csv'}));
     hiddenElement.download = filename;
 

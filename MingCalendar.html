@@ -277,17 +277,20 @@ where <span style="text-decoration:overline;">V</span><sub>s</sub> = 0.082 <i>d&
 </div><!-- end of wrapper -->
     
 <script>
-var i,j;
+let i,j;
     
 // automatically add reference numbers to citations
-var ref = document.querySelectorAll("#references li");
-var refn = document.querySelectorAll("#references .ref");
-for (i=0; i < refn.length; i++) {
+let ref = document.querySelectorAll("#references li");
+let refn = document.querySelectorAll("#references .ref");
+let n = refn.length;
+for (i=0; i<n; i++) {
     refn[i].innerHTML = "["+(i+1)+"]";
 }
-var cita = document.querySelectorAll("a");
-for (i=0; i < cita.length; i++) {
-    for (j=0; j < ref.length; j++) {
+let cita = document.querySelectorAll("a");
+n = cita.length;
+let r = ref.length;
+for (i=0; i<n; i++) {
+    for (j=0; j<r; j++) {
         if (cita[i].href.includes("#"+ref[j].id)) {
             cita[i].innerHTML = "["+(j+1)+"]";
             break;
