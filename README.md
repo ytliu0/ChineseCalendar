@@ -1,52 +1,20 @@
 # Conversion between Western and Chinese Calendar (722 BCE - 2200 CE) 
 # 公 曆 和 農 曆 日 期 對 照 (公元前722年- 公元2200年)
 
-This package contains HTML files, javascript files, and pdf documentation. 
+This package contains HTML files, javascript files, and pdf documentation.
 
 The [main page](https://ytliu0.github.io/ChineseCalendar/) uses my calculated calendar data to convert between the Western calendar and Chinese calendar for any year between 722 BCE and 2200 CE (CE = [Common Era](https://en.wikipedia.org/wiki/Common_Era)). The other pages are linked at the top of the main page. They are self-explanatory. 
 
-## Files:
+## Installation from Source Files
 
-Almost all of the following HTML files have English, traditional Chinese and simplified Chinese versions. They have the same names but with \_chinese and \_simp as suffixes.
+The package has already been built when you clone this repository, but you can also build it from scratch if you wish. The build script requires [terser](https://github.com/terser/terser) and [HTMLMinifier](https://github.com/terser/html-minifier-terser).
 
-- index.html: main HTML page showing the conversion between the Western calendar and Chinese calendar for any year between 722 BCE and 2200 CE. 
-- table.html: HTML page showing a conversion table between the two calendars.
-- solarTerms.html: HTML page explaining the 24 solar terms.
-- sexagenary.html: HTML page explaining the sexagenary cycle.
-- rules.html: HTML page explaining the rules for the Chinese calendar.
-- examples.html: HTML page demonstrating the computation of Chinese calendar. There is also a discussion about the exceptional year 2033. 
-- rules_demysterified.html: HTML page explaining how the rules of the Chinese calendar manage to keep both the lunar cycle and cycle of seasons in sync with the calendar. There is also a discussion on the 19-year cycle and the average length of a year and a month in the Chinese calendar.
-- computation.html: documentation of the calendar calculation used here.
-- sunMoon.html: Times of Moon phases and 24 solar terms from -3500 to 3500.
-- Julian.html: Web-based Julian and Sexagenary Date Calculator
-- era_names.html/era_names_simp.html: Era/reign names used in the Chinese history (in Chinese). 
-- era.js: javascript file for displaying the era/reign names in index_chinese.html
-- chunqiu.html: documentation -- Reconstruction of the Chunqiu Calendar
-- guliuli.html: documentation -- Computation of the Ancient Six Calendars
-- QinHanCalendars.html: documentation -- Reconstruction of Calendars in the Qin and Early Han Dynasties
-- QinHanSolarTerms.html: Dates of Selected Solar Terms in Qin and Early Han Dynasties
-- MingCalendar.html: research article -- Lunar Conjunction Calculation in the Ming Dynasty and Corrections to the Ming Calendar Data
-- discrepanciesQing.html: Discrepancies Between Modern Calculation and Historical Data (1645 - 1911) 
-- 3500Calendars_errors.html/3500Calendars_errors_simp.html: Errors in the book 3500 Years of Calendars and Astronomical Phenomena (in Chinese)
-- Shangyuan.html: An article on the Shangyuan system in ancient Chinese Astronomical Systems
-- calendar.css: CSS file for the HTML pages mentioned above. 
-- calendar_chinese.css: CSS file for the Chinese versions of the HTML pages mentioned above.
-- header.js: JavaScript file for creating the header in all HTML pages, including the Chinese version of the HTML pages.
-- calendarData.js: contains data used for conversion between the Western calendar and Chinese calendar, dates and times of the moon phases and 24 solar terms between -721 and 2200. I computed these data and put them into JSON format. This file is used by index.html, table.html and the Chinese version of these two files.
-- calendar.js: JavaScript file for handling the activities on index.html, index_chinese and index_simp.html.
-- table.js: JavaScript file for handling the activities on table.html, table_chinese.html and table_simp.html.
-- split.js: JavaScript file for handling calendars in 221-280, 384-589 and 947-1279.
-- ancientCalendars.js: contain functions that handle the calendars before 104 BCE.
-- sunMoonData.js: Dates and times of moon phases and solar terms from -3501 to 3502 in JSON.
-- sunMoon.js: JavaScript file for handling the activities on sunMoon.html, sunMoon_chinese.html and sunMoon_simp.html
-- Julian.js: JavaScript file for handling the activities Julian.html, Julian_chinese.html and Julian_simp.html
-- calendarEngLegend.png/calendarChiLegend.png/calendarSimLegend.png: image file used by index.html/index_chinese.html/index_simp.html.
-- 24solarTermsEng.png/24solarTermsChi.png/24solarTermsSim.png: image file used by solarTerms.html/solarTerms_chinese.html/solarTerms_simp.html.
-- NianAvg1.png, NianAvg2.png, YueAvg.png: image files used by rules_demysterified.html, rules_demysterified_chinese.html and rules_demysterified_simp.html.
-- Dipper.jpg, Dipper_chinese.jpg, Dipper_simp.jpg, direction_branch.png, direction_branch_chinese.png, direction_branch_simp.png: image files used by sexagenary.html, sexagenary_chinese.html and sexagenary_simp.html
-- QinHanConjTimeLag.jpg, QinHanConjTimeLag_chinese.jpg, QinHanConjTimeLag_simp.jpg: image files used by QinHanCalendars.html, QinHanCalendars_chinese.html and QinHanCalendars_simp.html
-- TDBtimes.txt: TDB times of moon phases and 24 solar terms between 1600 and 3500 calculated from JPL ephemeris DE431 and using the IAU 2006/2000A precession-nutation model. 
-- TDBtimes_extended.txt.gz: (gzipped) TDB times of moon phases and 24 solar terms between -4000 and 8000 calculated from JPL ephemeris DE431 and using the Vondrak et al 2011 precession model and IAU2000A nutation model.
-- docs/sunMoon.pdf: PDF file explaining how I compute the times of the moon phases and 24 solar terms used for the calendar calculation. 
-- docs/sunMoon_chinese.pdf: traditional Chinese version of docs/sunMoon.pdf
-- docs/sunMoon_simp.pdf: simplified Chinese version of docs/sunMoon.pdf
+### Quick Installation 
+
+To install the whole package to a target directory, first open `build_config.json` and edit the value of the `"target directory"` key. For first time installation, run `npm install` to install dependencies. Then run `npm run build` or `node build.mjs all` to install the package.
+
+Note that the target directory cannot be the same as the source directory `./src` since some of the output files will have the same names as the files in the source directory. To prevent accidental overwriting of source files, a file named `protect_this_dir.txt` is placed in the source directory. If the build script detects the existence of this filename in the target directory, it will abort and throw an error.
+
+### Customized Build (for development)
+
+The command `npm run build` or `node build.mjs all` installs the whole package from scratch. If only a few files are modified, it's not necessary to rebuild everything. In this case, you can change the parameters in `build_config.json` before running the build script. Apart from the `target_directory` key, values of all the other keys in `build_config.json` are boolean. In the command `npm run part` or `node build.mjs`, only items that are `true` in `build_config.json` will be built. You can also specify another json file for `build.mjs` to process. For example, `node build.mjs my_config.json` will read `my_config.json` instead of `build_config.json`. In other words, if the second argument after `node` is not `all`, it will be interpreted as a json file for configuration.
