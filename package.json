@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "build": "node build.js all",
-    "part": "node build.js"
+    "part": "node build.js",
+    "clean": "node build.js clean"
   },
   "repository": "github:ytliu0/ChineseCalendar",
   "author": "Yuk Tung Liu (https://publish.illinois.edu/ytliu/)",

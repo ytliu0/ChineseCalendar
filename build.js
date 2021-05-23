@@ -6,9 +6,10 @@ const html_minifier_option = {collapseWhitespace:true, removeComments:true, mini
 
 let src = './src/';
 let narg = process.argv.length;
+let clean = (narg < 3 ? false:process.argv[2]=='clean');
 let all = (narg < 3 ? false:process.argv[2]=='all');
 let config_json = 'build_config.json';
-if (!all && narg >=3) {
+if (!all && !clean && narg >=3) {
   config_json = process.argv[2];
 }
 let opt = JSON.parse(fs.readFileSync(config_json, 'utf8'));
@@ -17,17 +18,44 @@ let tg = opt.target_directory;
 // remove trailing slash and white space
 tg = tg.replace(/(\s*)$/, '').replace(/(\/?)$/, '').replace(/(\s*)$/, '');
 
-// create target directory if it doesn't exist 
-if (!fs.existsSync(tg)){
-    fs.mkdirSync(tg);
-} else if (fs.existsSync(tg+'/protect_this_dir.txt')) {
+// Check the existence of protect_this_dir.txt in the target directory
+if (fs.existsSync(tg+'/protect_this_dir.txt')) {
    // protect_this_dir.txt exists in the target directory. Abort script
    let err = 'Cannot write files to the target directory '+tg +'\n';
    err += 'Because the file "protect_this_dir.txt" is there.\n';
    err += 'If you want to use this target directory,\n';
    err += 'either remove that file from the directory or rename it.\n';
-   throw err;
+   console.error(err);
+   process.exit(1);
 }
+
+if (clean) {
+  if (fs.existsSync(tg+'/src/protect_this_dir.txt')) {
+     let err = 'Cannot remove directory '+tg+'...\n';
+     err += 'because it contains the source directory.\n';
+     console.error(err);
+     process.exit(1);
+  }
+
+  // remove target directory
+  let success = true;
+  try {
+    fs.rmdirSync(tg, {recursive: true});
+  } catch(err) {
+    success = false;
+    console.error(err.message);
+  }
+  if (success) {
+    console.log(tg+' is removed!');
+  }
+  process.exit();
+}
+
+// create target directory if it doesn't exist
+if (!fs.existsSync(tg)){
+    fs.mkdirSync(tg);
+}
+
 tg += '/';
 
 async function build() {
