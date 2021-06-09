@@ -217,7 +217,8 @@ async function build() {
            'QinHanCalendars_chinese', 'QinHanCalendars_simp', 'QinHanSolarTerms', 
            'QinHanSolarTerms_chinese', 'QinHanSolarTerms_simp', 'Shangyuan', 
            'Shangyuan_chinese', 'Shangyuan_simp', 'MingCalendar', 'MingCalendar_chinese',
-           'MingCalendar_simp', 'ThreeKingdoms_calendars', 'ThreeKingdoms_calendars_chinese',
+           'MingCalendar_simp', 'MingCalendar_index', 
+           'ThreeKingdoms_calendars', 'ThreeKingdoms_calendars_chinese',
            'ThreeKingdoms_calendars_simp', 'LiaoJinYuan_calendars', 
            'LiaoJinYuan_calendars_chinese', 'LiaoJinYuan_calendars_simp', 'others', 
            'others_chinese', 'others_simp', 'NorthSouth_calendars', 
@@ -228,7 +229,7 @@ async function build() {
     }
     console.log('Building '+f+'.html...');
     let css = (f.match(/(_chinese|_simp)$/) ? 'calendar_chinese':'calendar');
-    if (f=='era_names' || f=='3500Calendars_errors') { 
+    if (f=='era_names' || f=='3500Calendars_errors' || f=='MingCalendar_index') { 
        css = 'calendar_chinese';
     }
     let html = fs.readFileSync(src+f+'.html', 'utf8');
