@@ -165,7 +165,7 @@ async function build() {
   }
   
   // Julian_c.js
-  if (all || opt.sunMoon_c) {
+  if (all || opt.Julian_c) {
     console.log('Building Julian_c.js...');
     let code = {
      'header.js': fs.readFileSync(src+'header.js', 'utf8'),
