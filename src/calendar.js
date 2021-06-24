@@ -16,7 +16,7 @@ function init(lang) {
     }
     input.value = year;
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('myBtn').click();
         }

@@ -5,7 +5,7 @@ function init(lang) {
     header(lang, 'sunmoon','sunMoon');
     let input = document.getElementById("year");
     input.addEventListener("keyup", function(event) {
-      if (event.keyCode === 13) {
+      if (event.key === 'Enter') {
        event.preventDefault();
        document.getElementById("myBtn").click();
       }

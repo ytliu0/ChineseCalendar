@@ -24,49 +24,49 @@ function init(lang) {
     
     let input = document.getElementById('JD');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('JDBtn').click();
         }
     });
     input = document.getElementById('year');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('tabBtn').click();
         }
     });
     input = document.getElementById('month');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('tabBtn').click();
         }
     });
     input = document.getElementById('date');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('tabBtn').click();
         }
     });
     input = document.getElementById('hour');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('tabBtn').click();
         }
     });
     input = document.getElementById('minute');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('tabBtn').click();
         }
     });
     input = document.getElementById('second');
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             document.getElementById('tabBtn').click();
         }
