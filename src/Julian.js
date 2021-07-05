@@ -74,7 +74,7 @@ function init(lang) {
 }
 
 function changeInputTime(lang, s) {
-    s = parseInt(s);
+    s = parseInt(s, 10);
     if (s==0 || s==12) {
         document.getElementById('hour').value = s;
         document.getElementById('minute').value = 0;
@@ -97,39 +97,39 @@ function getJDSexagenary(lang, form) {
     document.getElementById('output').innerHTML = "";
     // sanity check
     let errid = 'err';
-    let y = parseInt(form.year.value);
-    let min = parseInt(form.year.min);
-    let max = parseInt(form.year.max);
+    let y = parseInt(form.year.value, 10);
+    let min = parseInt(form.year.min, 10);
+    let max = parseInt(form.year.max, 10);
     let str = ['Year', '年份', '年份'];
     let message = generate_message(lang, str[lang], min, max);
     sanityCheck(y, 'year', min, max, message, errid);
-    let mm = parseInt(form.month.value);
-    min = parseInt(form.month.min);
-    max = parseInt(form.month.max);
+    let mm = parseInt(form.month.value, 10);
+    min = parseInt(form.month.min, 10);
+    max = parseInt(form.month.max, 10);
     str = ['Month', '月份', '月份'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(mm, 'month', min, max, message, errid);
-    let dd = parseInt(form.date.value);
-    min = parseInt(form.date.min);
-    max = parseInt(form.date.max);
+    let dd = parseInt(form.date.value, 10);
+    min = parseInt(form.date.min, 10);
+    max = parseInt(form.date.max, 10);
     str = ['Date', '日期', '日期'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(dd, 'date', min, max, message, errid);
-    let h = parseInt(form.hour.value);
-    min = parseInt(form.hour.min);
-    max = parseInt(form.hour.max);
+    let h = parseInt(form.hour.value, 10);
+    min = parseInt(form.hour.min, 10);
+    max = parseInt(form.hour.max, 10);
     str = ['Hour', '小時', '小时'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(h, 'hour', min, max, message, errid);
-    let m = parseInt(form.minute.value);
-    min = parseInt(form.minute.min);
-    max = parseInt(form.minute.max);
+    let m = parseInt(form.minute.value, 10);
+    min = parseInt(form.minute.min, 10);
+    max = parseInt(form.minute.max, 10);
     str = ['Minute', '分鐘', '分钟'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(m, 'minute', min, max, message, errid);
-    let s = parseInt(form.second.value);
-    min = parseInt(form.second.min);
-    max = parseInt(form.second.max);
+    let s = parseInt(form.second.value, 10);
+    min = parseInt(form.second.min, 10);
+    max = parseInt(form.second.max, 10);
     str = ['Second', '秒的', '秒的'];
     message = generate_message(lang, str[lang], min, max);
     sanityCheck(s, 'second', min, max, message, errid);
@@ -166,9 +166,7 @@ function JDtoCalendar(lang) {
         write_output(lang, JDnoon, jd);
         // reset background colors
         let id = ['year', 'month', 'date', 'hour', 'minute', 'second'];
-        for (let i=0; i<id.length; i++) {
-            document.getElementById(id[i]).style.backgroundColor = 'transparent';
-        }
+        id.forEach(x => document.getElementById(x).style.backgroundColor = 'transparent');
     }
 }
 
