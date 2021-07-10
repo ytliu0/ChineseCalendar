@@ -1,14 +1,41 @@
 "use strict";
 
 function init(lang) {
-    header(lang, 'table', 'table'); // print menu
+    header(lang, 'table', ''); // print menu
+    const p = new URLSearchParams(window.location.search);
+    if (p.has('period')) {
+        let valid_periods = ['Spring', 'Warring', 'qinhanxin', 'easternhan', 'weishuwu', 'jin', 
+                             'snweiqizhou', 'snsouth', 'sui', 'tang5', 'song', 'liaojin', 'yuan', 
+                             'ming', 'qing', 'recent'];
+        let period = p.get('period');
+        let match = valid_periods.map(x => x==period).reduce((a,b) => a || b, false);
+        if (!match) {
+            let table_url = ['table.html', 'table_chinese.html', 'table_simp.html'];
+            window.location.replace(table_url[lang]);
+        } else {
+            let txt = '<h2 style="text-align:right;">';
+            let link = 'table_period';
+            let qs = '.html?period='+period;
+            if (lang==0) {
+                txt += 'Chinese versions: <a href="'+link+'_chinese'+qs+'">傳統中文</a> &nbsp; <a href="'+link+'_simp'+qs+'">简体中文</a></h2>';
+            } else if (lang==1) {
+                txt += '<a href="'+link+qs+'">English 英文</a> &nbsp; <a href="'+link+'_simp'+qs+'">简体中文</a></h2>';
+            } else {
+                txt += '<a href="'+link+qs+'">English 英文</a> &nbsp; <a href="'+link+'_chinese'+qs+'">傳統中文</a></h2>';
+            }
+            document.getElementById('language').innerHTML = txt;
+            setup_table(lang, period);
+            }
+    } else {
+        let table_url = ['table.html', 'table_chinese.html', 'table_simp.html'];
+        window.location.replace(table_url[lang]);
+    }
     // *** TEST ***
     //output_multiple_periods(lang);
     // ************
 }
 
 function setup_table(lang, period) {
-    document.getElementById('mainMenu').style.display = "none";
     document.getElementById('returnMainMenu').style.display = "block";
     document.getElementById('returnMainMenuEnd').style.display = "block";
     document.getElementById('menu').scrollIntoView();
@@ -68,17 +95,6 @@ function setup_table(lang, period) {
         case 'recent':
             table_recent(lang);
     }
-}
-
-function return_menu() {
-    document.getElementById('mainMenu').style.display = 'block';
-    document.getElementById('Spring').style.display = 'none';
-    document.getElementById('Warring').style.display = 'none';
-    document.getElementById('returnMainMenu').style.display = 'none';
-    document.getElementById('returnMainMenuEnd').style.display = 'none';
-    document.getElementById('title').innerHTML = '';
-    document.getElementById('description').innerHTML = '';
-    document.getElementById('table').innerHTML = '';
 }
 
 // Language-specific constants
@@ -1595,7 +1611,7 @@ function table_qing(lang) {
     let tab = document.getElementById('description');
     if (lang==0) {
         tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (1645 &ndash; 1911)</h1>';
-        tab.innerHTML = '<p>The following table lists the Gregorian dates MM-DD of the first day of each month in the Chinese calendar in the Qing synasty (1645&ndash;1911). MM indicates the Gregorian month and DD indicates the Gregorian date. When MM is 13, it means January in the following Gregorian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Gregorian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tab.innerHTML = '<p>The following table lists the Gregorian dates MM-DD of the first day of each month in the Chinese calendar in the Qing dynasty (1645&ndash;1911). MM indicates the Gregorian month and DD indicates the Gregorian date. When MM is 13, it means January in the following Gregorian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Gregorian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
         tit.innerHTML = '<h1>清 朝 朔 閏 表 (1645 &ndash; 1911)</h1>';

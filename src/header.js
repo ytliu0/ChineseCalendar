@@ -113,6 +113,7 @@ function header(lang, page, link) {
         }
         document.getElementById('language').innerHTML = txt;
     }
+    add_footer();
 }
 
 // The click event is created to handle devices with touch screen
@@ -136,4 +137,11 @@ function myloadurl(url) {
         x[0].classList.remove('showdropdown');
     }
     location.href = url;
+}
+
+function add_footer() {
+    let foot = document.createElement('FOOTER');
+    let txt = '<hr /><p style="text-align:center;font-size:90%;">&copy; 2018&ndash;2021 Yuk Tung Liu</p>';
+    foot.innerHTML = txt;
+    document.body.appendChild(foot);
 }

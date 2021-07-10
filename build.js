@@ -177,7 +177,7 @@ async function build() {
   
   // 12 html files
   let files = ['index', 'index_chinese', 'index_simp', 
-               'table', 'table_chinese', 'table_simp',
+               'table_period', 'table_period_chinese', 'table_period_simp',
                'sunMoon', 'sunMoon_chinese', 'sunMoon_simp',
                'Julian', 'Julian_chinese', 'Julian_simp'];
   files.forEach(async function(f, ind) {
@@ -206,6 +206,7 @@ async function build() {
   
   // Other html files
   files = ['era_names', 'era_names_simp', 'solarTerms', 'solarTerms_chinese', 
+           'table', 'table_chinese', 'table_simp',
            'solarTerms_simp', 'sexagenary', 'sexagenary_chinese', 'sexagenary_simp',
            'rules', 'rules_chinese', 'rules_simp', 'examples', 'examples_chinese',
            'examples_simp', 'rules_demysterified', 'rules_demysterified_chinese',

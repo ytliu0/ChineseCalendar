@@ -11,14 +11,6 @@
 </head>
 
 <body>
-<noscript>
-<h1 style="color:brown;">抱 歉!</h1>
-<p style="color:brown;">下面的朔閏表需要用 JavaScript 來編製。</p>
-<p style="color:brown;">請在瀏覽器中啟用 JavaScript 後再進入本網頁。</p>
-<br /><br />
-<hr />
-</noscript>
-
     
 <div id="menu"></div>
 <div id="language"></div>
@@ -28,92 +20,32 @@
 <br />
 <p style="font-size:120%;">選擇時代:</p>
 
-<p class="select" onClick="setup_table(1,'Spring')">春秋 (公元前722 &ndash; 前481)</p>
-<p class="select" onClick="setup_table(1,'Warring')">戰國 (公元前480 &ndash; 前222)</p>    
-<p class="select" onClick="setup_table(1,'qinhanxin')">秦、西漢、新 (公元前221 &ndash; 24)</p>
-<p class="select" onClick="setup_table(1,'easternhan')">東漢 (公元25 &ndash; 219)</p>
-<p class="select" onClick="setup_table(1,'weishuwu')">魏、蜀、吳 (公元220 &ndash; 280)</p>
-<p class="select" onClick="setup_table(1,'jin')">晉 (公元265 &ndash; 419)</p>
-<p class="select" onClick="setup_table(1,'snweiqizhou')">後秦、北涼、北魏、東魏、西魏、北齊、北周 (公元398 &ndash; 580)</p>
-<p class="select" onClick="setup_table(1,'snsouth')">宋、齊、梁、陳  (公元420 &ndash; 589)</p>
-<p class="select" onClick="setup_table(1,'sui')">隋 (公元581 &ndash; 617)</p>
-<p class="select" onClick="setup_table(1,'tang5')">唐、五代 (公元618 &ndash; 959)</p>
-<p class="select" onClick="setup_table(1,'song')">宋 (公元960 &ndash; 1279)</p>
-<p class="select" onClick="setup_table(1,'liaojin')">遼、金 (公元947 &ndash; 1234)</p>
-<p class="select" onClick="setup_table(1,'yuan')">蒙古、元 (公元1234 &ndash; 1367)</p>
-<p class="select" onClick="setup_table(1,'ming')">明 (公元1368 &ndash; 1644)</p>
-<p class="select" onClick="setup_table(1,'qing')">清 (公元1645 &ndash; 1911)</p>
-<p class="select" onClick="setup_table(1,'recent')">公元1912 &ndash; 2200</p>
+<p class="select"><a href="table_period_chinese.html?period=Spring">春秋 (公元前722 &ndash; 前481)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=Warring">戰國 (公元前480 &ndash; 前222)</a></p>    
+<p class="select"><a href="table_period_chinese.html?period=qinhanxin">秦、西漢、新 (公元前221 &ndash; 24)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=easternhan">東漢 (公元25 &ndash; 219)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=weishuwu">魏、蜀、吳 (公元220 &ndash; 280)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=jin">晉 (公元265 &ndash; 419)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=snweiqizhou">後秦、北涼、北魏、東魏、西魏、北齊、北周 (公元398 &ndash; 580)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=snsouth">宋、齊、梁、陳  (公元420 &ndash; 589)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=sui">隋 (公元581 &ndash; 617)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=tang5">唐、五代 (公元618 &ndash; 959)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=song">宋 (公元960 &ndash; 1279)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=liaojin">遼、金 (公元947 &ndash; 1234)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=yuan">蒙古、元 (公元1234 &ndash; 1367)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=ming">明 (公元1368 &ndash; 1644)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=qing">清 (公元1645 &ndash; 1911)</a></p>
+<p class="select"><a href="table_period_chinese.html?period=recent">公元1912 &ndash; 2200</a></p>
     <br /><br />
 <h2>分 裂 時 代 朔 閏 異 同 表</h2>
     
-<p class="select"><a href="ThreeKingdoms_calendars_chinese.html">三 國 (220 – 280)</a></p>
-       
+<p class="select"><a href="ThreeKingdoms_calendars_chinese.html">三 國 (220 – 280)</a></p> 
 <p class="select"><a href="NorthSouth_calendars_chinese.html">南 北 朝 (384 – 589)</a></p>
-    
 <p class="select"><a href="LiaoJinYuan_calendars_chinese.html">宋 遼 金 元 (947 – 1279)</a></p>
 </div>
-    
-<div id="title">
-</div>
-    
-<div id="returnMainMenu" style="display:none;">
-<p><button class="return" onClick="return_menu()">返回目錄，選擇其他時代。</button></p>
-    <br />
-</div>
-    
-<div id="Spring" style="display:none;">
-<p>春秋時期(公元前722年 &ndash; 前481年)各國施行不同曆法，現在我們只能從《春秋》這部由孔子修訂的魯國編年史書中獲得當時魯國施行曆法的不完整資料。這裡稱當時魯國的曆法為春秋曆，本網頁的春秋曆是根據張培瑜、陳美東、薄樹人和胡鐵珠著的《中国古代历法》(中国科学出版社‧北京‧2008年3月)書中第三章第五節的資料復原。具體計算方法在<a href="chunqiu_chinese.html">春秋曆網頁</a>闡述。</p>
-    
-<p>除了春秋曆外，這裡還提供周曆、殷曆和夏曆(其中三部古六曆)的資料。一般認為這三部曆法應在春秋末期或戰國時代才建立，把這三部曆法在春秋時期列出僅供參考而已。本網頁的古六曆是根據《中国古代历法》書中第三章第六節的資料復原。具體計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>闡述。</p>
-    
-<p>現在下面顯示的曆法是<span id="calshownSpring"></span>曆，但可點擊下面的按鍵改變顯示的曆法。</p>
-    <br />
-<h3>選 擇 曆 法: </h3>
-    <p> 
-        <button id="chunqiuSpring" class="calendars active" onClick="select_calendar_table('chunqiuSpring',1)">春秋曆</button>
-        <button id="zhouSpring" class="calendars" onClick="select_calendar_table('zhouSpring',1)">周曆</button>
-        <button id="yinSpring" class="calendars" onClick="select_calendar_table('yinSpring',1)">殷曆</button>
-        <button id="xiaSpring" class="calendars" onClick="select_calendar_table('xiaSpring',1)">夏曆</button>
-    </p>
-<br />
-<p id="SpringliDescription" style="color:brown;"></p>
-          <br />
-</div>
-    
-<div id="Warring" style="display:none;">
-<p>戰國時代(前480年至前222年)各國施行不同曆法，當時使用的曆法有六種:周曆、魯曆、殷曆、夏曆、黃帝曆和顓頊曆，合稱「古六曆」。六種曆法的計算方法大致相同，但各曆的年首不盡相同，用以計算曆法的曆元也不同。本網頁的古六曆是根據張培瑜、陳美東、薄樹人和胡鐵珠著的《中国古代历法》(中国科学出版社‧北京‧2008年3月)書中第三章第六節的資料復原。具體計算方法在<a href="guliuli_chinese.html">古六曆網頁</a>闡述。</p>
 
-<p>現在下面顯示的古六曆是<span id="calshownWarring"></span>曆，但可點擊下面的按鍵改變顯示的古六曆。。</p>
-    
-<br />
-<h3>選 擇 古 六 曆: </h3>
-    <p> 
-        <button id="zhouWarring" class="calendars active" onClick="select_calendar_table('zhouWarring',1)">周曆</button>
-        <button id="luWarring" class="calendars" onClick="select_calendar_table('luWarring',1)">魯曆</button>
-        <button id="huangdiWarring" class="calendars" onClick="select_calendar_table('huangdiWarring',1)">黃帝曆</button>
-        <button id="yinWarring" class="calendars" onClick="select_calendar_table('yinWarring',1)">殷曆</button>
-        <button id="xiaWarring" class="calendars" onClick="select_calendar_table('xiaWarring',1)">夏曆</button>
-        <button id="zhuanxuWarring" class="calendars" onClick="select_calendar_table('zhuanxuWarring',1)">顓頊曆</button>
-    </p>
-<br />
-<p id="guliuliDescription" style="color:brown;"></p>
-    <br />
-</div>
-    
-<div id="description">
-</div>
-    
-<div id="table">
-</div>
-<div id="returnMainMenuEnd" style="display:none;">
-<p><button class="return" onClick="return_menu()">返回目錄，選擇其他時代。</button></p>
-    <br />
-</div>
-    
-<br /><br /><hr />
-<p style="font-size:90%;">首創於2018年9月(只函蓋1901年&ndash;2200年)。最近一次重大修改於2019年6月末完成，增加了下列諸國的朔閏表:三國時蜀和吳、十六國時後秦和北涼、南北朝時北魏、東魏、西魏、北齊、北周以及五代和宋時的遼、金、蒙古/元。亦新增三國、南北朝和宋遼金元朔閏異同表。</p>
+<br /><br />
 
-<script>init(1);</script>
+<script>header(1, 'table', 'table');</script>
 </body>
 </html>
