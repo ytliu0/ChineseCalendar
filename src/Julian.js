@@ -1,76 +1,78 @@
 "use strict";
 
 function init(lang) {
-    document.getElementById('wrapper0').style.display = "block";
-    header(lang,'', 'Julian'); // print menu
-    let dat = new Date(); // current time from computer's clock
-    let y = dat.getFullYear();
-    let mm = dat.getMonth()+1;
-    let dd = dat.getDate();
-    let h=12, m=0, s=0;
-    document.getElementById('midnight').checked = false;
-    document.getElementById('noon').checked = true;
-    document.getElementById('custom').checked = false;
-    document.getElementById('year').value = y;
-    document.getElementById('month').value = mm;
-    document.getElementById('date').value = dd;
-    document.getElementById('hour').value = h;
-    document.getElementById('minute').value = m;
-    document.getElementById('second').value = s;
-    document.getElementById('hour').disabled = true;
-    document.getElementById('minute').disabled = true;
-    document.getElementById('second').disabled = true;
-    getJDSexagenary(lang, document.getElementById('calendarDate'));
-    
-    let input = document.getElementById('JD');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('JDBtn').click();
-        }
-    });
-    input = document.getElementById('year');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('tabBtn').click();
-        }
-    });
-    input = document.getElementById('month');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('tabBtn').click();
-        }
-    });
-    input = document.getElementById('date');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('tabBtn').click();
-        }
-    });
-    input = document.getElementById('hour');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('tabBtn').click();
-        }
-    });
-    input = document.getElementById('minute');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('tabBtn').click();
-        }
-    });
-    input = document.getElementById('second');
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('tabBtn').click();
-        }
-    });
+    if (window.location === window.parent.location) { 
+        document.getElementById('wrapper0').style.display = "block";
+        header(lang,'', 'Julian'); // print menu
+        let dat = new Date(); // current time from computer's clock
+        let y = dat.getFullYear();
+        let mm = dat.getMonth()+1;
+        let dd = dat.getDate();
+        let h=12, m=0, s=0;
+        document.getElementById('midnight').checked = false;
+        document.getElementById('noon').checked = true;
+        document.getElementById('custom').checked = false;
+        document.getElementById('year').value = y;
+        document.getElementById('month').value = mm;
+        document.getElementById('date').value = dd;
+        document.getElementById('hour').value = h;
+        document.getElementById('minute').value = m;
+        document.getElementById('second').value = s;
+        document.getElementById('hour').disabled = true;
+        document.getElementById('minute').disabled = true;
+        document.getElementById('second').disabled = true;
+        getJDSexagenary(lang, document.getElementById('calendarDate'));
+        
+        let input = document.getElementById('JD');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('JDBtn').click();
+            }
+        });
+        input = document.getElementById('year');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('tabBtn').click();
+            }
+        });
+        input = document.getElementById('month');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('tabBtn').click();
+            }
+        });
+        input = document.getElementById('date');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('tabBtn').click();
+            }
+        });
+        input = document.getElementById('hour');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('tabBtn').click();
+            }
+        });
+        input = document.getElementById('minute');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('tabBtn').click();
+            }
+        });
+        input = document.getElementById('second');
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('tabBtn').click();
+            }
+        });
+    }
 }
 
 function changeInputTime(lang, s) {

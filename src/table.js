@@ -2,33 +2,35 @@
 
 function init(lang) {
     header(lang, 'table', ''); // print menu
-    const p = new URLSearchParams(window.location.search);
-    if (p.has('period')) {
-        let valid_periods = ['Spring', 'Warring', 'qinhanxin', 'easternhan', 'weishuwu', 'jin', 
-                             'snweiqizhou', 'snsouth', 'sui', 'tang5', 'song', 'liaojin', 'yuan', 
-                             'ming', 'qing', 'recent'];
-        let period = p.get('period');
-        let match = valid_periods.map(x => x==period).reduce((a,b) => a || b, false);
-        if (!match) {
+    if (window.location === window.parent.location) {
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('period')) {
+            let valid_periods = ['Spring', 'Warring', 'qinhanxin', 'easternhan', 'weishuwu', 'jin', 
+                                'snweiqizhou', 'snsouth', 'sui', 'tang5', 'song', 'liaojin', 'yuan', 
+                                'ming', 'qing', 'recent'];
+            let period = p.get('period');
+            let match = valid_periods.map(x => x==period).reduce((a,b) => a || b, false);
+            if (!match) {
+                let table_url = ['table.html', 'table_chinese.html', 'table_simp.html'];
+                window.location.replace(table_url[lang]);
+            } else {
+                let txt = '<h2 style="text-align:right;">';
+                let link = 'table_period';
+                let qs = '.html?period='+period;
+                if (lang==0) {
+                    txt += 'Chinese versions: <a href="'+link+'_chinese'+qs+'">傳統中文</a> &nbsp; <a href="'+link+'_simp'+qs+'">简体中文</a></h2>';
+                } else if (lang==1) {
+                    txt += '<a href="'+link+qs+'">English 英文</a> &nbsp; <a href="'+link+'_simp'+qs+'">简体中文</a></h2>';
+                } else {
+                    txt += '<a href="'+link+qs+'">English 英文</a> &nbsp; <a href="'+link+'_chinese'+qs+'">傳統中文</a></h2>';
+                }
+                document.getElementById('language').innerHTML = txt;
+                setup_table(lang, period);
+                }
+        } else {
             let table_url = ['table.html', 'table_chinese.html', 'table_simp.html'];
             window.location.replace(table_url[lang]);
-        } else {
-            let txt = '<h2 style="text-align:right;">';
-            let link = 'table_period';
-            let qs = '.html?period='+period;
-            if (lang==0) {
-                txt += 'Chinese versions: <a href="'+link+'_chinese'+qs+'">傳統中文</a> &nbsp; <a href="'+link+'_simp'+qs+'">简体中文</a></h2>';
-            } else if (lang==1) {
-                txt += '<a href="'+link+qs+'">English 英文</a> &nbsp; <a href="'+link+'_simp'+qs+'">简体中文</a></h2>';
-            } else {
-                txt += '<a href="'+link+qs+'">English 英文</a> &nbsp; <a href="'+link+'_chinese'+qs+'">傳統中文</a></h2>';
-            }
-            document.getElementById('language').innerHTML = txt;
-            setup_table(lang, period);
-            }
-    } else {
-        let table_url = ['table.html', 'table_chinese.html', 'table_simp.html'];
-        window.location.replace(table_url[lang]);
+        }
     }
     // *** TEST ***
     //output_multiple_periods(lang);

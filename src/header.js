@@ -113,6 +113,17 @@ function header(lang, page, link) {
         }
         document.getElementById('language').innerHTML = txt;
     }
+    if (window.location !== window.parent.location) {
+        if (page=='table') {
+            if (link=='') {
+                document.getElementById('table').style.display = none;
+            } else {
+                document.getElementById('mainMenu').style.display = none;
+            }
+        } else {
+            document.getElementById('wrapper0').style.display = none;
+        }
+    }
     add_footer();
 }
 

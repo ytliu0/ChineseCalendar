@@ -1,27 +1,29 @@
 "use strict";
 
 function init(lang) {
-    document.getElementById("wrapper0").style.display = "block";
-    header(lang,'calendar', 'index'); // print menu
-    let year = 99999999;
-    let input = document.getElementById('year');
-    // Get input from url
-    const p = new URLSearchParams(window.location.search);
-    if (p.has('y')) {
-        year = parseInt(p.get('y'), 10);
-    }
-    if (isNaN(year) || year < -721 || year > 2200) {
-      let d = new Date(); // current time from computer's clock
-      year = d.getFullYear();
-    }
-    input.value = year;
-    input.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('myBtn').click();
+    if (window.location === window.parent.location) {
+        document.getElementById("wrapper0").style.display = "block";
+        header(lang,'calendar', 'index'); // print menu
+        let year = 99999999;
+        let input = document.getElementById('year');
+        // Get input from url
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('y')) {
+            year = parseInt(p.get('y'), 10);
         }
-    });
-    submitYear(lang);
+        if (isNaN(year) || year < -721 || year > 2200) {
+        let d = new Date(); // current time from computer's clock
+        year = d.getFullYear();
+        }
+        input.value = year;
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('myBtn').click();
+            }
+        });
+        submitYear(lang);
+    }
     // *** TEST ***
     //outputContent_forTesting_allYears_default(lang);
     //outputContent_forTesting_period(lang, 'SpringWarring');

@@ -1,42 +1,44 @@
 "use strict";
 
 function init(lang) {
-    document.getElementById('wrapper0').style.display = "block";
-    header(lang, 'sunmoon','sunMoon');
-    let input = document.getElementById("year");
-    input.addEventListener("keyup", function(event) {
-      if (event.key === 'Enter') {
-       event.preventDefault();
-       document.getElementById("myBtn").click();
-      }
-    });
-    // Get input from url
-    let year = 99999999;
-    const p = new URLSearchParams(window.location.search);
-    if (p.has('y')) {
-        year = parseInt(p.get('y'), 10);
-    }
-    if (isNaN(year) || year < -3500 || year > 3500) {
-      let d = new Date(); // current time from computer's clock
-      year = d.getFullYear();
-    }
-    input.value = year;
+    if (window.location === window.parent.location) {
+        document.getElementById('wrapper0').style.display = "block";
+        header(lang, 'sunmoon','sunMoon');
+        let input = document.getElementById("year");
+        input.addEventListener("keyup", function(event) {
+        if (event.key === 'Enter') {
+        event.preventDefault();
+        document.getElementById("myBtn").click();
+        }
+        });
+        // Get input from url
+        let year = 99999999;
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('y')) {
+            year = parseInt(p.get('y'), 10);
+        }
+        if (isNaN(year) || year < -3500 || year > 3500) {
+        let d = new Date(); // current time from computer's clock
+        year = d.getFullYear();
+        }
+        input.value = year;
 
-    // Hide the years y-1 and y+1
-    let acc = document.getElementsByClassName("accordion");
-    let i;
-    for (i = 0; i < acc.length; i++) {
-      acc[i].onclick = function() {
-        this.classList.toggle("active");
-        let panel = this.nextElementSibling;
-        if (panel.style.maxHeight){
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + "px";
-        } 
-      }
+        // Hide the years y-1 and y+1
+        let acc = document.getElementsByClassName("accordion");
+        let i;
+        for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function() {
+            this.classList.toggle("active");
+            let panel = this.nextElementSibling;
+            if (panel.style.maxHeight){
+            panel.style.maxHeight = null;
+            } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+          }
+        }
+        submitYear(lang);
     }
-    submitYear(lang);
 }
 
 function submitYear(lang) {
