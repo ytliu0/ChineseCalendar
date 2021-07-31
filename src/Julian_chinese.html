@@ -36,7 +36,7 @@ ol.chi li {
     <td><input type="number" id="date" step="1" min="1" max="31" />日</td></tr>
 
 <tr><th rowspan="2">時間(24小時制)</th> 
-    <td colspan="3"><input type="radio" name="time" id="midnight" onClick="changeInputTime(1,0)" />夜半 &nbsp;&nbsp;<input type="radio" name="time" id="noon" onClick="changeInputTime(1,12)" />正午&nbsp;&nbsp;<input type="radio" name="time" id="custom" onClick="changeInputTime(1,1)"/>其他時間</td></tr>
+    <td colspan="3"><input type="radio" name="time" id="midnight" onClick="changeInputTime(1,0)" /><label for="midnight">夜半</label> &nbsp;&nbsp;<input type="radio" name="time" id="noon" onClick="changeInputTime(1,12)" /><label for="noon">正午</label>&nbsp;&nbsp;<input type="radio" name="time" id="custom" onClick="changeInputTime(1,1)"/><label for="custom">其他時間</label></td></tr>
 <tr> <td><input type="number" id="hour" step="1" min="0" max="23" />時</td> 
     <td><input type="number" id="minute" step="1" min="0" max="59" />分</td>
     <td><input type="number" id="second" step="1" min="0" max="59" />秒</td></tr>

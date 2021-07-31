@@ -28,7 +28,7 @@
     <td>Date: <input type="number" id="date" step="1" min="1" max="31" /></td></tr>
 
 <tr><th rowspan="2">Time (24-hour system)</th> 
-    <td colspan="3"><input type="radio" name="time" id="midnight" onclick="changeInputTime(0,0)" />Midnight &nbsp;&nbsp;<input type="radio" name="time" id="noon" onclick="changeInputTime(0,12)" />Noon&nbsp;&nbsp;<input type="radio" name="time" id="custom" onclick="changeInputTime(0,1)"/>Custom</td></tr>
+    <td colspan="3"><input type="radio" name="time" id="midnight" onclick="changeInputTime(0,0)" /><label for="midnight">Midnight</label> &nbsp;&nbsp;<input type="radio" name="time" id="noon" onclick="changeInputTime(0,12)" /><label for="noon">Noon</label>&nbsp;&nbsp;<input type="radio" name="time" id="custom" onclick="changeInputTime(0,1)"/><label for="custom">Custom</label></td></tr>
 <tr> <td>Hour: <input type="number" id="hour" step="1" min="0" max="23" /></td> 
     <td>Minute: <input type="number" id="minute" step="1" min="0" max="59" /></td>
     <td>Second: <input type="number" id="second" step="1" min="0" max="59" /></td></tr>

@@ -1,6 +1,7 @@
 "use strict";
 
 function init(lang) {
+    console.log(window.location, window.parent.location);
     if (window.location === window.parent.location) {
         document.getElementById("wrapper0").style.display = "block";
         header(lang,'calendar', 'index'); // print menu
@@ -23,7 +24,7 @@ function init(lang) {
             }
         });
         submitYear(lang);
-    }
+    } 
     // *** TEST ***
     //outputContent_forTesting_allYears_default(lang);
     //outputContent_forTesting_period(lang, 'SpringWarring');
@@ -1118,7 +1119,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
                     } else {
                         type = ['日偏食', '日环食', '日全食', '日全环食'];
                     }
-                    linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1];
+                    linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1]+'&ep=DE431';
                     ec = '<a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
                 }
             });
@@ -1151,7 +1152,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
                     } else {
                         type = ['半影月食', '月偏食', '月全食'];
                     }
-                    linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1];
+                    linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1]+'&ep=DE431';
                     ec = '<a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
                 }
             });

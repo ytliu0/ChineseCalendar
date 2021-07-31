@@ -267,7 +267,7 @@ input.accordion {
     display: none;
 }
 
-label {
+label.accordion {
     display: block;    
     margin: 0 0 1em 0;
     cursor: pointer;
@@ -281,7 +281,7 @@ label {
     font-weight: bold;
 }
     
-label:before {
+label.accordion:before {
      content: '\2795';
      font-size: 20px;
      color: #777;
@@ -290,7 +290,7 @@ label:before {
      float: right;
 }
 
-label:hover {
+label.accordion:hover {
     background: #E0E0E0;
 }
 
