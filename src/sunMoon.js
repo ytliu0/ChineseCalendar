@@ -38,6 +38,8 @@ function init(lang) {
           }
         }
         submitYear(lang);
+    } else {
+        exception_handler();
     }
 }
 

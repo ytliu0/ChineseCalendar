@@ -31,6 +31,8 @@ function init(lang) {
             let table_url = ['table.html', 'table_chinese.html', 'table_simp.html'];
             window.location.replace(table_url[lang]);
         }
+    } else {
+        exception_handler();
     }
     // *** TEST ***
     //output_multiple_periods(lang);

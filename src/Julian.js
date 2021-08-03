@@ -72,6 +72,8 @@ function init(lang) {
                 document.getElementById('tabBtn').click();
             }
         });
+    } else {
+        exception_handler();
     }
 }
 

@@ -24,6 +24,8 @@ function init(lang) {
             }
         });
         submitYear(lang);
+    } else {
+        exception_handler();
     } 
     // *** TEST ***
     //outputContent_forTesting_allYears_default(lang);
