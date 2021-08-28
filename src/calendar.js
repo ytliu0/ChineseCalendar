@@ -1,7 +1,6 @@
 "use strict";
 
 function init(lang) {
-    console.log(window.location, window.parent.location);
     if (window.location === window.parent.location) {
         document.getElementById("wrapper0").style.display = "block";
         header(lang,'calendar', 'index'); // print menu

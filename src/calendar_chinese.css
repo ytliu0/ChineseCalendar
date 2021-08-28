@@ -85,7 +85,7 @@ h4 {
 	margin-top:10px;
 }
 	
-p {
+p, label.question {
 	font:16px/20px arial, verdana, helvetica, sans-serif;
 	margin:0px 0px 5px 0px;
     letter-spacing: 4px;
