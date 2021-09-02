@@ -14,7 +14,8 @@ function header(lang, page, link) {
         menu = {id:'menuCalendarBasics', title:'Chinese Calendar<br />Basics'};
         menu.sub = [{title:'24 Solar Terms', url:'solarTerms.html'},
                     {title:'Sexagenary Cycle', url:'sexagenary.html'},
-                    {title:'Chinese Calendar Rules', url:'rules.html'} ];
+                    {title:'Chinese Calendar Rules', url:'rules.html'},
+                    {title:'Calendar Quiz', url:'simpleQuiz.html'}];
         menulist.push(menu);
         
         menu = {id:'menuCalendarComputation', title:'Calendar<br />Computation'};
@@ -41,7 +42,8 @@ function header(lang, page, link) {
         menu = {id:'menuCalendarBasics', title:'農 曆 知 識'};
         menu.sub = [{title:'二十四節氣', url:'solarTerms_chinese.html'},
                     {title:'六十干支', url:'sexagenary_chinese.html'},
-                    {title:'農曆編算法則', url:'rules_chinese.html'}];
+                    {title:'農曆編算法則', url:'rules_chinese.html'}, 
+                    {title:'曆法測驗', url:'simpleQuiz_chinese.html'}];
         menulist.push(menu);
         
         menu = {id:'menuCalendarComputation', title:'曆 法 計 算'};
@@ -67,7 +69,8 @@ function header(lang, page, link) {
         menu = {id:'menuCalendarBasics', title:'农 历 知 识'};
         menu.sub = [{title:'二十四节气', url:'solarTerms_simp.html'},
                     {title:'六十干支', url:'sexagenary_simp.html'},
-                    {title:'农历编算法则', url:'rules_simp.html'}];
+                    {title:'农历编算法则', url:'rules_simp.html'}, 
+                    {title:'历法测验', url:'simpleQuiz_simp.html'}];
         menulist.push(menu);
         
         menu = {id:'menuCalendarComputation', title:'历 法 计 算'};

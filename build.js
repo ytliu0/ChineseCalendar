@@ -238,6 +238,23 @@ async function build() {
     let html_min = await ht.minify(html, html_minifier_option);
     fs.writeFileSync(tg+f+'.html', html_min, 'utf8');
    });
+
+  // Calendar quiz
+  if (all || opt.simpleQuiz_js) {
+    fs.copyFile(src+'simpleQuiz.js', tg+'simpleQuiz.js', err => {if (err) throw err;});
+  }
+  files = ['simpleQuiz', 'simpleQuiz_chinese', 'simpleQuiz_simp'];
+  files.forEach(async function(f, ind) {
+    if (!all && !opt[f]) {
+      return;
+    }
+    console.log('Building '+f+'.html...');
+    let css = (f.match(/(_chinese|_simp)$/) ? 'calendar_chinese':'calendar');
+    let html = fs.readFileSync(src+f+'.html', 'utf8');
+    html = html.replace(css+'.css',css+'_min.css').replace('<script type="module" src="simpleQuiz.mjs"></script>', '<script src="simpleQuiz.js"></script>');
+    let html_min = await ht.minify(html, html_minifier_option);
+    fs.writeFileSync(tg+f+'.html', html_min, 'utf8');
+  });
 }
 
 async function run_build() {

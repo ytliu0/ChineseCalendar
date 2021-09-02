@@ -77,6 +77,10 @@
 "LiaoJinYuan_calendars": false,
 "LiaoJinYuan_calendars_chinese": false,
 "LiaoJinYuan_calendars_simp": false,
+"simpleQuiz_js": false,
+"simpleQuiz": false,
+"simpleQuiz_chinese": false,
+"simpleQuiz_simp": false,
 "others": false,
 "others_chinese": false, 
 "others_simp": false
