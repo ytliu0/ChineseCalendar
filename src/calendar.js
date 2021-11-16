@@ -576,19 +576,23 @@ function calendar(lang, year) {
         }      
     } else {
         if (lang==1) {
+            gcal = '('+(year > 1582 ? '格里曆':(year > 7 ? '儒略曆':'逆推儒略曆'))+')';
+            if (year==1582) { gcal = "(儒略曆/格里曆)";}
             cyear[0] += eraName(year-1, langVars.region);
             cyear[1] += eraName(year, langVars.region);
             cyear[2] += eraName(year+1, langVars.region);
         } else {
+            gcal = '('+(year > 1582 ? '格里历':(year > 7 ? '儒略历':'逆推儒略历'))+')';
+            if (year==1582) { gcal = "(儒略历/格里历)";}
             cyear[0] += eraNameSim(year-1, langVars.region);
             cyear[1] += eraNameSim(year, langVars.region);
             cyear[2] += eraNameSim(year+1, langVars.region);
         }
         if (lang==1) {
-            txt += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>';
-            txt += '<h1>&#36786;&#26310;&#24180;:</h1>';
+            txt += '<h1>公曆年'+gcal+': '+yearc+'</h1>';
+            txt += '<h1>農曆年:</h1>';
         } else {
-            txt += '<h1>公历年: '+yearc+'</h1>';
+            txt += '<h1>公历年'+gcal+': '+yearc+'</h1>';
             txt += '<h1>农历年:</h1>';
         }
         let tmp;
