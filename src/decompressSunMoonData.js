@@ -309,7 +309,7 @@ function DeltaT_spline_y(y) {
 
 function DeltaT(T) {
     let jd = 36525*T + 2451545;
-    if (jd > 2459580.5 || jd < 2441317.5) {
+    if (jd > 2459945.5 || jd < 2441317.5) {
         let y = (jd >= 2299160.5 ? (jd - 2451544.5)/365.2425 + 2000:(jd + 0.5)/365.25 - 4712);
         return DeltaT_spline_y(y)/86400;
     }
