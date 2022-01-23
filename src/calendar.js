@@ -22,6 +22,12 @@ function init(lang) {
                 document.getElementById('myBtn').click();
             }
         });
+        if (p.has('showJD')) {
+            if (p.get('showJD')=='true') {
+                document.getElementById('Julian1').checked = true;
+                document.getElementById('Julian0').checked = false;
+            }
+        }
         submitYear(lang);
     } else {
         exception_handler();
