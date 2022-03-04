@@ -33,8 +33,8 @@ table.compact th, table.compact td {
 </style>
 </head>
     
-<body onload="header(0,'','MingCalendar')">
-<div id="wrapper0">
+<body>
+<div id="wrapper0" style="display:none;">
     
 <div id="menu"></div>
 <div id="language"></div>
@@ -44,13 +44,6 @@ table.compact th, table.compact td {
 <p>First draft: August, 2019.</p>
 
     <br />
-
-<noscript>
-        <h1 style="color:brown;">Note</h1>
-        <p style="color:brown;">JavaScript is currently disabled on your browser. The reference numbers and citations of articles are generated using JavaScript here, so they are not shown correctly right now. Please enable JavaScript and reload.</p>
-            <br /><br />
-            <hr />
-</noscript>
     
 <h3>Abstract</h3>
     
@@ -282,8 +275,15 @@ where <span style="text-decoration:overline;">V</span><sub>s</sub> = 0.082 <i>d&
 <br /><br />
     
 </div><!-- end of wrapper -->
-    
+<noscript>
+    <h2>Oops!</h2>
+    <p>You must enable JavaScript to use this page.</p>
+    <p>Please enable JavaScript and reload. </p>
+</noscript>
+
 <script>
+document.getElementById('wrapper0').style.display = 'block';
+header(0,'','MingCalendar');
 let i,j;
     
 // automatically add reference numbers to citations

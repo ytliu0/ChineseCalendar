@@ -33,8 +33,8 @@ table.compact th, table.compact td {
 </style>
 </head>
     
-<body onload="header(1,'','MingCalendar')">
-<div id="wrapper0">
+<body>
+<div id="wrapper0" style="display:none;">
 <div id="menu"></div>
 <div id="language"></div>
     
@@ -42,13 +42,6 @@ table.compact th, table.compact td {
     
 <p>初稿: 2019年8月</p>
     <br />
-<noscript>
-        <h1 style="color:brown;">提 示</h1>
-        
-        <p style="color:brown;">閣下的瀏覽器未有啟用 JavaScript，本網頁中的文獻序號及徵引皆用 JavaScript 編輯。要正確顯示文章內容，請啟用瀏覽器的 JavaScript，然後再進入本網頁。</p>
-        <br /><br /><hr />
-</noscript>
-    
 <h3>摘 要</h3>
 <br />
 <p>本文根據《大統曆》的推步方法計算明朝合朔和二十四節氣時刻，發現與現存若干明代《大統曆》曆書給出的時刻完全吻合。比較算出的明朝二百七十六年間朔日和節氣日期，發現節氣日期完全符合張培瑜《三千五百年历日天象》<sup><a href="#Zhang1997"></a></sup>的資料，但有十一個朔日不合，其中有七例證實是《三千五百年历日天象》的錯誤，這七個錯誤也見於薛仲三、歐陽頤的《兩千年中西曆對照表》<sup><a href="#Hsueh"></a></sup>、陳垣的《二十史朔閏表》<sup><a href="#Chen1962"></a></sup>及汪曰楨的<a href="https://ctext.org/library.pl?if=gb&res=2969" target="_blank">《歷代長術輯要》</a>。</p>
@@ -281,8 +274,15 @@ f的導數是<br />
 <br /><br />
     
 </div><!-- end of wrapper -->
+<noscript>
+    <h2>抱 歉!</h2>
+    <p>本網頁需要用 JavaScript 才能正確顯示。</p>
+    <p>請在瀏覽器中啟用 JavaScript 後再進入本網頁。</p>
+</noscript>
 
 <script>
+document.getElementById('wrapper0').style.display = 'block';
+header(1,'','MingCalendar')
 let i,j;
     
 // automatically add reference numbers to citations

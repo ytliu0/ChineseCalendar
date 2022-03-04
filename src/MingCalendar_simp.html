@@ -33,8 +33,8 @@ table.compact th, table.compact td {
 </style>
 </head>
     
-<body onload="header(2,'','MingCalendar')">
-<div id="wrapper0">
+<body>
+<div id="wrapper0" style="display:none;">
 <div id="menu"></div>
 <div id="language"></div>
     
@@ -42,12 +42,6 @@ table.compact th, table.compact td {
     
 <p>初稿: 2019年8月</p>
     <br />
-<noscript>
-        <h1 style="color:brown;">提 示</h1>
-        
-        <p style="color:brown;">阁下的浏览器未有启用 JavaScript，本网页中的文献序号及征引皆用 JavaScript 编辑。要正确显示文章内容，请启用浏览器的 JavaScript，然后再进入本网页。</p>
-        <br /><br /><hr />
-b</noscript>
     
 <h3>摘 要</h3>
 <br />
@@ -276,8 +270,14 @@ f的导数是<br />
 <br /><br />
     
 </div><!-- end of wrapper -->
-
+<noscript>
+    <h2>抱 歉!</h2>
+    <p>本网页需要用 JavaScript 才能正确显示。</p>
+    <p>请在浏览器中启用 JavaScript 后再进入本网页。</p>
+</noscript>
 <script>
+document.getElementById('wrapper0').style.display = 'block';
+header(2,'','MingCalendar');
 let i,j;
     
 // automatically add reference numbers to citations

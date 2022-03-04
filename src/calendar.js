@@ -567,7 +567,7 @@ function calendar(lang, year) {
     if (year==1582) { gcal = "Gregorian/Julian";}
     let yearc = year.toString();
     if (year < 1) {
-        yearc += (lang==0 ? ' ('+(1-year)+' BCE)':' (&#21069;'+(1-year)+')');
+        yearc += (lang==0 ? ' ('+(1-year)+' BCE)':' (前'+(1-year)+')');
     }
     let cy0 = calVars.cmonthYear[0];
     if (lang==0) {
@@ -605,14 +605,14 @@ function calendar(lang, year) {
         if (Ncyear==1) {
             txt += '<h2>'+cyear[cy0]+'</h2> <br />';
         } else if (Ncyear==2) {
-            tmp = '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+', ';
+            tmp = '<h2>'+mm1[0]+'月'+dd1[0]+'日前: '+cyear[cy0]+', ';
             if (year < 1912) {
                 tmp += '<br />';
             }
-            tmp += mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+1]+'</h2><br />';
+            tmp += mm1[0]+'月'+dd1[0]+'日及以後: '+cyear[cy0+1]+'</h2><br />';
             txt += tmp;
         } else {
-            txt += '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+',<br /> '+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#33267;'+mm1[1]+'&#26376;'+(dd1[1]-1)+'&#26085;: '+cyear[cy0+1]+',<br />'+mm1[1]+'&#26376;'+dd1[1]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+2]+'</h2><br />';
+            txt += '<h2>'+mm1[0]+'月'+dd1[0]+'日前: '+cyear[cy0]+',<br /> '+mm1[0]+'月'+dd1[0]+'日至'+mm1[1]+'月'+(dd1[1]-1)+'日: '+cyear[cy0+1]+',<br />'+mm1[1]+'月'+dd1[1]+'日及以後: '+cyear[cy0+2]+'</h2><br />';
         }
     }
     
@@ -621,9 +621,9 @@ function calendar(lang, year) {
         cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie];
         cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2];
     } else {
-        cyear[0] = langVars.heaven[ih0]+langVars.earth[ie0]+'&#24180;';
-        cyear[1] = langVars.heaven[ih]+langVars.earth[ie]+'&#24180;';
-        cyear[2] = langVars.heaven[ih2]+langVars.earth[ie2]+'&#24180;';
+        cyear[0] = langVars.heaven[ih0]+langVars.earth[ie0]+'年';
+        cyear[1] = langVars.heaven[ih]+langVars.earth[ie]+'年';
+        cyear[2] = langVars.heaven[ih2]+langVars.earth[ie2]+'年';
     }
     
     // Add additional information after the year info
@@ -730,9 +730,9 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
     let nMonth=cmon.nMonth, cmyear=cmon.cmyear, cmonth=cmon.cmonth;
     let yearc = year.toString();
     if (year < 1) {
-        yearc = (lang==0 ? (1-year).toString()+' BCE':'&#21069;'+(1-year).toString());
+        yearc = (lang==0 ? (1-year).toString()+' BCE':'前'+(1-year).toString());
     }
-    if (lang != 0) yearc += '&#24180;';
+    if (lang != 0) yearc += '年';
     
     let txt='<table>';
     let i;
@@ -816,16 +816,16 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
 function addChineseMonths(m, lang, y, cyear, langVars, 
                            calVars) {
     let i;
-    let txt = ['leap ', '&#38287;', '闰'];
+    let txt = ['leap ', '閏', '闰'];
     let leap = txt[lang];
     if (y==-104) {
-        txt = ['post ', '&#24460;', '后'];
+        txt = ['post ', '後', '后'];
         leap = txt[lang];
     }
     if (y < -104) {
         leap = calVars.leap;
         if (lang==1) {
-            leap = (calVars.leap=="post 9" ? "&#24460;&#20061;":"&#38287;");
+            leap = (calVars.leap=="post 9" ? "後九":"閏");
         }
         if (lang==2) {
             leap = (calVars.leap=="post 9" ? "后九":"闰");
@@ -851,9 +851,10 @@ function addChineseMonths(m, lang, y, cyear, langVars,
             // sexagenary month cycle
             let cmsex = '';
             if (cm > 0 && y > -104) {
+                if (lang != 0) { cmsex = '建';}
                 let mm = 12*(ihy1 + calVars.cmonthXiaYear[i]) + jian;
                 mm = (mm+1) % 10;
-                cmsex = langVars.heaven[mm];
+                cmsex += langVars.heaven[mm];
                 if (lang==0) cmsex += ' ';
                 cmsex += langVars.earth[(jian+1) % 12];
                 if (lang==0) {
@@ -868,7 +869,7 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                         if (lang==0) {
                             cmsex = ', no Zh&#333;ngq&#236;';
                         } else if (lang==1) {
-                            cmsex = ' (&#28961;&#20013;&#27683;)';
+                            cmsex = ' (無中氣)';
                         } else {
                             cmsex = ' (无中气)';
                         }
@@ -892,13 +893,13 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                 
                 if (y>688 && y <700 && Math.abs(cm)==11) {
                     // 11 yue -> zheng yue
-                    tmp = '&#27491;';
+                    tmp = '正';
                 }
                 if (y > 689 && y < 701 && Math.abs(cm)==1) {
                     // zheng yue -> yi yue
-                    tmp = '&#19968;';
+                    tmp = '一';
                 }
-                tmp += "&#26376;" + langVars.monthL[calVars.cmonthLong[i]]+cmsex;
+                tmp += "月" + langVars.monthL[calVars.cmonthLong[i]]+cmsex;
             }
             cmonth.push(tmp);
             tmp = cyear[calVars.cmonthYear[i]];
@@ -917,9 +918,10 @@ function addChineseMonths(m, lang, y, cyear, langVars,
            // sexagenary month cycle
             let cmsex = '';
             if (cm > 0 && y > -104) {
+                if (lang != 0) { cmsex = '建';}
                 let mm = 12*(ihy1 + calVars.cmonthXiaYear[i]) + jian;
                 mm = (mm+1) % 10;
-                cmsex = langVars.heaven[mm];
+                cmsex += langVars.heaven[mm];
                 if (lang==0) cmsex += ' ';
                 cmsex += langVars.earth[(jian+1) % 12];
                 if (lang==0) {
@@ -934,7 +936,7 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                         if (lang==0) {
                             cmsex = ', no Zh&#333;ngq&#236;';
                         } else if (lang==1) {
-                            cmsex = ' (&#28961;&#20013;&#27683;)';
+                            cmsex = ' (無中氣)';
                         } else {
                             cmsex = ' (无中气)';
                         }
@@ -957,13 +959,13 @@ function addChineseMonths(m, lang, y, cyear, langVars,
                 }
                 if (y>688 && y <700 && Math.abs(cm)==11) {
                     // 11 yue -> zheng yue
-                    tmp = '&#27491;';
+                    tmp = '正';
                 }
                 if (y > 689 && y < 701 && Math.abs(cm)==1) {
                     // zheng yue -> yi yue
-                    tmp = '&#19968;';
+                    tmp = '一';
                 }
-                tmp += "&#26376;" + langVars.monthL[calVars.cmonthLong[i]]+cmsex;
+                tmp += "月" + langVars.monthL[calVars.cmonthLong[i]]+cmsex;
             }
             cmonth.push(tmp);
             tmp = cyear[calVars.cmonthYear[i]];
@@ -1049,11 +1051,11 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
        }
        if (y>688 && y <700 && Math.abs(cm)==11) {
             // 11 yue -> zheng yue
-            m1 = '&#27491;&#26376;';
+            m1 = '正月';
         }
         if (y > 689 && y < 701 && Math.abs(cm)==1) {
             // zheng yue -> yi yue
-            m1 = '&#19968;&#26376;';
+            m1 = '一月';
         }
        if (cmIsFirstMonth && cd==1) {
            txt = '<p style="color:red;"><b>'+m1;
@@ -1102,7 +1104,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
     if (lang==0) {
         txt = '<p><b>Moon Phases</b>: '
     } else {
-        txt = '<p style="letter-spacing:normal;"><b>&#26376;&#30456;</b>: '
+        txt = '<p style="letter-spacing:normal;"><b>月相</b>: '
     }
     
     let phases = [];
@@ -2252,7 +2254,7 @@ function calendarOut(lang, year, region) {
     if (year==1582) { gcal = "Gregorian/Julian";}
     let yearc = year.toString();
     if (year < 1) {
-        yearc += (lang==0 ? ' ('+(1-year)+' BCE)':' (&#21069;'+(1-year)+')');
+        yearc += (lang==0 ? ' ('+(1-year)+' BCE)':' (前'+(1-year)+')');
     }
     let cy0 = calVars.cmonthYear[0];
     if (lang==0) {
@@ -2276,8 +2278,8 @@ function calendarOut(lang, year, region) {
             cyear[2] += eraNameSim(year+1, langVars.region);
         }
         if (lang==1) {
-            cal += '<h1>&#20844;&#26310;&#24180;: '+yearc+'</h1>\n';
-            cal += '<h1>&#36786;&#26310;&#24180;:</h1>\n';
+            cal += '<h1>&#20844;&#26310;年: '+yearc+'</h1>\n';
+            cal += '<h1>&#36786;&#26310;年:</h1>\n';
         } else {
             cal += '<h1>公历年: '+yearc+'</h1>\n';
             cal += '<h1>农历年:</h1>\n';
@@ -2286,14 +2288,14 @@ function calendarOut(lang, year, region) {
         if (Ncyear==1) {
             cal += '<h2>'+cyear[cy0]+'</h2> <br />\n';
         } else if (Ncyear==2) {
-            tmp = '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+', ';
+            tmp = '<h2>'+mm1[0]+'月'+dd1[0]+'日前: '+cyear[cy0]+', ';
             if (year < 1912) {
                 tmp += '<br />';
             }
-            tmp += mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+1]+'</h2><br />';
+            tmp += mm1[0]+'月'+dd1[0]+'日及以後: '+cyear[cy0+1]+'</h2><br />';
             cal += tmp+'\n';
         } else {
-            cal += '<h2>'+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#21069;: '+cyear[cy0]+',<br /> '+mm1[0]+'&#26376;'+dd1[0]+'&#26085;&#33267;'+mm1[1]+'&#26376;'+(dd1[1]-1)+'&#26085;: '+cyear[cy0+1]+',<br />'+mm1[1]+'&#26376;'+dd1[1]+'&#26085;&#21450;&#20197;&#24460;: '+cyear[cy0+2]+'</h2><br />\n';
+            cal += '<h2>'+mm1[0]+'月'+dd1[0]+'日前: '+cyear[cy0]+',<br /> '+mm1[0]+'月'+dd1[0]+'日至'+mm1[1]+'月'+(dd1[1]-1)+'日: '+cyear[cy0+1]+',<br />'+mm1[1]+'月'+dd1[1]+'日及以後: '+cyear[cy0+2]+'</h2><br />\n';
         }
     }
     
@@ -2302,9 +2304,9 @@ function calendarOut(lang, year, region) {
         cyear[1] = langVars.heaven[ih]+' '+langVars.earth[ie];
         cyear[2] = langVars.heaven[ih2]+' '+langVars.earth[ie2];
     } else {
-        cyear[0] = langVars.heaven[ih0]+langVars.earth[ie0]+'&#24180;';
-        cyear[1] = langVars.heaven[ih]+langVars.earth[ie]+'&#24180;';
-        cyear[2] = langVars.heaven[ih2]+langVars.earth[ie2]+'&#24180;';
+        cyear[0] = langVars.heaven[ih0]+langVars.earth[ie0]+'年';
+        cyear[1] = langVars.heaven[ih]+langVars.earth[ie]+'年';
+        cyear[2] = langVars.heaven[ih2]+langVars.earth[ie2]+'年';
     }
     
     // Add additional information after the year info
