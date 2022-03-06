@@ -26,177 +26,164 @@
     <caption>Table 1: 10 heavenly stems and 12 earthly branches</caption>
 <tr><td></td><th>Heavenly Stems</th> <td></td> <th colspan="2">Earthly Branches</th></tr>
     
-<tr><td>1</td> <td>Ji&#462; (&#x7532;)</td> <td>1</td> <td>Z&#464; (&#x5B50;)</td> <td>Rat</td></tr>
+<tr><td>1</td> <td>Ji&#462; (甲)</td> <td>1</td> <td>Z&#464; (子)</td> <td>Rat</td></tr>
     
-<tr><td>2</td> <td>Y&#464; (&#x4E59;)</td> <td>2</td> <td>Ch&#466;u (&#x4E11;)</td> <td>Ox</td></tr>
+<tr><td>2</td> <td>Y&#464; (乙)</td> <td>2</td> <td>Ch&#466;u (丑)</td> <td>Ox</td></tr>
     
-<tr><td>3</td> <td>B&#464;ng (&#x4E19;)</td> <td>3</td> <td>Y&#237;n (&#x5BC5;)</td> <td>Tiger</td></tr>
+<tr><td>3</td> <td>B&#464;ng (丙)</td> <td>3</td> <td>Y&#237;n (寅)</td> <td>Tiger</td></tr>
     
-<tr><td>4</td> <td>D&#299;ng (&#x4E01;)</td> <td>4</td> <td>M&#462;o (&#x536F;)</td> <td>Rabbit</td></tr>
+<tr><td>4</td> <td>D&#299;ng (丁)</td> <td>4</td> <td>M&#462;o (卯)</td> <td>Rabbit</td></tr>
     
-<tr><td>5</td> <td>W&#249; (&#x620A;)</td> <td>5</td> <td>Ch&#233;n (&#x8FB0;)</td> <td>Dragon</td></tr>
+<tr><td>5</td> <td>W&#249; (戊)</td> <td>5</td> <td>Ch&#233;n (辰)</td> <td>Dragon</td></tr>
     
-<tr><td>6</td> <td>J&#464; (&#x5DF1;)</td> <td>6</td> <td>S&#236; (&#x5DF3;)</td> <td>Snake</td></tr>
+<tr><td>6</td> <td>J&#464; (己)</td> <td>6</td> <td>S&#236; (巳)</td> <td>Snake</td></tr>
     
-<tr><td>7</td> <td>G&#275;ng (&#x5E9A;)</td> <td>7</td> <td>W&#468; (&#x5348;)</td> <td>Horse</td></tr>
+<tr><td>7</td> <td>G&#275;ng (庚)</td> <td>7</td> <td>W&#468; (午)</td> <td>Horse</td></tr>
     
-<tr><td>8</td> <td>X&#299;n (&#x8F9B;)</td> <td>8</td> <td>W&#232;i (&#x672A;)</td> <td>Goat</td></tr>
+<tr><td>8</td> <td>X&#299;n (辛)</td> <td>8</td> <td>W&#232;i (未)</td> <td>Goat</td></tr>
     
-<tr><td>9</td> <td>R&#233;n (&#x58EC;)</td> <td>9</td> <td>Sh&#275;n (&#x7533;)</td> <td>Monkey</td></tr>
+<tr><td>9</td> <td>R&#233;n (壬)</td> <td>9</td> <td>Sh&#275;n (申)</td> <td>Monkey</td></tr>
     
-<tr><td>10</td> <td>Gu&#464; (&#x7678;)</td> <td>10</td> <td>Y&#466;u (&#x9149;)</td> <td>Chicken</td></tr>
+<tr><td>10</td> <td>Gu&#464; (癸)</td> <td>10</td> <td>Y&#466;u (酉)</td> <td>Chicken</td></tr>
     
-<tr><td rowspan="2" colspan="2"></td> <td>11</td> <td>X&#363; (&#x620C;)</td> <td>Dog</td></tr>
+<tr><td rowspan="2" colspan="2"></td> <td>11</td> <td>X&#363; (戌)</td> <td>Dog</td></tr>
 
-<tr><td>12</td> <td>H&#224;i (&#x4EA5;)</td> <td>Pig</td></tr>
+<tr><td>12</td> <td>H&#224;i (亥)</td> <td>Pig</td></tr>
 </table>
        <br />
 <p>The counting starts with the number ji&#462; z&#464; (1,1), which is the first stem combined with the first branch. The next number is y&#464; ch&#466;u (2,2) &mdash; the second stem pairs with the second branch. It is followed by b&#464;ng y&#237;n (3,3) and so on up to gu&#464; y&#466;u (10,10). We are now running out of stems. The rule is to start from the beginning whenever we are running out of stems or branches, just like the numbers in clocks. So the numbers after gu&#464; y&#466;u are ji&#462; x&#363; (1,11), y&#464; h&#224;i (2,12), b&#464;ng z&#464; (3,1) and so on up to gu&#464; h&#224;i (10,12). The number after that is ji&#462; z&#464; (1,1) again and the cycle repeats. There are 60 numbers in a cycle, indicated in the table below.</p>
-       <br />
-<!--    
+       <br />   
+<!--
+<div id="sexagenaryTable"></div>
 <script>
-var heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
+let heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
                   "J&#464;", "G&#275;ng","X&#299;n","R&#233;n", "Gu&#464;"];
-var earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
+let earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
                 "s&#236;", "w&#468;", "w&#232;i", "sh&#275;n", "y&#466;u", 
                 "x&#363;", "h&#224;i"];
-var heavenChi = ["&#x7532;","&#x4E59;","&#x4E19;","&#x4E01;","&#x620A;", 
-                 "&#x5DF1;","&#x5E9A;","&#x8F9B;","&#x58EC;","&#x7678;"];
-var earthChi = ["&#x5B50;","&#x4E11;","&#x5BC5;","&#x536F;","&#x8FB0;", 
-                "&#x5DF3;","&#x5348;","&#x672A;","&#x7533;","&#x9149;", 
-                "&#x620C;","&#x4EA5;"];
-var txt = '<table>\n';
-for (var i=0; i<15; i++) {
+let heavenChi = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+let earthChi = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+let txt = '<table>\n';
+for (let i=0; i<15; i++) {
     txt += '<tr>\n';
-    for (var j=0; j<4; j++) {
-        var k = i+j*15;
-        var ih = (k % 10), ie = (k % 12);
-        txt +='<td>'+(k+1)+'</td><td>'+heavenChi[ih]+earthChi[ie]+'</td>\n';
+    for (let j=0; j<4; j++) {
+        let k = i+j*15;
+        let ih = (k % 10), ie = (k % 12);
+        //txt +='<td>'+(k+1)+'</td><td>'+heavenEng[ih]+' '+earthEng[ih]+' ('+heavenChi[ih]+earthChi[ie]+')</td>\n';
+        txt += '<td>'+(k+1)+'</td><td>'+heavenChi[ih]+earthChi[ie]+'</td>\n';
     }
     txt += '</tr>\n';
 }
 txt += '</table>';
-//document.getElementById('sexagenaryTable').innerHTML = txt;
-    
-    var hiddenElement = window.document.createElement('a');
-    hiddenElement.href = window.URL.createObjectURL(new Blob([txt], {type: 'text/csv'}));
-    hiddenElement.download = 'test.txt';
-
-    // Append anchor to body.
-    document.body.appendChild(hiddenElement);
-    hiddenElement.click();
-
-    // Remove anchor from body
-    document.body.removeChild(hiddenElement);
+document.getElementById('sexagenaryTable').innerHTML = txt;
 </script>
 -->
     
 <table id="sexagenary">
     <caption>Table 2: Sexagenary numbers</caption>
-<tr>
-<td>1</td><td>Ji&#462; z&#464; (&#x7532;&#x5B50;)</td>
-<td>21</td><td>Ji&#462; sh&#275;n (&#x7532;&#x7533;)</td>
-<td>41</td><td>Ji&#462; ch&#233;n (&#x7532;&#x8FB0;)</td>
-</tr>
-<tr>
-<td>2</td><td>Y&#464; ch&#466;u (&#x4E59;&#x4E11;)</td>
-<td>22</td><td>Y&#464; y&#466;u (&#x4E59;&#x9149;)</td>
-<td>42</td><td>Y&#464; s&#236; (&#x4E59;&#x5DF3;)</td>
-</tr>
-<tr>
-<td>3</td><td>B&#464;ng y&#237;n (&#x4E19;&#x5BC5;)</td>
-<td>23</td><td>B&#464;ng x&#363; (&#x4E19;&#x620C;)</td>
-<td>43</td><td>B&#464;ng w&#468; (&#x4E19;&#x5348;)</td>
-</tr>
-<tr>
-<td>4</td><td>D&#299;ng m&#462;o (&#x4E01;&#x536F;)</td>
-<td>24</td><td>D&#299;ng h&#224;i (&#x4E01;&#x4EA5;)</td>
-<td>44</td><td>D&#299;ng w&#232;i (&#x4E01;&#x672A;)</td>
-</tr>
-<tr>
-<td>5</td><td>W&#249; ch&#233;n (&#x620A;&#x8FB0;)</td>
-<td>25</td><td>W&#249; z&#464; (&#x620A;&#x5B50;)</td>
-<td>45</td><td>W&#249; sh&#275;n (&#x620A;&#x7533;)</td>
-</tr>
-<tr>
-<td>6</td><td>J&#464; s&#236; (&#x5DF1;&#x5DF3;)</td>
-<td>26</td><td>J&#464; ch&#466;u (&#x5DF1;&#x4E11;)</td>
-<td>46</td><td>J&#464; y&#466;u (&#x5DF1;&#x9149;)</td>
-</tr>
-<tr>
-<td>7</td><td>G&#275;ng w&#468; (&#x5E9A;&#x5348;)</td>
-<td>27</td><td>G&#275;ng y&#237;n (&#x5E9A;&#x5BC5;)</td>
-<td>47</td><td>G&#275;ng x&#363; (&#x5E9A;&#x620C;)</td>
-</tr>
-<tr>
-<td>8</td><td>X&#299;n w&#232;i (&#x8F9B;&#x672A;)</td>
-<td>28</td><td>X&#299;n m&#462;o (&#x8F9B;&#x536F;)</td>
-<td>48</td><td>X&#299;n h&#224;i (&#x8F9B;&#x4EA5;)</td>
-</tr>
-<tr>
-<td>9</td><td>R&#233;n sh&#275;n (&#x58EC;&#x7533;)</td>
-<td>29</td><td>R&#233;n ch&#233;n (&#x58EC;&#x8FB0;)</td>
-<td>49</td><td>R&#233;n z&#464; (&#x58EC;&#x5B50;)</td>
-</tr>
-<tr>
-<td>10</td><td>Gu&#464; y&#466;u (&#x7678;&#x9149;)</td>
-<td>30</td><td>Gu&#464; s&#236; (&#x7678;&#x5DF3;)</td>
-<td>50</td><td>Gu&#464; ch&#466;u (&#x7678;&#x4E11;)</td>
-</tr>
-<tr>
-<td>11</td><td>Ji&#462; x&#363; (&#x7532;&#x620C;)</td>
-<td>31</td><td>Ji&#462; w&#468; (&#x7532;&#x5348;)</td>
-<td>51</td><td>Ji&#462; y&#237;n (&#x7532;&#x5BC5;)</td>
-</tr>
-<tr>
-<td>12</td><td>Y&#464; h&#224;i (&#x4E59;&#x4EA5;)</td>
-<td>32</td><td>Y&#464; w&#232;i (&#x4E59;&#x672A;)</td>
-<td>52</td><td>Y&#464; m&#462;o (&#x4E59;&#x536F;)</td>
-</tr>
-<tr>
-<td>13</td><td>B&#464;ng z&#464; (&#x4E19;&#x5B50;)</td>
-<td>33</td><td>B&#464;ng sh&#275;n (&#x4E19;&#x7533;)</td>
-<td>53</td><td>B&#464;ng ch&#233;n (&#x4E19;&#x8FB0;)</td>
-</tr>
-<tr>
-<td>14</td><td>D&#299;ng ch&#466;u (&#x4E01;&#x4E11;)</td>
-<td>34</td><td>D&#299;ng y&#466;u (&#x4E01;&#x9149;)</td>
-<td>54</td><td>D&#299;ng s&#236; (&#x4E01;&#x5DF3;)</td>
-</tr>
-<tr>
-<td>15</td><td>W&#249; y&#237;n (&#x620A;&#x5BC5;)</td>
-<td>35</td><td>W&#249; x&#363; (&#x620A;&#x620C;)</td>
-<td>55</td><td>W&#249; w&#468; (&#x620A;&#x5348;)</td>
-</tr>
-<tr>
-<td>16</td><td>J&#464; m&#462;o (&#x5DF1;&#x536F;)</td>
-<td>36</td><td>J&#464; h&#224;i (&#x5DF1;&#x4EA5;)</td>
-<td>56</td><td>J&#464; w&#232;i (&#x5DF1;&#x672A;)</td>
-</tr>
-<tr>
-<td>17</td><td>G&#275;ng ch&#233;n (&#x5E9A;&#x8FB0;)</td>
-<td>37</td><td>G&#275;ng z&#464; (&#x5E9A;&#x5B50;)</td>
-<td>57</td><td>G&#275;ng sh&#275;n (&#x5E9A;&#x7533;)</td>
-</tr>
-<tr>
-<td>18</td><td>X&#299;n s&#236; (&#x8F9B;&#x5DF3;)</td>
-<td>38</td><td>X&#299;n ch&#466;u (&#x8F9B;&#x4E11;)</td>
-<td>58</td><td>X&#299;n y&#466;u (&#x8F9B;&#x9149;)</td>
-</tr>
-<tr>
-<td>19</td><td>R&#233;n w&#468; (&#x58EC;&#x5348;)</td>
-<td>39</td><td>R&#233;n y&#237;n (&#x58EC;&#x5BC5;)</td>
-<td>59</td><td>R&#233;n x&#363; (&#x58EC;&#x620C;)</td>
-</tr>
-<tr>
-<td>20</td><td>Gu&#464; w&#232;i (&#x7678;&#x672A;)</td>
-<td>40</td><td>Gu&#464; m&#462;o (&#x7678;&#x536F;)</td>
-<td>60</td><td>Gu&#464; h&#224;i (&#x7678;&#x4EA5;)</td>
-</tr>
+    <tr>
+        <td>1</td><td>Jiǎ zǐ (甲子)</td>
+        <td>16</td><td>Jǐ sì (己卯)</td>
+        <td>31</td><td>Jiǎ zǐ (甲午)</td>
+        <td>46</td><td>Jǐ sì (己酉)</td>
+        </tr>
+        <tr>
+        <td>2</td><td>Yǐ chǒu (乙丑)</td>
+        <td>17</td><td>Gēng wǔ (庚辰)</td>
+        <td>32</td><td>Yǐ chǒu (乙未)</td>
+        <td>47</td><td>Gēng wǔ (庚戌)</td>
+        </tr>
+        <tr>
+        <td>3</td><td>Bǐng yín (丙寅)</td>
+        <td>18</td><td>Xīn wèi (辛巳)</td>
+        <td>33</td><td>Bǐng yín (丙申)</td>
+        <td>48</td><td>Xīn wèi (辛亥)</td>
+        </tr>
+        <tr>
+        <td>4</td><td>Dīng mǎo (丁卯)</td>
+        <td>19</td><td>Rén shēn (壬午)</td>
+        <td>34</td><td>Dīng mǎo (丁酉)</td>
+        <td>49</td><td>Rén shēn (壬子)</td>
+        </tr>
+        <tr>
+        <td>5</td><td>Wù chén (戊辰)</td>
+        <td>20</td><td>Guǐ yǒu (癸未)</td>
+        <td>35</td><td>Wù chén (戊戌)</td>
+        <td>50</td><td>Guǐ yǒu (癸丑)</td>
+        </tr>
+        <tr>
+        <td>6</td><td>Jǐ sì (己巳)</td>
+        <td>21</td><td>Jiǎ zǐ (甲申)</td>
+        <td>36</td><td>Jǐ sì (己亥)</td>
+        <td>51</td><td>Jiǎ zǐ (甲寅)</td>
+        </tr>
+        <tr>
+        <td>7</td><td>Gēng wǔ (庚午)</td>
+        <td>22</td><td>Yǐ chǒu (乙酉)</td>
+        <td>37</td><td>Gēng wǔ (庚子)</td>
+        <td>52</td><td>Yǐ chǒu (乙卯)</td>
+        </tr>
+        <tr>
+        <td>8</td><td>Xīn wèi (辛未)</td>
+        <td>23</td><td>Bǐng yín (丙戌)</td>
+        <td>38</td><td>Xīn wèi (辛丑)</td>
+        <td>53</td><td>Bǐng yín (丙辰)</td>
+        </tr>
+        <tr>
+        <td>9</td><td>Rén shēn (壬申)</td>
+        <td>24</td><td>Dīng mǎo (丁亥)</td>
+        <td>39</td><td>Rén shēn (壬寅)</td>
+        <td>54</td><td>Dīng mǎo (丁巳)</td>
+        </tr>
+        <tr>
+        <td>10</td><td>Guǐ yǒu (癸酉)</td>
+        <td>25</td><td>Wù chén (戊子)</td>
+        <td>40</td><td>Guǐ yǒu (癸卯)</td>
+        <td>55</td><td>Wù chén (戊午)</td>
+        </tr>
+        <tr>
+        <td>11</td><td>Jiǎ zǐ (甲戌)</td>
+        <td>26</td><td>Jǐ sì (己丑)</td>
+        <td>41</td><td>Jiǎ zǐ (甲辰)</td>
+        <td>56</td><td>Jǐ sì (己未)</td>
+        </tr>
+        <tr>
+        <td>12</td><td>Yǐ chǒu (乙亥)</td>
+        <td>27</td><td>Gēng wǔ (庚寅)</td>
+        <td>42</td><td>Yǐ chǒu (乙巳)</td>
+        <td>57</td><td>Gēng wǔ (庚申)</td>
+        </tr>
+        <tr>
+        <td>13</td><td>Bǐng yín (丙子)</td>
+        <td>28</td><td>Xīn wèi (辛卯)</td>
+        <td>43</td><td>Bǐng yín (丙午)</td>
+        <td>58</td><td>Xīn wèi (辛酉)</td>
+        </tr>
+        <tr>
+        <td>14</td><td>Dīng mǎo (丁丑)</td>
+        <td>29</td><td>Rén shēn (壬辰)</td>
+        <td>44</td><td>Dīng mǎo (丁未)</td>
+        <td>59</td><td>Rén shēn (壬戌)</td>
+        </tr>
+        <tr>
+        <td>15</td><td>Wù chén (戊寅)</td>
+        <td>30</td><td>Guǐ yǒu (癸巳)</td>
+        <td>45</td><td>Wù chén (戊申)</td>
+        <td>60</td><td>Guǐ yǒu (癸亥)</td>
+        </tr>
 </table>
 
     <br />
-    
+
+<p>Because of the cyclic nature of the stems, branches and sexagenary numbers, Tables 1 and 2 are not the best way to list them. A better way to represent them is to arrange them in rings, as shown in the diagrams below.</p>
+
+<p><img src="stems.png" alt="Heavenly Stem Diagram" style="max-width:100%;" />
+    <img src="branches.png" alt="Earthly Branch Diagram" style="max-width:100%;" /></p>
+<br />
+<p><img src="sexagenary.png" alt="Sexagenary Cycle Diagram" style="max-width:100%;" /></p>
+ <br />   
+<p>It is apparent from these diagrams that each of the stems, branches, and sexagenary numbers is on an equal footing. The orders of the lists are somewhat arbitrary and are purely determined by conventions.</p>
+
 <p>Sexagenary cycle is used to label years, months, days and times, although the cycle for months, days and time are no longer in common use today.</p>
 <br />
 <h2>Sexagenary Year Cycle</h2>
@@ -354,6 +341,27 @@ There are an unknown number of things. The remainder is two when counted by thre
 </ul>
 <br /><br />
 </div> <!-- end of wrapper -->
-
+<script>
+    // let heavenEng = ["Ji&#462;","Y&#464;","B&#464;ng","D&#299;ng","W&#249;", 
+    //                   "J&#464;", "G&#275;ng","X&#299;n","R&#233;n", "Gu&#464;"];
+    // let earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n", 
+    //                 "s&#236;", "w&#468;", "w&#232;i", "sh&#275;n", "y&#466;u", 
+    //                 "x&#363;", "h&#224;i"];
+    // let heavenChi = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+    // let earthChi = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+    // let txt = '<table>\n';
+    // for (let i=0; i<15; i++) {
+    //     txt += '<tr>\n';
+    //     for (let j=0; j<4; j++) {
+    //         let k = i+j*15;
+    //         let ih = (k % 10), ie = (k % 12);
+    //         //txt +='<td>'+(k+1)+'</td><td>'+heavenEng[ih]+' '+earthEng[ih]+' ('+heavenChi[ih]+earthChi[ie]+')</td>\n';
+    //         txt += '<td>'+(k+1)+'</td><td>'+heavenChi[ih]+earthChi[ie]+'</td>\n';
+    //     }
+    //     txt += '</tr>\n';
+    // }
+    // txt += '</table>';
+    // document.getElementById('sexagenaryTable').innerHTML = txt;
+</script>
 </body>
 </html>
