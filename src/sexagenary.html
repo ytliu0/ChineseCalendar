@@ -63,14 +63,24 @@ let earthEng = ["z&#464;", "ch&#466;u", "y&#237;n", "m&#462;o", "ch&#233;n",
                 "x&#363;", "h&#224;i"];
 let heavenChi = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
 let earthChi = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+// let txt = '<table>\n';
+// for (let i=0; i<15; i++) {
+//     txt += '<tr>\n';
+//     for (let j=0; j<4; j++) {
+//         let k = i+j*15;
+//         let ih = (k % 10), ie = (k % 12);
+//         txt += '<td>'+(k+1)+'</td><td>'+heavenChi[ih]+earthChi[ie]+'</td>\n';
+//     }
+//     txt += '</tr>\n';
+// }
+// txt += '</table>';
 let txt = '<table>\n';
-for (let i=0; i<15; i++) {
+for (let i=0; i<20; i++) {
     txt += '<tr>\n';
-    for (let j=0; j<4; j++) {
-        let k = i+j*15;
+    for (let j=0; j<3; j++) {
+        let k = i+j*20;
         let ih = (k % 10), ie = (k % 12);
-        //txt +='<td>'+(k+1)+'</td><td>'+heavenEng[ih]+' '+earthEng[ih]+' ('+heavenChi[ih]+earthChi[ie]+')</td>\n';
-        txt += '<td>'+(k+1)+'</td><td>'+heavenChi[ih]+earthChi[ie]+'</td>\n';
+        txt +='<td>'+(k+1)+'</td><td>'+heavenEng[ih]+' '+earthEng[ie]+' ('+heavenChi[ih]+earthChi[ie]+')</td>\n';
     }
     txt += '</tr>\n';
 }
@@ -78,99 +88,109 @@ txt += '</table>';
 document.getElementById('sexagenaryTable').innerHTML = txt;
 </script>
 -->
-    
+
 <table id="sexagenary">
     <caption>Table 2: Sexagenary numbers</caption>
     <tr>
         <td>1</td><td>Jiǎ zǐ (甲子)</td>
-        <td>16</td><td>Jǐ sì (己卯)</td>
-        <td>31</td><td>Jiǎ zǐ (甲午)</td>
-        <td>46</td><td>Jǐ sì (己酉)</td>
+        <td>21</td><td>Jiǎ shēn (甲申)</td>
+        <td>41</td><td>Jiǎ chén (甲辰)</td>
         </tr>
         <tr>
         <td>2</td><td>Yǐ chǒu (乙丑)</td>
-        <td>17</td><td>Gēng wǔ (庚辰)</td>
-        <td>32</td><td>Yǐ chǒu (乙未)</td>
-        <td>47</td><td>Gēng wǔ (庚戌)</td>
+        <td>22</td><td>Yǐ yǒu (乙酉)</td>
+        <td>42</td><td>Yǐ sì (乙巳)</td>
         </tr>
         <tr>
         <td>3</td><td>Bǐng yín (丙寅)</td>
-        <td>18</td><td>Xīn wèi (辛巳)</td>
-        <td>33</td><td>Bǐng yín (丙申)</td>
-        <td>48</td><td>Xīn wèi (辛亥)</td>
+        <td>23</td><td>Bǐng xū (丙戌)</td>
+        <td>43</td><td>Bǐng wǔ (丙午)</td>
         </tr>
         <tr>
         <td>4</td><td>Dīng mǎo (丁卯)</td>
-        <td>19</td><td>Rén shēn (壬午)</td>
-        <td>34</td><td>Dīng mǎo (丁酉)</td>
-        <td>49</td><td>Rén shēn (壬子)</td>
+        <td>24</td><td>Dīng hài (丁亥)</td>
+        <td>44</td><td>Dīng wèi (丁未)</td>
         </tr>
         <tr>
         <td>5</td><td>Wù chén (戊辰)</td>
-        <td>20</td><td>Guǐ yǒu (癸未)</td>
-        <td>35</td><td>Wù chén (戊戌)</td>
-        <td>50</td><td>Guǐ yǒu (癸丑)</td>
+        <td>25</td><td>Wù zǐ (戊子)</td>
+        <td>45</td><td>Wù shēn (戊申)</td>
         </tr>
         <tr>
         <td>6</td><td>Jǐ sì (己巳)</td>
-        <td>21</td><td>Jiǎ zǐ (甲申)</td>
-        <td>36</td><td>Jǐ sì (己亥)</td>
-        <td>51</td><td>Jiǎ zǐ (甲寅)</td>
+        <td>26</td><td>Jǐ chǒu (己丑)</td>
+        <td>46</td><td>Jǐ yǒu (己酉)</td>
         </tr>
         <tr>
         <td>7</td><td>Gēng wǔ (庚午)</td>
-        <td>22</td><td>Yǐ chǒu (乙酉)</td>
-        <td>37</td><td>Gēng wǔ (庚子)</td>
-        <td>52</td><td>Yǐ chǒu (乙卯)</td>
+        <td>27</td><td>Gēng yín (庚寅)</td>
+        <td>47</td><td>Gēng xū (庚戌)</td>
         </tr>
         <tr>
         <td>8</td><td>Xīn wèi (辛未)</td>
-        <td>23</td><td>Bǐng yín (丙戌)</td>
-        <td>38</td><td>Xīn wèi (辛丑)</td>
-        <td>53</td><td>Bǐng yín (丙辰)</td>
+        <td>28</td><td>Xīn mǎo (辛卯)</td>
+        <td>48</td><td>Xīn hài (辛亥)</td>
         </tr>
         <tr>
         <td>9</td><td>Rén shēn (壬申)</td>
-        <td>24</td><td>Dīng mǎo (丁亥)</td>
-        <td>39</td><td>Rén shēn (壬寅)</td>
-        <td>54</td><td>Dīng mǎo (丁巳)</td>
+        <td>29</td><td>Rén chén (壬辰)</td>
+        <td>49</td><td>Rén zǐ (壬子)</td>
         </tr>
         <tr>
         <td>10</td><td>Guǐ yǒu (癸酉)</td>
-        <td>25</td><td>Wù chén (戊子)</td>
-        <td>40</td><td>Guǐ yǒu (癸卯)</td>
-        <td>55</td><td>Wù chén (戊午)</td>
+        <td>30</td><td>Guǐ sì (癸巳)</td>
+        <td>50</td><td>Guǐ chǒu (癸丑)</td>
         </tr>
         <tr>
-        <td>11</td><td>Jiǎ zǐ (甲戌)</td>
-        <td>26</td><td>Jǐ sì (己丑)</td>
-        <td>41</td><td>Jiǎ zǐ (甲辰)</td>
-        <td>56</td><td>Jǐ sì (己未)</td>
+        <td>11</td><td>Jiǎ xū (甲戌)</td>
+        <td>31</td><td>Jiǎ wǔ (甲午)</td>
+        <td>51</td><td>Jiǎ yín (甲寅)</td>
         </tr>
         <tr>
-        <td>12</td><td>Yǐ chǒu (乙亥)</td>
-        <td>27</td><td>Gēng wǔ (庚寅)</td>
-        <td>42</td><td>Yǐ chǒu (乙巳)</td>
-        <td>57</td><td>Gēng wǔ (庚申)</td>
+        <td>12</td><td>Yǐ hài (乙亥)</td>
+        <td>32</td><td>Yǐ wèi (乙未)</td>
+        <td>52</td><td>Yǐ mǎo (乙卯)</td>
         </tr>
         <tr>
-        <td>13</td><td>Bǐng yín (丙子)</td>
-        <td>28</td><td>Xīn wèi (辛卯)</td>
-        <td>43</td><td>Bǐng yín (丙午)</td>
-        <td>58</td><td>Xīn wèi (辛酉)</td>
+        <td>13</td><td>Bǐng zǐ (丙子)</td>
+        <td>33</td><td>Bǐng shēn (丙申)</td>
+        <td>53</td><td>Bǐng chén (丙辰)</td>
         </tr>
         <tr>
-        <td>14</td><td>Dīng mǎo (丁丑)</td>
-        <td>29</td><td>Rén shēn (壬辰)</td>
-        <td>44</td><td>Dīng mǎo (丁未)</td>
-        <td>59</td><td>Rén shēn (壬戌)</td>
+        <td>14</td><td>Dīng chǒu (丁丑)</td>
+        <td>34</td><td>Dīng yǒu (丁酉)</td>
+        <td>54</td><td>Dīng sì (丁巳)</td>
         </tr>
         <tr>
-        <td>15</td><td>Wù chén (戊寅)</td>
-        <td>30</td><td>Guǐ yǒu (癸巳)</td>
-        <td>45</td><td>Wù chén (戊申)</td>
-        <td>60</td><td>Guǐ yǒu (癸亥)</td>
+        <td>15</td><td>Wù yín (戊寅)</td>
+        <td>35</td><td>Wù xū (戊戌)</td>
+        <td>55</td><td>Wù wǔ (戊午)</td>
         </tr>
+        <tr>
+        <td>16</td><td>Jǐ mǎo (己卯)</td>
+        <td>36</td><td>Jǐ hài (己亥)</td>
+        <td>56</td><td>Jǐ wèi (己未)</td>
+        </tr>
+        <tr>
+        <td>17</td><td>Gēng chén (庚辰)</td>
+        <td>37</td><td>Gēng zǐ (庚子)</td>
+        <td>57</td><td>Gēng shēn (庚申)</td>
+        </tr>
+        <tr>
+        <td>18</td><td>Xīn sì (辛巳)</td>
+        <td>38</td><td>Xīn chǒu (辛丑)</td>
+        <td>58</td><td>Xīn yǒu (辛酉)</td>
+        </tr>
+        <tr>
+        <td>19</td><td>Rén wǔ (壬午)</td>
+        <td>39</td><td>Rén yín (壬寅)</td>
+        <td>59</td><td>Rén xū (壬戌)</td>
+        </tr>
+        <tr>
+        <td>20</td><td>Guǐ wèi (癸未)</td>
+        <td>40</td><td>Guǐ mǎo (癸卯)</td>
+        <td>60</td><td>Guǐ hài (癸亥)</td>
+    </tr>
 </table>
 
     <br />
@@ -207,8 +227,15 @@ document.getElementById('sexagenaryTable').innerHTML = txt;
     
 <p>Finally, I should mention that the term <i>ji&#224;n</i> means the handle of the big dipper asterism, which consists of the three stars Alkaid, Mizar and Alioth (see Figure 1 below). Directions may be labeled by the 12 earthly branches by dividing the horizon circle into 12 evenly spaced directions. The convention is to label the north direction by z&#464;, east by m&#462;o, south by w&#468;, west by y&#466;u and so on (see Figure 2 below). Before the 7th century, the big dipper stars were closer to the celestial north pole than today. They were always above the horizon as observed in the Central Plains China (around latitude 35&deg;N). They were circumpolar stars. In the evening around the winter solstice, the handle of the dipper pointed towards north (the z&#464; direction). That was the reason why the month containing the winter solstice was called the <i>ji&#224;n</i> z&#464; month. Because of the precession of Earth's spin axis, the dipper stars have moved further away from the celestial north pole. Today, in the evening around the winter solstice at 35&deg;N latitude, Alkaid is below the horizon; Mizar and Alioth are very low near the northern horizon. To see the dipper's handle pointing north, one has to travel to a region north of 41&deg;N.</p>
     
-<p><img src="Dipper.jpg" alt="Big Dipper" style="width:326px;" /> &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="direction_branch.png" alt="Earthly Branches and Directions" /></p>
+<p><figure>
+    <img src="Dipper.png" alt="Big Dipper" style="max-width:100%;" />
+    <figcaption>Figure 1: The Asterism of Big Dipper.</figcaption>
+</figure>
+<figure>
+    <img src="direction_branch.png" alt="Earthly Branches and Directions" />
+    <figcaption>Figure 2: Earthly Branches and Direction.</figcaption>
+</figure>
+</p>
     
 <br />
 <h2 id="sexagenaryMonths">Sexagenary Month Cycle</h2>
