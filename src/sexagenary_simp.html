@@ -273,7 +273,7 @@
 <p>由于日干支的周期是六十天，只要知道某一儒略日数的日干支，便可用同余算术推出儒略日数和日干支的关系。查<a href="index_simp.html?y=2019">2019年历</a>，得知公元2019年1月27日的日干支是甲子，而该日正午的儒略日数是2458511。从mod(2458511, 60) = 11，可推出某日正午儒略日数<span class="nowrap">JD<sub style='font-size:60%;'>正午</sub></span>与日干支的关系是</p>
 <p>日干支数 S=1+mod(JD<sub style='font-size:60%;'>正午</sub>-11, 60)。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)</p>
     
-<p>此处干支数是指按上面<a href="#sexagenary">表二</a>所列的干支次序，即1代表甲子、2代表乙丑、3代表丙寅等等。若以T代表天干数及B代表地支数，即T和B是上面<a href="#stemsNbranches">表一</a>列出的天干和地支次序，则知道了S后便可用以下公式计算天干数和地支数:</p>
+<p>此处干支数是指按上面<a href="sexagenary_simp.html#sexagenary">表二</a>所列的干支次序，即1代表甲子、2代表乙丑、3代表丙寅等等。若以T代表天干数及B代表地支数，即T和B是上面<a href="sexagenary_simp.html#stemsNbranches">表一</a>列出的天干和地支次序，则知道了S后便可用以下公式计算天干数和地支数:</p>
 <p>T=1+mod(S-1, 10),&nbsp;&nbsp; B=1+mod(S-1, 12)。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)</p>
     
 <p>干支数S虽然在古代历法计算中有时有用，但我认为在大多数情况下是不必要的。天干数T和地支数B可以直接用<span class="nowrap">JD<sub style='font-size:60%;'>正午</sub></span>计算。这可从日天干的周期是十天、日地支周期是十二天、以及上述<span class="nowrap">JD<sub style='font-size:60%;'>正午</sub></span>=2458511对应的日干支是甲子(T=1、B=1)推出。从mod(2458511, 10) = 1及mod(2458511, 12) = 11得出以下公式:</p>
@@ -288,11 +288,11 @@
     
 <p>又顺带一提，知道了干支数S后，天干数T和地支数B可用公式(2)轻易计算。反过来，知道天干数T和地支数B后，要求干支数S就要解以下的同余方程:</p>
 <p>S &equiv; T (mod 10), &nbsp;&nbsp; S &equiv; B (mod 12)。</p>
-<p>此处&equiv;符号表示同余。上面公式是说S-T可被10整除、S-B可被12整除。如果不熟悉同余算术，要找出一条算式来表示S也许会有点困难。对于某一特定的T和B，当然可以查<a href="#sexagenary">表二</a>找到答案。如果认为查表二等于「作弊」，可以用以下公式计算:</p>
-<p>先算 k=6T-5B，如果k&gt;0，则 S=k; 如果k&le;0，则 S=k+60。也可以证明k&gt;0等同于T&ge;B，k&le;0等同于T&lt;B，而T-B必定是偶数。<sup><a href="#fn1">[1]</a></sup></p>
-<p>以上面算出的壬戌干支为例，T=9、B=11，k=6&times;9-5&times;11=-1，所以S=59，正是<a href="#sexagenary">表二</a>列出壬戌的干支次序。</p>
+<p>此处&equiv;符号表示同余。上面公式是说S-T可被10整除、S-B可被12整除。如果不熟悉同余算术，要找出一条算式来表示S也许会有点困难。对于某一特定的T和B，当然可以查<a href="sexagenary_simp.html#sexagenary">表二</a>找到答案。如果认为查表二等于「作弊」，可以用以下公式计算:</p>
+<p>先算 k=6T-5B，如果k&gt;0，则 S=k; 如果k&le;0，则 S=k+60。也可以证明k&gt;0等同于T&ge;B，k&le;0等同于T&lt;B，而T-B必定是偶数。<sup><a href="sexagenary_simp.html#fn1">[1]</a></sup></p>
+<p>以上面算出的壬戌干支为例，T=9、B=11，k=6&times;9-5&times;11=-1，所以S=59，正是<a href="sexagenary_simp.html#sexagenary">表二</a>列出壬戌的干支次序。</p>
     
-<p>以上所述的同余算术问题并不难。我没有正式学过同余算术理论，但仍能輕易求出其解，原因是求解过程中不须要用到如<a href="https://zh.wikipedia.org/zh-hans/%E5%A4%A7%E8%A1%8D%E6%B1%82%E4%B8%80%E6%9C%AF" target="_blank">大衍求一术</a>这样精妙的算法<sup><a href="#fn2">[2]</a></sup>。稍为艰难的算题见于《孙子算经》，即著明的「物不知数」算题:<sup><a href="#fn3">[3]</a></sup>「今有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？」用现代数学算式表示，就是要求一整数x，使得</p>
+<p>以上所述的同余算术问题并不难。我没有正式学过同余算术理论，但仍能輕易求出其解，原因是求解过程中不须要用到如<a href="https://zh.wikipedia.org/zh-hans/%E5%A4%A7%E8%A1%8D%E6%B1%82%E4%B8%80%E6%9C%AF" target="_blank">大衍求一术</a>这样精妙的算法<sup><a href="sexagenary_simp.html#fn2">[2]</a></sup>。稍为艰难的算题见于《孙子算经》，即著明的「物不知数」算题:<sup><a href="sexagenary_simp.html#fn3">[3]</a></sup>「今有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？」用现代数学算式表示，就是要求一整数x，使得</p>
 <p>x &equiv; 2 (mod 3)， &nbsp; x &equiv; 3 (mod 5)， &nbsp; x &equiv; 2 (mod 7)。</p>
 <p>中国古代学者在计算历法时遇到了不少同余算术问题(尤其是计算<a href="Shangyuan_simp.html">上元积年</a>)，很可能因此深入研究同余算术，发现了著明的<a href="https://baike.baidu.com/item/%E5%AD%99%E5%AD%90%E5%AE%9A%E7%90%86" target="_blank">孙子定理</a>，西方称为「中国剩余定理」。</p>
 <br />

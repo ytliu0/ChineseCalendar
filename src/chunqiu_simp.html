@@ -36,14 +36,14 @@ sect::before {
 <div style="border:1px solid black;padding:10px;">
 <p><b>内容</b></p>
 <ol>
-<li><a href="#computation">合 朔 计 算</a></li>
-<li><a href="#leapMons">闰 月 和 积 月</a></li>
-<li><a href="#typos">《中 国 古 代 历 法》表 3-7 勘 误</a></li>
-<li><a href="#firstMonth">春 秋 历 的 闰 月 和 正 月 月 建</a></li>
-<li><a href="#reliability">复 原 的 春 秋 历 法 是 否 可 信 ?</a>
-<li><a href="#julian">儒 略 日 数</a></li>
+<li><a href="chunqiu_simp.html#computation">合 朔 计 算</a></li>
+<li><a href="chunqiu_simp.html#leapMons">闰 月 和 积 月</a></li>
+<li><a href="chunqiu_simp.html#typos">《中 国 古 代 历 法》表 3-7 勘 误</a></li>
+<li><a href="chunqiu_simp.html#firstMonth">春 秋 历 的 闰 月 和 正 月 月 建</a></li>
+<li><a href="chunqiu_simp.html#reliability">复 原 的 春 秋 历 法 是 否 可 信 ?</a>
+<li><a href="chunqiu_simp.html#julian">儒 略 日 数</a></li>
 </ol>
-&nbsp;&nbsp;&nbsp;<a href="#footnotes">备 注</a>
+&nbsp;&nbsp;&nbsp;<a href="chunqiu_simp.html#footnotes">备 注</a>
 </div>
     
 <br />
@@ -409,7 +409,7 @@ K(y+1) = mod(K(y) + 13&times;545, 1027) = mod(K(y) - 104, 1027)&nbsp;&nbsp;&nbsp
     
 <p>有了积月后，春秋历的计算便十分简单，而表中除了正月月建有时要比较难决定外，其他各栏的数据也可用积月轻易计算，这里以<span class="nowrap">N<sub>-649</sub></span>(鲁僖公十年)作为例子说明。从表中得知N<sub>-649</sub>的正月积月是890，所以合朔时刻离<span class="nowrap">N<sub>-721</sub></span>正朔辛巳日子正的时间是<br />
 [268/1027 + 890&times;(29 + 545/1027) ]日= (26282 + 574/1027)日<br />
-日数是26282、小余574，小余与表中数据吻合。日天干十日一周、日地支十二日一周，据此用同余算术算得辛巳日后26282日的日干支是癸未，也与表中相符。公历日期的计算可先由-721年至-649年的积日着手。公历在1582年10月15日前用儒略历，能被四整除的年份是闰年，有366日，其余是平年，有365日。公元-721年至-649年有72年，其中有闰年的年份是-720年、-716年……-652年共18年，所以从-721年1月16日到-649年1月16日有(365&times;72 + 18)日=26298日=(26282+16)日，所以N<sub>-649</sub>的正月初一在-649年1月16日之前16日，即-650年12月31日，亦与表中的数据一致。至于正月月建，按定义含冬至的月份为建子(参看<a href="sexagenary_simp.html#jian">干支网页</a>)，但是春秋历没有计算冬至的方法，当时是靠观象测定，所以应接近当时实际的定气冬至，根据<a href="sunMoon_simp.html?y=-650">气朔时刻网页</a>，公元<span class="nowrap">-650</span>的冬至在12月28日<sup><a href="#fn1">注一</a></sup>。正月初一在12月31日，在冬至后三日，显然上一个月含冬至，是建子，所以正月的月建是建丑。</p>
+日数是26282、小余574，小余与表中数据吻合。日天干十日一周、日地支十二日一周，据此用同余算术算得辛巳日后26282日的日干支是癸未，也与表中相符。公历日期的计算可先由-721年至-649年的积日着手。公历在1582年10月15日前用儒略历，能被四整除的年份是闰年，有366日，其余是平年，有365日。公元-721年至-649年有72年，其中有闰年的年份是-720年、-716年……-652年共18年，所以从-721年1月16日到-649年1月16日有(365&times;72 + 18)日=26298日=(26282+16)日，所以N<sub>-649</sub>的正月初一在-649年1月16日之前16日，即-650年12月31日，亦与表中的数据一致。至于正月月建，按定义含冬至的月份为建子(参看<a href="sexagenary_simp.html#jian">干支网页</a>)，但是春秋历没有计算冬至的方法，当时是靠观象测定，所以应接近当时实际的定气冬至，根据<a href="sunMoon_simp.html?y=-650">气朔时刻网页</a>，公元<span class="nowrap">-650</span>的冬至在12月28日<sup><a href="chunqiu_simp.html#fn1">注一</a></sup>。正月初一在12月31日，在冬至后三日，显然上一个月含冬至，是建子，所以正月的月建是建丑。</p>
     
 <p>知道了N<sub>-649</sub>的正月朔日日期和合朔小余后，N<sub>-649</sub>的其他月份的初一日期和合朔小余只须把正月朔的时刻加上朔策的整数倍便可求得。N<sub>-649</sub>没有闰月，下表把正月至十二月的初一日期、干支和合朔小余列出。</p>
     
@@ -458,7 +458,7 @@ K(y+1) = mod(K(y) + 13&times;545, 1027) = mod(K(y) - 104, 1027)&nbsp;&nbsp;&nbsp
     
 <p>表3-7列出<span class="nowrap">N<sub>-624</sub></span>(鲁文公二年)的正月月建是子，朔日是戊子(前626年12月25日)，小余是551。如果<span class="nowrap">N<sub>-624</sub></span>没有闰月，<span class="nowrap">N<sub>-623</sub></span>的正月朔是建子月壬午日(前625年12月13日)，小余是929。如果<span class="nowrap">N<sub>-624</sub></span>有闰月，<span class="nowrap">N<sub>-623</sub></span>的正月朔是建丑月壬子日(前624年1月12日)，小余是447。因此无论<span class="nowrap">N<sub>-624</sub></span>有没有闰月，<span class="nowrap">N<sub>-623</sub></span>的正朔小余都不是614，表3-7列出<span class="nowrap">N<sub>-623</sub></span>的正朔是建子月壬午日，所以小余是929。</p>
     
-<p>张培瑜著的《三千五百年历日天象》(大象出版社‧1997年7月)也有春秋历表，其中N<sub>-721</sub>、N<sub>-681</sub>和N<sub>-680</sub>的正月朔日与修改表3-7后的日期一致，但是该书列出的N<sub>-675</sub>、N<sub>-674</sub>、N<sub>-600</sub>、N<sub>-519</sub>和N<sub>-502</sub>正月朔日与《中国古代历法》表3-7的数据相差一个月。这里没有采用《三千五百年历日天象》的数据，因为书中没有说明计算方法，难以断定是否有误<sup><a href="#fn2">注二</a></sup>。</p>    
+<p>张培瑜著的《三千五百年历日天象》(大象出版社‧1997年7月)也有春秋历表，其中N<sub>-721</sub>、N<sub>-681</sub>和N<sub>-680</sub>的正月朔日与修改表3-7后的日期一致，但是该书列出的N<sub>-675</sub>、N<sub>-674</sub>、N<sub>-600</sub>、N<sub>-519</sub>和N<sub>-502</sub>正月朔日与《中国古代历法》表3-7的数据相差一个月。这里没有采用《三千五百年历日天象》的数据，因为书中没有说明计算方法，难以断定是否有误<sup><a href="chunqiu_simp.html#fn2">注二</a></sup>。</p>    
     
 <br />
     
