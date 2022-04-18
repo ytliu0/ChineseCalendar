@@ -981,7 +981,7 @@ function calDataYear_HanZhuanXu(y, jd0, ndays, mday, solar,
 
 // Driver for setting up the calender data for years < -104
 function calDataYear_ancient(y, jd0, ndays, mday, solar, 
-                                 Q0, Q1, Q2, Q3) {
+                                 Q0, Q1, Q2, Q3, li_in = null) {
     // Qin and early Han calendar
     if (y >= -220 && y < -104) {
         return calDataYear_HanZhuanXu(y, jd0, ndays, mday, solar, 
@@ -992,12 +992,16 @@ function calDataYear_ancient(y, jd0, ndays, mday, solar,
     
     // Warring state period
     if (y >= - 479 && y <-220) {
-        menu = ancient_calendar_menu("Warring");
-        for (i=0; i<menu.length; i++) {
-            if (document.getElementById(menu[i].id).classList.contains('active')) {
-                li = menu[i].li;
-                break;
+        if (li_in===null) {
+            menu = ancient_calendar_menu("Warring");
+            for (i=0; i<menu.length; i++) {
+                if (document.getElementById(menu[i].id).classList.contains('active')) {
+                    li = menu[i].li;
+                    break;
+                }
             }
+        } else {
+            li = li_in;
         }
         c = calDataYear_info_guliuli(li, y, jd0+1, ndays);
         return {jd0:jd0, mday:mday, cmonthDate:c.cmonthDate, 
@@ -1010,12 +1014,16 @@ function calDataYear_ancient(y, jd0, ndays, mday, solar,
     
     // Spring and Autumn period
     if (y < - 479) {
-        menu = ancient_calendar_menu("Spring");
-        for (i=0; i<menu.length; i++) {
-            if (document.getElementById(menu[i].id).classList.contains('active')) {
-                li = menu[i].li;
-                break;
+        if (li_in===null) {
+            menu = ancient_calendar_menu("Spring");
+            for (i=0; i<menu.length; i++) {
+                if (document.getElementById(menu[i].id).classList.contains('active')) {
+                    li = menu[i].li;
+                    break;
+                }
             }
+        } else {
+            li = li_in;
         }
         if (li=="Chunqiu") {
             c = calDataYear_info_chunqiu(y, jd0+1, ndays);

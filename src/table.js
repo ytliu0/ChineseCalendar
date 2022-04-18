@@ -1568,16 +1568,16 @@ function table_ming(lang) {
     let tit = document.getElementById('title');
     let tab = document.getElementById('description');
     if (lang==0) {
-        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (1368 &ndash; 1644)</h1>';
-        tab.innerHTML = '<p>The following table lists the Julian/Gregorian dates MM-DD of the first day of each month in the Chinese calendar in the Ming dynasty (1368&ndash;1644). Julian calendar was used until October 4th, 1582, after which the Western calendar was switched to the Gregorian calendar. The date following October 4th, 1582 was October 15th, 1582 because of the Gregorian calendar reform. MM indicates the Julian/Gregorian month and DD indicates the Julian/Gregorian date. When MM is 13, it means January in the following Julian/Gregorian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian/Gregorian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
+        tit.innerHTML = '<h1>Chinese Calendar &ndash; Western Calendar Conversion Table (1368 &ndash; 1644, 1645 &ndash; 1683)</h1>';
+        tab.innerHTML = '<p>The following table lists the Julian/Gregorian dates MM-DD of the first day of each month in the Chinese calendar in the Ming dynasty (1368&ndash;1644), Southern Ming and Zheng dynasty (1645&ndash;1683). Julian calendar was used until October 4th, 1582, after which the Western calendar was switched to the Gregorian calendar. The date following October 4th, 1582 was October 15th, 1582 because of the Gregorian calendar reform. MM indicates the Julian/Gregorian month and DD indicates the Julian/Gregorian date. When MM is 13, it means January in the following Julian/Gregorian year. The &mdash; in the leap month column means that there is no leap month in that Chinese year. Otherwise, it has the form X: MM-DD. X indicates the month number before the leap month; MM-DD indicates the Julian/Gregorian date of the first day in the leap month. The last column lists the total number of days in the Chinese year.</p>';
         tab.innerHTML += '<p>The Chinese calendar data on this website are computed using the method described <a href="computation.html">here</a>.</p>';
     } else if (lang==1) {
-        tit.innerHTML = '<h1>明 朝 朔 閏 表 (1368 &ndash; 1644)</h1>';
-        tab.innerHTML = '<p>下表列出明朝時(1368年至1644年)農曆每月初一的公曆日期 MM-DD。公曆在1582年10月4日及以前用儒略曆，之後用格里高里曆。格里高里的曆改使1582年10月4日的下一日變成10月15日，跳了十日。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
+        tit.innerHTML = '<h1>明 朝 (1368 &ndash; 1644)、南 明 及 明 鄭 (1645 &ndash; 1683) 朔 閏 表</h1>';
+        tab.innerHTML = '<p>下表列出明朝(1368年至1644年)、南明及明鄭(1645&ndash;1683)時期農曆每月初一的公曆日期 MM-DD。公曆在1582年10月4日及以前用儒略曆，之後用格里高里曆。格里高里的曆改使1582年10月4日的下一日變成10月15日，跳了十日。MM代表公曆月份，DD代表公曆日期。MM=13 表示下一個公曆年的1月。閏月欄裡 &mdash; 表示該農曆年沒有閏月; X: MM-DD 表示該農曆年有閏月，X 表示閏月的農曆月份，MM-DD 表示該閏月初一的公曆月日。公曆日期的下面是日干支。 日數指該農曆年的總日數，即由正月初一到下一個農曆年正月初一中間的日數。</p>';
         tab.innerHTML += '<p><a href="computation_chinese.html">本網站的農曆編算方法</a></p>';
     } else {
-        tit.innerHTML = '<h1>明 朝 朔 闰 表 (1368 &ndash; 1644)</h1>';
-        tab.innerHTML = '<p>下表列出明朝时(1368年至1644年)农历每月初一的公历日期 MM-DD。公历在1582年10月4日及以前用儒略历，之后用格里高里历。格里高里的历改使1582年10月4日的下一日变成10月15日，跳了十日。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
+        tit.innerHTML = '<h1>明 朝 (1368 &ndash; 1644)、南 明 及 明 郑 (1645 &ndash; 1683) 朔 闰 表</h1>';
+        tab.innerHTML = '<p>下表列出明朝(1368年至1644年)、南明及明郑(1645&ndash;1683)时期农历每月初一的公历日期 MM-DD。公历在1582年10月4日及以前用儒略历，之后用格里高里历。格里高里的历改使1582年10月4日的下一日变成10月15日，跳了十日。MM代表公历月份，DD代表公历日期。MM=13 表示下一个公历年的1月。闰月栏里 &mdash; 表示该农历年没有闰月; X: MM-DD 表示该农历年有闰月，X 表示闰月的农历月份，MM-DD 表示该闰月初一的公历月日。公历日期的下面是日干支。 日数指该农历年的总日数，即由正月初一到下一个农历年正月初一中间的日数。</p>';
         tab.innerHTML += '<p><a href="computation_simp.html">本网站的农历编算方法</a></p>';
     }
     
@@ -1585,9 +1585,17 @@ function table_ming(lang) {
     if (lang==0) {
         langCon.Wyear = "Julian<br />year";
     }
+    // Ming dynasty
+    if (lang==0) {
+        tab = '<br /><h2>Ming Dynasty (1368 &ndash; 1644)</h2><br />';
+    } else if (lang==1) {
+        tab = '<br /><h2>明 朝 (1368 &ndash; 1644)</h2><br />';
+    } else {
+        tab = '<br /><h2>明 朝 (1368 &ndash; 1644)</h2><br />';
+    }
     let date = ChineseToGregorian();
     let ystart;
-    tab = tableYears(1368, 1380, date, langCon);
+    tab += tableYears(1368, 1380, date, langCon);
     for (ystart=1381; ystart <= 1571; ystart += 10) {
         tab += tableYears(ystart, ystart+9, date, langCon);
     }
@@ -1604,7 +1612,31 @@ function table_ming(lang) {
                                     date, langCon);
     }
     tab += tableYears(1641, 1644, date, langCon);
+
+    // Southern Ming and Zheng dynasty
+    langCon.region = 'SouthernMing';
+    date = southernMingCalendarData();
+    if (lang==0) {
+        tab += '<h2>Southern Ming and Zheng Dynasty (1645 &ndash; 1683)</h2><br />';
+    } else if (lang==1) {
+        tab += '<h2>南 明 及 明 鄭 (1645 &ndash; 1683)</h2><br />';
+    } else {
+        tab += '<h2>南 明 及 明 郑 (1645 &ndash; 1683)</h2><br />';
+    }
+    tab += tableYears(1645, 1650, date, langCon);
+    for (ystart=1651; ystart <= 1671; ystart += 10) {
+        tab += tableYears(ystart, ystart+9, date, langCon);
+    }
+    tab += tableYears(1681, 1683, date, langCon);
     date = null;
+    if (lang==0) {
+        tab += '<h2><a href="QingSouthernMingZheng_calendars.html">Calendar Differences Between Qing, Southern Ming and Zheng Dynasties in 1645 - 1683</a></h2><br /><br />';
+    } else if (lang==1) {
+        tab += '<h2><a href="QingSouthernMingZheng_calendars_chinese.html">清 與 南 明 及 明 鄭 朔 閏 異 同 表</a></h2><br /><br />';
+    } else {
+        tab += '<h2><a href="QingSouthernMingZheng_calendars_simp.html">清 与 南 明 及 明 郑 朔 闰 异 同 表</a></h2><br /><br />';
+    }
+
     document.getElementById('table').innerHTML = tab;
 }
 
@@ -1812,6 +1844,72 @@ function printWarningMessage(y, langCon) {
             warn = '<p style="color:red;">《三千五百年历日天象》記萬曆三十七年(1609年)正月癸未朔(2月4日)，不合當年的《大統曆》曆書(甲申朔, 2月5日)，見《國家圖書館藏明代大統曆日彙編》第五冊第67頁。</p>';
         } else {
             warn = '<p style="color:red;">《三千五百年历日天象》记万历三十七年(1609年)正月癸未朔(2月4日)，不合当年的《大统历》历书(甲申朔, 2月5日)，见《国家图书馆藏明代大统历日汇编》第五册第67页。</p>';
+        }
+    }
+
+    if (langCon.region=='SouthernMing') {
+        if (y==1650) {
+            warn = '<ol style="color:red;">';
+            if (lang==0) {
+                warn += '<li><p>Several sources indicate that the leap month in 1648 was after the 6th month, which I find to be very unlikely.</p></li>';
+                warn += '<li><p>Two dfferent versions of calendar in the Southern Ming dynasty were produced in 1649. One of them was produced by the officials of the Yongli emperor, in which the New Year day was on February 11th, 1649. Another version was produced by the officials of the Prince of Lu, who named himself regent. The New Year day of the Lu calendar was on February 12th, 1649. According to the calculation of the Datong system, the New Year day was on February 11th, 1649.</p></li>';
+                warn += "<li><p>According to <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> by Fu Yili and <i>Y&#225;n P&#237;ng W&#225;ng H&#249; Gu&#257;n Y&#225;ng Y&#299;ng C&#243;ng Zh&#275;ng Sh&#237; L&#249;</i> (or <i>Account of the quartermaster Yang Ying's campaign with Prince Yanping</i>), the leap month in 1650 was after the 11th month in the Southern Ming calendar. This is consistent with the calculation by the Datong system. However, the Datong calendars produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a>, <a href='N1676_Zheng.html'>1676</a> and <a href='N1677_Zheng.html'>1677</a> recorded the leap month to be after the 12th month. Leap month 12 was probably based on an unofficial calendar expediently produced by the Zheng officials in 1649 since the official emperor calendar had not arrived in time because of war.</p></li>";
+            } else if (lang==1) {
+                warn += '<li><p>王叔武"南明史料朔閏考異"引 《劫灰錄》、 《鹿樵紀聞》、 《明季南略》、 《爝火錄》說永曆二年閏六月，我認為閏六月很可能不對。</p></li>';
+                warn += '<li><p>永曆三年和魯王監國四年正月朔有異:永曆三年正月庚申朔;《魯監國大統曆》則有魯監國四年正月辛酉朔。依明大統曆推算此年正月為庚申朔。</p></li>';
+                warn += '<li><p>傅以禮《殘明大統曆》和《延平王戶官楊英從征實錄》記永曆四年閏十一月，符合大統曆的推算，但明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>、<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>都記永曆四年閏十二月。閏十二月或許是當年鄭氏命官員權宜頒行的大統曆推算出的。</p></li>';
+            } else {
+                warn += '<li><p>王叔武"南明史料朔闰考异"引 《劫灰录》、 《鹿樵纪闻》、 《明季南略》、 《爝火录》说永历二年闰六月，我认为闰六月很可能不对。</p></li>';
+                warn += '<li><p>永历三年和鲁王监国四年正月朔有异:永历三年正月庚申朔;《鲁监国大统历》则有鲁监国四年正月辛酉朔。依明大统历推算此年正月为庚申朔。</p></li>';
+                warn += '<li><p>傅以礼《残明大统历》和《延平王户官杨英从征实录》记永历四年闰十一月，符合大统历的推算，但明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>、<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历四年闰十二月。闰十二月或许是当年郑氏命官员权宜颁行的大统历推算出的。</p></li>';
+            }
+            warn += '</ol>';
+        }
+        if (y==1660) {
+            warn = '<ol style="color:red;">';
+            if (lang==0) {
+                warn += "<li><p>Two dfferent versions of calendar were produced in 1652: emperor Yongli's and Lu's version. The New Year day of the Yongli calendar was on February 10th, 1652. The New Year day of the Lu calendar was on February 9th, 1652. According to the calculation of the Datong system, the New Year day was on February 10th, 1652.</p></li>";
+                warn += "<li><p>There are discrepancies in the leap month in 1653 among various sources. <i>Datong Calendar of the Waning Ming Dynasty</i> records the leap month to be after the 7th month, which is consistent with the caleculation of the Datong system. <i>Account of the quartermaster Yang Ying's campaign with Prince Yanping</i> has the leap month after the 8th month. The chronicle <i>X&#237;ng Z&#224;i Y&#225;ng Qi&#363;</i> records the leap month to be after the 6th month. The Datong calendar produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a> also records leap month after the 6th month. However, in the Datong calendar for <a href='N1676_Zheng.html'>1676</a> and <a href='N1677_Zheng.html'>1677</a>, the leap month is changed to being after the 8th month. I think leap month 6 is unlikely. Both leap month 7 and 8 are possible. Here I follow <i>Datong Calendar of the Waning Ming Dynasty</i> and place the leap month after the 7th month.</p></li>";
+            } else if (lang==1) {
+                warn += '<li><p>永曆六年和魯王監國七年正月朔有異:永曆六年正月甲戌朔;《魯監國大統曆》則有魯監國七年正月癸酉朔。依明大統曆推算此年正月為甲戌朔。</p></li>';
+                warn += '<li><p>永曆七年的閏月有爭議，依大統曆推算閏七月，傅以禮《殘明大統曆》亦記閏七月，但是《延平王戶官楊英從征實錄》記閏八月，《行在陽秋》記閏六月，明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>也記閏六月，但是後來頒行的<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>卻改為閏八月。我認為閏六月不大可能，閏七月和閏八月機會較大，此處依《殘明大統曆》記閏七月。</p></li>';
+            } else {
+                warn += '<li><p>永历六年和鲁王监国七年正月朔有异:永历六年正月甲戌朔;《鲁监国大统历》则有鲁监国七年正月癸酉朔。依明大统历推算此年正月为甲戌朔。</p></li>';
+                warn += '<li><p>永历七年的闰月有争议，依大统历推算闰七月，傅以礼《残明大统历》亦记闰七月，但是《延平王户官杨英从征实录》记闰八月，《行在阳秋》记闰六月，明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>也记闰六月，但是后来颁行的<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>却改为闰八月。我认为闰六月不大可能，闰七月和闰八月机会较大，此处依《残明大统历》记闰七月。</p></li>';
+            }
+            warn += '</ol>';
+        }
+        if (y==1680) {
+            warn = '<ol style="color:red;">';
+            if (lang==0) {
+                warn += "<li><p>The New Year day in 1671 was on February 9th, 1671 according to <i>Datong Calendar of the Waning Ming Dynasty</i>, which also agrees with the calculation of the Datong system. However, the Datong calendar produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a> indicates that the New Year day was on February 10th, 1671. Even though Zheng dynasty claimed that their calendars were produced expediently and should not to be taken as official, by this time the Yongli emperor had died and the Southern Ming dynasty had already ended. Zheng's calendar became the de facto official Datong calendar of the state. So I change the New Year day to February 10th, 1671 in accord with Zheng's calendar.</p></li>";
+                warn += '<li><p>According to the calculation of the Datong system, in 1674 the month 6 conjunction was on July 4th and month 9 conjunction was on September 30th. These dates are inconsistent with the records in <i>Datong Calendar of the Waning Ming Dynasty</i> (July 3rd and September 29th). The dates here are based on the records in <i>Datong Calendar of the Waning Ming Dynasty</i>.</p></li>';
+                warn += '<li><p>According to the calculation of the Datong system, in 1675 a conjunction occurred on July 22nd. <i>Datong Calendar of the Waning Ming Dynasty</i> records a conjunction on July 23rd. The one-day difference changed the leap month in this year. July 22nd conjunction resulted in a leap month after the 5th month. July 23rd conjunction resulted in a leap month after the 6th month. Leap month 6 is also recorded in the calendars produced by the Zheng dynasty for <a href="N1676_Zheng.html">1676</a> and <a href="N1677_Zheng.html">1677</a>. So I use the data in <i>Datong Calendar of the Waning Ming Dynasty</i>.</p></li>';
+                warn += '<li><p>According to the calculation of the Datong system, in 1677 the month 7 conjunction was on July 29th, which is inconsistent with July 30th recorded in <i>Datong Calendar of the Waning Ming Dynasty</i> and the calendar produced by the Zheng dynasty for <a href="N1677_Zheng.html">1677</a>. The Zheng calendar date is used here.</p></li>';
+                warn += '<li><p>According to the calculation of the Datong system, in 1678 the month 6 conjunction was on July 18th, inconsistent with July 19th recorded in <i>Datong Calendar of the Waning Ming Dynasty</i>. July 19th is used here.</p></li>';
+            } else if (lang==1) {
+                warn += '<li><p>依大統曆推算永曆二十五正月癸丑朔，傅以禮《殘明大統曆》亦記正月癸丑朔，但是明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>記正月甲寅朔。雖然鄭氏奉明正朔，聲稱其大統曆乃「權宜頒行」，但是當時永曆帝已死，南明也已亡，明鄭的大統曆變相成為正統的大統曆書，所以此處依明鄭大統曆記正月甲寅朔。</p></li>';
+                warn += '<li><p>依明大統曆推算永曆二十八年六月甲午朔及九月壬戌朔，此處依傅以禮《殘明大統曆》改為六月癸巳朔和九月辛酉朔。</p></li>';
+                warn += '<li><p>依明大統曆推算永曆二十九年有朔日在丁巳(公曆7月22日)，對應的朔日在傅以禮《殘明大統曆》出現在下一日戊午(7月23日)。此一日之差造成閏月分歧:依大統曆推算閏五月，《殘明大統曆》則為閏六月。明鄭頒行的<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>都記永曆二十九年閏六月，所以此處永曆二十九年朔閏依《殘明大統曆》。</p></li>';
+                warn += '<li><p>依明大統曆推算永曆三十一年七月乙亥朔，不合傅以禮《殘明大統曆》及明鄭<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>的丙子朔。此處依《殘明大統曆》及明鄭大統曆記七月丙子朔。</p></li>';
+                warn += '<li><p>依明大統曆推算永曆三十二年六月己巳朔，不合傅以禮《殘明大統曆》的庚午朔。此處依《殘明大統曆》記六月庚午朔。</p></li>';
+            } else {
+                warn += '<li><p>依大统历推算永历二十五正月癸丑朔，傅以礼《残明大统历》亦记正月癸丑朔，但是明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>记正月甲寅朔。虽然郑氏奉明正朔，声称其大统历乃「权宜颁行」，但是当时永历帝已死，南明也已亡，明郑的大统历变相成为正统的大统历书，所以此处依明郑大统历记正月甲寅朔。</p></li>';
+                warn += '<li><p>依明大统历推算永历二十八年六月甲午朔及九月壬戌朔，此处依傅以礼《残明大统历》改为六月癸巳朔和九月辛酉朔。</p></li>';
+                warn += '<li><p>依明大统历推算永历二十九年有朔日在丁巳(公历7月22日)，对应的朔日在傅以礼《残明大统历》出现在下一日戊午(7月23日)。此一日之差造成闰月分歧:依大统历推算闰五月，《残明大统历》则为闰六月。明郑颁行的<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历二十九年闰六月，所以此处永历二十九年朔闰依《残明大统历》。</p></li>';
+                warn += '<li><p>依明大统历推算永历三十一年七月乙亥朔，不合傅以礼《残明大统历》及明郑<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>的丙子朔。此处依《残明大统历》及明郑大统历记七月丙子朔。</p></li>';
+                warn += '<li><p>依明大统历推算永历三十二年六月己巳朔，不合傅以礼《残明大统历》的庚午朔。此处依《残明大统历》记六月庚午朔。</p></li>';
+            }
+            warn += '</ol>';
+        }
+        if (y==1683) {
+            if (lang==0) {
+                warn = '<p style="color:red;">According to the calculation of the Datong system, the New Year day in 1682 was on February 8th, inconsistent with February 7th recorded in <i>Datong Calendar of the Waning Ming Dynasty</i>. February 7th is used here.</p>';
+            } else if (lang==1) {
+                warn = '<p style="color:red;">依明大統曆推算永曆三十六年正月庚戌朔，不合傅以禮《殘明大統曆》的己酉朔。此處依《殘明大統曆》記正月己酉朔。</p>';
+            } else {
+                warn = '<p style="color:red;">依明大统历推算永历三十六年正月庚戌朔，不合傅以礼《残明大统历》的己酉朔。此处依《残明大统历》记正月己酉朔。</p>';
+            }
         }
     }
     

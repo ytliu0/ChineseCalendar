@@ -223,7 +223,12 @@ async function build() {
            'ThreeKingdoms_calendars_simp', 'LiaoJinYuan_calendars', 
            'LiaoJinYuan_calendars_chinese', 'LiaoJinYuan_calendars_simp', 'others', 
            'others_chinese', 'others_simp', 'NorthSouth_calendars', 
-           'NorthSouth_calendars_chinese', 'NorthSouth_calendars_simp'];
+           'NorthSouth_calendars_chinese', 'NorthSouth_calendars_simp', 
+           'SouthernMingCalendar', 'SouthernMingCalendar_chinese', 'SouthernMingCalendar_simp',
+           'QingSouthernMingZheng_calendars', 'QingSouthernMingZheng_calendars_chinese', 
+           'QingSouthernMingZheng_calendars_simp', 'N1676_Zheng', 'N1676_Zheng_chinese', 
+           'N1676_Zheng_simp', 'N1677_Zheng', 'N1677_Zheng_chinese', 'N1677_Zheng_simp', 
+           'N1671_Zheng', 'N1671_Zheng_chinese', 'N1671_Zheng_simp'];
   files.forEach(async function(f, ind) {
     if (!all && !opt[f]) {
       return;

@@ -44,7 +44,6 @@ function init(lang) {
 function submitYear(lang) {
     document.getElementById('err').innerHTML = "";
     let year = parseInt(document.getElementById('year').value, 10);
-    let menu,i,li;
     if (isNaN(year) || year < -721 || year > 2200) {
         let message = ['Invalid input! Please enter an integer between -721 and 2200.', 
         '輸入錯誤﹗請輸入包括 -721 和 2200 之間的整數。','输入错误！请输入包括 -721 和 2200 之间的整数。'];
@@ -186,8 +185,14 @@ function langConstant(lang) {
         note1929 = note1929Sim;
         note1914 = note1914Sim;
     }
-    let julian = document.getElementById('Julian1').checked;
-    return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, julian:julian, 
+    let julian; 
+    try {
+        julian = document.getElementById('Julian1').checked;
+    }
+    catch (err) {
+        julian = false;
+    }
+    return {gMonth:gMonth, weeks:weeks, lang:lang, heaven:heaven, earth:earth, animal:animal, region:'default', cmonth:month_num, monthL:monthL, Qnames:Qnames, soltermNames:soltermNames, julian:julian, li_ancient:null, 
     date_numChi:date_numChi, note_early:note_early, 
     note_late:note_late, note1929:note1929, note1914:note1914};
 }
@@ -379,7 +384,7 @@ function calDataYear(y, langVars) {
     
     // Before year -104
     if (y < -104) {
-        let out = calDataYear_ancient(y, jd0, ndays, mday, solar, Q0, Q1, Q2, Q3);
+        let out = calDataYear_ancient(y, jd0, ndays, mday, solar, Q0, Q1, Q2, Q3, langVars.li_ancient);
         out.sol_eclipse = sol_eclipse;
         out.lun_eclipse = lun_eclipse;
         return out;
@@ -711,7 +716,7 @@ function addYearInfo(y, langVars, calVars) {
     }
     
     // Calendar Case
-    if (y > 1665.5 && y < 1670.5) {
+    if (y > 1665.5 && y < 1670.5 && region=='default') {
         if (lang==0) {
             info = 'Following the Calendar Case (see, e.g., <a href="https://halshs.archives-ouvertes.fr/halshs-01222267/document" target="_blank">Jami 2015</a> and <a href="https://journals.sagepub.com/doi/full/10.1177/0021828620901887" target="_blank">Cullen &amp; Jami 2020</a>), the Qing government abolished the Western system of astronomy in the calendar computation in 1666-1669. The calendars in this period were calculated by the <i>D&#224;t&#466;ng</i> system, which was used in the Ming dynasty. The 24 solar terms were calculated based on the <i>p&#237;nq&#236;</i> rule, which took into account only the mean motion of the Sun. Since I have not been able to find the official solar term data in these years, two sets of calendrical solar terms are provided here for reference: the X&#299;nf&#462; solar terms are based on <i>3500 Years of Calendars and Astronomical Phenomena</i>, which are recomputed using the Western system; the <i>D&#224;t&#466;ng</i> solar terms are based on the <i>D&#224;t&#466;ng</i> system. As for the lunar conjunctions, the dates calculated using the <i>D&#224;t&#466;ng</i> astronomical system are identical to those computed using the Western system in these years.';
         } else if (lang==1) {
@@ -794,7 +799,7 @@ function printMonth(m,lang, year, cyear, firstMonth, langVars, calVars) {
         //add calendrical solar terms
         txt += addCalSolterms(m, lang, langVars, calVars, 0);
         // add Datong solar terms in 1666-1670
-        if (year > 1665.5 && year < 1670.5) {
+        if (year > 1665.5 && year < 1670.5 && langVars.region=='default') {
             txt += addCalSolterms(m, lang, langVars, calVars, 1);
         }
     }
@@ -1296,13 +1301,13 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
     let m1 = calVars.mday[m+1];
     let txt = ''; 
     let split = false;
-    if (calVars.year==1666 && m > 0.5) { split=true;}
-    if (calVars.year > 1666 && calVars.year < 1670) { split=true;}
-    if (calVars.year==1670 && m < 1.5) { split=true;}
+    if (calVars.year==1666 && m > 0.5 && langVars.region=='default') { split=true;}
+    if (calVars.year > 1666 && calVars.year < 1670 && langVars.region=='default') { split=true;}
+    if (calVars.year==1670 && m < 1.5  && langVars.region=='default') { split=true;}
     if (datong==0) {
         if (lang==0) {
             txt = '<p><b>Calendrical solar terms ';
-            if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+            if (calVars.year < 1645 || (calVars.year==1645 && m==0) || langVars.region=='SouthernMing') {
                 txt += '(p&#236;ngq&#236;)</b>: ';
             } else {
                 txt += '(d&#236;ngq&#236;)</b>: ';
@@ -1313,7 +1318,7 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
             }
         } else if (lang==1) {
             txt = '<p style="letter-spacing:normal;"><b>曆書節氣';
-            if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+            if (calVars.year < 1645 || (calVars.year==1645 && m==0) || langVars.region=='SouthernMing') {
                 txt += '(平氣)</b>: ';
             } else {
                 txt += '(定氣)</b>: ';
@@ -1324,7 +1329,7 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
             }
         } else {
             txt = '<p style="letter-spacing:normal;"><b>历书节气';
-            if (calVars.year < 1645 || (calVars.year==1645 && m==0)) {
+            if (calVars.year < 1645 || (calVars.year==1645 && m==0) || langVars.region=='SouthernMing') {
                 txt += '(平气)</b>: ';
             } else {
                 txt += '(定气)</b>: ';
@@ -1685,7 +1690,7 @@ function warningMessage(y, m, lang, langVars) {
     }
     
     // 1645
-    if (y==1645 && m==7) {
+    if (y==1645 && m==7 && langVars.region=='default') {
         if (lang==0) {
             warn = 'Note that leap month 6 contained the major solar term Z6, breaking the rule that a leap month must not contain a major solar term. W&#257;ng Yu&#275;zh&#275;n (&#27754;&#26352;&#26984;), a Chinese mathematician in the 19th century, explained that even though the solar term Z6 and the lunar conjunction associated with the month occurred on the same day, Z6 occurred earlier in the day than the lunar conjunction and was counted as a major solar term of the previous month. As a result, leap month 6 did not contain any major solar term. This "rule" was only used in this year. It was never used again after this year.';
         } else if (lang==1) {
@@ -1696,7 +1701,7 @@ function warningMessage(y, m, lang, langVars) {
     }
     
     // 1670
-    if (y==1670 && m==1) {
+    if (y==1670 && m==1 && langVars.region=='default') {
         if (lang==0) {
             warn = 'The Chinese month that began on Jan 21 was a leap month according to the old calendar rule since it did not contain a major solar term. It was the first month of 1670 according to the new rule since it contained the major solar term Z1. In April 1669, the Kangxi Emperor abolished the old rule and ordered by decree to move the leap month from after the 12th month of 1669 to after the second month of 1670.';
         } else if (lang==1) {
@@ -1705,9 +1710,14 @@ function warningMessage(y, m, lang, langVars) {
             warn = '己丑朔(1月21日)对应的月份依旧法因不含中气，为康熙八年闰十二月，依新法则含中气雨水，为康熙九年正月。康熙帝在康熙八年三月下诏复用西洋新法，废康熙八年闰十二月，改为康熙九年闰二月。';
         }
     }
+
+    // Southern Ming and Zheng dynasty
+    if (langVars.region=='SouthernMing') {
+        return SouthernMingCalendarDateNotes(y, m, lang);
+    }
     
     // Warning for years before 1900
-    if (y < 1900) {
+    if (y < 1900 && langVars.region=='default') {
         let wQ0 = langVars.note1914;
         let items = [];
         //items = [{y:1842, m:1, w:wQ0}, {y:1863, m:1, w:wQ0}, 
@@ -1717,6 +1727,7 @@ function warningMessage(y, m, lang, langVars) {
             desc1 = "The calendar at the time listed the date of ";
             desc2 = " on ";
             desc3 = ". The discrepancy was caused by two factors: 1) Before 1912, times of 24 solar terms were calculated based on the apparent solar time for the Beijing meridian (116&deg;25'E), which could differ by 30 minutes from the times listed here based on the mean solar time for the meridians of 120°E; 2) Before 1914, the method used to calculate the Sun's position was not very accurate.";
+            
             
             desc = "in both <i>3500 Years of Calendars and Astronomical Phenomena</i> (by Zh&#257;ng P&#233;iy&#250;) and <i>A Chinese calendar translated into the western calendar from 1516 to 1941</i> (by Zheng Hesheng), the calendrical solar term Z4 is listed on May 20. However, the <i>Shixian Calendar for the 18th year of Emperor Kangxi's Reign (i.e. Feb. 11, 1679 - Jan. 30, 1680)</i>, a yearly calendar issued by the Imperial Astronomical Bureau in the Qing dynasty, lists Z4 on May 21 at 9:01am in Beijing's local apparent solar time. The calendarical solar term for Z4 is listed on May 21 here based on the <i>Shixian Calendar</i>.";
             items.push({y:1679, m:5, w:desc});
@@ -2195,10 +2206,99 @@ function warningMessage(y, m, lang, langVars) {
     return warn;
 }
 
+function SouthernMingCalendarDateNotes(y, m, lang) {
+    let notes = [
+        {y:1648, m:4, 
+        w:['Several sources indicate that the leap month in this year was after the 6th month, which I find to be very unlikely.', 
+        '王叔武"南明史料朔閏考異"引 《劫灰錄》、 《鹿樵紀聞》、 《明季南略》、 《爝火錄》說永曆二年閏六月，我認為閏六月很可能不對。', 
+        '王叔武"南明史料朔闰考异"引 《劫灰录》、 《鹿樵纪闻》、 《明季南略》、 《爝火录》说永历二年闰六月，我认为闰六月很可能不对。']}, 
+
+        {y:1649, m:2, 
+        w:['Two dfferent versions of calendar in the Southern Ming dynasty were produced in the Chinese year in 1649. One of them was produced by the officials of the Yongli emperor, in which the New Year day was on February 11th, 1649. Another version was produced by the officials of the Prince of Lu, who named himself regent. The New Year day of the Lu calendar was on February 12th, 1649. According to the calculation of the Datong system, the New Year day was on February 11th, 1649.', 
+        '永曆三年和魯王監國四年正月朔有異:永曆三年正月庚申朔(公曆2月11日);《魯監國大統曆》則有魯監國四年正月辛酉朔(2月12日)。依明大統曆推算此年正月朔為庚申。', 
+        '永历三年和鲁王监国四年正月朔有异:永历三年正月庚申朔(公历2月11日);《鲁监国大统历》则有鲁监国四年正月辛酉朔(2月12日)。依明大统历推算此年正月朔为庚申。']},
+
+        {y:1650, m:12, 
+         w:["According to <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> by Fu Yili and <i>Y&#225;n P&#237;ng W&#225;ng H&#249; Gu&#257;n Y&#225;ng Y&#299;ng C&#243;ng Zh&#275;ng Sh&#237; L&#249;</i> (or <i>Account of the quartermaster Yang Ying's campaign with Prince Yanping</i>), the leap month in 1650 was after the 11th month in the Southern Ming calendar. This is consistent with the calculation by the Datong system. However, the Datong calendars produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a>, <a href='N1676_Zheng.html'>1676</a> and <a href='N1677_Zheng.html'>1677</a> recorded the leap month to be after the 12th month. Leap month 12 was probably based on an unofficial calendar expediently produced by the Zheng officials in 1649 since the official emperor calendar had not arrived in time because of war.", 
+         '傅以禮《殘明大統曆》和《延平王戶官楊英從征實錄》記永曆四年閏十一月，符合大統曆的推算，但明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>、<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>都記永曆四年閏十二月。閏十二月或許是當年鄭氏命官員權宜頒行的大統曆推算出的。', 
+         '傅以礼《残明大统历》和《延平王户官杨英从征实录》记永历四年闰十一月，符合大统历的推算，但明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>、<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历四年闰十二月。闰十二月或许是当年郑氏命官员权宜颁行的大统历推算出的。']}, 
+        {y:1651, m:1, 
+         w:["According to <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> by Fu Yili and <i>Y&#225;n P&#237;ng W&#225;ng H&#249; Gu&#257;n Y&#225;ng Y&#299;ng C&#243;ng Zh&#275;ng Sh&#237; L&#249;</i> (or <i>Account of the quartermaster Yang Ying's campaign with Prince Yanping</i>), the leap month in 1650 was after the 11th month in the Southern Ming calendar. This is consistent with the calculation by the Datong system. However, the Datong calendars produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a>, <a href='N1676_Zheng.html'>1676</a> and <a href='N1677_Zheng.html'>1677</a> recorded the leap month to be after the 12th month. Leap month 12 was probably based on an unofficial calendar expediently produced by the Zheng officials in 1649 since the official emperor calendar had not arrived in time because of war.", 
+         '傅以禮《殘明大統曆》和《延平王戶官楊英從征實錄》記永曆四年閏十一月，符合大統曆的推算，但明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>、<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>都記永曆四年閏十二月。閏十二月或許是當年鄭氏命官員權宜頒行的大統曆推算出的。', 
+         '傅以礼《残明大统历》和《延平王户官杨英从征实录》记永历四年闰十一月，符合大统历的推算，但明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>、<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历四年闰十二月。闰十二月或许是当年郑氏命官员权宜颁行的大统历推算出的。']},
+
+        {y:1652, m:2, 
+         w:["Two dfferent versions of calendar were produced in the Chinese year in 1652: emperor Yongli's and Prince Lu's version. The New Year day of the Yongli calendar was on February 10th, 1652. The New Year day of the Lu calendar was on February 9th, 1652. According to the calculation of the Datong system, the New Year day was on February 10th, 1652.", 
+         '永曆六年和魯王監國七年正月朔有異:永曆六年正月甲戌朔(公曆2月10日);《魯監國大統曆》則有魯監國七年正月癸酉朔(2月9日)。依明大統曆推算此年正月朔為甲戌。', 
+         '永历六年和鲁王监国七年正月朔有异:永历六年正月甲戌朔(公历2月10日);《鲁监国大统历》则有鲁监国七年正月癸酉朔(2月9日)。依明大统历推算此年正月朔为甲戌。']},
+
+        {y:1653, m:8, 
+         w:["There are discrepancies in the leap month in this year among various sources. <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> records the leap month to be after the 7th month, which is consistent with the caleculation of the Datong system. <i>Y&#225;n P&#237;ng W&#225;ng H&#249; Gu&#257;n Y&#225;ng Y&#299;ng C&#243;ng Zh&#275;ng Sh&#237; L&#249;</i> or <i>Account of the quartermaster Yang Ying's campaign with Prince Yanping</i> has the leap month after the 8th month. The chronicle <i>X&#237;ng Z&#224;i Y&#225;ng Qi&#363;</i> records the leap month to be after the 6th month. The Datong calendar produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a> also records leap month after the 6th month. However, in the Datong calendar for <a href='N1676_Zheng.html'>1676</a> and <a href='N1677_Zheng.html'>1677</a>, the leap month is changed to being after the 8th month. I think leap month 6 is unlikely. Both leap month 7 and 8 are possible. Here I follow <i>Datong Calendar of the Waning Ming Dynasty</i> and place the leap month after the 7th month.", 
+         '此年的閏月有爭議，依大統曆推算閏七月，傅以禮《殘明大統曆》亦記閏七月，但是《延平王戶官楊英從征實錄》記閏八月，《行在陽秋》記閏六月，明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>也記閏六月，但是後來頒行的<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>卻改為閏八月。我認為閏六月不大可能，閏七月和閏八月機會較大，此處依《殘明大統曆》記閏七月。', 
+         '此年的闰月有争议，依大统历推算闰七月，傅以礼《残明大统历》亦记闰七月，但是《延平王户官杨英从征实录》记闰八月，《行在阳秋》记闰六月，明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>也记闰六月，但是后来颁行的<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>却改为闰八月。我认为闰六月不大可能，闰七月和闰八月机会较大，此处依《残明大统历》记闰七月。']}, 
+
+        {y:1663, m:9, 
+         w:['Calendrical J8 should be on September 6th according to the calculation of the Datong system. However, <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> records J8 on September 5th, which is the date listed here.', 
+         '依大統曆推算白露在八月初五(公曆9月6日)，但傅以禮《殘明大統曆》記八月初四(9月5日)，此處曆書白露依《殘明大統曆》。', 
+         '依大统历推算白露在八月初五(公历9月6日)，但傅以礼《残明大统历》记八月初四(9月5日)，此处历书白露依《残明大统历》。']}, 
+
+        {y:1671, m:2, 
+         w:["The Chinese Near Year in 1671 was on February 9th according to <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i>, which also agrees with the calculation of the Datong system. However, the Datong calendar produced by the Zheng dynasty for <a href='N1671_Zheng.html'>1671</a> indicates that the New Year day was on February 10th. Even though Zheng dynasty claimed that their calendars were produced expediently and should not to be taken as official, by this time the Yongli emperor had died and the Southern Ming dynasty had already ended. Zheng's calendar became the de facto official Datong calendar of the state. So I change the New Year day to February 10th in accord with Zheng's calendar.", 
+         '依大統曆推算永曆二十五正月朔在癸丑(公曆2月9日)，傅以禮《殘明大統曆》亦記正月癸丑朔，但是明鄭頒行的<a href="N1671_Zheng_chinese.html">永曆二十五年大統曆</a>記正月甲寅朔(2月10日)。雖然鄭氏奉明正朔，聲稱其大統曆乃「權宜頒行」，但是當時永曆帝已死，南明也已亡，明鄭的大統曆變相成為正統的大統曆書，所以此處依明鄭大統曆記正月甲寅朔。', 
+         '依大统历推算永历二十五正月朔在癸丑(公历2月9日)，傅以礼《残明大统历》亦记正月癸丑朔，但是明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>记正月甲寅朔(2月10日)。虽然郑氏奉明正朔，声称其大统历乃「权宜颁行」，但是当时永历帝已死，南明也已亡，明郑的大统历变相成为正统的大统历书，所以此处依明郑大统历记正月甲寅朔。']}, 
+
+        {y:1674, m:7, 
+         w:['According to the calculation of the Datong system, the month 6 conjunction was on July 4th, which is inconsistent with the record in <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> (July 3rd). July 3rd is used here.', 
+         '依明大統曆推算六月朔在甲午(公曆7月4日)，此處依傅以禮《殘明大統曆》改為六月癸巳朔(7月3日)。', 
+         '依明大统历推算六月朔在甲午(公历7月4日)，此处依傅以礼《残明大统历》改为六月癸巳朔(7月3日)。']}, 
+
+        {y:1674, m:9, 
+         w:['According to the calculation of the Datong system, the month 9 conjunction was on September 30th, which is inconsistent with the record in <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> (September 29th). September 29th is used here.', 
+         '依明大統曆推算九月朔在壬戌(公曆9月30日)，此處依傅以禮《殘明大統曆》改為九月辛酉朔(9月29日)。', 
+         '依明大统历推算九月朔在壬戌(公历9月30日)，此处依傅以礼《残明大统历》改为九月辛酉朔(9月29日)。']}, 
+
+        {y:1675, m:7, 
+         w:['According to the calculation of the Datong system, a conjunction occurred on July 22nd. <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> records a conjunction on July 23rd. The one-day difference changed the leap month in this year. July 22nd conjunction resulted in a leap month after the 5th month. July 23rd conjunction resulted in a leap month after the 6th month. Leap month 6 is also recorded in the calendars produced by the Zheng dynasty for <a href="N1676_Zheng.html">1676</a> and <a href="N1677_Zheng.html">1677</a>. So I use the data in <i>Datong Calendar of the Waning Ming Dynasty</i>.', 
+         '依明大統曆推算有朔日在丁巳(公曆7月22日)，對應的朔日在傅以禮《殘明大統曆》出現在下一日戊午(7月23日)。此一日之差造成閏月分歧:依大統曆推算閏五月，《殘明大統曆》則為閏六月。明鄭頒行的<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>及<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>都記永曆二十九年閏六月，所以此處朔閏依《殘明大統曆》。', 
+         '依明大统历推算有朔日在丁巳(公历7月22日)，对应的朔日在傅以礼《残明大统历》出现在下一日戊午(7月23日)。此一日之差造成闰月分歧:依大统历推算闰五月，《残明大统历》则为闰六月。明郑颁行的<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历二十九年闰六月，所以此处朔闰依《残明大统历》。']}, 
+
+         {y:1676, m:12,
+          w:['<i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i> records that Z11 (winter solstice) was on the 16th day in month 11 (Dec. 20), which is inconsistent with the calculation of the Datong system (Dec. 21). The official <a href="N1676_Zheng.html">Datong Calendar for 1676</a> records Z11 on the 17th day in month 11 (Dec. 21). So the Z11 date in <i>Datong Calendar of the Waning Ming Dynasty</i> is wrong.', 
+          '《殘明大統曆》記冬至在十一月十六(公曆12月20日)，不合明大統曆的推步(十一月十七)。明鄭頒行的<a href="N1676_Zheng_chinese.html">永曆三十年大統曆</a>記冬至在十一月十七(12月21日)，證實《殘明大統曆》的冬至日期錯了。', 
+          '《残明大统历》记冬至在十一月十六(公历12月20日)，不合明大统历的推步(十一月十七)。明郑颁行的<a href="N1676_Zheng_simp.html">永历三十年大统历</a>记冬至在十一月十七(12月21日)，证实《残明大统历》的冬至日期错了。']},
+
+         {y:1677, m:7, 
+          w:['According to the calculation of the Datong system, month 7 conjunction was on July 29th, which is inconsistent with July 30th recorded in <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or  <i>Datong Calendar of the Waning Ming Dynasty</i> and the calendar produced by the Zheng dynasty for <a href="N1677_Zheng.html">1677</a>. The Zheng calendar date is used here.', 
+         '依明大統曆推算七月朔在乙亥(公曆7月29日)，不合傅以禮《殘明大統曆》及明鄭<a href="N1677_Zheng_chinese.html">永曆三十一年大統曆</a>的丙子朔(7月30日)。此處依《殘明大統曆》及明鄭大統曆記七月丙子朔。', 
+         '依明大统历推算七月朔在乙亥(公历7月29日)，不合傅以礼《残明大统历》及明郑<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>的丙子朔(7月30日)。此处依《残明大统历》及明郑大统历记七月丙子朔。']}, 
+
+        {y:1678, m:7, 
+         w:['According to the calculation of the Datong system, the month 6 conjunction was on July 18th, inconsistent with July 19th recorded in <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or  <i>Datong Calendar of the Waning Ming Dynasty</i>. July 19th is used here.', 
+         '依明大統曆推算六月朔在己巳(公曆7月18日)，不合傅以禮《殘明大統曆》的庚午朔(7月19日)。此處依《殘明大統曆》記六月庚午朔。', 
+         '依明大统历推算六月朔在己巳(公历7月18日)，不合傅以礼《残明大统历》的庚午朔(7月19日)。此处依《残明大统历》记六月庚午朔。']}, 
+
+        {y:1682, m:2, 
+         w:['According to the calculation of the Datong system, the Chinese New Year in 1682 was on February 8th, inconsistent with February 7th recorded in <i>C&#225;n M&#237;ng D&#224; T&#466;ng L&#236;</i> or <i>Datong Calendar of the Waning Ming Dynasty</i>. February 7th is used here.', 
+         '依明大統曆推算永曆三十六年正月朔在庚戌(公曆2月8日)，不合傅以禮《殘明大統曆》的己酉朔(2月7日)。此處依《殘明大統曆》記正月己酉朔。', 
+         '依明大统历推算永历三十六年正月朔在庚戌(公历2月8日)，不合傅以礼《残明大统历》的己酉朔(2月7日)。此处依《残明大统历》记正月己酉朔。']}
+    ];
+    
+    let n = notes.length;
+    let warn = '';
+    for (let i=0; i<n; i++) {
+        if (y==notes[i].y && m==notes[i].m) {
+            warn = notes[i].w[lang];
+            break;
+        }
+    }
+    return warn;
+}
+
 // TEST
-function calendarOut(lang, year, region) {
+function calendarOut(lang, year, region, li=null) {
     let langVars = langConstant(lang);
     langVars.region = region;
+    langVars.li_ancient = li;
     let calVars = calDataYear(year, langVars);
     let cal = '';
     
@@ -2269,17 +2369,17 @@ function calendarOut(lang, year, region) {
         }      
     } else {
         if (lang==1) {
-            cyear[0] += eraName(year-1, langVars.region);
-            cyear[1] += eraName(year, langVars.region);
-            cyear[2] += eraName(year+1, langVars.region);
+            cyear[0] += eraName(year-1, langVars.region, li);
+            cyear[1] += eraName(year, langVars.region, li);
+            cyear[2] += eraName(year+1, langVars.region, li);
         } else {
-            cyear[0] += eraNameSim(year-1, langVars.region);
-            cyear[1] += eraNameSim(year, langVars.region);
-            cyear[2] += eraNameSim(year+1, langVars.region);
+            cyear[0] += eraNameSim(year-1, langVars.region, li);
+            cyear[1] += eraNameSim(year, langVars.region, li);
+            cyear[2] += eraNameSim(year+1, langVars.region, li);
         }
         if (lang==1) {
-            cal += '<h1>&#20844;&#26310;年: '+yearc+'</h1>\n';
-            cal += '<h1>&#36786;&#26310;年:</h1>\n';
+            cal += '<h1>公曆年: '+yearc+'</h1>\n';
+            cal += '<h1>農曆年:</h1>\n';
         } else {
             cal += '<h1>公历年: '+yearc+'</h1>\n';
             cal += '<h1>农历年:</h1>\n';
@@ -2324,86 +2424,48 @@ function calendarOut(lang, year, region) {
     return cal;
 }
 
-function outputContent_forTesting(lang, y1, y2, region, outfile) {
-    let txt = calendarOut(lang,y1, region);
+function outputContent_forTestingMed(lang, y1, y2, region, li=null) {
+    let txt = calendarOut(lang,y1, region, li);
     for (let y=y1+1; y <= y2; y++) {
-        txt += calendarOut(lang, y, region);
-    }
-    download_txt(txt, outfile);
-}
-
-function outputContent_forTestingMed(lang, y1, y2, region) {
-    let txt = calendarOut(lang,y1, region);
-    for (let y=y1+1; y <= y2; y++) {
-        txt += calendarOut(lang, y, region);
+        txt += calendarOut(lang, y, region, li);
     }
     return txt;
 }
 
 function outputContent_forTesting_allYears_default(lang) {
-    // Default setting: -721 - 2200
-    let menu = ancient_calendar_menu('Spring');
-    let item, i;
-    for (i=0; i<menu.length; i++) {
-        item = document.getElementById(menu[i].id);
-        if (item.classList.contains('active')) { 
-            item.classList.remove('active');
-            break;
-         }
-    }
-    menu = ancient_calendar_menu('Warring');
-    for (i=0; i<menu.length; i++) {
-        item = document.getElementById(menu[i].id);
-        if (item.classList.contains('active')) { 
-            item.classList.remove('active');
-            break;
-         }
-    }
-    document.getElementById('chunqiuSpring').classList.add('active');
-    document.getElementById('zhouWarring').classList.add('active');
     let sub = (lang==0 ? '_eng':(lang==1 ? '_chinese':'_simp'));
-    outputContent_forTesting(lang, -721, 2200, 'default', 'calendar_default_-721to2200'+sub+'.txt');
+    let outfile = 'calendar_default_-721to2200'+sub+'.txt', region='default';
+    let txt = calendarOut(lang, -721, region, 'Chunqiu');
+    let y;
+    for (y=-720; y<-479; y++) {
+        txt += calendarOut(lang, y, region, 'Chunqiu');
+    }
+    for (y=-479; y<-220; y++) {
+        txt += calendarOut(lang, y, region, 'Zhou');
+    }
+    txt += calendarOut(lang, -220, region, 'Zhuanxu');
+    txt += calendarOut(lang, -219, region, 'Zhuanxu');
+    for (y=-218; y<2201; y++) {
+        txt += calendarOut(lang, y, region);
+    }
+    download_txt(txt, outfile);
 }
 
 function outputContent_forTesting_period(lang, period) {
-    let i, txt ='';
+    let txt ='';
     if (period=='SpringWarring') {
-        let menu = ancient_calendar_menu('Spring');
-        let item;
-        for (i=0; i<menu.length; i++) {
-            item = document.getElementById(menu[i].id);
-            if (item.classList.contains('active')) { 
-                item.classList.remove('active');
-                break;
-             }
-        }
-        for (i=1; i<menu.length; i++) {
-            item = document.getElementById(menu[i].id);
-            item.classList.add('active');
-            txt += menu[i].id+'\n';
-            txt += outputContent_forTestingMed(lang, -721, -480, 'default');
-            item.classList.remove('active');
-        }
-        item = document.getElementById(menu[0].id);
-        item.classList.add('active');
-        
-        menu = ancient_calendar_menu('Warring');
-        for (i=0; i<menu.length; i++) {
-            item = document.getElementById(menu[i].id);
-            if (item.classList.contains('active')) { 
-                item.classList.remove('active');
-                break;
-             }
-        }
-        for (i=1; i<menu.length; i++) {
-            item = document.getElementById(menu[i].id);
-            item.classList.add('active');
-            txt += menu[i].id+'\n';
-            txt += outputContent_forTestingMed(lang, -479, -221, 'default');
-            item.classList.remove('active');
-        }
-        item = document.getElementById(menu[0].id);
-        item.classList.add('active');
+        let lis = ['Zhou', 'Yin', 'Xia2'];
+        let lisid = ['zhouSpring', 'yinSpring', 'xiaSpring'];
+        lis.forEach(function (li,i) {
+            txt += lisid[i]+'\n';
+            txt += outputContent_forTestingMed(lang, -721, -480, 'default', li);
+        });
+        lis = ['Lu', 'Huangdi', 'Yin', 'Xia1', 'Zhuanxu'];
+        lisid = ['luWarring', 'huangdiWarring', 'yinWarring', 'xiaWarring', 'zhuanxuWarring'];
+        lis.forEach(function (li,i) {
+            txt += lisid[i]+'\n'
+            txt += outputContent_forTestingMed(lang, -479, -221, 'default', li);
+        });
     } else if (period=='ShuWu') {
         txt = 'Shu\n';
         txt += outputContent_forTestingMed(lang, 221, 263, 'Shu');

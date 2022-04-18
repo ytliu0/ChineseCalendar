@@ -1,7 +1,7 @@
 "use strict";
 
 // Insert era name (年號) if appropriate
-function eraName(year, region) {
+function eraName(year, region, li=null) {
     // set up an array of objects to store era name information
     let eras = [{y:1912, e:""}, {y:-99999, e:""}];
     let nian = "年";
@@ -9,9 +9,14 @@ function eraName(year, region) {
     
     //Spring and Autumn period
     if (year >= -722 && year <=-480) {
-        shown = (document.getElementById("Spring").style.display == "block");
-        zhou = document.getElementById('zhouSpring').classList.contains('active') && shown;
-        chunqiu = document.getElementById('chunqiuSpring').classList.contains('active') && shown;
+        if (li===null) {
+            shown = (document.getElementById("Spring").style.display == "block");
+            zhou = document.getElementById('zhouSpring').classList.contains('active') && shown;
+            chunqiu = document.getElementById('chunqiuSpring').classList.contains('active') && shown;
+        } else {
+            zhou = (li=='Zhou');
+            chunqiu = (li=='Chunqiu');
+        }
         
         // Zhou calendar
         if (zhou) {
@@ -36,15 +41,21 @@ function eraName(year, region) {
     
     //Warring States period
     if (year >= -479 && year <=-221) {
-        shown = (document.getElementById("Warring").style.display == "block");
-        if (shown) {
-            zhou = document.getElementById('zhouWarring').classList.contains('active');
-            lu = document.getElementById('luWarring').classList.contains('active');
-            zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
+        if (li===null) {
+            shown = (document.getElementById("Warring").style.display == "block");
+            if (shown) {
+                zhou = document.getElementById('zhouWarring').classList.contains('active');
+                lu = document.getElementById('luWarring').classList.contains('active');
+                zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
+            } else {
+                zhou = document.getElementById('zhouSpring').classList.contains('active');
+                lu = document.getElementById('chunqiuSpring').classList.contains('active');
+                zhuanxu = (document.getElementById("Spring").style.display=="none");
+            }
         } else {
-            zhou = document.getElementById('zhouSpring').classList.contains('active');
-            lu = document.getElementById('chunqiuSpring').classList.contains('active');
-            zhuanxu = (document.getElementById("Spring").style.display=="none");
+            zhou = (li=='Zhou');
+            lu = (li=='Lu' || li=='Chunqiu');
+            zhuanxu = (li=='Zhuanxu');
         }
         
         // Zhou calendar
@@ -76,10 +87,16 @@ function eraName(year, region) {
     }
     
     if (year==-220) {
-        shown = (document.getElementById("Warring").style.display == "block");
-        zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
-        if (!shown || (shown && zhuanxu)) {
-            eras = [{y:-220, e:"秦始皇二十六年", offset:-1}];
+        if (li===null) {
+            shown = (document.getElementById("Warring").style.display == "block");
+            zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
+            if (!shown || (shown && zhuanxu)) {
+                eras = [{y:-220, e:"秦始皇二十六年", offset:-1}];
+            }
+        } else  {
+            if (li=='Zhuanxu') {
+                eras = [{y:-220, e:"秦始皇二十六年", offset:-1}];
+            }
         }
     }
     
@@ -719,6 +736,16 @@ function eraName(year, region) {
            {y:1723, e:"清世宗雍正"}, {y:1662, e:"清聖祖康熙"},
            {y:1644, e:"清世祖順治"}, {y:-99999, e:""}];
     }
+
+    // Southern Ming and Zheng dynasty
+    if (year >= 1644 && year <= 1685 && region=='SouthernMing') {
+        eras = [{y:1912, e:""}, {y:1662, e:"明鄭永曆", offset:15}, {y:1654, e:"南明永曆", offset:7},
+        {y:1653, e:"南明永曆七年/魯王監國八年", offset:-1}, {y:1652, e:"南明永曆六年/魯王監國七年", offset:-1},
+        {y:1651, e:"南明永曆五年/魯王監國六年", offset:-1}, {y:1650, e:"南明永曆四年/魯王監國五年", offset:-1},
+        {y:1649, e:"南明永曆三年/魯王監國四年", offset:-1}, {y:1648, e:"南明永曆二年/魯王監國三年", offset:-1},
+        {y:1647, e:"南明永曆元年/魯王監國二年", offset:-1}, {y:1646, e:"南明隆武二年/魯王監國元年", offset:-1},
+        {y:1645, e:"南明弘光元年/隆武元年", offset:-1}, {y:1628, e:"明崇禎"}];
+    }
     
     let chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];
     let n = eras.length;
@@ -755,7 +782,7 @@ function eraName(year, region) {
     return era;
 }
 
-function eraNameSim(year, region) {
+function eraNameSim(year, region, li=null) {
     // set up an array of objects to store era name information
     let eras = [{y:1912, e:""}, {y:-99999, e:""}];
     let nian = "年";
@@ -763,9 +790,16 @@ function eraNameSim(year, region) {
     
     //Spring and Autumn period
     if (year >= -722 && year <=-480) {
-        shown = (document.getElementById("Spring").style.display == "block");
-        zhou = document.getElementById('zhouSpring').classList.contains('active') && shown;
-        chunqiu = document.getElementById('chunqiuSpring').classList.contains('active') && shown;
+        if (year >= -722 && year <=-480) {
+            if (li===null) {
+                shown = (document.getElementById("Spring").style.display == "block");
+                zhou = document.getElementById('zhouSpring').classList.contains('active') && shown;
+                chunqiu = document.getElementById('chunqiuSpring').classList.contains('active') && shown;
+            } else {
+                zhou = (li=='Zhou');
+                chunqiu = (li=='Chunqiu');
+            }
+        }
         
         // Zhou calendar
         if (zhou) {
@@ -790,15 +824,21 @@ function eraNameSim(year, region) {
     
     //Warring States period
     if (year >= -479 && year <=-221) {
-        shown = (document.getElementById("Warring").style.display == "block");
-        if (shown) {
-            zhou = document.getElementById('zhouWarring').classList.contains('active');
-            lu = document.getElementById('luWarring').classList.contains('active');
-            zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
+        if (li===null) {
+            shown = (document.getElementById("Warring").style.display == "block");
+            if (shown) {
+                zhou = document.getElementById('zhouWarring').classList.contains('active');
+                lu = document.getElementById('luWarring').classList.contains('active');
+                zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
+            } else {
+                zhou = document.getElementById('zhouSpring').classList.contains('active');
+                lu = document.getElementById('chunqiuSpring').classList.contains('active');
+                zhuanxu = (document.getElementById("Spring").style.display=="none");
+            }
         } else {
-            zhou = document.getElementById('zhouSpring').classList.contains('active');
-            lu = document.getElementById('chunqiuSpring').classList.contains('active');
-            zhuanxu = (document.getElementById("Spring").style.display=="none");
+            zhou = (li=='Zhou');
+            lu = (li=='Lu' || li=='Chunqiu');
+            zhuanxu = (li=='Zhuanxu');
         }
         
         // Zhou calendar
@@ -830,10 +870,16 @@ function eraNameSim(year, region) {
     }
     
     if (year==-220) {
-        shown = (document.getElementById("Warring").style.display == "block");
-        zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
-        if (!shown || (shown && zhuanxu)) {
-            eras = [{y:-220, e:"秦始皇二十六年", offset:-1}];
+        if (li===null) {
+            shown = (document.getElementById("Warring").style.display == "block");
+            zhuanxu = document.getElementById('zhuanxuWarring').classList.contains('active');
+            if (!shown || (shown && zhuanxu)) {
+                eras = [{y:-220, e:"秦始皇二十六年", offset:-1}];
+            }
+        } else {
+            if (li=='Zhuanxu') {
+                eras = [{y:-220, e:"秦始皇二十六年", offset:-1}];
+            }
         }
     }
     
@@ -1471,6 +1517,16 @@ function eraNameSim(year, region) {
            {y:1796, e:"清仁宗嘉庆"}, {y:1736, e:"清高宗乾隆"},
            {y:1723, e:"清世宗雍正"}, {y:1662, e:"清圣祖康熙"},
            {y:1644, e:"清世祖顺治"}, {y:-99999, e:""}];
+    }
+
+    // Southern Ming and Zheng dynasty
+    if (year >= 1644 && year <= 1685 && region=='SouthernMing') {
+        eras = [{y:1912, e:""}, {y:1662, e:"明郑永历", offset:15}, {y:1654, e:"南明永历", offset:7},
+        {y:1653, e:"南明永历七年/鲁王监国八年", offset:-1}, {y:1652, e:"南明永历六年/鲁王监国七年", offset:-1},
+        {y:1651, e:"南明永历五年/鲁王监国六年", offset:-1}, {y:1650, e:"南明永历四年/鲁王监国五年", offset:-1},
+        {y:1649, e:"南明永历三年/鲁王监国四年", offset:-1}, {y:1648, e:"南明永历二年/鲁王监国三年", offset:-1},
+        {y:1647, e:"南明永历元年/鲁王监国二年", offset:-1}, {y:1646, e:"南明隆武二年/鲁王监国元年", offset:-1},
+        {y:1645, e:"南明弘光元年/隆武元年", offset:-1}, {y:1628, e:"明崇祯"}];
     }
     
     let chineseNumbers = ["一","二","三","四","五","六","七","八","九","十"];

@@ -8,6 +8,14 @@
 <title>公曆和農曆日期對照(公元前722年&mdash;公元2200年)</title>
 <link rel="stylesheet" href="calendar_chinese.css">   
 <script src="header.js"></script>
+<script src="utilities.js"></script>
+<script src="calendarData.js"></script>
+<script src="eclipse_linksM722-2202.js"></script>
+<script src="decompressSunMoonData.js"></script>
+<script src="ancientCalendars.js"></script>
+<script src="eras.js"></script>
+<script src="split.js"></script>
+<script src="calendar.js"></script>
 </head>
 
 <body>
@@ -101,6 +109,15 @@
     </h3>
     <br />
 <h3><a href="LiaoJinYuan_calendars_chinese.html">宋 遼 金 元 朔 閏 異 同 表</a></h3><br /><br />
+</div>
+
+<div id="QingSouthernMing" style="display:none;">
+    <p>現在顯示的王朝是<span id='SN3Dynasty' style='background-color:#ffb3b3;'></span>。點擊下面的按鍵更改王朝。</p>
+    <h3><button id="SN3North" class="calendars active" onClick="select_calendar_split('SN3North',1)">清</button>
+        <button id="SN3South" class="calendars" onClick="select_calendar_split('SN3South',1)">南明</button>
+        </h3>
+        <br />
+    <h3><a href="QingSouthernMingZheng_calendars_chinese.html">清 與 南 明 及 明 鄭 朔 閏 異 同 表</a></h3><br /><br />
 </div>
 
 <div id="calendar">
