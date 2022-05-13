@@ -1803,6 +1803,36 @@ function printWarningMessage(y, langCon) {
             warn = '<p style="color:red;">《旧唐书》有仪凤三年(678年)闰十月的记载，《新唐书》却有闰十一月记载，学者一般取《新唐书》的闰月。但台湾国立清华大学历史研究所的黄一农教授经过<a href="http://ccsdb.ncl.edu.tw/ccs/image/01_010_002_01_11.pdf" target="_blank">考证</a>后认为《旧唐书》的记载比较可信。根据他的考证，闰十月朔是癸丑(11月19日)，十一月朔是癸未(12月19日)。</p>';
         }
     }
+
+    if (y==689) {
+        if (lang==0) {
+            warn = '<p style="color:red;">The New Year day in 684 was supposed to be on Jan 22, 684, but it was moved to Jan 23 by edict.</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">嗣聖元年正月朔本在癸未(684年1月22日)，但唐高宗在弘道元年八月下旨，強將十二月改為大月，使正月朔移至甲申(1月23日)。</p>';
+        } else {
+            warn = '嗣圣元年正月朔本在癸未(684年1月22日)，但唐高宗在弘道元年八月下旨，强将十二月改为大月，使正月朔移至甲申(1月23日)。';
+        }
+    }
+
+    if (y==699) {
+        if (lang==0) {
+            warn = '<p style="color:red;">In 697, Empress Consort Wu changed several calendar dates by edict in order to create a rare phenomenon that a winter solstice occurred on a ji&#462; z&#464; day and coincided with a lunar conjunction. It was claimed that several predicted conjunction dates in the previous years were incorrect, resulting in the Moon being visible on the last days of lunar months. The claim was in fact incorrect and was a pretense for the empress to change calendar dates. After an "investigation", it was decided that the winter solstice should be moved two days later to the ji&#462; z&#464; day (Dec. 20), which "happened to coincide" with the lunar conjunction. Because of this change, the lunar month started on Nov. 20, 697 became a leap month and the winter solstice became the New Year day. There was originally a leap month after month 12 in 698. In order to cancel the leap month, the middle solar term Z12 was moved from Jan 17, 698 to Jan 18, 698.</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">萬歲通天二年，武則天為了營造正月甲子合朔冬至罕見曆象，偽稱曆官所推合朔時刻有不合天象，出現了「晦仍見月，有爽天經」之象，強將聖曆元年冬至移後兩日、大寒移後一日，使原本所推聖曆元年正月甲午朔變為通天二年閏十月甲午朔、聖曆元年十二月甲子朔變正月甲子朔，閏十二月癸巳朔變十二月癸巳朔。</p>';
+        } else {
+            warn = '<p style="color:red;">万岁通天二年，武则天为了营造正月甲子合朔冬至罕见历象，伪称历官所推合朔时刻有不合天象，出现了「晦仍见月，有爽天经」之象，强将圣历元年冬至移后两日、大寒移后一日，使原本所推圣历元年正月甲午朔变为通天二年闰十月甲午朔、圣历元年十二月甲子朔变正月甲子朔，闰十二月癸巳朔变十二月癸巳朔。</p>';
+        }
+    }
+
+    if (y==730) {
+        if (lang==0) {
+            warn = '<p style="color:red;">The New Year day in 725 was supposed to be on Jan 19, 725 and there was a leap month after the first month. However, in order to prevent a solar eclipse on the New Year day, the leap month was moved to a month earlier by edict and became the last month in the Chinese year in 724 and the New Year day was moved to Feb 18, 725.</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">開元十三年正月朔本在丙辰(725年1月19日)，為避正旦日食，當時強將閏月推前一月，使正月丙辰朔變閏十二月丙辰朔，閏正月丙戌朔(725年2月18日)變正月丙戌朔。</p>';
+        } else {
+            warn = '<p style="color:red;">开元十三年正月朔本在丙辰(725年1月19日)，为避正旦日食，当时强将闰月推前一月，使正月丙辰朔变闰十二月丙辰朔，闰正月丙戌朔(725年2月18日)变正月丙戌朔。</p>';
+        }
+    }
     
     if (y==1470) {
         if (lang==0) {
