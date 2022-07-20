@@ -15,7 +15,7 @@
   "homepage": "https://github.com/ytliu0/ChineseCalendar",
   "dependencies": {
     "html-minifier-terser": "^5.1.1",
-    "terser": "^5.7.0"
+    "terser": "^5.14.2"
   },
   "engines": {
     "node": ">= 16.1.0",
