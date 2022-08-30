@@ -26,8 +26,9 @@ function header(lang, page, link) {
                     {title:'Qin &amp; Early Han Calendars', url:'QinHanCalendars.html'}];
         menulist.push(menu);
         
-        menu = {id:'menuMisc', title:'Other<br />Links', 
-               url:'others.html', sub:[]};
+        menu = {id:'menuMisc', title:'Other<br />Links'};
+        menu.sub = [{title:'Miscellaneous', url:'others.html'},
+                    {title:'FAQ', url:'faq.html'}];
         menulist.push(menu);
     } else if (lang==1) {
         // traditional Chinese
@@ -54,7 +55,9 @@ function header(lang, page, link) {
                     {title:'秦至漢初的曆法復原', url:'QinHanCalendars_chinese.html'}];
         menulist.push(menu);
         
-        menu = {id:'menuMisc', title:'其 他', url:'others_chinese.html', sub:[]};
+        menu = {id:'menuMisc', title:'其 他'};
+        menu.sub = [{title:'雜 項', url:'others_chinese.html'},
+                    {title:'常見問題', url:'faq_chinese.html'}];
         menulist.push(menu);
     } else {
         // simplified Chinese
@@ -81,7 +84,10 @@ function header(lang, page, link) {
                     {title:'秦至汉初的历法复原', url:'QinHanCalendars_simp.html'}];
         menulist.push(menu);
         
-        menu = {id:'menuMisc', title:'其 他', url:'others_simp.html', sub:[]};
+        //menu = {id:'menuMisc', title:'其 他', url:'others_simp.html', sub:[]};
+        menu = {id:'menuMisc', title:'其 他'};
+        menu.sub = [{title:'杂项', url:'others_simp.html'},
+                    {title:'常见问题', url:'faq_simp.html'}];
         menulist.push(menu);
     }
     

@@ -98,6 +98,9 @@
 "simpleQuiz_simp": false,
 "others": false,
 "others_chinese": false, 
-"others_simp": false
+"others_simp": false,
+"faq": false,
+"faq_chinese": false,
+"faq_simp": false
 }
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="keywords" content="Chinese calendar, frequently asked questions, caleendar calculation" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+<title>FAQ</title>
+<link rel="stylesheet" href="calendar.css" />
+<script src="header.js"></script>
+</head>
+
+<body>
+<div id="wrap" style="max-width:800px;margin:auto;">
+<div id="menu"></div>
+<div id="language"></div>
+
+<h1>Frequently Asked Questions</h1>
+<ol>
+<input type="checkbox" class="accordion" id="conversion_program" />
+<label class="accordion" for="conversion_program"><li>I want to develop an app for conversion between Western and Chinese calendars. What is the best way to do it?</li></label>
+
+<div class="content">
+<p>The simplest method is to get a conversion table/tables (such as the ones <a href="table.html">here</a>) between Western and Chinese calendar and then do a table look-up.</p>
+</div>
+
+<input type="checkbox" class="accordion" id="conversion_tables" />
+<label class="accordion" for="conversion_tables"><li>Where do you get the calendar data on the <a href="table.html">conversion table page</a>?</li></label>
+
+<div class="content">
+<p>This is explained in detail on the <a href="computation.html">Calendar Calculation page</a>. In a nutshell...</p>
+<p>The data for the <a href="computation.html#modern">modern period (1912-2200)</a> are computed according to the rules stated by the GB/T 33661-2017 document, but several dates before 1929 are corrected according to the <i>New Edition of Wànniánlì (revised edition)</i> (《《新编万年历（修定本）》) edited by the Purple Mountain Observatory (紫金山天文台).</p>
+<p>The data for the <a href="computation.html#qing">Qing period (1645-1911)</a> are based on <i>New Edition of Wànniánlì (revised edition)</i> and <i>3500 Years of Calendars and Astronomical Phenomena</i> (《三千五百年历日天象》) by Zhāng Péiyú (張培瑜).</p> 
+<p>The data for the <a href="SouthernMingCalendar.html">Southern Ming and Zheng Period (1645 – 1683)</a> are largely based on <i>Cán Míng Dà Tǒng Lì</i> (殘明大統曆 or <i>Datong Calendar of the Waning Ming Dynasty</i>) by Fu Yili (傅以禮) compiled in the 19th century.</p>
+<p>The data for the <a href="computation.html#imperial">Middle Han to Ming Period (104 BCE – 1644 CE)</a> are largely based on <i>3500 Years of Calendars and Astronomical Phenomena</i>, but several dates are corrected based on various reliable sources.</p>
+<p>The data for <a href="QinHanCalendars.html">Qin and Early Han period (221 BCE – 104 BCE)</a> are calculated according to the article "Qín zhì Hàn chū (qián 246 zhì qián 104) lì fǎ yán jiū — yǐ chū tǔ lì jiǎn wéi zhōng xīn" (秦至汉初(前246至前104)历法研究—以出土历简为中心 or "Researches on Calendars from Qin to early Han (246 B.C to 104 B.C.) &mdash; centering on excavated calendrical bamboo slips") by Lǐ Zhōnglín (李忠林) in 2012.</p>
+<p>The data for the Warring States period (480 BCE – 222 BCE) are based on the <a href="guliuli.html">ancient six calendars</a>, using the information in Section 3.6 of the book <i>Zhōng Guó Gǔ Dài Lì Fǎ</i> (《中国古代历法》 or <i>Ancient Chinese Calendars and Almanacs)</i> by Zhāng Péiyú (張培瑜), Chén Měidōng (陳美東), Bó Shùrén (薄樹人), and Hú Tiězhū (胡鐵珠).</p>
+<p>The <a href="chunqiu.html">calendar data for the Lu State in the Spring and Autumn Period (722 BCE – 481 BCE)</a> are calculated based on the information in Section 3.5 of <i>Ancient Chinese Calendars and Almanacs</i>.</p>
+</div>
+
+<input type="checkbox" class="accordion" id="conversion_formula" />
+<label class="accordion" for="conversion_formula"><li>Is there a simple formula to calculate the Chinese calendar?</li></label>
+
+<div class="content">
+<p>For the modern Chinese calendar, the short answer is no.</p>
+<p>As explained on the <a href="rules.html">Chinese Calendar rule page</a>, modern Chinese calendar is calculated according to the GB/T 33661-2017 document. The rules are strict (especially the one-second accuracy requirement for the computation of moon phases and solar terms) and there is no shortcut. Whether something is simple or not also depends on one's experience. For those who are familiar with astronomical computation, the calculation required by GB/T 33661-2017 document is not that difficult, although not simple.</p>
+<p>However, there are simple approximate formulae to calculate solar terms and moon phases. You can find them in <i>Astronomical Algorithms</i> by Jean Meeus. The book only provides formulae for the equinoxes and solstices, but it should not be difficult to generalize them to calculate the other solar terms. While the accuracy of those approximate formulae do not meet the requirement of GB/T 33661-2017, they can still be used to calculate the Chinese calendar. The error of the computed Chinese calendar dates may be ~0.1% or even less. One can first use those approximate formulae to calculate the Chinese calendar, compare the calculated dates with the official Chinese calendar promulgated by the Purple Mountain Observatory, and then correct the ~0.1% error. This could be an alternative method to do the Western-Chinese calendar conversion.</p>
+</div>
+
+<input type="checkbox" class="accordion" id="sexagenary_calculation" />
+<label class="accordion" for="sexagenary_calculation"><li>How do you calculate the sexagenary cycles?</li></label>
+
+<div class="content">
+<p>This is explained in detail on the <a href="sexagenary.html">sexagenary cycle page</a>. The sexagenary cycle can be used to count years, months, days, and (double) hours. The sexagenary years, days and hours are easy to compute. The sexagenary month on a particular Gregorian date is more complicated to compute. However, sexagenary months were rarely used even in ancient official Chinese documents, and hours were simply indicated by the branch numbers only.</p>
+</div>
+
+</ol>
+</div>
+<br /><br />
+<script>header(0,'','faq');</script>
+</body>
+</html>
