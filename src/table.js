@@ -1942,12 +1942,55 @@ function printWarningMessage(y, langCon) {
             }
         }
     }
-    
-    if (y==2060 || y==2100 || y==2140 || y==2170 || y==2180) {
-        warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_early;
+
+    if (y==2060) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 9 conjunction in 2057 is close to the midnight. The start day of the month may be one day earlier.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2057年九月'+langCon.note_early+'</p>';
+        }
     }
-    if (y==2090 || y==2120) {
-        warn = '<p style="color:red;"><sup>*</sup>'+langCon.note_late;
+    if (y==2090) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 8 conjunction in 2089 is close to the midnight. The start day of the month may be one day later.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2089年八月'+langCon.note_late+'</p>';
+        }
+    }
+    if (y==2100) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 7 conjunction in 2097 is close to the midnight. The start day of the month may be one day earlier.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2097年七月'+langCon.note_early+'</p>';
+        }
+    }
+    if (y==2120) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 2 conjunction in 2115 and month 4 conjunction in 2116 are close to the midnight. The start days of the months may be one day later.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2115年二月朔和2116年四月'+langCon.note_late+'</p>';
+        }
+    }
+    if (y==2140) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 9 conjunction in 2133 is close to the midnight. The start day of the month may be one day earlier.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2133年九月'+langCon.note_early+'</p>';
+        }
+    }
+    if (y==2170) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 11 conjunction in 2165 is close to the midnight. The start day of the month may be one day earlier.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2165年十一月'+langCon.note_early+'</p>';
+        }
+    }
+    if (y==2180) {
+        if (lang==0) {
+            warn = '<p style="color:red;"><sup>*</sup>The month 9 conjunction in 2172 is close to the midnight. The start day of the month may be one day earlier.</p>';
+        } else {
+            warn = '<p style="color:red;"><sup>*</sup>2172年九月'+langCon.note_early+'</p>';
+        }
     }
     return warn;
 }
