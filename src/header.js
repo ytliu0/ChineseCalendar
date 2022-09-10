@@ -91,7 +91,7 @@ function header(lang, page, link) {
         menulist.push(menu);
     }
     
-    let txt = '';
+    let txt = '<div class="menu">';
     menulist.forEach(add_menu);
     
     function add_menu(x) {
@@ -109,6 +109,7 @@ function header(lang, page, link) {
         }
     }
     
+    txt += '</div>';
     document.getElementById('menu').innerHTML = txt;
     
     if (link != "") {
