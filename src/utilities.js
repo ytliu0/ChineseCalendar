@@ -26,3 +26,16 @@ function NdaysGregJul(y) {
   }
   return ndays;
 }
+
+// Name of Western Calendar
+function get_Western_calendar_name(y) {
+    if (y >1582) {
+        return ['Gregorian','格里曆','格里历'];
+    } else if (y==1582) {
+        return ['Julian/Gregorian','儒略曆/格里曆','儒略历/格里历'];
+    } else if (y > 7) {
+        return ['Julian','儒略曆','儒略历'];
+    } else {
+        return ['(Proleptic) Julian','逆推儒略曆','逆推儒略历'];
+    }
+}

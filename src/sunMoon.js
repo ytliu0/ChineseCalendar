@@ -58,9 +58,6 @@ function submitYear(lang) {
         addContent(lang, year-1, 'ym1', moon, sun);
         addContent(lang, year, 'y', moon, sun);
         addContent(lang, year+1, 'y1', moon, sun);
-        // *** TEST ***
-        //outputContent_forTesting(lang, -3500, 3500, moon, sun);
-        // *************
         moon = null;
         sun = null;
         // Hide the years y-1 and y+1
@@ -74,23 +71,19 @@ function submitYear(lang) {
 }
 
 function addContent(lang, y, id, moon, sun) {
-    let cal = "Gregorian Year: ";
-    if (y==1582) {
-        cal = "Julian/Gregorian Year: ";
-    } else if (y < 1582 && y >= 8) {
-        cal = "Julian Year: ";
-    } else if (y < 8) {
-        cal = "(Proleptic) Julian Year: ";
-    }
+    let wyear = get_Western_calendar_name(y);
     let txt;
     if (lang==0) {
-        txt = cal+y;
+        txt = wyear[0]+' Year: '+y;
     } else {
         txt ='公元'+y+'年';
     }
     if (y <= 0) {
         let app = [' ('+(1-y)+' BCE)', '(前'+(1-y)+'年)', '(前'+(1-y)+'年)'];
         txt += app[lang];
+    }
+    if (lang != 0) { 
+        txt += ' ('+wyear[lang]+')';
     }
     //if (addClickMesg) {
     //    txt += '&nbsp; <span style="font-size:80%;">(' + 
@@ -345,190 +338,4 @@ function add_eclipse_link(y, m, eclipse, lang) {
     });
     
     return txt;
-}
-
-// ------------------------------------------------------------------
-// The following functions are for testing purpose
-//
-function addContent_forTesting(lang, y, moon, sun) {
-    let cal = "Gregorian Year: ";
-    if (y==1582) {
-        cal = "Julian/Gregorian Year: ";
-    } else if (y < 1582 && y >= 8) {
-        cal = "Julian Year: ";
-    } else if (y < 8) {
-        cal = "(Proleptic) Julian Year: ";
-    }
-    let txt;
-    if (lang==0) {
-        txt = cal+y;
-    } else {
-        txt ='公元'+y+'年';
-    }
-    if (y <= 0) {
-        let app = [' ('+(1-y)+' BCE)', '(前'+(1-y)+'年)', '(前'+(1-y)+'年)'];
-        txt += app[lang];
-    }
-    //if (addClickMesg) {
-    //    txt += '&nbsp; <span style="font-size:80%;">(' + 
-    //        (lang==0 ? 'Click to show/hide data':'點擊以顯示/隱藏數據')+')</span>';
-    //}
-    txt += '\n';
-    
-    let mpName = ["New Moon", "First Quarter", "Full Moon", "Last Quarter"];
-    let stermName = ["Z11 (Dec. solstice)", "J12", "Z12", "J1", "Z1", "J2", 
-                     "Z2 (March equinox)", "J3","Z3", 
-                     "J4", "Z4", "J5", "Z5 (June solstice)", "J6", "Z6", "J7", "Z7", 
-                     "J8", "Z8 (Sep. equinox)", "J9", "Z9", "J10", "Z10", "J11"];
-    if (lang != 0) {
-        mpName = ["朔", "上弦", "望", "下弦"];
-        if (lang==1) {
-           stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "驚蟄", "春分", "清明", 
-                    "穀雨", "立夏", "小滿", "芒種", "夏至", "小暑", "大暑", "立秋", 
-                    "處暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
-        } else {
-           stermName = ["冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", 
-                    "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", 
-                    "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"];
-        }
-    }
-    let ind = y - yrange_sunMoon()[0];
-    let i;
-    let ndays = [NdaysGregJul(y-1), NdaysGregJul(y), NdaysGregJul(y+1)];
-    
-    // decompress data
-    let offsets = offset_sunMoon();
-    let moony = decompress_moonPhases(y, offsets.lunar, moon[ind], 0.25);
-    moony.unshift(moon[ind][0]);
-    let stermy = decompress_solarTerms(y, 0, offsets.solar, sun[ind]);
-    let sun_temp = [sun[ind+1][0], sun[ind+1][1]];
-    // add two more solar terms: Z11 and J12 following J11
-    let st2 = decompress_solarTerms(y+1, 0, offsets.solar, sun_temp);
-    stermy.push(st2[0]+1441*ndays[1], st2[1]+1441*ndays[1]);
-    
-    // Moon phases
-    // Data structure:
-    // moony is an array storing the moon phases data
-    // moony[0] is an integer between 0 and 3:
-    //         0 if moony[1] corresponds to a new moon
-    //         1 if moony[1] corresponds to a first quarter
-    //         2 if moony[1] corresponds to a full moon
-    //         3 if moony[1] corresponds to a third quarter
-    // moony[i] (i=1,2,... end of index): date and time of 
-    //          moon phases represent by an integer 
-    //          L so that floor(L/1441) is the number of days 
-    //          from Jan 0 and L - 1441*floor(L/1441) is the 
-    //          number of minutes from the midnight (UT1+8/UTC+8).
-    txt += "<br />";
-    let app = ['<h2>Phases of the Moon</h2>', '<h2>月相</h2>', '<h2>月相</h2>'];
-    txt += app[lang] + '\n<table>\n';
-    txt += "<tr> <th>"+mpName[0]+"</th><th>"+mpName[1]+"</th><th>"+mpName[2]+"</th><th>"+mpName[3]+"</th></tr>\n";
-    let ph = moony[0]; // First moon phase in the year
-    if (ph != 0) {
-        txt += '<tr> <td colspan="'+ph+'"></td>';
-    }
-    
-    // eclipses
-    let iec = y - eclipse_year_range()[0];
-    let links = solar_eclipse_link();
-    let no_eclipse = {solar:false, lunar:false};
-    let sol_eclipse = {solar:true, lunar:false, 
-                      eclipses:links[iec]};
-    let extra_links = links[iec-1];
-    extra_links.forEach(function(e) {
-        if (ndays[0] - e[0] < 3) {
-            // this is close to Jan 1, y; add it to be safe
-            sol_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
-        }
-    });
-    extra_links = links[iec+1];
-    extra_links.forEach(function(e) {
-        if (e[0] < 3) {
-            // this is close to Dec 31, y; add it to be safe
-            sol_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
-        }
-    });
-
-    links = lunar_eclipse_link();
-    let lun_eclipse = {solar:false, lunar:true, 
-                      eclipses:links[iec]};
-    extra_links = links[iec-1];
-    extra_links.forEach(function(e) {
-        if (ndays[0] - e[0] < 3) {
-            // this is close to Jan 1, y; add it to be safe
-            lun_eclipse.eclipses.push([e[0]-ndays[0], e[1], e[2]]);
-        }
-    });
-    extra_links = links[iec+1];
-    extra_links.forEach(function(e) {
-        if (e[0] < 3) {
-            // this is close to Dec 31, y; add it to be safe
-            lun_eclipse.eclipses.push([e[0]+ndays[1], e[1], e[2]]);
-        }
-    });
-    links = null;
-    for (i=1; i<moony.length; i++) {
-        if (ph==0) { txt += "<tr>";}
-        let eclipse = (ph==0 ? sol_eclipse:(ph==2 ? lun_eclipse:no_eclipse));
-        txt += addDateTime(y, moony[i], ndays, lang, eclipse);
-        if (ph==3) { txt += "</tr>\n";}
-        if (i == moony.length-1 && ph != 3) {
-            txt += '<td colspan="'+(3-ph)+'"></td></tr>\n';
-        }
-        ph = (ph + 1) % 4;
-    }
-    txt += "</table>\n";
-    
-    // 24 solar terms
-    txt += "<br />\n";
-    app = ['<h2>24 Solar Terms</h2>', '<h2>二十四節氣</h2>', '<h2>二十四节气</h2>'];
-    txt += app[lang]+'\n<table>\n';
-    app = ['<tr><th>Solar Term</th><th>Time</th> <td>&nbsp;</td> <th>Solar Term</th> <th>Time</th></tr>', 
-          '<tr><th>節氣</th><th>時刻</th> <td>&nbsp;</td> <th>節氣</th><th>時刻</th></tr>', 
-          '<tr><th>节气</th><th>时刻</th> <td>&nbsp;</td> <th>节气</th><th>时刻</th></tr>'];
-    txt += app[lang]+'\n';
-    for (i=0; i < 24; i++) {
-        if (i % 2 ==0) {
-            txt += "<tr>";
-        }
-        txt += "<td>"+stermName[i]+"</td>";
-        txt += addDateTime(y, stermy[i], ndays, lang, no_eclipse);
-        if (i % 2 == 0) {
-            txt += "<td></td>";
-        } else {
-            txt += "</tr>\n";
-        }
-    }
-    // Two more solar terms: Z11 and J12 following J11
-    txt += "<tr>";
-    txt += "<td>"+stermName[0]+"</td>";
-    txt += addDateTime(y, stermy[24], ndays, lang, no_eclipse);
-    txt += "<td></td><td>"+stermName[1]+"</td>";
-    txt += addDateTime(y, stermy[25], ndays, lang, no_eclipse) + "</tr>\n";
-    txt += "</table>\n";
-    return txt;
-}
-
-// Output from years y1 to y2
-function outputContent_forTesting(lang, y1, y2, moon, sun) {
-    let txt = addContent_forTesting(lang, y1, moon, sun)
-    for (let y=y1+1; y <= y2; y++) {
-        txt += addContent_forTesting(lang, y, moon, sun);
-    }
-    download_txt(txt, 'sunMoon_test2.txt');
-}
-
-// Create file for download
-function download_txt(data, filename) {
-    // create link to download data
-    let hiddenElement = window.document.createElement('a');
-    hiddenElement.href = window.URL.createObjectURL(new Blob([data], {type: 'text/csv'}));
-    hiddenElement.download = filename;
-
-    // Append anchor to body.
-    document.body.appendChild(hiddenElement);
-    hiddenElement.click();
-
-    // Remove anchor from body
-    document.body.removeChild(hiddenElement);
 }
