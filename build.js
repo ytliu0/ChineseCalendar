@@ -212,7 +212,6 @@ async function build() {
            'examples_simp', 'rules_demysterified', 'rules_demysterified_chinese',
            'rules_demysterified_simp', 'computation', 'computation_chinese', 
            'computation_simp', '3500Calendars_errors', '3500Calendars_errors_simp',
-           'discrepanciesQing', 'discrepanciesQing_chinese', 'discrepanciesQing_simp',
            'chunqiu', 'chunqiu_chinese', 'chunqiu_simp',
            'guliuli', 'guliuli_chinese', 'guliuli_simp', 'QinHanCalendars',
            'QinHanCalendars_chinese', 'QinHanCalendars_simp', 'QinHanSolarTerms', 
