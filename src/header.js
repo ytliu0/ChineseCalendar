@@ -162,7 +162,7 @@ function myloadurl(url) {
 
 function add_footer() {
     let foot = document.createElement('FOOTER');
-    let txt = '<hr /><p style="text-align:center;font-size:90%;">&copy; 2018&ndash;2022 Yuk Tung Liu</p>';
+    let txt = '<hr /><p style="text-align:center;font-size:90%;">&copy; 2018&ndash;2023 Yuk Tung Liu</p>';
     foot.innerHTML = txt;
     document.body.appendChild(foot);
 }
