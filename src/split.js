@@ -195,7 +195,7 @@ function select_calendar_split(id, lang) {
     if (err != "") { return;}
     
     let menu, item;
-    let period = id.substr(0,3);
+    let period = id.slice(0,3);
     if (period=='Tki') {
         menu = ["TkiWei", "TkiShu", "TkiWu"];
     } else if (period=='SN1') {

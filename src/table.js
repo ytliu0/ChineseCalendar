@@ -150,7 +150,7 @@ function langConstant(lang) {
     return {lang:lang, heaven:heaven, earth:earth, animal:animal, 
             region:'default', Wyear:Wyear, Cyear:Cyear, Cmonth:Cmonth, 
             month_num:month_num, Ndays:Ndays, 
-            note_early:note_early, note_late:note_late};
+            note_early:note_early, note_late:note_late, li:null};
 }
 
 // day from Dec 31, y-1 -> mm-dd (assume day > 0)
@@ -204,7 +204,7 @@ function ymd(yIn, dayIn) {
     }
     
     let mm = "0"+m, dd = "0"+d;
-    let mmdd = mm.substr(-2)+'-'+dd.substr(-2);
+    let mmdd = mm.slice(-2)+'-'+dd.slice(-2);
     if (yPrevious) { mmdd = '-'+mmdd;}
     if (noZhong) { mmdd = '<u>'+mmdd+'</u>';}
     return mmdd;
@@ -241,19 +241,19 @@ function tableYears(ystart, yend, date, langCon) {
         if (year < 1912 && langCon.lang > 0) {
             // Use era/regime name
             if (langCon.lang==1) {
-                cyear = eraName(year, langCon.region);
+                cyear = eraName(year, langCon.region, langCon.li);
             } else {
-                cyear = eraNameSim(year, langCon.region);
+                cyear = eraNameSim(year, langCon.region, langCon.li);
             }
             if (cyear.length > 2) {
-                cyear = cyear.substr(1, cyear.length-2);
+                cyear = cyear.slice(1, cyear.length-1);
                 if (langCon.region=='default' && year > 420.5 && year < 589.5) {
                     // remove [南北朝]
-                    cyear = cyear.substr(5);
+                    cyear = cyear.slice(5);
                 }
                 if (langCon.region=='default' && year > 907.5 && year < 960.5) {
                     // remove [五代]
-                    cyear = cyear.substr(4);
+                    cyear = cyear.slice(4);
                 }
             }
         }
@@ -2009,7 +2009,7 @@ function generate_csv(ystart, yend, date) {
             if (mmdd.substring(0,3)=='<u>') {
                 mmdd = mmdd.substring(3,n-4);
             }
-            mmdd = parseInt(mmdd.substring(0,n-3)).toString() + mmdd.substr(-2,2);
+            mmdd = parseInt(mmdd.substring(0,n-3)).toString() + mmdd.slice(-2);
             csv += mmdd+', '
         }
         if (date[i][14]==0) {
@@ -2020,7 +2020,7 @@ function generate_csv(ystart, yend, date) {
             if (mmdd.substring(0,3)=='<u>') {
                 mmdd = mmdd.substring(3,n-4);
             }
-            mmdd = parseInt(mmdd.substring(0,n-3)).toString() + mmdd.substr(-2,2);
+            mmdd = parseInt(mmdd.substring(0,n-3)).toString() + mmdd.slice(-2);
             csv += mmdd+', '+date[i][14].toString()+'\n';
         }
     }

@@ -1012,7 +1012,7 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
     if (lang==0) {
         // English
         m1 = "0"+Math.abs(cm);
-        m1 = m1.substr(-2);
+        m1 = m1.slice(-2);
         if (cm < 0) {
             if (y < -104) {
                 m1 = calVars.leap;
@@ -1023,7 +1023,7 @@ function addChineseDate(y, m, d, lang, langVars, calVars, firstMonth) {
             }
         }
         let d1 = "0"+cd;
-        d1 = d1.substr(-2);
+        d1 = d1.slice(-2);
         if (cmIsFirstMonth && cd==1) {
             txt = '<p style="color:red;"><b>'+m1+'-'+d1;
             warn = newMoonCloseToMidnight(y,cm);
@@ -1399,7 +1399,7 @@ function convertHM(h) {
     let hh = Math.floor(h1);
     let mm = Math.floor(60.0*(h1-hh));
     hh = '0'+hh; mm = '0'+mm;
-    return hh.substr(-2)+'<sup>h</sup>'+mm.substr(-2)+'<sup>m</sup>';
+    return hh.slice(-2)+'<sup>h</sup>'+mm.slice(-2)+'<sup>m</sup>';
 }
 
 // day from Dec 31, y-1 -> m, d (assume day > 0)
@@ -1424,7 +1424,7 @@ function ymd(day, leap) {
     }
     
     let mm = "0"+m, dd = "0"+d;
-    return mm.substr(-2)+'-'+dd.substr(-2);
+    return mm.slice(-2)+'-'+dd.slice(-2);
 }
 
 // Determine if the new moon associated with month j in year y 

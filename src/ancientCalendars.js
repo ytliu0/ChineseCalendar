@@ -27,7 +27,7 @@ function ancient_calendar_description(period, li, lic, lis, lang) {
     if (li_lang=="Xia1" || li_lang=="Xia2") { li_lang="Xia";}
     let txt, txt1, txt2, txt3, txt4, txt5="";
     // table: for pages table*.html?
-    let table = (period.substr(-5,5)=='Table' ? true:false);
+    let table = (period.slice(-5)=='Table' ? true:false);
     if (lang==0) {
         txt1 = "The first month of the ";
         txt2 = " calendar was the ";
@@ -190,7 +190,7 @@ function select_calendar(id, lang) {
     let err = document.getElementById('err').innerHTML;
     if (err != "") { return;}
     
-    let period = id.substr(-6,6);
+    let period = id.slice(-6);
     if (period != "Spring") { period = "Warring";}
     let menu = ancient_calendar_menu(period);
     let item, n = menu.length;
@@ -208,7 +208,7 @@ function select_calendar(id, lang) {
 // Select a calendar after a button is clicked 
 // for table.html/table_chinese.html 
 function select_calendar_table(id, lang) {
-    let period = id.substr(-6,6);
+    let period = id.slice(-6);
     if (period != "Spring") { period = "Warring";}
     let menu = ancient_calendar_menu(period);
     let item, n = menu.length;
