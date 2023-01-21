@@ -614,6 +614,9 @@ function calendar(lang, year) {
             if (year < 1912) {
                 tmp += '<br />';
             }
+            if (year==24 && lang > 0) { 
+                tmp = '<h2>'+mm1[0]+'月'+dd1[0]+'日前: 癸 未 (羊)('+(lang==1 ? '漢':'汉')+'更始元年),<br />';
+            }
             let tmp2 = (lang==1 ? '日及以後: ':'日及以后: ');
             tmp += mm1[0]+'月'+dd1[0]+tmp2+cyear[cy0+1]+'</h2><br />';
             txt += tmp;
@@ -665,11 +668,20 @@ function addYearInfo(y, langVars, calVars) {
     // Xin dynasty
     if (y >= 9 && y <= 23) {
         if (lang==0) {
-            info = "The Xin dynasty was established in 9 CE The ch&#466;u month (present day month 12) was designated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 CE (W&#249; ch&#233;n) had only 11 months. When the Xin dynasty was overthrown in 23 CE, the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 23 CE had 13 months, where month 12 appeared twice.";
+            info = "The Xin dynasty was established in 9 CE The ch&#466;u month (present day month 12) was designated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 CE (W&#249; ch&#233;n) had only 11 months. When the Xin dynasty was overthrown in 23 CE, the month numbers were switched back with month 1 being the y&#237;n month again.";
+            if (y==23) {
+                info += '<br />As a result, the Chinese year in 23 CE had two sets of calendar: one for the Xin dynasty (ch&#466;u month being the first month) and the other for the restored Han dynasty (y&#237;n month being the first month), also known as Gengshi. The two sets of calendar had 11 overlapping months: months 2-12 in the Xin calendar were the same as months 1-11 in the Gengshi calendar.';
+            }
         } else if (lang==1) {
-            info = "公元9年，王莽建立新朝，改正朔以殷正建丑(即現在的十二月)為年首，故公元8年的農曆年(戊辰年)只有十一個月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。新朝於地皇四年(癸未年，公元23年)亡，次年恢復以建寅(即現在的正月)為年首。公元23年的農曆年(癸未年)有兩個十二月。";
+            info = "公元9年，王莽建立新朝，改正朔以殷正建丑(即現在的十二月)為年首，故公元8年的農曆年(戊辰年)只有十一個月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。新朝於地皇四年(癸未年，公元23年)亡，綠林軍擁立漢淮南王劉玄为帝，改元更始元年，恢復以建寅(即現在的正月)為年首。";
+            if (y==23) {
+                info += '<br />地皇四年和更始元年有十一個月重疊。地皇四年用丑正、更始元年用寅正，所以地皇四年二至十二月相當於更始元年正至十一月。';
+            }
         } else {
-            info = "公元9年，王莽建立新朝，改正朔以殷正建丑(即现在的十二月)为年首，故公元8年的农历年(戊辰年)只有十一个月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。新朝于地皇四年(癸未年，公元23年)亡，次年恢复以建寅(即现在的正月)为年首。公元23年的农历年(癸未年)有两个十二月。";
+            info = "公元9年，王莽建立新朝，改正朔以殷正建丑(即现在的十二月)为年首，故公元8年的农历年(戊辰年)只有十一个月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。新朝于地皇四年(癸未年，公元23年)亡，绿林军拥立汉淮南王刘玄为帝，改元更始元年，恢复以建寅(即现在的正月)为年首。";
+            if (y==23) {
+                info += '<br />地皇四年和更始元年有十一个月重叠。地皇四年用丑正、更始元年用寅正，所以地皇四年二至十二月相当于更始元年正至十一月。';
+            }
         }
     }
     
@@ -1523,15 +1535,27 @@ function calendarNotesBefore618(y, m, lang, langVars) {
             warn = "本来十二月是建丑，改正朔后建丑变成正月，所以戊辰年没有十二月。";
         }
     }
-    if (y==23 && m==12) {
-        if (lang==0) {
-            warn = "Since month 1 was to switch back to be the y&#237;n month in the following year, there were two month 12s in this Chinese year. The first one was the z&#464; month and the second one was the ch&#466;u month. These two month 12s should not be confused as they can be distinguished by their sexagenary month cycles.";
-        } else if (lang==1) {
-            warn = "下一年的正月恢復為建寅，這一年的農曆有兩個十二月:建子和建丑。由於已註明了月干支，兩個十二月應不會被混淆。";
-        } else {
-            warn = "下一年的正月恢复为建寅，这一年的农历有两个十二月:建子和建丑。由于已注明了月干支，两个十二月应不会被混淆。";
+    if (y==23 && m > 1) {
+        let month_numChi = ["正","二","三","四","五","六","七","八","九","十", "十一","十二"];
+        let cdates_eng = ['February 10th', 'March 11th', 'April 10th', 'May 9th', 'June 8th', 'July 7th', 'August 6th', 'September 4th', 'October 4th', 'November 2nd', 'December 2nd'];
+        let cdates_chi = ['2月10日', '3月11日', '4月10日', '5月9日', '6月8日', '7月7日', '8月6日', '9月4日', '10月4日', '11月2日', '12月2日'];
+        let msg = [cdates_eng[m-2]+' was the first day of month '+m+' in the Xin calendar and the first day of month '+(m-1)+' in the Gengshi calendar.', cdates_chi[m-2]+'是地皇四年'+month_numChi[m-1]+'月初一、更始元年'+month_numChi[m-2]+'月初一。', cdates_chi[m-2]+'是地皇四年'+month_numChi[m-1]+'月初一、更始元年'+month_numChi[m-2]+'月初一。'];
+        if (m==12) {
+            msg[0] += ' December 31st was the first day of month 12 in the Gengshi calendar.';
+            msg[1] += '12月31日是更始元年十二月初一。';
+            msg[2] += '12月31日是更始元年十二月初一。';
         }
+        warn = msg[lang];
     }
+    // if (y==23 && m==12) {
+    //     if (lang==0) {
+    //         warn = "Since month 1 was to switch back to be the y&#237;n month in the following year, there were two month 12s in this Chinese year. The first one was the z&#464; month and the second one was the ch&#466;u month. These two month 12s should not be confused as they can be distinguished by their sexagenary month cycles.";
+    //     } else if (lang==1) {
+    //         warn = "下一年的正月恢復為建寅，這一年的農曆有兩個十二月:建子和建丑。由於已註明了月干支，兩個十二月應不會被混淆。";
+    //     } else {
+    //         warn = "下一年的正月恢复为建寅，这一年的农历有两个十二月:建子和建丑。由于已注明了月干支，两个十二月应不会被混淆。";
+    //     }
+    // }
     
     // Wei dynasty
     if (y==237 && m==2 && langVars.region=='default') {

@@ -559,8 +559,8 @@ function table_qinhanxin(lang) {
        tab += tableYears(y, y+9, date, langCon);
     }
     
-    // Create 2D array for years 1 - 22
-    let date2 = new Array(22);
+    // Create 2D array for years 1 - 23
+    let date2 = new Array(23);
     let y0 = date[0][0];
     for (y=1; y <=8; y++) {
         date2[y-1] = new Array(16);
@@ -573,7 +573,7 @@ function table_qinhanxin(lang) {
     // which ymd() function will interpret as NA
     // The number of days in year 8 is 354
     date2[7][12] = 9999; date2[7][15] = 354;
-    for (y = 9; y <= 22; y++) {
+    for (y = 9; y <= 23; y++) {
         date2[y-1] = new Array(16);
         j = y - y0;
         let ndays1 = NdaysGregJul(y-1);
@@ -599,46 +599,35 @@ function table_qinhanxin(lang) {
     
     tab += tableYears(1, 8, date2, langCon);
     if (lang==0) {
-        info = '<p style="color:red;">The Xin dynasty was established in 9 CE The ch&#466;u month (present day month 12) was desnigated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 CE (W&#249; ch&#233;n) had only 11 months. When the Xin dynasty was overthrown in 23 CE, the month numbers were switched back with month 1 being the y&#237;n month again in the following year. As a result, the Chinese year in 23 CE had 13 months, where month 12 appeared twice (z&#464; month and ch&#466;u month).</p>';
+        info = '<p style="color:red;">The Xin dynasty was established in 9 CE The ch&#466;u month (present day month 12) was desnigated as the first month of a year; the y&#237;n month (present day month 1) became month 2 and so on. The Chinese month numbers were shifted by one. As a result, the Chinese year in 8 CE (W&#249; ch&#233;n) had only 11 months. The Xin dynasty was overthrown in 23 CE and the Han dynasty was restored. The month numbers were then switched back with month 1 being the y&#237;n month again. As a result, the Chinese year in 23 CE had two sets of calendar: one for the Xin dynasty (ch&#466;u month being the first month) and the other for the Han dynasty (y&#237;n month being the first month).</p>';
     } else if (lang==1) {
-        info = '<p style="color:red;">公元9年，王莽建立新朝，改正朔以殷正建丑(即現在的十二月)為年首，故公元8年的農曆年(戊辰年)只有十一個月。農曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。新朝於地皇四年(癸未年，公元23年)亡，次年恢復以建寅(即現在的正月)為年首。公元23年的農曆年(癸未年)有兩個十二月(建子和建丑)。</p>';
+        info = '<p style="color:red;">公元9年，王莽建立新朝，改正朔以殷正建丑(即現在的十二月)為年首，故公元8年的中曆年(戊辰年)只有十一個月。中曆月的數序是:建丑為正月、建寅為二月等等，與現在通用的月序相差一個月。新朝於地皇四年(癸未年，公元23年)亡，綠林軍擁立漢淮南王劉玄为帝，改元更始元年，恢復以建寅(即現在的正月)為年首。</p>';
     } else {
-        info = '<p style="color:red;">公元9年，王莽建立新朝，改正朔以殷正建丑(即现在的十二月)为年首，故公元8年的农历年(戊辰年)只有十一个月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。新朝于地皇四年(癸未年，公元23年)亡，次年恢复以建寅(即现在的正月)为年首。公元23年的农历年(癸未年)有两个十二月(建子和建丑)。</p>';
+        info = '<p style="color:red;">公元9年，王莽建立新朝，改正朔以殷正建丑(即现在的十二月)为年首，故公元8年的农历年(戊辰年)只有十一个月。农历月的数序是:建丑为正月、建寅为二月等等，与现在通用的月序相差一个月。新朝于地皇四年(癸未年，公元23年)亡，绿林军拥立汉淮南王刘玄为帝，改元更始元年，恢复以建寅(即现在的正月)为年首。</p>';
     }
     tab += info;
     langCon.month_num[0] = (lang==0 ? "1 (ch&#466;u)":"正(丑)");
-    tab += tableYears(9, 22, date2, langCon);
-    
-    // Manually create the table for year 23
+    let txt = tableYears(9, 23, date2, langCon);
+    if (lang==1) {
+        txt = txt.replace('/漢更始元年', '');
+    } else if (lang==2) {
+        txt = txt.replace('/汉更始元年', '');
+    }
+    tab += txt;
+
     if (lang==0) {
-        info = '<table>';
-        info += '<tr> <th rowspan="2">Julian<br />year</th> <th rowspan="2">Chinese<br />year</th> <th colspan="7">Months in Chinese Calendar</th> <th rowspan="4"># days</th></tr>';
-        info += '<tr> <th>1 (ch&#466;u)</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th>';
-        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">Gu&#464; w&#232;i (Goat)</td> <td>01-11</td> <td>02-10</td> <td>03-11</td> <td>04-10</td> <td>05-09</td> <td>06-08</td> <td>07-07</td> </tr>';
-        info += '<tr> <th>8</th> <th>9</th> <th>10</th> <th>11</th> <th>12 (z&#464;)</th> <th>12 (ch&#466;u)</th> <th>leap<br />mon.</th> </tr>';
-        info += '<tr><td>08-06</td> <td>09-04</td> <td>10-04</td> <td>11-02</td> <td>12-02</td> <td>12-31</td> <td>&mdash;</td> <td>384</td></tr>';
-        info += '</table> <br /><br />';
-    } else if (lang==1) {
-        info = '<table>';
-        info += '<tr> <th rowspan="2">公曆年</th> <th rowspan="2">中曆年</th> <th colspan="7">中曆月</th> <th rowspan="4">日數</th></tr>';
-        info += '<tr> <th>正(丑)</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th> <th>七</th></tr>';
-        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">新地皇四年/漢更始元年</td> <td>01-11<br />壬午</td> <td>02-10<br />壬子</td> <td>03-11<br />辛巳</td> <td>04-10<br />辛亥</td> <td>05-09<br />庚辰</td> <td>06-08<br />庚戌</td> <td>07-07<br />己卯</td></tr>';
-        info += '<tr> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二(子)</th> <th>十二(丑)</th> <th>閏月</th> </tr>';
-        info += '<tr><td>08-06<br />己酉</td> <td>09-04<br />戊寅</td> <td>10-04<br />戊申</td> <td>11-02<br />丁丑</td> <td>12-02<br />丁未</td> <td>12-31<br />丙子</td> <td>&mdash;</td> <td>384</td></tr>';
-        info += '</table> <br /><br />';
+        info = '<h3>Gengshi (23 &ndash; 25)</h3>';
     } else {
-        info = '<table>';
-        info += '<tr> <th rowspan="2">公历年</th> <th rowspan="2">中历年</th> <th colspan="7">中历月</th> <th rowspan="4">日数</th></tr>';
-        info += '<tr> <th>正(丑)</th> <th>二</th> <th>三</th> <th>四</th> <th>五</th> <th>六</th> <th>七</th></tr>';
-        info += '<tr> <td rowspan="3">23</td> <td rowspan="3">新地皇四年/汉更始元年</td> <td>01-11<br />壬午</td> <td>02-10<br />壬子</td> <td>03-11<br />辛巳</td> <td>04-10<br />辛亥</td> <td>05-09<br />庚辰</td> <td>06-08<br />庚戌</td> <td>07-07<br />己卯</td></tr>';
-        info += '<tr> <th>八</th> <th>九</th> <th>十</th> <th>十一</th> <th>十二(子)</th> <th>十二(丑)</th> <th>闰月</th> </tr>';
-        info += '<tr><td>08-06<br />己酉</td> <td>09-04<br />戊寅</td> <td>10-04<br />戊申</td> <td>11-02<br />丁丑</td> <td>12-02<br />丁未</td> <td>12-31<br />丙子</td> <td>&mdash;</td> <td>384</td></tr>';
-        info += '</table> <br /><br />';
+        info = '<h3>更 始 (23 &ndash; 25)</h3>';
     }
     tab += info;
+
     langCon.month_num[0] = (lang==0 ? "1":"正");
-    
-    tab += tableYears(24, 24, date, langCon);
+    txt = tableYears(23, 25, date, langCon);
+    if (lang != 0) {
+        txt = txt.replace('新地皇四年/', '');
+    }
+    tab += txt;
     
     document.getElementById('table').innerHTML = tab;
     date = null;
@@ -1743,6 +1732,16 @@ function newMoonCloseToMidnight(y, j) {
 // Print warning message
 function printWarningMessage(y, langCon) {
     let lang = langCon.lang, warn = '';
+
+    if (y==23) {
+        if (lang==0) {
+            warn = '<p style="color:red;">There were two sets of calendar for the Chinese year in 23 CE: one for the Xin dynasty and the other for the restored Han dynasty, also known as Gengshi. The two sets of calendar had 11 overlapping months: the second month in the Xin calendar was the same as the first month in the Gengshi calendar, the third month in the Xin calendar was the same as the second month in the Gengshi calendar, ..., and the last month in the Xin calendar was the same as the 11th month in the Gengshi calendar.</p>';
+        } else if (lang==1) {
+            warn = '<p style="color:red;">地皇四年和更始元年有十一個月重疊。地皇四年用丑正、更始元年用寅正，所以地皇四年二月相當於更始元年正月、地皇四年三月相當於更始元年二月……地皇四年十二月相當於更始元年十一月。</p>';
+        } else {
+            warn = '<p style="color:red;">地皇四年和更始元年有十一个月重叠。地皇四年用丑正、更始元年用寅正，所以地皇四年二月相当于更始元年正月、地皇四年三月相当于更始元年二月……地皇四年十二月相当于更始元年十一月。</p>';
+        }
+    }
     
     if (y==240 && langCon.region=='Wu') {
         if (lang==0) {
