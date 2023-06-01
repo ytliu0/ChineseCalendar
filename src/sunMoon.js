@@ -293,7 +293,7 @@ function addDateTime(y, m, ndays, lang, eclipse) {
     } else if (day > ndays[1]) {
         txt += "(" + (y+1) + ") ";
         day -= ndays[1];
-        nday = ndays[1];
+        nday = ndays[2];
     }
     txt += ymd2(day, nday, lang)+", "+hh+":"+mm;
     txt += add_eclipse_link(y, m, eclipse, lang);
