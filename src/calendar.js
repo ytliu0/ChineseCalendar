@@ -579,7 +579,7 @@ function calendar(lang, year) {
         txt += '<h1>'+gcal+' Year: '+yearc+'</h1>';
         txt += '<h1>Chinese year:</h1>'
         if (Ncyear==1) {
-            cal.innerHTML += '<h2>'+cyear[cy0]+'</h2> <br />';
+            txt += '<h2>'+cyear[cy0]+'</h2> <br />';
         } else if (Ncyear==2) {
             txt += '<h2>'+cyear[cy0]+' before '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+',<br />'+cyear[cy0+1]+' on and after '+langVars.gMonth[mm1[0]-1]+' '+dd1[0]+'</h2> <br />';
         } else {
