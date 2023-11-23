@@ -10,7 +10,7 @@
     "clean": "node build.js clean"
   },
   "repository": "github:ytliu0/ChineseCalendar",
-  "author": "Yuk Tung Liu (https://publish.illinois.edu/ytliu/)",
+  "author": "Yuk Tung Liu",
   "license": "GPL-3.0",
   "homepage": "https://github.com/ytliu0/ChineseCalendar",
   "dependencies": {
