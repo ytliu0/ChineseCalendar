@@ -1876,7 +1876,7 @@ function printWarningMessage(y, langCon) {
         }
     }
 
-    if (y==1670) {
+    if (y==1670 && langCon.region != 'SouthernMing') {
         if (lang==0) {
             warn = '<p style="color:red;">The Chinese New Year in 1662 was originally on Feb. 19. There was a leap month after month 7 in 1661 and two major solar terms (Z11 and Z12) in month 11. The major solar term Z1 was originally placed on the last day of month 12 in 1661, leaving the first month in 1662 without a major solar term. To avoid controversy, the New Year Day was moved to Feb. 18 so that the first month would contain Z1, thus moving the month without major solar term to the last month of 1661.</p>';
         } else if (lang==1) {
