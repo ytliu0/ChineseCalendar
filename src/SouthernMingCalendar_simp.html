@@ -8,6 +8,51 @@
 <title>南明和明郑历法的朔闰</title>
 <link rel="stylesheet" href="calendar_chinese.css">
 <script src="header.js"></script>
+<style>
+    body {
+      counter-reset:sec-counter;
+    }
+    @counter-style chinese_num {
+            system: fixed;
+            symbols: 一 二 三 四 五 六;
+    }
+    @counter-style stems {
+        system: fixed;
+        symbols: 甲 乙 丙 丁 戊 己;
+    }
+    sect {
+        font-size: 24px;
+        font-weight:bold;
+        margin:1em 0 1em 0;
+        line-height: 26px;
+        counter-reset: subsec-counter;
+        letter-spacing: 4px;
+    }
+    sect::before {
+      counter-increment: sec-counter 1;
+      content: counter(sec-counter, chinese_num) ". ";
+    }
+    sect::after{
+        content: '\a \a';
+        white-space:pre;
+    }
+    subsect {
+        font-size: 20px;
+        font-weight:bold;
+        margin-left: 0px;
+        margin-top:5px;
+        margin-bottom:5px;
+        letter-spacing: 4px;
+    }
+    subsect::before {
+        counter-increment: subsec-counter 1;
+        content: counter(subsec-counter, stems) ". ";
+    }    
+    subsect::after{
+        content: '\a \a';
+        white-space:pre;
+    }
+</style>
 </head>
     
 <body>
@@ -20,7 +65,7 @@
 <p>初稿: 2022年4月</p>
     <br />
 
-<sect id="introduction">引 言</sect>
+<sect id="introduction">引言</sect>
 
 <p>崇祯十七年(1644年)三月，崇祯帝自缢而死，明朝灭亡，北京先后被李自成和清朝占领，明朝宗室与官员在中国南方相继成立政权抗清，史称「南明」。颁布历法一向是帝皇宣示统治的象征，南明继承明朝，历法自然根据明朝大统历编制，然而南明皇帝流离失所，南明各派系又斗争不绝，颁行的历法不像明朝那样由同一批历官编制，于是出现了不同版本的大统历。弘光、隆武和永历被视为继承明室正统，他们都有颁行历法，但与永历帝同一时期的鲁王朱以海在浙东自称「监国」，颁行「鲁监国大统历」。此外，郑成功在闽海一带抗清，郑氏奉南明正朔，但因战乱南明大统历书往往无法及时送到郑氏辖区，于是郑氏命官员依明大统历权宜编制及颁行大统历书。永历帝于永历十五年底(1662年初)被缅甸人送至清军营，南明灭亡。永历十五年郑成功北伐失败，转攻台湾，次年驱逐了占台的荷兰人，在台湾建立明郑政权，又称东宁王国。虽然南明已亡，但是郑氏建立的明郑政权仍然奉明正朔，继续使用永历年号，颁行的大统历书仍注明「皇历未至，本藩权依大统历法命官考正刊行，俾中兴臣子咸知正朔，用是为识」。由于南明已亡，南明大统历已绝，郑氏权宜颁行的大统历变相成为明郑正统的大统历书。明郑直到永历三十七年(1683年)闰六月郑克爽投降清朝才宣告灭亡。</p>
 
@@ -31,7 +76,7 @@
 <p>本网站的南明历法数据主要根据傅以礼《残明大统历》的资料，但有两个历日根据存世的明郑大统历订正。以下以明朝大统历的正统算法比较《残明大统历》、明郑大统历及其他史料的南明及明郑历日资料。</p>
 
     <br />
-<sect id="comparison1">《残 明 大 统 历》 及 明 郑 大 统 历 的 朔 闰</sect>
+<sect id="comparison1">《残明大统历》及明郑大统历的朔闰</sect>
     
 <p>明朝《大统历》基本上沿袭元朝《授时历》的法数和推步方法。《授时历》的日月推步方法在李勇和张培瑜于1996年和李勇及张承志于1998年发表的两篇文章(<a href="SouthernMingCalendar_simp.html#LiZhang1996"></a>和<a href="SouthernMingCalendar_simp.html#LiZhang1998"></a>)有介绍，李勇在「明嘉靖六年《大统历》历书的气朔推步精度」<sup><a href="SouthernMingCalendar_simp.html#Li2011"></a></sup> 一文说明了大统历的气朔推步法，并根据嘉靖六年大统历书验证了算出的节气时刻完全符合历书给出的数据。</p>
 
@@ -55,15 +100,15 @@
 <sup>&dagger;</sup>《残明大统历》记永历二十九年闰六月戊午朔(1675年7月23日)，依大统历推步此朔日在丁巳(7月22日)。一日之差导致闰月出现分歧:依《残明大统历》六月大戊子朔(6月23日)、闰六月小戊午朔(7月23日);依大统历推步闰五月小戊子朔(6月23日)、六月大丁巳朔(7月22日)。明郑颁行的<a href="N1676_Zheng_simp.html">永历三十年大统历</a>和<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历二十九年闰六月，显示《残明大统历》的历日符合明郑颁行的大统历书。</p>
 
 <br />
-<sect id="discrepancies">南 明 大 统 历 的 朔 闰 分 歧</sect>
+<sect id="discrepancies">南明大统历的朔闰分歧</sect>
 
 <p>以下试论南明史料的朔闰分歧。</p>
 <br />
-<subsect id="LuDatong">鲁 监 国 大 统 历 的 朔 日 差 异</subsect>
+<subsect id="LuDatong">鲁监国大统历的朔日差异</subsect>
 
 <p>如上述，与永历帝同一时期的鲁王自称「监国」，颁行「鲁监国大统历」，用鲁王监国纪年:鲁王监国元年即隆武二年(1646年)、鲁王监国二年即永历元年等，鲁王于监国八年(永历七年)三月除消监国称号。黄典权在「南明大統曆考證稿」<sup><a href="SouthernMingCalendar_simp.html#Huang1962"></a></sup>文中根据黄宗羲「鲁纪年」、「海外恸哭记」、翁州老民的「海东逸史」、凌雪「南天痕」、三余氏的「南明野史」等资料考证了「鲁监国大统历」的一些朔日，发现有两个朔日与《残明大统历》不合:鲁王监国四年正月辛酉朔及鲁王监国七年正月癸酉朔。监国四年即永历三年(1649年)、监国七年即永历六年(1652年)，《残明大统历》记该两年的正月朔为庚申和甲戌，这两个朔日差异也许是永历和鲁王两种大统历书的朔日差异。依大统历推步得出永历三年正月朔在庚申日亥正二刻，永历六年正月朔在甲戌日子正一刻。可见《残明大统历》的两个朔日符合大统历推步，「鲁监国大统历」的朔日差异显示其算出的合朔时刻与大统历推步可差一小时半。</p>
 <br />
-<subsect id="Yongli4">永 历 四 年 的 闰 月 差 异</subsect>
+<subsect id="Yongli4">永历四年的闰月差异</subsect>
 
 <p>《残明大统历》和《延平王户官杨英从征实录》记永历四年闰十一月，符合大统历的推步，但是明郑颁行的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>、<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>却记闰十二月。黄典权在<a href="SouthernMingCalendar_simp.html#Huang1962"></a>文中指出闰十一月的记载也见于钱澄「所知录」、瞿元锡「庚寅始安事略」、夏琳「海纪轨要」、院曼锡「海上见闻录」等，因此认为闰十二月孤证薄弱，猜测永历二十五年大统历闰十二月为「误刻」。但黄典权没有看到永历三十年和三十一年的大统历书，不知道那两本历书也记闰十二月，因此「误刻」之说难以成立。下表根据大统历推步列出与此年闰月有关的合朔和中气。</p>
 <table>
@@ -76,7 +121,7 @@
 <br />
 <p>表中可见根据大统历推步，己酉朔对应的月份因含十二月中气大寒是十二月，庚辰朔对应的月份因不含中气是闰十一月。如上述，节气计算很简单，不容易算错，可以假设南明大统历编算者算出的冬至、大寒和雨水都符合大统历推步，但是编历者算出的合朔时刻或会与大统历正统算法稍有差异，由于大统历算出的己酉朔离次日子正初刻有约二小时，编历者或会因计算差异而算出该朔落在下一日庚戌(1月22日)，这样庚辰朔对应的月份含大寒为十二月、庚戌朔对应的月份不含中气为闰十二月。从上一节的讨论得知明郑大统历算出的合朔时刻确实会与大统历正统算法有二小时偏差，而闰十二月的资料来自明郑颁行的大统历书，合理猜测是闰十二月可能是当时郑氏命官员权宜编算大统历算出的结果，而闰十一月可能是来自永历大统历。由于郑氏奉明正朔，当时南明尚在，取闰十一月较好。</p>
 <br />
-<subsect id="Yongli7">永 历 七 年 的 闰 月 争 议</subsect>
+<subsect id="Yongli7">永历七年的闰月争议</subsect>
 
 <p>《残明大统历》记永历七年闰七月，符合大统历的推步，但是《延平王户官杨英从征实录》记闰八月、《行在阳秋》和明郑的<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>记闰六月、<a href="N1676_Zheng_simp.html">永历三十年大统历</a>及<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>却记闰八月。黄典权在<a href="SouthernMingCalendar_simp.html#Huang1962"></a>文认为闰八月可能是郑氏命官员权宜编算大统历的结果，永历二十五年大统载的闰六月极可能是凭南明「皇历」正本而改正的，所以认为永历七年闰六月。黄典权没有看到永历三十年和三十一年的大统历，不知道两本历书改记闰八月，因此据皇历改正之说值得商榷，较有可能的是永历二十五年历书的闰六月为刻误。下表根据大统历推步列出与此年闰月有关的合朔和中气。</p>
 
@@ -96,7 +141,7 @@
 <p>我认为既然明郑的永历三十年和三十一年大统历都有闰八月记载，闰八月很可能是郑氏权宜颁行历书的计算结果。至于《残明大统历》的闰七月确是当时永历大统历的闰月，还是如黄典权猜测是傅以礼因缺乏资料而用大统历推步补上的数据，尚需考证。</p>
 
 <br />
-<subsect id="Yongli2">永 历 二 年 的 闰 月 争 议</subsect>
+<subsect id="Yongli2">永历二年的闰月争议</subsect>
 
 <p>《残明大统历》、<a href="N1671_Zheng_simp.html">永历二十五年大统历</a>、<a href="N1676_Zheng_simp.html">永历三十年大统历</a>和<a href="N1677_Zheng_simp.html">永历三十一年大统历</a>都记永历二年闰三月，符合大统历推步，但是王叔武在「南明史料朔闰考异 &mdash; 《行在阳秋》札记」<sup><a href="SouthernMingCalendar_simp.html#Wang1979"></a></sup>一文引《劫灰录》, 《鹿樵纪闻》, 《明季南略》,  《爝火录》等记载主张应为闰六月。现先列出根据大统历推步与此年闰月有关的合朔和中气。</p>
 
@@ -121,7 +166,7 @@
 <ul style="list-style-type:none;">
 <li id="LiZhang1996"><p><span class="ref"></span> 李勇、张培瑜，「中国古历定朔推步综述」，天文学进展，14，66-76，1996。</li>
     
-<li id="LiZhang1998"><p><span class="ref"></span> Li, Y., Zhang, C.Z., <a href="https://ui.adsabs.harvard.edu/abs/1998A%26A...332.1142L/abstract" target="_blank">"Chinese syzygy calculation established in the 13th century"</a>, Astro. Astrophys., 332, 1142-1146 (1998).</li>
+<li id="LiZhang1998"><p style="letter-spacing:1px;"><span class="ref"></span> Li, Y., Zhang, C.Z., <a href="https://ui.adsabs.harvard.edu/abs/1998A%26A...332.1142L/abstract" target="_blank">"Chinese syzygy calculation established in the 13th century"</a>, Astro. Astrophys., 332, 1142-1146 (1998).</li>
 
 <li id="Li2011"><p><span class="ref"></span> 李勇，「明嘉靖六年《大统历》历书的气朔推步精度」，天文学进展，29，218-227, 2011。</li>
 
@@ -145,27 +190,11 @@
 document.getElementById('wrap').style.display = 'block';
 header(2,'','SouthernMingCalendar')
 let i,j;
-
-// add section number
-let num = ['一', '二', '三', '四', '五', '六'];
-let sec = document.querySelectorAll("sect");
-let n = sec.length;
-for (i=0; i<n; i++) {
-    sec[i].textContent = num[i]+'. '+sec[i].textContent;
-}
-
-// add subsection number
-num = ['甲', '乙', '丙', '丁', '戊', '己'];
-let subsect = document.querySelectorAll("subsect");
-n = subsect.length;
-for (i=0; i<n; i++) {
-    subsect[i].textContent = num[i]+'. '+subsect[i].textContent;
-}
     
 // automatically add reference numbers to citations
 let ref = document.querySelectorAll("#references li");
 let refn = document.querySelectorAll("#references .ref");
-n = refn.length;
+let n = refn.length;
 for (i=0; i<n; i++) {
     refn[i].textContent = "["+(i+1)+"]";
 }
