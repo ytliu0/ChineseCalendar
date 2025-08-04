@@ -610,8 +610,8 @@ function calDataYear_info_guliuli(li, y, jdc, ndays) {
         if (m==13) { m = -12; jian = -10;}
         if (para.ziOffset==-1) {
             m = 11 + i;
+            if (m > 21+leap) { yearOffset = 1;}
             if (m > 12) { m -= 12;}
-            if (m > 9+leap) { yearOffset = 1;}
             if (m==10 && leap==1) { m = -9; jian = -9;}
             if (m==11) { m = 10;}
         } else if (para.ziOffset > 0) {
