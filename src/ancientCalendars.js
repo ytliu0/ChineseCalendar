@@ -312,9 +312,9 @@ function calDataYear_info_chunqiu(y, jdc, ndays) {
                 m = i+1;
                 if (m==13) { m = -12;}
                 if (i==n-1) {
-                    d = cmdate0.cmonthDate[i+1] - cmdate0.cmonthDate[i];
-                } else {
                     d = cmdate.cmonthDate[0] - cmdate0.cmonthDate[i];
+                } else {
+                    d = cmdate0.cmonthDate[i+1] - cmdate0.cmonthDate[i];
                 }
                 cmonthDate.push(cmdate0.cmonthDate[i]);
                 cmonthXiaYear.push(0); // doesn't matter since it's not used
