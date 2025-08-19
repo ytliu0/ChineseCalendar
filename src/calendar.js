@@ -1663,9 +1663,9 @@ function calendarNotesTang(y, m, lang) {
         if (lang==0) {
             warn = 'The calendrical winter solstice was originally on Dec. 18, but Empress Consort Wu changed several calendar dates by edict. It was claimed that several predicted conjunction dates in the previous years were incorrect, resulting in the Moon being visible on the last days of lunar months. The claim was in fact incorrect and was a pretense for the empress to change calendar dates so that the winter solstice would fall on the ji&#462; z&#464; day (Dec. 20) and coincide with the lunar conjunction. After an "investigation", it was decided that the winter solstice should be moved to the ji&#462; z&#464; day (Dec. 20), which "happened to coincide" with the lunar conjunction. Because of this change, the lunar month started on Nov. 20 became a leap month and the winter solstice became the New Year day. There was originally a leap month after month 12. It had to be changed to month 12. In order to do that, the middle solar term Z12 was moved from Jan 17, 698 to Jan 18, 698.';
         } else if (lang==1) {
-            warn = '曆書冬至本在壬戌(12月18日)，閏十月本為正月，但武則天為營造正月甲子合朔冬至之罕見曆象，七月下詔強行更改曆日。詔書偽稱曆官所推合朔時刻有不合天象，出現了「晦仍見月，有爽天經」之象，經「重更尋討」後「果差一日」，於是強將原本所推冬至移後二日為正月甲子合朔冬至，使原本的正月變為閏十月，為了除消原本所推的閏十二月，又強將大寒由壬辰(698年1月17日)推遲一日至癸巳(698年1月18日)。';
+            warn = '曆書冬至本在壬戌(12月18日)，閏十月本為正月，但武則天為了營造正月甲子合朔冬至之罕見曆象，七月下詔強行更改曆日。詔書偽稱曆官所推合朔時刻有不合天象，出現了「晦仍見月，有爽天經」之象，經「重更尋討」後「果差一日」，於是強將原本所推冬至移後二日為正月甲子合朔冬至，使原本的正月變為閏十月，為了除消原本所推的閏十二月，又強將大寒由壬辰(698年1月17日)推遲一日至癸巳(698年1月18日)。';
         } else {
-            warn = '历书冬至本在壬戌(12月18日)，闰十月本为正月，但武则天为营造正月甲子合朔冬至之罕见历象，七月下诏强行更改历日。诏书伪称历官所推合朔时刻有不合天象，出现了「晦仍见月，有爽天经」之象，经「重更寻讨」后「果差一日」，于是强将原本所推冬至移后二日为正月甲子合朔冬至，使原本的正月变为闰十月，为了除消原本所推的闰十二月，又强将大寒由壬辰(698年1月17日)推迟一日至癸巳(698年1月18日)。';
+            warn = '历书冬至本在壬戌(12月18日)，闰十月本为正月，但武则天为了营造正月甲子合朔冬至之罕见历象，七月下诏强行更改历日。诏书伪称历官所推合朔时刻有不合天象，出现了「晦仍见月，有爽天经」之象，经「重更寻讨」后「果差一日」，于是强将原本所推冬至移后二日为正月甲子合朔冬至，使原本的正月变为闰十月，为了除消原本所推的闰十二月，又强将大寒由壬辰(698年1月17日)推迟一日至癸巳(698年1月18日)。';
         }
     }
     if (y==698 && m==1) {
@@ -1845,290 +1845,105 @@ function calendarNotesQing(y, m, lang) {
         return warn;
     }
 
-    let items = [];
-    //items = [{y:1842, m:1, w:wQ0}, {y:1863, m:1, w:wQ0}, 
-    //             {y:1880, m:11, w:wQ0}, {y:1896, m:2, w:wQ0}];
-    let desc, desc1, desc2, desc3;
-    if (lang==0) {
-        desc1 = "The calendar at the time listed the date of ";
-        desc2 = " on ";
-        desc3 = ". The discrepancy was caused by two factors: 1) Before 1912, times of 24 solar terms were calculated based on the apparent solar time for the Beijing meridian (116&deg;25'E), which could differ by 30 minutes from the times listed here based on the mean solar time for the meridians of 120°E; 2) Before 1914, the method used to calculate the Sun's position was not very accurate.";
-        
-        desc = "in both <i>3500 Years of Calendars and Astronomical Phenomena</i> (by Zh&#257;ng P&#233;iy&#250;) and <i>A Chinese calendar translated into the western calendar from 1516 to 1941</i> (by Zheng Hesheng), the calendrical solar term Z4 is listed on May 20. However, the <i>Shixian Calendar for the 18th year of Emperor Kangxi's Reign (i.e. Feb. 11, 1679 - Jan. 30, 1680)</i>, a yearly calendar issued by the Imperial Astronomical Bureau in the Qing dynasty, lists Z4 on May 21 at 9:01am in Beijing's local apparent solar time. The calendarical solar term for Z4 is listed on May 21 here based on the <i>Shixian Calendar</i>.";
-        items.push({y:1679, m:5, w:desc});
-        desc = desc1+"Z12"+desc2+"January 20"+desc3;
-        items.push({y:1736, m:1, w:desc});
-        desc = desc1+"J12"+desc2+"January 5"+desc3;
-        items.push({y:1739, m:1, w:desc});
-        desc = desc1+"Z6"+desc2+"July 22"+desc3;
-        items.push({y:1744, m:7, w:desc});
-        desc = desc1+"J2"+desc2+"March 5"+desc3;
-        items.push({y:1746, m:3, w:desc});
-        desc = desc1+"J6"+desc2+"July 7"+desc3;
-        items.push({y:1747, m:7, w:desc});
-        desc = desc1+"J3"+desc2+"April 4"+desc3;
-        items.push({y:1749, m:4, w:desc});
-        desc = desc1+"J9"+desc2+"October 9"+desc3;
-        items.push({y:1751, m:10, w:desc});
-        desc = desc1+"J5"+desc2+"June 5"+desc3;
-        items.push({y:1753, m:6, w:desc});
-        desc = desc1+"Z8"+desc2+"September 23"+desc3;
-        items.push({y:1756, m:9, w:desc});
-        desc = desc1+"Z3"+desc2+"April 19"+desc3;
-        items.push({y:1760, m:4, w:desc});
-        desc = desc1+"J1"+desc2+"February 3"+desc3;
-        items.push({y:1774, m:2, w:desc});
-        desc = desc1+"J8"+desc2+"September 8"+desc3;
-        items.push({y:1774, m:9, w:desc});
-        desc = desc1+"J2"+desc2+"March 5"+desc3;
-        items.push({y:1779, m:3, w:desc});
-        desc = desc1+"Z5"+desc2+"June 21"+desc3;
-        items.push({y:1779, m:6, w:desc});
-        desc = desc1+"J11"+desc2+"December 7"+desc3;
-        items.push({y:1781, m:12, w:desc});
-        desc = desc1+"J3"+desc2+"April 4"+desc3;
-        items.push({y:1782, m:4, w:desc});
-        desc = desc1+"J9"+desc2+"October 8"+desc3;
-        items.push({y:1784, m:10, w:desc});
-        desc = desc1+"Z1"+desc2+"February 18"+desc3;
-        items.push({y:1787, m:2, w:desc});
-        desc = desc1+"J1"+desc2+"February 4"+desc3;
-        items.push({y:1807, m:2, w:desc});
-        desc = desc1+"J12"+desc2+"January 5"+desc3;
-        items.push({y:1809, m:1, w:desc});
-        desc = desc1+"Z10"+desc2+"November 23"+desc3;
-        items.push({y:1809, m:11, w:desc});
-        desc = desc1+"J2"+desc2+"March 5"+desc3;
-        items.push({y:1812, m:3, w:desc});
-        desc = desc1+"J3"+desc2+"April 5"+desc3;
-        items.push({y:1815, m:4, w:desc});
-        desc = desc1+"J9"+desc2+"October 9"+desc3;
-        items.push({y:1817, m:10, w:desc});
-        desc = desc1+"Z1"+desc2+"February 19"+desc3;
-        items.push({y:1820, m:2, w:desc});
-        desc = desc1+"J7"+desc2+"August 8"+desc3;
-        items.push({y:1824, m:8, w:desc});
-        desc = desc1+"Z4"+desc2+"May 21"+desc3;
-        items.push({y:1826, m:5, w:desc});
-        desc = desc1+"J10"+desc2+"November 8"+desc3;
-        items.push({y:1829, m:11, w:desc});
-        desc = desc1+"J8"+desc2+"September 8"+desc3;
-        items.push({y:1836, m:9, w:desc});
-        desc = desc1+"J5"+desc2+"June 6"+desc3;
-        items.push({y:1844, m:6, w:desc});
-        desc = desc1+"Z10"+desc2+"November 23"+desc3;
-        items.push({y:1846, m:11, w:desc});
-        desc = desc1+"Z11"+desc2+"December 22. My calculation indicates that Z11 (winter solstice) occurred on December 21 at 23:59:37 (UT1+8)"+desc3;
-        items.push({y:1848, m:12, w:desc});
-        desc = desc1+"J4"+desc2+"May 5"+desc3;
-        items.push({y:1849, m:5, w:desc});
-        desc = desc1+"J9"+desc2+"October 9"+desc3;
-        items.push({y:1850, m:10, w:desc});
-        desc = desc1+"Z8"+desc2+"September 24"+desc3;
-        items.push({y:1851, m:9, w:desc});
-        desc = desc1+"J11"+desc2+"December 8"+desc3;
-        items.push({y:1851, m:12, w:desc});
-        desc = desc1+"Z3"+desc2+"April 20"+desc3;
-        items.push({y:1855, m:4, w:desc});
-        desc = desc1+"Z9"+desc2+"October 24"+desc3;
-        items.push({y:1862, m:10, w:desc});
-        desc = desc1+"J10"+desc2+"November 8"+desc3;
-        items.push({y:1862, m:11, w:desc});
-        desc = desc1+"Z6"+desc2+"July 23"+desc3;
-        items.push({y:1864, m:7, w:desc});
-        desc = desc1+"Z9"+desc2+"October 24"+desc3;
-        items.push({y:1866, m:10, w:desc});
-        desc = desc1+"J6"+desc2+"July 8"+desc3;
-        items.push({y:1867, m:7, w:desc});
-        desc = desc1+"Z7"+desc2+"August 24"+desc3;
-        items.push({y:1867, m:8, w:desc});
-        desc = desc1+"J12"+desc2+"January 6"+desc3;
-        items.push({y:1879, m:1, w:desc});
-        desc = desc1+"Z10"+desc2+"November 23"+desc3;
-        items.push({y:1879, m:11, w:desc});
-        desc = desc1+"J9"+desc2+"October 9"+desc3;
-        items.push({y:1883, m:10, w:desc});
-        desc = desc1+"Z8"+desc2+"September 23"+desc3;
-        items.push({y:1884, m:9, w:desc});
-        desc = desc1+"J11"+desc2+"December 7"+desc3;
-        items.push({y:1884, m:12, w:desc});
-        desc = desc1+"J7"+desc2+"August 8"+desc3;
-        items.push({y:1886, m:8, w:desc});
-        desc = desc1+"Z9"+desc2+"October 24"+desc3;
-        items.push({y:1895, m:10, w:desc});
-        desc = desc1+"J10"+desc2+"November 8"+desc3;
-        items.push({y:1895, m:11, w:desc});
-        desc = desc1+"J8"+desc2+"September 8"+desc3;
-        items.push({y:1898, m:9, w:desc});
-        desc = desc1+"Z5"+desc2+"June 22"+desc3;
-        items.push({y:1899, m:6, w:desc});
-        desc = desc1+"Z9"+desc2+"October 24"+desc3;
-        items.push({y:1899, m:10, w:desc});
-    } else {
-        if (lang==1) {
-            desc1 = "當年的《大清時憲書》列出的";
-            desc2 = "日期相當於公曆的";
-            desc3 = "，日期差異由兩個因數造成。其一是1912年以前的時間是用北京地方時(東經116&deg;24')而且用真太陽時，而本網頁列出的時間卻是用現時全國通行的東經120&deg;標準時， 東經120&deg;標準時與北京地方真太陽時的時差可達30分鐘。其二是1914年前用的節氣計算方法不是很準確。";
-            desc = "張培瑜《三千五百年历日天象》和鄭鶴聲《近世中西史日對照表》皆記小滿為5月20日，但《大清康熙十八年歲次己未時憲曆》則載「(四月)十二日丙子巳初初刻一分小滿四月中」，即小滿在四月十二日(公曆5月21日)九時零一分(北京地方真太陽時)。這裡根據《大清時憲曆》記曆書小滿為公曆5月21日。";
+    // 1679
+    if (y==1679 && m==5) {
+        if (lang==0) {
+            warn = "In both <i>3500 Years of Calendars and Astronomical Phenomena</i> (by Zhang Peiyu) and <i>A Chinese calendar translated into the western calendar from 1516 to 1941</i> (by Zheng Hesheng), the calendrical solar term Z4 is listed on May 20. However, the Shixian Calendar for the 18th year of Emperor Kangxi's Reign (i.e. Feb. 11, 1679 - Jan. 30, 1680), a yearly calendar issued by the Imperial Astronomical Bureau in the Qing dynasty, lists Z4 on May 21 at 9:01am in Beijing's local apparent solar time. The calendarical solar term for Z4 is listed on May 21 here based on the Shixian Calendar.";
+        } else if (lang==1) {
+            warn = '張培瑜《三千五百年历日天象》和鄭鶴聲《近世中西史日對照表》皆記小滿為5月20日，但《大清康熙十八年歲次己未時憲曆》則載「(四月)十二日丙子巳初初刻一分小滿四月中」，即小滿在四月十二日(公曆5月21日)九時零一分(北京地方真太陽時)。這裡根據《大清時憲曆》記曆書小滿為公曆5月21日。';
         } else {
-            desc1 = "当年的《大清时宪书》列出的";
-            desc2 = "日期相当于公历的";
-            desc3 = "，日期差异由两个因数造成。其一是1929年以前的时间是用北京地方时(东经116&deg;24')而且用真太阳时，而本网页列出的时间却是用现时全国通行的东经120&deg;标准时， 东经120&deg;标准时与北京地方真太阳时的时差可达30分钟。其二是1914年前用的节气计算方法不是很准确。";
-            desc = "张培瑜《三千五百年历日天象》和郑鹤声《近世中西史日对照表》皆记小满为5月20日，但《大清康熙十八年岁次己未时宪历》则载「(四月)十二日丙子巳初初刻一分小满四月中」，即小满在四月十二日(公历5月21日)九时零一分(北京地方真太阳时)。这里根据《大清时宪历》记历书小满为公历5月21日。";
+            warn = '张培瑜《三千五百年历日天象》和郑鹤声《近世中西史日对照表》皆记小满为5月20日，但《大清康熙十八年岁次己未时宪历》则载「(四月)十二日丙子巳初初刻一分小满四月中」，即小满在四月十二日(公历5月21日)九时零一分(北京地方真太阳时)。这里根据《大清时宪历》记历书小满为公历5月21日。';
         }
-        items.push({y:1679, m:5, w:desc});
-        desc = desc1+"大寒"+desc2+"1月20日"+desc3;
-        items.push({y:1736, m:1, w:desc});
-        desc = desc1+"小寒"+desc2+"1月5日"+desc3;
-        items.push({y:1739, m:1, w:desc});
-        desc = desc1+"大暑"+desc2+"7月22日"+desc3;
-        items.push({y:1744, m:7, w:desc});
-        if (lang==1) {
-            desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
-        } else {
-            desc = desc1+"惊蛰"+desc2+"3月5日"+desc3;
-        }
-        items.push({y:1746, m:3, w:desc});
-        desc = desc1+"小暑"+desc2+"7月7日"+desc3;
-        items.push({y:1747, m:7, w:desc});
-        desc = desc1+"清明"+desc2+"4月4日"+desc3;
-        items.push({y:1749, m:4, w:desc});
-        desc = desc1+"寒露"+desc2+"10月9日"+desc3;
-        items.push({y:1751, m:10, w:desc});
-        if (lang==1) {
-            desc = desc1+"芒種"+desc2+"6月5日"+desc3;
-        } else {
-            desc = desc1+"芒种"+desc2+"6月5日"+desc3;
-        }
-        items.push({y:1753, m:6, w:desc});
-        desc = desc1+"秋分"+desc2+"9月23日"+desc3;
-        items.push({y:1756, m:9, w:desc});
-        if (lang==1) {
-            desc = desc1+"穀雨"+desc2+"4月19日"+desc3;
-        } else {
-            desc = desc1+"谷雨"+desc2+"4月19日"+desc3;
-        }
-        items.push({y:1760, m:4, w:desc});
-        desc = desc1+"立春"+desc2+"2月3日"+desc3;
-        items.push({y:1774, m:2, w:desc});
-        desc = desc1+"白露"+desc2+"9月8日"+desc3;
-        items.push({y:1774, m:9, w:desc});
-        if (lang==1) {
-            desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
-        } else {
-            desc = desc1+"惊蛰"+desc2+"3月5日"+desc3;
-        }
-        items.push({y:1779, m:3, w:desc});
-        desc = desc1+"夏至"+desc2+"6月21日"+desc3;
-        items.push({y:1779, m:6, w:desc});
-        desc = desc1+"大雪"+desc2+"12月7日"+desc3;
-        items.push({y:1781, m:12, w:desc});
-        desc = desc1+"清明"+desc2+"4月4日"+desc3;
-        items.push({y:1782, m:4, w:desc});
-        desc = desc1+"寒露"+desc2+"10月8日"+desc3;
-        items.push({y:1784, m:10, w:desc});
-        desc = desc1+"雨水"+desc2+"2月18日"+desc3;
-        items.push({y:1787, m:2, w:desc});
-        desc = desc1+"立春"+desc2+"2月4日"+desc3;
-        items.push({y:1807, m:2, w:desc});
-        desc = desc1+"小寒"+desc2+"1月5日"+desc3;
-        items.push({y:1809, m:1, w:desc});
-        desc = desc1+"小雪"+desc2+"11月23日"+desc3;
-        items.push({y:1809, m:11, w:desc});
-        if (lang==1) {
-            desc = desc1+"驚蟄"+desc2+"3月5日"+desc3;
-        } else {
-            desc = desc1+"惊蛰"+desc2+"3月5日"+desc3;
-        }
-        items.push({y:1812, m:3, w:desc});
-        desc = desc1+"清明"+desc2+"4月5日"+desc3;
-        items.push({y:1815, m:4, w:desc});
-        desc = desc1+"寒露"+desc2+"10月9日"+desc3;
-        items.push({y:1817, m:10, w:desc});
-        desc = desc1+"雨水"+desc2+"2月19日"+desc3;
-        items.push({y:1820, m:2, w:desc});
-        desc = desc1+"立秋"+desc2+"8月8日"+desc3;
-        items.push({y:1824, m:8, w:desc});
-        desc = desc1+"小滿"+desc2+"5月21日"+desc3;
-        items.push({y:1826, m:5, w:desc});
-        desc = desc1+"立冬"+desc2+"11月8日"+desc3;
-        items.push({y:1829, m:11, w:desc});
-        desc = desc1+"白露"+desc2+"9月8日"+desc3;
-        items.push({y:1836, m:9, w:desc});
-        if (lang==1) {
-            desc = desc1+"芒種"+desc2+"6月6日"+desc3;
-        } else {
-            desc = desc1+"芒种"+desc2+"6月6日"+desc3;
-        }
-        items.push({y:1844, m:6, w:desc});
-        desc = desc1+"小雪"+desc2+"11月23日"+desc3;
-        items.push({y:1846, m:11, w:desc});
-        if (lang==1) {
-            desc = desc1+"冬至"+desc2+"12月22日。 據我計算，冬至時刻應是12月21日23:59:37(UT1+8)"+desc3;
-        } else {
-            desc = desc1+"冬至"+desc2+"12月22日。 据我计算，冬至时刻应是12月21日23:59:37(UT1+8)"+desc3;
-        }
-        items.push({y:1848, m:12, w:desc});
-        desc = desc1+"立夏"+desc2+"5月5日"+desc3;
-        items.push({y:1849, m:5, w:desc});
-        desc = desc1+"寒露"+desc2+"10月9日"+desc3;
-        items.push({y:1850, m:10, w:desc});
-        desc = desc1+"秋分"+desc2+"9月24日"+desc3;
-        items.push({y:1851, m:9, w:desc});
-        desc = desc1+"大雪"+desc2+"12月8日"+desc3;
-        items.push({y:1851, m:12, w:desc});
-        if (lang==1) {
-            desc = desc1+"穀雨"+desc2+"4月20日"+desc3;
-        } else {
-            desc = desc1+"谷雨"+desc2+"4月20日"+desc3;
-        }
-        items.push({y:1855, m:4, w:desc});
-        desc = desc1+"霜降"+desc2+"10月24日"+desc3;
-        items.push({y:1862, m:10, w:desc});
-        desc = desc1+"立冬"+desc2+"11月8日"+desc3;
-        items.push({y:1862, m:11, w:desc});
-        desc = desc1+"大暑"+desc2+"7月23日"+desc3;
-        items.push({y:1864, m:7, w:desc});
-        desc = desc1+"霜降"+desc2+"10月24日"+desc3;
-        items.push({y:1866, m:10, w:desc});
-        desc = desc1+"小暑"+desc2+"7月8日"+desc3;
-        items.push({y:1867, m:7, w:desc});
-        if (lang==1) {
-            desc = desc1+"處暑"+desc2+"8月24日"+desc3; 
-        } else {
-            desc = desc1+"处暑"+desc2+"8月24日"+desc3;
-        }
-        items.push({y:1867, m:8, w:desc});
-        desc = desc1+"小寒"+desc2+"1月6日"+desc3;
-        items.push({y:1879, m:1, w:desc});
-        desc = desc1+"小雪"+desc2+"11月23日"+desc3;
-        items.push({y:1879, m:11, w:desc});
-        desc = desc1+"寒露"+desc2+"10月9日"+desc3;
-        items.push({y:1883, m:10, w:desc});
-        desc = desc1+"秋分"+desc2+"9月23日"+desc3;
-        items.push({y:1884, m:9, w:desc});
-        desc = desc1+"大雪"+desc2+"12月7日"+desc3;
-        items.push({y:1884, m:12, w:desc});
-        desc = desc1+"立秋"+desc2+"8月8日"+desc3;
-        items.push({y:1886, m:8, w:desc});
-        desc = desc1+"霜降"+desc2+"10月24日"+desc3;
-        items.push({y:1895, m:10, w:desc});
-        desc = desc1+"立冬"+desc2+"11月8日"+desc3;
-        items.push({y:1895, m:11, w:desc});
-        desc = desc1+"白露"+desc2+"9月8日"+desc3;
-        items.push({y:1898, m:9, w:desc});
-        desc = desc1+"夏至"+desc2+"6月22日"+desc3;
-        items.push({y:1899, m:6, w:desc});
-        desc = desc1+"霜降"+desc2+"10月24日"+desc3;
-        items.push({y:1899, m:10, w:desc});
+        return warn;
     }
-    
-    for (let i=0; i<items.length; i++) {
-        if (y==items[i].y) {
-            if (m==items[i].m) {
-                warn = items[i].w;
-                break;
+
+    // 1848
+    if (y==1848 && m==12) {
+        if (lang==0) {
+            warn = 'Z11 (December solstice) was on Dec 21 at 23:59:37 (UT1+8) according to the calculation using DE431. The calendrical Z11 was on Dec 22.';
+        } else if (lang==1) {
+            warn = 'DE431曆表算出的冬至時刻在12月21日23:59:57 (UT1+8)，曆書冬至在12月22日。';
+        } else {
+            warn = 'DE431历表算出的冬至时刻在12月21日23:59:57 (UT1+8)，历书冬至在12月22日。';
+        }
+        return warn;
+    }
+
+    // Deal with the calendrical solar terms after 1733 that didn't match solar terms 
+    // computed by modern method
+    let items = [{'y':1736, 'm':1, 's':'Z12', 'd':20},
+              {'y':1739, 'm':1, 's':'J12', 'd':5},
+              {'y':1744, 'm':7, 's':'Z6', 'd':22},
+              {'y':1746, 'm':3, 's':'J2', 'd':5},
+              {'y':1747, 'm':7, 's':'J6', 'd':7},
+              {'y':1749, 'm':4, 's':'J3', 'd':4},
+              {'y':1751, 'm':10, 's':'J9', 'd':9},
+              {'y':1753, 'm':6, 's':'J5', 'd':5},
+              {'y':1756, 'm':9, 's':'Z8', 'd':23},
+              {'y':1760, 'm':4, 's':'Z3', 'd':19},
+              {'y':1774, 'm':2, 's':'J1', 'd':3},
+              {'y':1774, 'm':9, 's':'J8', 'd':8},
+              {'y':1779, 'm':3, 's':'J2', 'd':5},
+              {'y':1779, 'm':6, 's':'Z5', 'd':21},
+              {'y':1781, 'm':12, 's':'J11', 'd':7},
+              {'y':1782, 'm':4, 's':'J3', 'd':4},
+              {'y':1784, 'm':10, 's':'J9', 'd':8},
+              {'y':1787, 'm':2, 's':'Z1', 'd':18},
+              {'y':1807, 'm':2, 's':'J1', 'd':4},
+              {'y':1809, 'm':1, 's':'J12', 'd':5},
+              {'y':1809, 'm':11, 's':'Z10', 'd':23},
+              {'y':1812, 'm':3, 's':'J2', 'd':5},
+              {'y':1815, 'm':4, 's':'J3', 'd':5},
+              {'y':1817, 'm':10, 's':'J9', 'd':9},
+              {'y':1820, 'm':2, 's':'Z1', 'd':19},
+              {'y':1824, 'm':8, 's':'J7', 'd':8},
+              {'y':1826, 'm':5, 's':'Z4', 'd':21},
+              {'y':1829, 'm':11, 's':'J10', 'd':8},
+              {'y':1836, 'm':9, 's':'J8', 'd':8},
+              {'y':1844, 'm':6, 's':'J5', 'd':6},
+              {'y':1846, 'm':11, 's':'Z10', 'd':23},
+              {'y':1849, 'm':5, 's':'J4', 'd':5},
+              {'y':1850, 'm':10, 's':'J9', 'd':9},
+              {'y':1851, 'm':9, 's':'Z8', 'd':24},
+              {'y':1851, 'm':12, 's':'J11', 'd':8},
+              {'y':1855, 'm':4, 's':'Z3', 'd':20},
+              {'y':1862, 'm':10, 's':'Z9', 'd':24},
+              {'y':1862, 'm':11, 's':'J10', 'd':8},
+              {'y':1864, 'm':7, 's':'Z6', 'd':23},
+              {'y':1866, 'm':10, 's':'Z9', 'd':24},
+              {'y':1867, 'm':7, 's':'J6', 'd':8},
+              {'y':1867, 'm':8, 's':'Z7', 'd':24},
+              {'y':1879, 'm':1, 's':'J12', 'd':6},
+              {'y':1879, 'm':11, 's':'Z10', 'd':23},
+              {'y':1883, 'm':10, 's':'J9', 'd':9},
+              {'y':1884, 'm':9, 's':'Z8', 'd':23},
+              {'y':1884, 'm':12, 's':'J11', 'd':7},
+              {'y':1886, 'm':8, 's':'J7', 'd':8},
+              {'y':1895, 'm':10, 's':'Z9', 'd':24},
+              {'y':1895, 'm':11, 's':'J10', 'd':8},
+              {'y':1898, 'm':9, 's':'J8', 'd':8},
+              {'y':1899, 'm':6, 's':'Z5', 'd':22},
+              {'y':1899, 'm':10, 's':'Z9', 'd':24}];
+    let nitems = items.length;
+    for (let i=0; i<nitems; i++) {
+        if (y==items[i]['y'] && m==items[i]['m']) {
+            let stName = langConstant(lang).soltermNames;
+            let stLab = ["J12", "Z12", "J1", "Z1", "J2", "Z2", "J3","Z3", 
+                         "J4", "Z4", "J5", "Z5", "J6", "Z6", "J7", "Z7", 
+                        "J8", "Z8", "J9", "Z9", "J10", "Z10", "J11", "Z11"];
+            // create a solar term dictionarys
+            let sts = {};
+            for (let j=0; j<24; j++) {
+                sts[stLab[j]] = stName[j];
             }
+            let sterm = sts[items[i]['s']]; // look up the name of the solar term
+            if (lang==0) {
+                let mon = ['January ', 'February ', 'March ', 'April ', 'May ', 'June ', 'July ', 'August ', 'September ', 'October ', 'November ', 'December ']
+                warn = 'The calendrical ' + sterm + ' was on ' + mon[m-1] + items[i]['d'];
+            } else {
+                warn = (lang==1 ? '曆書':'历书') + sterm + '在' + items[i]['d'] + '日。'
+            }
+            return warn;
         }
     }
 
@@ -2224,81 +2039,33 @@ function SouthernMingCalendarDateNotes(y, m, lang) {
 }
 
 function calendarNotes1912_1979(y, m, lang) {
-    let warn = '';
-
-    if (y==1912) {
-        if (m==11) {
-            if (lang==0) {
-                warn = "The calendar used at that time listed the date of  Z10 on Nov. 23. It was calculated based on a method developed in 1742. The method was pretty good at the time (1742) but was inaccurate by today's standard. A more accuracy method was adopted in the calendar calculation after 1913.";
-            } else if (lang==1) {
-                warn = "當年的《中華民國曆書》把小雪的日期列為11月23日。《中華民國曆書》裡1912至1913年的曆法計算是根據1742年(即清乾龍七年)編寫的《曆像考成後編》。《曆像考成後編》成書時在當時還算先進，現在看來是很不準確的。所以自1914年起《中華民國曆書》採用國外新方法計算曆法。";
-            } else {
-                warn = "当年的《中华民国历书》把小雪的日期列为11月23日。《中华民国历书》里1912至1913年的历法计算是根据1742年(即清乾龙七年)编写的《历像考成后编》。《历像考成后编》成书时在当时还算先进，现在看来是很不准确的。所以自1914年起《中华民国历书》采用国外新方法计算历法。";
-            }
-        }
-    }
-    
-    if (y==1913) {
-        if (m==9) {
-            if (lang==0) {
-                warn = "The calendar used at that time listed the date of Z8 (September equinox) on Sep. 24. It was calculated based on a method developed in 1742. The method was pretty good at the time (1742) but was inaccurate by today's standard. A more accuracy method was adopted in the calendar calculation after 1913.";
-            } else if (lang==1) {
-                warn = "當年的《中華民國曆書》把秋分的日期列為9月24日。《中華民國曆書》裡1912至1913年的曆法計算是根據1742年(即清乾龍七年)編寫的《曆像考成後編》。《曆像考成後編》成書時在當時還算先進，現在看來是很不準確的。所以自1914年起《中華民國曆書》採用國外新方法計算曆法。";
-            } else {
-                warn = "当年的《中华民国历书》把秋分的日期列为9月24日。《中华民国历书》里1912至1913年的历法计算是根据1742年(即清乾龙七年)编写的《历像考成后编》。《历像考成后编》成书时在当时还算先进，现在看来是很不准确的。所以自1914年起《中华民国历书》采用国外新方法计算历法。";
-            }
-        }
-    }
-    
-    if (y==1917) {
-        if (m==12) {
-            if (lang==0) {
-                warn = "The calendar used at that time listed the date of J11 on Dec. 7. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
-            } else if (lang==1) {
-                warn = "當年的《中華民國曆書》把大雪的日期列為12月7日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120&deg;標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
-            } else {
-                warn = "当年的《中华民国历书》把大雪的日期列为12月7日。这是因为1929年以前时刻是用北京地方时(东经116&deg;25')，而本网页列出的时刻却是用现时全国通行的东经120&deg;标准时。 东经120&deg;标准时比北京地方时迟14分25秒。";
-            }
-        }
-    }
-    
-    if (y==1927) {
-        if (m==9) {
-            if (lang==0) {
-                warn = "The calendar used at that time listed the date of J8 on Sep. 8. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
-            } else if (lang==1) {
-                warn = "當年的《中華民國曆書》把白露的日期列為9月8日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
-            } else {
-                warn = "当年的《中华民国历书》把白露的日期列为9月8日。这是因为1929年以前时刻是用北京地方时(东经116&deg;25')，而本网页列出的时刻却是用现时全国通行的东经120°标准时。 东经120&deg;标准时比北京地方时迟14分25秒。";
-            }
-        }
-    }
-    
-    if (y==1928) {
-        if (m==6) {
-            if (lang==0) {
-                warn = "The calendar used at that time listed the date of Z5 (June solstice) on June 21. This is because times were calculated for the Beijing meridian (116&deg;25' E), which are 14 minutes and 25 seconds earlier than the times listed here based on the meridians of 120&deg;E.";
-            } else if (lang==1) {
-                warn = "當年的《中華民國曆書》把夏至的日期列為6月21日。這是因為1929年以前時刻是用北京地方時(東經116&deg;25')，而本網頁列出的時刻卻是用現時全國通行的東經120°標準時。 東經120&deg;標準時比北京地方時遲14分25秒。";
-            } else {
-                warn = "当年的《中华民国历书》把夏至的日期列为6月21日。这是因为1929年以前时刻是用北京地方时(东经116&deg;25')，而本网页列出的时刻却是用现时全国通行的东经120°标准时。 东经120&deg;标准时比北京地方时迟14分25秒。";
-            }
-        }
-    }
-    
-    if (y==1979) {
-        if (m==1) {
-            if (lang==0) {
-                warn = "My calculation puts the time of Z12 at 23:59:54 on Jan. 20. The calendar used at that time put Z12 on Jan. 21. A difference of a few seconds could result from using different ephemerides in calculating the Sun's position.";
-            } else if (lang==1) {
-                warn = "我推算的大寒時刻是1月20日23:59:54，當時使用的日曆把大寒列為1月21日。幾秒之差應是由於用不同歷表計算太陽位置所致。";
-            } else {
-                warn = "我推算的大寒时刻是1月20日23:59:54，当时使用的日历把大寒列为1月21日。几秒之差应是由于用不同历表计算太阳位置所致。";
-            }
+    let notes = [{'y':1912, 'm':11, 
+         'n':['The calendrical Z10 was on Nov 23.', 
+              '曆書小雪在23日。', '历书小雪在23日。']}, 
+         {'y':1913, 'm':9,
+          'n':['The calendrical Z8 (September equinox) was on Sep 24.',
+               '曆書秋分在24日。', '历书秋分在24日。']},
+        {'y':1917, 'm':12,
+         'n':['The calendrical J11 was on Dec 7.',
+              '曆書大雪在7日。', '历书大雪在7日。']},
+        {'y':1927, 'm':9,
+         'n':['The calendrical J8 was on Sep 8.',
+              '曆書白露在8日。', '历书白露在8日。']},
+        {'y':1928, 'm':6,
+         'n':['The calendrical Z5 (June solstice) was on June 21.',
+              '曆書夏至在21日。', '历书夏至在21日。']},
+        {'y':1979, 'm':1,
+         'n':['Z12 calculated by DE431 was at 23:59:54 (UTC+8) on Jan. 20. <i>Chinese Astronomical Almanac for the Year 1979</i> lists Z12 at 00:00 (UTC+8) on Jan 21, so the calendrical Z12 was on Jan 21.',
+              'DE431曆表推算的大寒時刻是1月20日23:59:54 (UTC+8)，《一九七九年中国天文年历》載大寒時刻為1月21日00:00 (UTC+8)，故曆書大寒在1月21日。',
+              'DE431历表推算的大寒时刻是1月20日23:59:54 (UTC+8)，《一九七九年中国天文年历》载大寒时刻为1月21日00:00 (UTC+8)，故历书大寒在1月21日。']}];
+    let nnotes = notes.length;
+    for (let i=0; i<nnotes; i++) {
+        if (y==notes[i]['y'] && m==notes[i]['m']) {
+            return notes[i]['n'][lang];
         }
     }
 
-    return warn;
+    return '';
 }
 
 function calendarNotesAfter2050(y, m, lang, langVars) {
