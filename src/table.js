@@ -1769,7 +1769,7 @@ function printWarningMessage(y, langCon) {
         } else if (lang==1) {
             warn ='<p style="color:red;">《三千五百年历日天象》的正文與其附表3的資料不一致，正文記502年閏五月，附表3則為閏四月。</p>';
         } else {
-            warn = '<p style="color:red;">《三千五百年历日天象》的正文与其附表3的资料不一致，正文记575年闰五月，附表3则为闰四月。</p>';
+            warn = '<p style="color:red;">《三千五百年历日天象》的正文与其附表3的资料不一致，正文记502年闰五月，附表3则为闰四月。</p>';
         }
     }
     

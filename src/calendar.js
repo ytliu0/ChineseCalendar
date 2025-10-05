@@ -1744,7 +1744,7 @@ function calendarNotesMing(y, m, lang) {
     // 1581
     if (y==1581 && m==10) {
         if (lang==0) {
-            warn = '<i>3500 Years of Calendars and Astronomical Phenomena</i> lists the first day of month 10 on Oct. 28, which is inconsistent with the calendar issued by the Ming government (Nov. 21).';
+            warn = '<i>3500 Years of Calendars and Astronomical Phenomena</i> lists the first day of month 10 on Oct. 28, which is inconsistent with the calendar issued by the Ming government (Oct. 27).';
         } else if (lang==1) {
             warn = '《三千五百年历日天象》記十月壬辰朔(10月28日)，不合當年的《大統曆》曆書(辛卯朔, 10月27日)，見《國家圖書館藏明代大統曆日彙編》第三冊第606頁。';
         } else {
