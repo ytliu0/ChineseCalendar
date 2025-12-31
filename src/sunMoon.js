@@ -324,14 +324,14 @@ function add_eclipse_link(y, m, eclipse, lang) {
                 } else {
                     type = ['日偏食', '日环食', '日全食', '日全环食'];
                 }
-                linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1]+'&eph=DE431';
+                linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1]+'&DE=441&ref=sm';
             } else {
                 if (lang==0) {
                     type = ['Penumbral lunar eclipse', 'Partial lunar eclipse', 'Total lunar eclipse'];
                 } else {
                     type = ['半影月食', '月偏食', '月全食'];
                 }
-                linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1]+'&eph=DE431';
+                linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=revised_Danjon&ind='+e[1]+'&DE=441&ref=sm';
             }
             txt = '<br /><a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
         }

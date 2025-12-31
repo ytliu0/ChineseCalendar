@@ -4,6 +4,7 @@
 "copy_docs": false, 
 "calendar_min": false,
 "calendar_chinese_min": false,
+"header": false,
 "header_min": false,
 "index_c": false,
 "table_c": false,

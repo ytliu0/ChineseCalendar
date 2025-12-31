@@ -107,7 +107,7 @@ async function build() {
   }
   
   // header_min.js
-  if (all || opt.header_min) {
+  if (all || opt.header || opt.header_min) {
     console.log('Minifying header.js...');
     let code = {'header.js': fs.readFileSync(src+'header.js', 'utf8')};
     let mini = await minify(code);
@@ -115,7 +115,7 @@ async function build() {
   }
   
   // index_c.js
-  if (all || opt.index_c) {
+  if (all || opt.index_c || opt.header) {
     console.log('Building index_c.js...');
     let code = {
      'header.js': fs.readFileSync(src+'header.js', 'utf8'),
@@ -133,7 +133,7 @@ async function build() {
   }
   
   // table_c.js
-  if (all || opt.table_c) {
+  if (all || opt.table_c || opt.header) {
     console.log('Building table_c.js...');
     let code = {
      'header.js': fs.readFileSync(src+'header.js', 'utf8'),
@@ -150,14 +150,14 @@ async function build() {
   }
   
   // sunMoon_c.js
-  if (all || opt.sunMoon_c) {
+  if (all || opt.sunMoon_c || opt.header) {
     console.log('Building sunMoon_c.js...');
     let code = {
      'header.js': fs.readFileSync(src+'header.js', 'utf8'),
      'decompressSunMoonData.js': fs.readFileSync(src+'decompressSunMoonData.js', 'utf8'),
      'sunMoon.js': fs.readFileSync(src+'sunMoon.js', 'utf8'),
      'sunMoonData.js': fs.readFileSync(src+'sunMoonData.js', 'utf8'),
-     'eclipse_linksM3502-3502.js': fs.readFileSync(src+'eclipse_linksM3502-3502.js', 'utf8'),
+     'eclipse_linksM3502-3503.js': fs.readFileSync(src+'eclipse_linksM3502-3503.js', 'utf8'),
      'utilities.js': fs.readFileSync(src+'utilities.js', 'utf8')
      };
     let combined = await minify(code);
@@ -165,7 +165,7 @@ async function build() {
   }
   
   // Julian_c.js
-  if (all || opt.Julian_c) {
+  if (all || opt.Julian_c || opt.header) {
     console.log('Building Julian_c.js...');
     let code = {
      'header.js': fs.readFileSync(src+'header.js', 'utf8'),

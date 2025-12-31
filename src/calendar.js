@@ -730,13 +730,13 @@ function addYearInfo(y, langVars, calVars) {
     }
     
     // Calendar Case
-    if (y > 1665.5 && y < 1670.5 && region=='default') {
+    if (y > 1666.5 && y < 1670.5 && region=='default') {
         if (lang==0) {
-            info = 'Following the Calendar Case (see, e.g., <a href="https://halshs.archives-ouvertes.fr/halshs-01222267/document" target="_blank">Jami 2015</a> and <a href="https://journals.sagepub.com/doi/full/10.1177/0021828620901887" target="_blank">Cullen &amp; Jami 2020</a>), the Qing government abolished the Western system of astronomy in the calendar computation in <strike>1666</strike> 1667-1669. The calendars in this period were calculated by the <i>D&#224;t&#466;ng</i> system, which was used in the Ming dynasty. The 24 solar terms were calculated based on the <i>p&#237;nq&#236;</i> rule, which took into account only the mean motion of the Sun. Two sets of calendrical solar terms are provided here for reference: the X&#299;nf&#462; solar terms are based on <i>3500 Years of Calendars and Astronomical Phenomena</i>, which are recomputed using the Western system; the <i>D&#224;t&#466;ng</i> solar terms are based on the <i>D&#224;t&#466;ng</i> system. As for the lunar conjunctions, the dates calculated using the <i>D&#224;t&#466;ng</i> astronomical system are identical to those computed using the Western system in these years.<br /><i>Update in May 2024:</i> There are imperial planetary ephemerides for 1662-1671 on the <a href="https://qingarchives.npm.edu.tw/index.php" target="_blank">Digital Library of Qing Archives</a> managed by the National Palace Museum in Taiwan. The dates and times of solar terms in the ephemeris for 1666 agree with the calculations by Western system, whereas those for 1667-1669 agree with the calculations by the <i>D&#224;t&#466;ng</i> system although there was a slight modification of the calculations in 1669. Readers who are interested in this issue can read <a href="http://ytliu.epizy.com/Shixian/N1667_1669.html" target="_blank">my article</a> on my analyses of the moon phases and solar terms in this period';
+            info = 'Following the Calendar Case (see, e.g., <a href="https://halshs.archives-ouvertes.fr/halshs-01222267/document" target="_blank">Jami 2015</a> and <a href="https://journals.sagepub.com/doi/full/10.1177/0021828620901887" target="_blank">Cullen &amp; Jami 2020</a>), the Qing government abolished the Western system of astronomy in the calendar computation in 1667-1669. The calendars in this period were calculated by the <i>D&#224;t&#466;ng</i> system, which was used in the Ming dynasty. The 24 solar terms were calculated based on the <i>p&#237;nq&#236;</i> rule, which took into account only the mean motion of the Sun. Two sets of calendrical solar terms are provided here for reference: the X&#299;nf&#462; solar terms are based on <i>3500 Years of Calendars and Astronomical Phenomena</i>, which are recomputed using the Western system; the <i>D&#224;t&#466;ng</i> solar terms are based on the <i>D&#224;t&#466;ng</i> system. As for the lunar conjunctions, the dates calculated using the <i>D&#224;t&#466;ng</i> astronomical system are identical to those computed using the Western system in these years.<br /><i>Update in May 2024:</i> There are imperial planetary ephemerides for 1662-1671 on the <a href="https://qingarchives.npm.edu.tw/index.php" target="_blank">Digital Library of Qing Archives</a> managed by the National Palace Museum in Taiwan. The dates and times of solar terms in the ephemeris for 1667-1669 agree with the calculations by the <i>D&#224;t&#466;ng</i> system although there was a slight modification of the calculations in 1669. Readers who are interested in this issue can read <a href="http://ytliu.epizy.com/Shixian/N1667_1669.html" target="_blank">my article</a> on my analyses of the moon phases and solar terms in this period';
         } else if (lang==1) {
-            info = '<strike>康熙五年</strike> 康熙六年至八年清政府因<a href="https://zh.wikipedia.org/zh-hant/%E5%BA%B7%E7%86%99%E5%8E%86%E7%8B%B1" target="_blank">曆獄</a>廢除西洋新法，復用明朝《大統曆》，二十四節氣改回平氣。這裡提供兩套曆書節氣:「新法節氣」根據《三千五百年历日天象》，此乃以後的欽天監依西洋新法追推的定氣;「大統曆節氣」根據明朝《大統曆》推算。至於朔日，依明朝《大統曆》和依《西洋新法曆書》計算結果在這幾年的日期完全一致。<br /><i>2024年5月更新:</i> 臺灣國立故宮博物院的<a href="https://qingarchives.npm.edu.tw/index.php" target="_blank">清代檔案檢索系統</a>藏有若干康熙初年的《大清七政經緯躔度時憲曆》，其中康熙五年所載的節氣日期和時刻符合《西洋新法曆書》的推步，康熙六年至八年則符合大統曆的推步，雖然康熙八年的計算有少許修改。對這幾年清朝曆書所載之月相和節氣時刻有興趣者，可參閱拙文<a href="http://ytliu.epizy.com/Shixian/N1667_1669_chinese.html" target="_blank">康熙六年至八年(1667-1669)的月相和節氣時刻</a>。';
+            info = '康熙六年至八年清政府因<a href="https://zh.wikipedia.org/zh-hant/%E5%BA%B7%E7%86%99%E5%8E%86%E7%8B%B1" target="_blank">曆獄</a>廢除西洋新法，復用明朝《大統曆》，二十四節氣改回平氣。這裡提供兩套曆書節氣:「新法節氣」根據《三千五百年历日天象》，此乃以後的欽天監依西洋新法追推的定氣;「大統曆節氣」根據明朝《大統曆》推算。至於朔日，依明朝《大統曆》和依《西洋新法曆書》計算結果在這幾年的日期完全一致。<br /><i>2024年5月更新:</i> 臺灣國立故宮博物院的<a href="https://qingarchives.npm.edu.tw/index.php" target="_blank">清代檔案檢索系統</a>藏有若干康熙初年的《大清七政經緯躔度時憲曆》，其中康熙六年至八年所載的節氣日期和時刻符合大統曆的推步，雖然康熙八年的計算有少許修改。對這幾年清朝曆書所載之月相和節氣時刻有興趣者，可參閱拙文<a href="http://ytliu.epizy.com/Shixian/N1667_1669_chinese.html" target="_blank">康熙六年至八年(1667-1669)的月相和節氣時刻</a>。';
         } else {
-            info = '<strike>康熙五年</strike> 康熙六年至八年清政府因<a href="https://zh.wikipedia.org/zh-cn/%E5%BA%B7%E7%86%99%E5%8E%86%E7%8B%B1" target="_blank">历狱</a>废除西洋新法，复用明朝《大统历》，二十四节气改回平气。这里提供两套历书节气:「新法节气」根据《三千五百年历日天象》，此乃以后的钦天监依西洋新法追推的定气;「大统历节气」根据明朝《大统历》推算。至于朔日，依明朝《大统历》和依《西洋新法历书》计算结果在这几年的日期完全一致。<br /><i>2024年5月更新:</i> 台湾国立故宫博物院的<a href="https://qingarchives.npm.edu.tw/index.php" target="_blank">清代档案检索系统</a>藏有若干康熙初年的《大清七政经纬躔度时宪历》，其中康熙五年所载的节气日期和时刻符合《西洋新法历书》的推步，康熙六年至八年则符合大统历的推步，虽然康熙八年的计算有少许修改。对这几年清朝历书所载之月相和节气时刻有兴趣者，可参阅拙文<a href="http://ytliu.epizy.com/Shixian/N1667_1669_simp.html" target="_blank">康熙六年至八年(1667-1669)的月相和节气时刻</a>。';
+            info = '康熙六年至八年清政府因<a href="https://zh.wikipedia.org/zh-cn/%E5%BA%B7%E7%86%99%E5%8E%86%E7%8B%B1" target="_blank">历狱</a>废除西洋新法，复用明朝《大统历》，二十四节气改回平气。这里提供两套历书节气:「新法节气」根据《三千五百年历日天象》，此乃以后的钦天监依西洋新法追推的定气;「大统历节气」根据明朝《大统历》推算。至于朔日，依明朝《大统历》和依《西洋新法历书》计算结果在这几年的日期完全一致。<br /><i>2024年5月更新:</i> 台湾国立故宫博物院的<a href="https://qingarchives.npm.edu.tw/index.php" target="_blank">清代档案检索系统</a>藏有若干康熙初年的《大清七政经纬躔度时宪历》，其中康熙六年至八年所载的节气日期和时刻符合大统历的推步，虽然康熙八年的计算有少许修改。对这几年清朝历书所载之月相和节气时刻有兴趣者，可参阅拙文<a href="http://ytliu.epizy.com/Shixian/N1667_1669_simp.html" target="_blank">康熙六年至八年(1667-1669)的月相和节气时刻</a>。';
         }
     }
     
@@ -1121,10 +1121,14 @@ function addMoonPhases(m,lang,langVars, calVars) {
     let i, dd, h;
     let txt; 
     if (lang==0) {
-        txt = '<p><b>Moon Phases</b>: '
+        txt = '<p><b>Moon Phases'
     } else {
-        txt = '<p style="letter-spacing:normal;"><b>月相</b>: '
+        txt = '<p style="letter-spacing:normal;"><b>月相'
     }
+    if (calVars.year < 1734) {
+        txt += ' (DE441)';
+    }
+    txt += '</b>: ';
     
     let phases = [];
     // new moon
@@ -1151,7 +1155,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
                     } else {
                         type = ['日偏食', '日环食', '日全食', '日全环食'];
                     }
-                    linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1]+'&ep=DE431';
+                    linkg += 'one_solar_eclipse_general.html?ybeg='+ybeg+'&ind='+e[1]+'&DE=441&ref=ccal';
                     ec = '<a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
                 }
             });
@@ -1184,7 +1188,7 @@ function addMoonPhases(m,lang,langVars, calVars) {
                     } else {
                         type = ['半影月食', '月偏食', '月全食'];
                     }
-                    linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=Danjon&ind='+e[1]+'&ep=DE431';
+                    linkg += 'one_lunar_eclipse_general.html?ybeg='+ybeg+'&shrule=revised_Danjon&ind='+e[1]+'&DE=441&ref=ccal';
                     ec = '<a href="'+linkg+'" target="_blank">'+type[e[2]]+'</a>';
                 }
             });
@@ -1233,24 +1237,16 @@ function add24solterms(m,lang,langVars, calVars) {
     let m1 = calVars.mday[m+1];
     let txt; 
     if (lang==0) {
-        txt = '<p><b>24 solar terms ';
-        if (calVars.year < 1734) {
-            txt += '(d&#236;ngq&#236;)';
-        }
-        txt +='</b>: ';
+        txt = '<p><b>24 solar terms';
     } else if (lang==1) {
         txt = '<p style="letter-spacing:normal;"><b>二十四節氣';
-        if (calVars.year < 1734) {
-            txt += '(定氣)';
-        }
-        txt +='</b>: ';
     } else {
         txt = '<p style="letter-spacing:normal;"><b>二十四节气';
-        if (calVars.year < 1734) {
-            txt += '(定气)';
-        }
-        txt +='</b>: ';
     }
+    if (calVars.year < 1734) {
+        txt += ' (DE441)';
+    }
+    txt += '</b>: ';
     
     let empty = 1;
     for (let i=0; i<calVars.solar.length; i++) {
@@ -1315,8 +1311,8 @@ function addCalSolterms(m,lang,langVars, calVars, datong) {
     let m1 = calVars.mday[m+1];
     let txt = ''; 
     let split = false;
-    if (calVars.year==1666 && m > 0.5 && langVars.region=='default') { split=true;}
-    if (calVars.year > 1666 && calVars.year < 1670 && langVars.region=='default') { split=true;}
+    if (calVars.year==1667 && m > 0.5 && langVars.region=='default') { split=true;}
+    if (calVars.year > 1667 && calVars.year < 1670 && langVars.region=='default') { split=true;}
     if (calVars.year==1670 && m < 1.5  && langVars.region=='default') { split=true;}
     if (datong==0) {
         if (lang==0) {
@@ -1860,11 +1856,11 @@ function calendarNotesQing(y, m, lang) {
     // 1848
     if (y==1848 && m==12) {
         if (lang==0) {
-            warn = 'Z11 (December solstice) was on Dec 21 at 23:59:37 (UT1+8) according to the calculation using DE431. The calendrical Z11 was on Dec 22.';
+            warn = 'Z11 (December solstice) was on Dec 21 at 23:59:37 (UT1+8) according to the calculation using DE441. The calendrical Z11 was on Dec 22.';
         } else if (lang==1) {
-            warn = 'DE431曆表算出的冬至時刻在12月21日23:59:57 (UT1+8)，曆書冬至在12月22日。';
+            warn = 'DE441曆表算出的冬至時刻在12月21日23:59:57 (UT1+8)，曆書冬至在12月22日。';
         } else {
-            warn = 'DE431历表算出的冬至时刻在12月21日23:59:57 (UT1+8)，历书冬至在12月22日。';
+            warn = 'DE441历表算出的冬至时刻在12月21日23:59:57 (UT1+8)，历书冬至在12月22日。';
         }
         return warn;
     }
@@ -2055,9 +2051,9 @@ function calendarNotes1912_1979(y, m, lang) {
          'n':['The calendrical Z5 (June solstice) was on June 21.',
               '曆書夏至在21日。', '历书夏至在21日。']},
         {'y':1979, 'm':1,
-         'n':['Z12 calculated by DE431 was at 23:59:54 (UTC+8) on Jan. 20. <i>Chinese Astronomical Almanac for the Year 1979</i> lists Z12 at 00:00 (UTC+8) on Jan 21, so the calendrical Z12 was on Jan 21.',
-              'DE431曆表推算的大寒時刻是1月20日23:59:54 (UTC+8)，《一九七九年中国天文年历》載大寒時刻為1月21日00:00 (UTC+8)，故曆書大寒在1月21日。',
-              'DE431历表推算的大寒时刻是1月20日23:59:54 (UTC+8)，《一九七九年中国天文年历》载大寒时刻为1月21日00:00 (UTC+8)，故历书大寒在1月21日。']}];
+         'n':['Z12 calculated by DE441 was at 23:59:54 (UTC+8) on Jan. 20. <i>Chinese Astronomical Almanac for the Year 1979</i> lists Z12 at 00:00 (UTC+8) on Jan 21, so the calendrical Z12 was on Jan 21.',
+              'DE441曆表推算的大寒時刻是1月20日23:59:54 (UTC+8)，《一九七九年中国天文年历》載大寒時刻為1月21日00:00 (UTC+8)，故曆書大寒在1月21日。',
+              'DE441历表推算的大寒时刻是1月20日23:59:54 (UTC+8)，《一九七九年中国天文年历》载大寒时刻为1月21日00:00 (UTC+8)，故历书大寒在1月21日。']}];
     let nnotes = notes.length;
     for (let i=0; i<nnotes; i++) {
         if (y==notes[i]['y'] && m==notes[i]['m']) {
