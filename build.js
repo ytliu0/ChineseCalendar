@@ -228,7 +228,7 @@ async function build() {
            'QingSouthernMingZheng_calendars_simp', 'N1676_Zheng', 'N1676_Zheng_chinese', 
            'N1676_Zheng_simp', 'N1677_Zheng', 'N1677_Zheng_chinese', 'N1677_Zheng_simp', 
            'N1671_Zheng', 'N1671_Zheng_chinese', 'N1671_Zheng_simp', 'faq', 'faq_chinese',
-           'faq_simp'];
+           'faq_simp', 'leap_month_1_12', 'leap_month_1_12_chinese', 'leap_month_1_12_simp'];
   files.forEach(async function(f, ind) {
     if (!all && !opt[f]) {
       return;
